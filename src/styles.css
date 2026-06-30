@@ -64,6 +64,9 @@ nav {
   color: var(--text);
   text-decoration: none;
   letter-spacing: -0.02em;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .brand:hover {
@@ -77,6 +80,10 @@ nav {
   font-size: 0.95rem;
   font-weight: 500;
   transition: color 0.2s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0;
 }
 
 .nav-links a:hover {
@@ -88,6 +95,7 @@ main {
   margin: 0 auto;
   padding: 2rem;
   min-height: 70vh;
+  overflow-wrap: break-word;
 }
 
 footer {
@@ -102,6 +110,9 @@ footer {
 footer a {
   color: var(--accent);
   text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 a {
@@ -234,6 +245,7 @@ button:focus-visible,
   font-weight: 500;
   color: var(--text-muted);
   transition: all 0.2s ease;
+  min-height: 44px;
 }
 
 .pill:hover {
@@ -262,6 +274,9 @@ button:focus-visible,
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--accent);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .all-link:hover {
@@ -304,6 +319,9 @@ button:focus-visible,
   margin-bottom: 0.85rem;
   line-height: 1.35;
   text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .featured-card:hover .card-title {
@@ -401,6 +419,12 @@ button:focus-visible,
   line-height: 1.7;
 }
 
+.about a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
 .about p:last-child {
   margin-bottom: 0;
 }
@@ -413,12 +437,14 @@ button:focus-visible,
 }
 
 .page-header .back-link {
-  display: inline-block;
+  display: inline-flex;
   color: var(--text-dim);
   font-size: 0.9rem;
   font-weight: 500;
   margin-bottom: 1rem;
   transition: color 0.2s ease;
+  min-height: 44px;
+  align-items: center;
 }
 
 .page-header .back-link:hover {
@@ -472,6 +498,9 @@ button:focus-visible,
 .original-link a {
   color: var(--accent);
   font-weight: 500;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* Writing card (article container) */
@@ -516,12 +545,14 @@ button:focus-visible,
 }
 
 .writing-list-title {
-  display: block;
+  display: inline-flex;
   font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: var(--text);
   line-height: 1.35;
+  min-height: 44px;
+  align-items: center;
 }
 
 .writing-list-item:hover .writing-list-title {
@@ -560,6 +591,9 @@ button:focus-visible,
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--accent);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .view-all:hover {
@@ -590,6 +624,8 @@ button:focus-visible,
   font-size: 1.05rem;
   line-height: 1.8;
   color: var(--text-muted);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .writing-body h1,
@@ -628,6 +664,11 @@ button:focus-visible,
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
+  overflow-wrap: break-word;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .writing-body a:hover {
@@ -677,6 +718,8 @@ button:focus-visible,
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   border: 1px solid var(--border);
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .writing-body pre {
@@ -697,6 +740,7 @@ button:focus-visible,
   font-size: 0.85em;
   line-height: 1.6;
   font-family: 'SF Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  white-space: pre-wrap;
 }
 
 .writing-body table {
@@ -706,7 +750,8 @@ button:focus-visible,
   font-size: 0.95em;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  overflow: hidden;
+  overflow-x: auto;
+  display: block;
 }
 
 .writing-body th,
@@ -790,6 +835,19 @@ button:focus-visible,
   .writing-list-cards {
     grid-template-columns: 1fr;
   }
+
+  .hero {
+    padding: 2.5rem 0;
+  }
+
+  footer {
+    padding: 1.5rem 1rem;
+  }
+
+  .writing-body th,
+  .writing-body td {
+    padding: 0.5rem 0.75rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -824,11 +882,77 @@ button:focus-visible,
   }
 
   .page-header h1 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 
   .collection-group-header {
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .featured-grid {
+    gap: 1rem;
+  }
+
+  .collection-grid {
+    gap: 1rem;
+  }
+
+  .writing-list-cards {
+    gap: 1rem;
+  }
+
+  footer {
+    padding: 1.5rem 1rem;
+  }
+
+  .about {
+    padding: 1rem;
+  }
+
+  .writing-card {
+    padding: 1rem;
+  }
+
+  .hero {
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width: 320px) {
+  main {
+    padding: 0.75rem;
+  }
+
+  header {
+    padding: 0.75rem;
+  }
+
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .writing-card {
+    padding: 0.75rem;
+  }
+
+  .about {
+    padding: 0.75rem;
+  }
+
+  .featured-grid {
+    gap: 0.75rem;
+  }
+
+  .collection-grid {
+    gap: 0.75rem;
+  }
+
+  .writing-list-cards {
+    gap: 0.75rem;
   }
 }

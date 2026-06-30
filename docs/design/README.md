@@ -81,6 +81,13 @@ This folder documents the visual design system for the site so future changes st
 
 Card grids collapse to single column on mobile. Navigation wraps on tablet and stacks vertically on small phones.
 
+## Mobile best practices
+
+- **Tap targets:** Interactive links (nav, footer, source, view-all, back-link, pills, all-link) are sized to at least `44px` tall for comfortable touch use.
+- **Overflow protection:** `overflow-wrap: break-word` is applied to `main`, `.writing-body`, `.writing-body a`, and inline code to prevent long URLs or code from breaking the layout.
+- **Responsive tables:** Tables inside `.writing-body` scroll horizontally (`overflow-x: auto`) on narrow viewports, and cell padding is reduced on mobile.
+- **320px breakpoint:** An extra small-screen breakpoint (`@media (max-width: 320px)`) further tightens padding and gaps for very small devices.
+
 ## Assets
 
 - Favicon: `src/favicon.svg` (SVG, blue "E" on dark surface)
