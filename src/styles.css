@@ -32,7 +32,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
@@ -540,7 +540,7 @@ a:hover {
 }
 
 .writing-body code {
-  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+  font-family: 'SF Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   font-size: 0.9em;
   background: var(--surface);
   color: var(--accent);
@@ -566,6 +566,7 @@ a:hover {
   border: none;
   font-size: 0.85em;
   line-height: 1.6;
+  font-family: 'SF Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 
 .writing-body table {
