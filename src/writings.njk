@@ -3,12 +3,18 @@ title: All Writings
 layout: base.njk
 ---
 
-<h1>All Writings</h1>
-<ul class="writing-list">
-{% for writing in collections.writings | sortByDate %}
-  <li>
-    <a href="{{ writing.url | url }}">{{ writing.data.title }}</a>
-    <span class="meta">{{ writing.data.date | formatDate }} · {{ writing.data.collection }}</span>
-  </li>
-{% endfor %}
-</ul>
+<section class="page-header">
+  <h1>All Writings</h1>
+  <p class="page-description">Every article in the archive, sorted by date.</p>
+</section>
+
+<section class="writing-list-section">
+  <ul class="writing-list writing-list-cards">
+  {% for writing in collections.writings | sortByDate %}
+    <li class="writing-list-item">
+      <a href="{{ writing.url | url }}" class="writing-list-title">{{ writing.data.title }}</a>
+      <span class="writing-list-meta">{{ writing.data.date | formatDate }} · {{ writing.data.collection }}</span>
+    </li>
+  {% endfor %}
+  </ul>
+</section>

@@ -3,16 +3,23 @@ title: Collections
 layout: base.njk
 ---
 
-<h1>Collections</h1>
+<section class="page-header">
+  <h1>Collections</h1>
+  <p class="page-description">Browse writings by topic.</p>
+</section>
+
 {% set groups = collections.writings | sortByDate | groupByCollection %}
 {% for collection, items in groups %}
-<section class="collection">
-  <h2 id="{{ collection }}">{{ collection | title }}</h2>
-  <ul class="writing-list">
+<section class="collection-group">
+  <div class="collection-group-header">
+    <h2 id="{{ collection }}">{{ collection | title }}</h2>
+    <a href="{{ '/collections/' | url }}{{ collection }}/" class="view-all">View all {{ items.length }} →</a>
+  </div>
+  <ul class="writing-list writing-list-cards">
   {% for writing in items %}
-    <li>
-      <a href="{{ writing.url | url }}">{{ writing.data.title }}</a>
-      <span class="meta">{{ writing.data.date | formatDate }}</span>
+    <li class="writing-list-item">
+      <a href="{{ writing.url | url }}" class="writing-list-title">{{ writing.data.title }}</a>
+      <span class="writing-list-meta">{{ writing.data.date | formatDate }}</span>
     </li>
   {% endfor %}
   </ul>

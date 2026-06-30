@@ -2,22 +2,28 @@
 layout: base.njk
 ---
 
-<article class="writing">
-  <header class="writing-header">
-    <h1>{{ title }}</h1>
-    <div class="meta">
-      <span class="date">{{ date | formatDate }}</span>
-      <span class="collection">{{ collection }}</span>
-      {% if source_url %}<a href="{{ source_url }}" class="source">Original ↗</a>{% endif %}
-    </div>
-    {% if tags %}
-    <div class="tags">
-      {% for tag in tags %}
-        <span class="tag">{{ tag }}</span>
-      {% endfor %}
-    </div>
-    {% endif %}
-  </header>
+<section class="page-header">
+  <a href="{{ '/writings/' | url }}" class="back-link">← All Writings</a>
+  <h1>{{ title }}</h1>
+  <div class="page-meta">
+    <span class="date">{{ date | formatDate }}</span>
+    <span class="collection-badge">{{ collection }}</span>
+  </div>
+  {% if tags %}
+  <div class="tags">
+    {% for tag in tags %}
+      <span class="tag">{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if source_url %}
+  <p class="original-link">
+    <a href="{{ source_url }}" target="_blank" rel="noopener">View original ↗</a>
+  </p>
+  {% endif %}
+</section>
+
+<article class="writing-card">
   <div class="writing-body">
     {{ content | safe }}
   </div>

@@ -376,73 +376,173 @@ a:hover {
   margin-bottom: 0;
 }
 
-/* Writing list (all writings page) */
+/* Page header (shared across interior pages) */
+.page-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.page-header .back-link {
+  display: inline-block;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+}
+
+.page-header .back-link:hover {
+  color: var(--accent);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-description {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.page-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.collection-badge {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  text-transform: capitalize;
+}
+
+.original-link {
+  margin: 1rem 0 0;
+  font-size: 0.95rem;
+}
+
+.original-link a {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Writing card (article container) */
+.writing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+}
+
+/* Writing list (card style) */
+.writing-list-section {
+  margin-bottom: 3rem;
+}
+
 .writing-list {
   list-style: none;
   padding: 0;
 }
 
-.writing-list li {
-  padding: 1.25rem 0;
-  border-bottom: 1px solid var(--border-subtle);
-  transition: border-color 0.2s ease;
+.writing-list-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
 }
 
-.writing-list li:last-child {
-  border-bottom: none;
+.writing-list-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow);
 }
 
-.writing-list li a {
+.writing-list-item:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.writing-list-title {
   display: block;
   font-size: 1.15rem;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
   color: var(--text);
+  line-height: 1.35;
 }
 
-.writing-list li a:hover {
+.writing-list-item:hover .writing-list-title {
   color: var(--accent);
 }
 
-.writing-list .meta {
+.writing-list-meta {
   display: block;
   color: var(--text-dim);
   font-size: 0.85rem;
 }
 
-/* Individual writing page */
-.writing-header {
+/* Collection group page */
+.collection-group {
   margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--border-subtle);
 }
 
-.writing-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.writing-header .meta {
+.collection-group-header {
   display: flex;
-  gap: 1rem;
-  color: var(--text-muted);
-  font-size: 0.95rem;
+  justify-content: space-between;
+  align-items: baseline;
   margin-bottom: 1rem;
-  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.75rem;
 }
 
-.writing-header .source {
-  color: var(--accent);
+.collection-group-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: capitalize;
+}
+
+.view-all {
+  font-size: 0.9rem;
   font-weight: 500;
+  color: var(--accent);
 }
 
-.writing-header .tags {
+.view-all:hover {
+  color: var(--secondary);
+}
+
+/* Tags */
+.tags {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .tag {
@@ -455,6 +555,7 @@ a:hover {
   font-weight: 500;
 }
 
+/* Writing body */
 .writing-body {
   max-width: 78ch;
   font-size: 1.05rem;

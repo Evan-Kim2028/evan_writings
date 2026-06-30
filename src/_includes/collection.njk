@@ -2,15 +2,21 @@
 layout: base.njk
 ---
 
-<h1>{{ collection_name }} Writings</h1>
-<ul class="writing-list">
-{% for writing in collections.writings | sortByDate %}
-  {% if writing.data.collection == collection_key %}
-  <li>
-    <a href="{{ writing.url | url }}">{{ writing.data.title }}</a>
-    <span class="meta">{{ writing.data.date | formatDate }}</span>
-  </li>
-  {% endif %}
-{% endfor %}
-</ul>
-<p><a href="{{ '/collections/' | url }}">← All collections</a></p>
+<section class="page-header">
+  <a href="{{ '/collections/' | url }}" class="back-link">← All Collections</a>
+  <h1>{{ collection_name }} Writings</h1>
+  <p class="page-description">{{ collections.writings | countByCollection(collection_key) }} pieces in the {{ collection_name }} collection.</p>
+</section>
+
+<section class="writing-list-section">
+  <ul class="writing-list writing-list-cards">
+  {% for writing in collections.writings | sortByDate %}
+    {% if writing.data.collection == collection_key %}
+    <li class="writing-list-item">
+      <a href="{{ writing.url | url }}" class="writing-list-title">{{ writing.data.title }}</a>
+      <span class="writing-list-meta">{{ writing.data.date | formatDate }}</span>
+    </li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+</section>
