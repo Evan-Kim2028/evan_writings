@@ -30,11 +30,11 @@ Previously we created a [MEV dataset](https://mirror.xyz/evandekim.eth/Mc11J16dV
 
 Simply put, the Mapper algorithm is the transformation from a continuous subspace of data to a discrete graph with topological data embedded combinatorially. Mapper algorithm inputs a point cloud of on-chain historical data as shown in Figure 1 and outputs a simplicial complex, as seen in Figure 2.
 
-![Figure 1 -Historical Cumulative Stats](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/95a7bb02a793417cdb2a5879ec9eed45aad08fd10202d6bba668e52718b867c4.png)
+![Figure 1 -Historical Cumulative Stats](/assets/images/95a7bb02a793417cdb2a5879ec9eed45aad08fd10202d6bba668e52718b867c4.png)
 
 Figure 1 -Historical Cumulative Stats
 
-![Figure 2 - Simplicial Complex from Mapper colored by MEV volume](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/ab97690aea8147d126a6f7fadba453789ad412482a48b6d342427f7f3b58d42e.png)
+![Figure 2 - Simplicial Complex from Mapper colored by MEV volume](/assets/images/ab97690aea8147d126a6f7fadba453789ad412482a48b6d342427f7f3b58d42e.png)
 
 Figure 2 - Simplicial Complex from Mapper colored by MEV volume
 
@@ -44,7 +44,7 @@ Intuitively, these distinct MEV behaviors can be considered as MEV emotions. For
 
 Figure 3 shows six statistically distinct MEV behaviors where node 0 is called the “base node” and represents the default MEV behavior.
 
-![Figure 3 - Six Statistically Distinct MEV Behaviors ](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/4f66dac5bb562ff792329b3e3bab862720c623e877119966d5114780787c5f66.png)
+![Figure 3 - Six Statistically Distinct MEV Behaviors ](/assets/images/4f66dac5bb562ff792329b3e3bab862720c623e877119966d5114780787c5f66.png)
 
 Figure 3 - Six Statistically Distinct MEV Behaviors
 
@@ -54,7 +54,7 @@ Nodes 4 and 5 are more troublesome. They have very large negative MEV mean volum
 
 In contrast, node 5’s negative MEV volume is more correlated with negative non-MEV volume as opposed to liquidations which indicates in general, a lot of negative selling during those days, but not directly a result of OHM liquidations.
 
-![Figure 4 - Geometric Visual Intepretation of the Mapper Algorithm Results](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/19d7f27edf195d6d0f5a1ae3ffe02e38c21deba21564ddecf2c0cae608f0ae3e.png)
+![Figure 4 - Geometric Visual Intepretation of the Mapper Algorithm Results](/assets/images/19d7f27edf195d6d0f5a1ae3ffe02e38c21deba21564ddecf2c0cae608f0ae3e.png)
 
 Figure 4 - Geometric Visual Intepretation of the Mapper Algorithm Results
 

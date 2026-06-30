@@ -21,19 +21,19 @@ This article follows up [on our pre EIP-4844 article](https://mirror.xyz/preconf
 
 As of April 16th, a month after the Dencun upgrade, about 40% of blocks contain a blob. This number indicates that the market has yet to reach a saturation point, with the average blob fee still at the minimum 1 wei mark due to being below the target of 3 blobs per block average.
 
-![In the last week of March, the runup on the blob base fee briefly flipped the block base fee as a result of blobscriptions briefly pushing the blob market to full capacity.](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/c5a0557c1a748f917d18b64568db0818f949a8de0dd3eb2d2d2d3a4d64b30a3f.png)
+![In the last week of March, the runup on the blob base fee briefly flipped the block base fee as a result of blobscriptions briefly pushing the blob market to full capacity.](/assets/images/c5a0557c1a748f917d18b64568db0818f949a8de0dd3eb2d2d2d3a4d64b30a3f.png)
 
 In the last week of March, the runup on the blob base fee briefly flipped the block base fee as a result of blobscriptions briefly pushing the blob market to full capacity.
 
 Currently the upper bound is about 400 blobs posted per hour. The market saturation for the Ethereum data availability is about 900 blobs per hour to meet the 3 blob target, which indicates the market is at about 40% capacity right now.
 
-![The 3 blob target is 900 blobs per hour https://dune.com/hildobby/blobs](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/ca04691fb55fd857963cd3487319064bd556ae2b59ddc5cfaff786873841583f.png)
+![The 3 blob target is 900 blobs per hour https://dune.com/hildobby/blobs](/assets/images/ca04691fb55fd857963cd3487319064bd556ae2b59ddc5cfaff786873841583f.png)
 
 The 3 blob target is 900 blobs per hour https://dune.com/hildobby/blobs
 
 [The flashbots blob-block builder dashboard](https://dune.com/flashbots/blob-block-builder-board) provides blob data insights at the builder level. Given that 40% of blocks contain a blob, it’s safe to assume a builder should also have around a 40% inclusion rate for blobs as well.
 
-![https://dune.com/queries/3522584/5923355](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/58127c2568b771343274379c2107958f2fc04daec0909945ccc52f0129330bc3.png)
+![https://dune.com/queries/3522584/5923355](/assets/images/58127c2568b771343274379c2107958f2fc04daec0909945ccc52f0129330bc3.png)
 
 https://dune.com/queries/3522584/5923355
 
@@ -51,7 +51,7 @@ This strategy increases the blob gas by the maximum amount 12.5%, resulting in h
 
 Base is currently the largest user of the blob market, followed by Arbitrum and Optimism. Overall, the strategy employed by Optimism and Base accounts for about half of the blob market utilization. We emphasize the market is currently underutilized, so competition between market participants is yet to pick up.
 
-![https://dune.com/queries/3522241/5922814 - 4 hour time period (April 16, 2024)](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/2a40bab0e278db9bb402e54b598084f0af8aefc8948e4a543f60e0cb8b6b4acb.png)
+![https://dune.com/queries/3522241/5922814 - 4 hour time period (April 16, 2024)](/assets/images/2a40bab0e278db9bb402e54b598084f0af8aefc8948e4a543f60e0cb8b6b4acb.png)
 
 https://dune.com/queries/3522241/5922814 - 4 hour time period (April 16, 2024)
 
@@ -69,7 +69,7 @@ The live dashboard data for all rollups that have adopted blobs can be [found he
 
 Despite an underutilized market, Optimism and Base have a fairly slow blob inclusion rate, as seen in the chart below, with frequent spikes above the 2-slot inclusion rate. Initially, it seems counterintuitive that there would be blob inclusion delays in a market that is not operating at capacity.
 
-![Historical Slot Inclusion chart depicting delayed blob inclusion in an underutilized market benchmarked against a 2-slot inclusion rate as a reliable inclusion target.](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/b1bcad9c15198d7ed321ace0cc21401ad0db0bc66dd7954d6c0e2b12e4b19de7.png)
+![Historical Slot Inclusion chart depicting delayed blob inclusion in an underutilized market benchmarked against a 2-slot inclusion rate as a reliable inclusion target.](/assets/images/b1bcad9c15198d7ed321ace0cc21401ad0db0bc66dd7954d6c0e2b12e4b19de7.png)
 
 Historical Slot Inclusion chart depicting delayed blob inclusion in an underutilized market benchmarked against a 2-slot inclusion rate as a reliable inclusion target.
 
@@ -77,7 +77,7 @@ Historical Slot Inclusion chart depicting delayed blob inclusion in an underutil
 
 The Optimism and Base bidding strategy follows [Geth’s spec](https://github.com/ethereum/go-ethereum/blob/66e1a6ef496e001abc7ae7433282251a557deb2c/core/txpool/blobpool/blobpool.go#L132) to double all parameters upon blob resubmission. The chart below shows that this bidding strategy does not have a significant influence on faster slot inclusion, with priority fees as high as 40 gwei securing inclusion in over 10 slots while priority fees as low as 2 gwei securing inclusion in a single slot at times.
 
-![The blue dots are individual priority fee bid premiums and the green line is the median bid premium.](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/bd0a254a9711b14866632e4c8c8d5bf3190c43dad013c89bba15eb9058d6f62a.png)
+![The blue dots are individual priority fee bid premiums and the green line is the median bid premium.](/assets/images/bd0a254a9711b14866632e4c8c8d5bf3190c43dad013c89bba15eb9058d6f62a.png)
 
 The blue dots are individual priority fee bid premiums and the green line is the median bid premium.
 

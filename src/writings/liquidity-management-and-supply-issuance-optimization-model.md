@@ -17,7 +17,7 @@ slug: liquidity-management-and-supply-issuance-optimization-model
 
 Given the recent explosion of financial innovation in DeFi (decentralized finance) and the broader decentralized web3 movement, a novel way to obtain liquidity has been through the rise of decentralized exchanges using constant functions such as xy=k to create liquid markets for web3 native assets. Although this opens up a decentralized, permissionless way to provide liquidity, centralized exchanges currently dominate volume with more than 5x the amount of monthly volume compared to decentralized exchanges. 
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/0ae4af632f97fd74d9654d8a5897b5da100f23ef3c14cfec7f03e5c9c5a246bf.png)
+![post image](/assets/images/0ae4af632f97fd74d9654d8a5897b5da100f23ef3c14cfec7f03e5c9c5a246bf.png)
 
 The economic reason for this is simple - it is not very profitable to be a LP (liquidity provider) on a decentralized exchange. For example the majority of LPs in Uniswap v3 [underperform non-LPs](https://arxiv.org/abs/2111.09192) due to IL (impermanent loss) and it is simply better to hold tokens passively than to provide liquidity. 
 
@@ -35,21 +35,21 @@ In order to construct an optimization algorithm for supply issuance, we define a
 
 This model tracks three parameters - lock rate, growth rate, and lp rate where lp growth rate is the inverse of the lock rate. The growth rate is set at 2x the current circulating supply. The lock rate is set at 90% of circulating supply. The lp rate is set at 1 - lock rate which is 10% of circulating supply. Although these parameters are fixed to make the simulation more straightforward, note that it is not difficult to change these parameters over time either through dynamic or manual intervention. 
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/d61f67bcdc45f8f2b9268b975e6a5b371e57c504a02148a2f0c02e298561b80a.png)
+![post image](/assets/images/d61f67bcdc45f8f2b9268b975e6a5b371e57c504a02148a2f0c02e298561b80a.png)
 
 The current state represents the current market behavior at a specific time. The closer the current state looks with respect to the expected state, the more optimized the economic state is. Notice that the use of this model creates a dynamic supply curve and a dynamic bond curve, which is reactive to market volatility.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/ab903f36b23467725d0c0ee680456dda11fd4308748511ca4ed1186bb912336a.png)
+![post image](/assets/images/ab903f36b23467725d0c0ee680456dda11fd4308748511ca4ed1186bb912336a.png)
 
 Finally there is a transition state which represents the difference between the expected state and the current state. A random variable is chosen from a gaussian distribution to simulate volatility from market behavior.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/9b4906b34e584b6965c740b926e22415bda0c7e17cab70bb1d0c6002f20b79c1.png)
+![post image](/assets/images/9b4906b34e584b6965c740b926e22415bda0c7e17cab70bb1d0c6002f20b79c1.png)
 
 As the volatility of the transition state decreases over time, the closer we get to the ideal economic state. This can be more closely monitored by how far off the expected and current lock and lp rates are throughout the simulation. 
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/ee94abb3d0088caaa69352e88c2930345ee7478df02f41a8d5e84828e944b19f.png)
+![post image](/assets/images/ee94abb3d0088caaa69352e88c2930345ee7478df02f41a8d5e84828e944b19f.png)
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/2d06e068d8afcc64a5c9e0cf1d2d943978d7fdfa014248e2fe85195bca2ff825.png)
+![post image](/assets/images/2d06e068d8afcc64a5c9e0cf1d2d943978d7fdfa014248e2fe85195bca2ff825.png)
 
 ## Conclusion
 

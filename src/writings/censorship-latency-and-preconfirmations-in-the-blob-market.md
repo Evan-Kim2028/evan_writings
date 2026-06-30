@@ -34,7 +34,7 @@ We put forward a blob-related block building and mev-boost data collection effor
 
 [EIP-4844](https://eips.ethereum.org/EIPS/eip-4844#blob-transaction) introduces a type3 transaction(tx) called a blob tx. A blob-carrying tx is like a regular transaction, but enhanced with blob data, KZG commitments, and proofs. Blobs are extremely large (~125 kB) compared to standard Ethereum txs, and are much cheaper than an equivalent amount of calldata. Whereas calldata is priced at 16 gas per non-zero byte and can have variable size, blob data is priced at 1.04 gas per byte and has a fixed size of [131,072 gas](https://eips.ethereum.org/EIPS/eip-4844).
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/8d45ecb14bdd018c9ffe141576d4de0225f86005838bb601d864ecb6a6f8ccd4.png)
+![post image](/assets/images/8d45ecb14bdd018c9ffe141576d4de0225f86005838bb601d864ecb6a6f8ccd4.png)
 
 ### **Blob Gas Mechanics**
 
@@ -48,13 +48,13 @@ In this section, we [perform a backtest](https://github.com/Evan-Kim2028/ethereu
 
 Based on historical rollup calldata activity used on type3 tx blockspace, we see that the blob market price can comfortably absorb all of the rollup capacity without moving the blob market price past minimum blob base gas.
 
-![base blob gas per block](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/2b832cc319197d6acf8b2b126325481176e2c5c36e950d9f807d5e9d534475a9.png)
+![base blob gas per block](/assets/images/2b832cc319197d6acf8b2b126325481176e2c5c36e950d9f807d5e9d534475a9.png)
 
 base blob gas per block
 
 Although rollups are posting more data to Ethereum, the majority of blocks are still below target, which ensures that the blob gas price stays low.
 
-![The lighter color indicates a higher number of times a block would be built with a certain number of blobs included.](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/383f207a08ea6b6c6513b94745290c8509471567e25ba59eeb18755f89fdc516.png)
+![The lighter color indicates a higher number of times a block would be built with a certain number of blobs included.](/assets/images/383f207a08ea6b6c6513b94745290c8509471567e25ba59eeb18755f89fdc516.png)
 
 The lighter color indicates a higher number of times a block would be built with a certain number of blobs included.
 
@@ -62,7 +62,7 @@ The lighter color indicates a higher number of times a block would be built with
 
 Not only can the blob market comfortably absorb current rollup data availability needs, it also frees up blockspace in the non-blob market, reducing gas costs upwards of 15-20%. Reducing gas costs proportionally increases the bidding capabilities for users/searchers, builders, and validators, and unlocks new mev opportunities that were priced out prior to EIP 4844.
 
-![EIP 4844 effect on standard blockspace using 2023 data.](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/1a265cd52fbe9c05fb15467fc4ff31f8e3e5de8eedc280dacbbc89b090341951.png)
+![EIP 4844 effect on standard blockspace using 2023 data.](/assets/images/1a265cd52fbe9c05fb15467fc4ff31f8e3e5de8eedc280dacbbc89b090341951.png)
 
 EIP 4844 effect on standard blockspace using 2023 data.
 
@@ -70,13 +70,13 @@ EIP 4844 effect on standard blockspace using 2023 data.
 
 Rollups have a major influence on how much gas is used in blocks, and they are the largest class of gas users of Ethereum blockspace today. In 2023, rollups have stored record amounts of transaction data on Ethereum, as we depict below:
 
-![Calldata saved on Ethereum is at all-time highs.](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/dc93a428c5f35f67f0b743412985f9a1e280c136c77e49725d8d8ee70062b530.png)
+![Calldata saved on Ethereum is at all-time highs.](/assets/images/dc93a428c5f35f67f0b743412985f9a1e280c136c77e49725d8d8ee70062b530.png)
 
 Calldata saved on Ethereum is at all-time highs.
 
 Daily average charts below show that rollups are starting to take upwards of 15% of every block they are in, directly affecting the price for other users.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/1feac32af50bfaa922455bd4a641ea0e2e1eb49697ad333ea0bbd0eb414cdf97.png)
+![post image](/assets/images/1feac32af50bfaa922455bd4a641ea0e2e1eb49697ad333ea0bbd0eb414cdf97.png)
 
 This can be further exacerbated in black swan demand situations. [Recently in December 2023, inscription spam took the Arbitrum sequencer offline](https://dedaub.com/blog/arbitrum-sequencer-outage) for about an hour due to the overwhelming amount of transactions. As the Arbitrum sequencer resumed operations and started to post the backlog of saved states, the sequencer monopolized blockspace, causing [gas prices to spike above 140 gwei and consuming upwards of 90% of gas](https://twitter.com/EvanDeKim/status/1736150655226540457) in entire blocks, making the network unusable for the majority of users for a period of several hours.
 
@@ -92,7 +92,7 @@ Moreover, blob transactions have two network representations - to the block buil
 
 Blobs first must propagate through the execution layer before passing through the consensus layer. **This means that the builders, not validators have the final say on** **[blob inclusion](https://ethresear.ch/t/validator-timing-game-post-eip4844/18129/3?u=murat)****.** Proposers are only able to exclude blob transactions based on commitment or proof invalidity under mev-boost dynamics.
 
-![Execution verification happens by builders. Consensus verification happens by validators.](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/10b9cac569c3e00bfdea12cfb09c796aff4947c946a61bfd4e0005ce0fe34152.png)
+![Execution verification happens by builders. Consensus verification happens by validators.](/assets/images/10b9cac569c3e00bfdea12cfb09c796aff4947c946a61bfd4e0005ce0fe34152.png)
 
 Execution verification happens by builders. Consensus verification happens by validators.
 
@@ -108,7 +108,7 @@ After the block builder wins the mev-boost bid auction, the proposer must wait f
 
 **Table 1. Blob propagation vs number of blobs for slot**
 
-![Small data size contributes to some of the counterintuitive observations depicted in this dataset](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/ab31a80450bf2a35a384d834f3607f541c9ff7df67375e507e95d857cb11c536.png)
+![Small data size contributes to some of the counterintuitive observations depicted in this dataset](/assets/images/ab31a80450bf2a35a384d834f3607f541c9ff7df67375e507e95d857cb11c536.png)
 
 Small data size contributes to some of the counterintuitive observations depicted in this dataset
 
@@ -116,7 +116,7 @@ The next table shows the latency variances on waiting for more blob sidecars to 
 
 **Table 2. Time difference between the first and last blob sidecar grouped by the total number of blob sidecars in the block**
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/7321fe2f43d6c52fe2c790187abfc9e9df594d583621dd024d386f9394ff9d73.png)
+![post image](/assets/images/7321fe2f43d6c52fe2c790187abfc9e9df594d583621dd024d386f9394ff9d73.png)
 
 This blob propagation latency puts additional block reorg risk on block builders as they fill their blocks up with blobs, for little economic gain. The builder might opt to exclude/censor the blob transaction to avoid a potential reorg. **If a block contains a lot of mev, economically rational builders would need to be compensated appropriately by rollups for this risk.**
 

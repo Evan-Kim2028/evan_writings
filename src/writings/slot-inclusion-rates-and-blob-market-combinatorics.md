@@ -44,9 +44,7 @@ There are now 3 major strategies across the number of blobs:
 * submit 3-4 blobs at a time (arbitrum, zksync)
 * submit 1-2 blobs at a time (taiko, metal, paradex, scroll)  
 
-  [![image](https://ethresear.ch/uploads/default/optimized/3X/7/e/7e768a0ed198c966965d14171b97d1c2600eea7d_2_690x244.png)
-
-  image1778×631 58.3 KB](https://ethresear.ch/uploads/default/original/3X/7/e/7e768a0ed198c966965d14171b97d1c2600eea7d.png "image")
+  ![image](/assets/images/7e768a0ed198c966965d14171b97d1c2600eea7d_2_690x244.png)
 
 Aggregating blobs into fewer transactions reduces transaction expenses (base fee, blob fee, priority fee) but increases slot inclusion times. In contrast, smaller blob transactions improve slot inclusion times at the cost of higher transaction expenses.
 
@@ -54,23 +52,17 @@ Aggregating blobs into fewer transactions reduces transaction expenses (base fee
 
 The next chart displays a time series overlay of base block demand (total transaction fees and base fee in gwei) with the slot inclusion rate for each blob transaction. It shows high slot inclusion rates, up to 30 slots, even during periods of low blockspace demand.  
 
-[![image](https://ethresear.ch/uploads/default/optimized/3X/8/3/832319c888134f3fe0b465411923147c0c85c5fa_2_690x258.png)
-
-image907×340 93.4 KB](https://ethresear.ch/uploads/default/original/3X/8/3/832319c888134f3fe0b465411923147c0c85c5fa.png "image")
+![image](/assets/images/832319c888134f3fe0b465411923147c0c85c5fa_2_690x258.png)
 
 The table mentioned earlier above contains the average slot inclusion rate for each rollup. Base, which submits the largest blobs in each transaction has the highest, averaging 13 slots. Taiko has the lowest average at 1.7 slots and submits only single blobs for each transaction right now.
 
 **Base slot inclusion rate:**  
 
-[![image](https://ethresear.ch/uploads/default/optimized/3X/a/5/a5f9d2f0d94388d88993444ae9da999347121e7e_2_690x300.png)
-
-image775×337 47.5 KB](https://ethresear.ch/uploads/default/original/3X/a/5/a5f9d2f0d94388d88993444ae9da999347121e7e.png "image")
+![image](/assets/images/a5f9d2f0d94388d88993444ae9da999347121e7e_2_690x300.png)
 
 taiko slot inclusion rate  
 
-[![image](https://ethresear.ch/uploads/default/optimized/3X/c/e/ce84eb73e15b668adaa7dc811f23e8c3606000ee_2_690x300.png)
-
-image775×337 28.1 KB](https://ethresear.ch/uploads/default/original/3X/c/e/ce84eb73e15b668adaa7dc811f23e8c3606000ee.png "image")
+![image](/assets/images/ce84eb73e15b668adaa7dc811f23e8c3606000ee_2_690x300.png)
 
 ## Builder Slot Inclusion Rates
 
@@ -78,9 +70,7 @@ This table examines slot inclusion rates from the builder’s perspective, inclu
 
 A higher slot inclusion rate means a blob has waited longer to be included in a block. An efficiency metric would be to have the lowest possible slot inclusion rate, indicating that builders are including blobs sooner rather than later.
 
-[![image](https://ethresear.ch/uploads/default/original/3X/9/f/9fe6938327d570742a8b7f278788cacfa4df81ca.png)
-
-image855×262 16.7 KB](https://ethresear.ch/uploads/default/original/3X/9/f/9fe6938327d570742a8b7f278788cacfa4df81ca.png "image")
+![image](/assets/images/9fe6938327d570742a8b7f278788cacfa4df81ca.png)
 
 Builders like Titan and Beaverbuild have more efficient blob slot inclusion rates than vanilla builders. They also have the lowest average blobs per block. This could be due to their efficiency in accepting strategies like Taiko blobs over other block builders.
 
@@ -110,15 +100,11 @@ The two charts below show sample bidding strategies used by Base and Taiko, just
 
 **base:**  
 
-[![image](https://ethresear.ch/uploads/default/original/3X/8/7/8785ccb0b147a318d6426a694bf7697d3f1a5383.png)
-
-image501×336 38.6 KB](https://ethresear.ch/uploads/default/original/3X/8/7/8785ccb0b147a318d6426a694bf7697d3f1a5383.png "image")
+![image](/assets/images/8785ccb0b147a318d6426a694bf7697d3f1a5383.png)
 
 **taiko:**  
 
-[![image](https://ethresear.ch/uploads/default/original/3X/9/1/91bab571ac6836399edf78b7c7ce757ad62cf2ed.png)
-
-image501×336 36.6 KB](https://ethresear.ch/uploads/default/original/3X/9/1/91bab571ac6836399edf78b7c7ce757ad62cf2ed.png "image")
+![image](/assets/images/91bab571ac6836399edf78b7c7ce757ad62cf2ed.png)
 
 Resubmitting blobs through the mempool is expensive and generally not recommended as a good practice. This creates the problem of how blob producers can become more competitive in their bidding strategies if they need to make their slot inclusion rates more efficient.
 

@@ -43,7 +43,7 @@ The [Spectra of MEV by Angeris et al](https://arxiv.org/pdf/2310.07865.pdf) prov
 
 While the Uniswap research assumed a random ordering method to calculate reordering slippage for a given price ppp, we use a bisection method outlined below to quantify a tighter bound for reordering slippage. We bisect the block continuously at jjj where 0<j<n0 < j < n0<j<n. Earlier indexes represent the top blockspace and the later indexes represent the bottom blockspace.
 
-![There were 25 WETH sells and 0 WETH buys in this block. The red line is a bisection index ](https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/f2557243-7de3-459c-a3a1-61d6c0dc1677/Untitled/w=1920,quality=90,fit=scale-down)
+![There were 25 WETH sells and 0 WETH buys in this block. The red line is a bisection index ](/assets/images/f2557243-7de3-459c-a3a1-61d6c0dc1677.png)
 
 There were 25 WETH sells and 0 WETH buys in this block. The red line is a bisection index jjj for the prices PlP\_lPl​.
 
@@ -59,7 +59,7 @@ The natural question is what is the best bisection value jjj to choose? Specific
 
 In the empirical analysis, we choose the bisection index as the relative transaction index at the 10% tick value. This serves as a good heuristic. A large proportion of Uniswap swaps occur in the first 10% of blockspace ticks, creating a lot of price discovery in this part of the block.
 
-![image](https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/6a536e6d-fe1a-4382-a73d-61d7464c984b/Untitled/w=1920,quality=90,fit=scale-down)
+![image](/assets/images/6a536e6d-fe1a-4382-a73d-61d7464c984b.png)
 
 When there are no swaps on both sides of the bisection, reordering slippage can’t be calculated using a 10% tick bisection index. Making the bisection index dynamic to calculate reordering slippage differently is left as a future research direction.
 
@@ -79,7 +79,7 @@ Telegram bots bring advanced algorithmic trading capabilities and automated orde
 
 The below charts visualize the non-atomic bundle nature for a single snipe event on the Uniswap v2 FWS/WETH pool at block 18256601. In the leftmost chart, there is a 6x difference in execution price between the first and last transactions. The gap between the two dotted lines indicates two separate bundles - one first one submitted was submitted by Banana Gun and the second one was submitted by Maestro.
 
-![image](https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/bc8a814b-c1f0-4d65-8810-562d055cc5f2/Untitled/w=1920,quality=90,fit=scale-down)
+![image](/assets/images/bc8a814b-c1f0-4d65-8810-562d055cc5f2.png)
 
 The middle chart shows the correlation between bid amount and transaction ordering. There is not a direct causal link between higher bid and lower transaction placement - the higher bid does not guarantee a better transaction index placement. In particular, the first transaction in the Maestro bundle bid .08 ETH but ended up in around transaction index 39. However, if that same transaction was submitted in the Banana Gun bundle, it would have ended up around transaction index 20.
 
@@ -130,7 +130,7 @@ We find that Telegram bots are consistently outbidding MEV searchers in the top 
 
 We analyze bidding behavior overlaid on block positioning. The chart below shows the competitive nature at different block ticks, and that Telegram bot bids are noticeably higher than searcher bids in the top portion of the block.
 
-![image](https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/809ea6dc-8798-44e1-b386-eb1cf41f3a01/Untitled/w=1920,quality=90,fit=scale-down)
+![image](/assets/images/809ea6dc-8798-44e1-b386-eb1cf41f3a01.png)
 
 There are spikes in bidding in sporadic areas of the block for MEV searcher bids. This is due to the fact that builders will place searcher opportunities anywhere in the block, not always at the top.
 
@@ -138,7 +138,7 @@ For example, in block [18182541](https://etherscan.io/block/18182541), the HEGIC
 
 The next chart shows the number of transactions that get included in different areas of the block. As expected, the number of searchers and telegram bundle transactions cluster towards the top of the block.
 
-![image](https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/a0eba6df-0308-47f1-98ca-96d058cfd676/Untitled/w=1920,quality=90,fit=scale-down)
+![image](/assets/images/a0eba6df-0308-47f1-98ca-96d058cfd676.png)
 
 More surprising is that Telegram bots consistently submit more transactions than searchers in some parts of the top 20% block ticks, which likely attributes to the Telegram bot group’s higher bidding power. This block tick range is also where reordering slippage tends to be the highest as seen later.
 
@@ -164,7 +164,7 @@ Large Uniswap V3 pools like WETH/USDC, WETH/WBTC, and WETH/USDT exhibit lower me
 
 The charts below show reordering slippage volatility throughout the bottom 90% of the block. While there is larger reordering slippage USDC loss towards the top block ticks, the reordering slippage remains more persistent throughout the block.
 
-![image](https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/83a35162-cb1a-42b1-8fec-566a30f5fbdd/Untitled/w=1920,quality=90,fit=scale-down)
+![image](/assets/images/83a35162-cb1a-42b1-8fec-566a30f5fbdd.png)
 
 Uniswap V2 has a significantly higher amount of reordering slippage, both on a percent and dollar basis. The right-hand chart visually indicates a ~1% lower bound for Uniswap v3 pools and ~5% for Uniswap v2 pools for the bottom 90% of the block, where the highest reordering slippage % is towards the top of the block. The left-hand chart shows that the dollar value for reordering slippage is highest towards the top 10-20% of ticks in block, and falls off significantly after, indicating the fierce contention in blockspace in those ticks compared to others through the block.
 
@@ -186,7 +186,7 @@ In the table below, Unibot has the lowest average reordering slippage at 5.5%, w
 
 The below chart shows the volatility of reordering slippage for the bottom 90% of the block. Reordering slippage is highest in USDC terms after the top 10% and before the 20% of the block. Reordering slippage % is fairly high throughout the bottom 90% of the block, even for smaller swaps.
 
-![image](https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/9302da3d-66c6-43b8-a4b2-c3430d7ec843/Untitled/w=1920,quality=90,fit=scale-down)
+![image](/assets/images/9302da3d-66c6-43b8-a4b2-c3430d7ec843.png)
 
 ## Block0 Bundle Competition
 
@@ -194,7 +194,7 @@ Telegram bots can leverage their users’ bidding power to compete for bundles t
 
 Within these block0 bundles, users themselves must compete against each other for better positions within the bundle by bidding higher than other users within the block0 bundle. We look at a block0 bundle competition between two bots - Banana Gun and Maestro. These bots handle block0 bundle failures differently. If Banana Gun fails to land the block0 bundle, then the bundle reverts. If the Maestro block0 bundle fails, it will revert. However, Maestro will also submit an independent backup transactions to give the user a second chance to land in the block. Full documentation for Banana Bot [can be found here](https://docs.bananagun.io/banana-academy-telegram-bot/faqs#what-is-the-advantage-of-using-banana-gun-to-other-telegram-based-bots) and [here for Maestro](https://docs.maestrobots.com/god-mode/maestro-block-0-dominance#what-if-our-bundle-doesnt-go-through).
 
-![The Banana Bot Block0 bundle contained 95 transactions and paid a total of 8.08 ETH. Banana Bot users who opted out of the block0 bundle feature landed landed in the same block, but not the same bundle.](https://images.spr.so/cdn-cgi/imagedelivery/j42No7y-dcokJuNgXeA0ig/c54d60a1-cce9-4d63-b25d-2c8d118a12d8/Untitled/w=1920,quality=90,fit=scale-down)
+![The Banana Bot Block0 bundle contained 95 transactions and paid a total of 8.08 ETH. Banana Bot users who opted out of the block0 bundle feature landed landed in the same block, but not the same bundle.](/assets/images/c54d60a1-cce9-4d63-b25d-2c8d118a12d8.png)
 
 The Banana Bot Block0 bundle contained 95 transactions and paid a total of 8.08 ETH. Banana Bot users who opted out of the block0 bundle feature landed landed in the same block, but not the same bundle.
 

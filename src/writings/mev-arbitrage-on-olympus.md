@@ -66,7 +66,7 @@ Flashbots MEV arbitrage data is accessed via this [dune query.](https://dune.com
 
 MEV detection is a non-trivial task. Currently, Flashbots data uses mev-inspect to identify MEV addresses with implementations in [python](https://github.com/flashbots/mev-inspect-py) and [rust](https://github.com/flashbots/mev-inspect-rs). There are also [new projects in progress to improve MEV detection](https://twitter.com/DestinerX/status/1575196912193773568?t=x0ggobzFv_Fi6qf_IEgUPw&s=19). Although there could still be false positives, the address population after filtering looks heuristically more reasonable, as shown below.
 
-![Fig 1 - profits and activity scatter plot of MEV Arbitrage Addresses](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/c4efac4c77c774d699cbfac09ac621fd20a9e2c2f893c59aae2d92384b0fb6ad.png)
+![Fig 1 - profits and activity scatter plot of MEV Arbitrage Addresses](/assets/images/c4efac4c77c774d699cbfac09ac621fd20a9e2c2f893c59aae2d92384b0fb6ad.png)
 
 Fig 1 - profits and activity scatter plot of MEV Arbitrage Addresses
 
@@ -82,7 +82,7 @@ The swap distributions are plotted as boxplots to emphasize how different the fo
 
 Although the median values are relatively small and most swap sizes are small, the fourth quartiles for both bots and humans contain many outliers. Within these outliers, it is clear that the MEV bots are responsible for all the more significant trades, particularly all of the $4m+ size trades in the DAI and ETH pairs.
 
-![Fig 2 - Distribution of the financial size differences between MEV and human swaps](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/41b7f919a0fab5d5148521ce4eceb7815450f6a1eced2ec05148ec04b5a1733a.png)
+![Fig 2 - Distribution of the financial size differences between MEV and human swaps](/assets/images/41b7f919a0fab5d5148521ce4eceb7815450f6a1eced2ec05148ec04b5a1733a.png)
 
 Fig 2 - Distribution of the financial size differences between MEV and human swaps
 
@@ -90,7 +90,7 @@ Fig 2 - Distribution of the financial size differences between MEV and human swa
 
 We see below the breakdown in trading activity between bots and humans. Although bots account for less than 1% of the entire trading population, the below histogram charts visually show that the bots contribute upwards of 75% of all swap transactions and volume across all token pairs. Notably, the bots contribute the vast majority of OHM-BTRFLY trading activity and liquidity utilization.
 
-![Fig 3 - Difference in Swap Volume between MEV and humans (CHARTS HAVE DIFFERENT Y-AXIS SCALES)](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/a67ac280a045b2abb02012734c9ba43abc1d8b4e80a812a4f3ae6f78e064bd46.png)
+![Fig 3 - Difference in Swap Volume between MEV and humans (CHARTS HAVE DIFFERENT Y-AXIS SCALES)](/assets/images/a67ac280a045b2abb02012734c9ba43abc1d8b4e80a812a4f3ae6f78e064bd46.png)
 
 Fig 3 - Difference in Swap Volume between MEV and humans (CHARTS HAVE DIFFERENT Y-AXIS SCALES)
 
@@ -98,7 +98,7 @@ Fig 3 - Difference in Swap Volume between MEV and humans (CHARTS HAVE DIFFERENT 
 
 The below charts express the different trading flows of MEV and humans. Within the most significant pools, there seems to be a divergence of behavior between bots and humans. For example, on the DAI pair, MEV bots contributed to higher selling flows within the pool. In comparison, humans contributed to higher buy flows, two contrasting trading behaviors. For the LUSD pair, it is unclear whether heavier selling flows are a pattern related to stablecoins or whether additional data discrepancies need to be adequately accounted for.
 
-![Fig 4 - Trading Flows of bots compared to humans (CHARTS HAVE DIFFERENT Y-AXIS SCALES)](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/129efa1a972e83a58aef0e3dfe1fe515bb26d5369350b80f22ded528907d843c.png)
+![Fig 4 - Trading Flows of bots compared to humans (CHARTS HAVE DIFFERENT Y-AXIS SCALES)](/assets/images/129efa1a972e83a58aef0e3dfe1fe515bb26d5369350b80f22ded528907d843c.png)
 
 Fig 4 - Trading Flows of bots compared to humans (CHARTS HAVE DIFFERENT Y-AXIS SCALES)
 

@@ -101,11 +101,11 @@ The notebook in the repository demonstrates some basic joins and charts to get s
 
 The main benefit from using subgraphs for historical analysis is that the data is already nicely curated. To concat the dataframes together, only the column names need to be standardized. Below shows an example of the nicely curated dataset.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/456d02a7c15bd68afe3b2f86244cff01ba9c9c83b70071357f9a154c39025c76.png)
+![post image](/assets/images/456d02a7c15bd68afe3b2f86244cff01ba9c9c83b70071357f9a154c39025c76.png)
 
 From this dataset, a simple scatterplot is made to show the number of swaps in a pool and the total volume from those number of swaps. Each dot represents a unique pool.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/82390ed21ca9b84b26adcc1f4626be9ca9cdae3ffab9e4c4ba70675a88a101e2.png)
+![post image](/assets/images/82390ed21ca9b84b26adcc1f4626be9ca9cdae3ffab9e4c4ba70675a88a101e2.png)
 
 # Limitations and Conclusion
 

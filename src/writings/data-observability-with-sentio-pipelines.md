@@ -32,7 +32,7 @@ Sentio's TypeScript pipeline interface transforms complex multi-chain developmen
 
 To illustrate Sentio's capabilities, let's consider the [Sui LST Dashboard](https://dune.com/evandekim/sui-liquid-staking), a comprehensive analytics tool built using Sentio pipelines and integrated with Dune's frontend. The sentio processor code can be found [here](https://github.com/Evan-Kim2028/springsui_lsts/tree/main). This dashboard provides real-time insights into the liquid staking ecosystem on the Sui blockchain.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/15c25e53c803dd7627edf7afead02843.png)
+![post image](/assets/images/15c25e53c803dd7627edf7afead02843.png)
 
 dune lst dashboard
 
@@ -60,7 +60,7 @@ A processor can be defined by importing a specific class generated from the typi
 
 Once the processor code has been defined, run the command `yarn sentio upload` to upload the processor code to Sentio, which will be queued up for indexing. Right out of the box, Sentio is pretty good about automatically finding the best start block point. The indexing (backfilling) process is relatively fast as well. Along the way, additional logs can be implemented into the processor to troubleshoot a data pipeline such as if there is data missing or something is not working the way it should be. These logs will appear in real time when the data gets backfilled. 
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/8e6577e0de457ccf7ab278521918f5bb.png)
+![post image](/assets/images/8e6577e0de457ccf7ab278521918f5bb.png)
 
 data indexing dashboard
 
@@ -68,17 +68,17 @@ data indexing dashboard
 
 While Sentio is backfilling data, the project tables get populated in real time, so the query construction work can get started before data has finished backfilling completely. The Data Studio is where exploratory data analytics can be done and queries created for analytics such as daily aggregations, joins, and other transformations.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/5ede0503c3132a5478623bf2d67410f4.png)
+![post image](/assets/images/5ede0503c3132a5478623bf2d67410f4.png)
 
 data studio
 
 After the query is ready, endpoints can be created from saved queries in 2 clicks. After the endpoint is created, the data is ready to be used outside of Sentio. In this case, Dune is used as a hosted frontend of choice. An AI connector can be used to craft Dune queries from the Sentio endpoint (see AI Prompt Miscellaneous Section).
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/d9ae316cd2bbd7f8990b40b8ca7ed010.png)
+![post image](/assets/images/d9ae316cd2bbd7f8990b40b8ca7ed010.png)
 
 Once the data is in dune, then it can be treated as if it was any other Dune query and the dashboard can be created as usual. Note that the query has to be private to hide the Sentio API keys.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/9e7fa21bd0c0ad730a44c0fd712d4bc3.png)
+![post image](/assets/images/9e7fa21bd0c0ad730a44c0fd712d4bc3.png)
 
 ## Conclusion
 

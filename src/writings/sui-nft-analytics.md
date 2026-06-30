@@ -38,7 +38,7 @@ After defining entities in src/schema/store.graphql, the command [yarn sentio bu
 
 Sentio provides a built-in SQL Studio, a web-based interface where you can write and execute SQL queries against your data. As the backfilling process populates your entities (which now appear as tables), you can start writing SQL queries to analyze the data in real-time.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/61e7c8d2e76fb5178d1d7fad21df732e.png)
+![post image](/assets/images/61e7c8d2e76fb5178d1d7fad21df732e.png)
 
 ## Rootlet Holder Count Growth
 
@@ -48,7 +48,7 @@ Sui NFT objects are stored either in kiosks or as wrapped objects, resulting in 
 
 Here is what the chart looks like in the Sentio dashboard:
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/6a52108480404c0269a7ae083d65d251.png)
+![post image](/assets/images/6a52108480404c0269a7ae083d65d251.png)
 
 The full query is available in the Appendix.
 
@@ -58,7 +58,7 @@ A second query categorizes Rootlet owners qualitatively (see Appendix for the qu
 
 This dashboard integration demonstrates the flexibility of the Sentio data pipeline. Not only can queries provide aggregate statistics, but they also enable detailed, address-specific analysis, such as determining the exact Rootlet holdings of an address Moreover, this level of data granularity enables targeted airdrops, for example, rewarding holders based on specific Rootlet attributes or ownership history.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/31875b43952708e9c3726fa11636bf61.png)
+![post image](/assets/images/31875b43952708e9c3726fa11636bf61.png)
 
 ## Conclusion
 

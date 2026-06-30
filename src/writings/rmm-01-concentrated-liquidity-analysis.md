@@ -37,13 +37,13 @@ By selecting a 1255 USDC strike price, which is higher than the initial reported
 
 We compared performance to a static portfolio equal to the composition of pooled assets at creation. While the static portfolio appreciated 12.249%, the RMM-01 replicating portfolio appreciated 12.596%, outperforming the static portfolio by over .3% as shown in the below chart. Unlike Uniswap pools, there is no impermanent loss from the upside gains of specifying an accurate liquidity direction on RMM-01.
 
-![Static Portfolio vs RMM-01 Porftolio absolute returns](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/6e2e21399207fe5af4d476e915efabb0dab3a520c515da3c589b0962a209fdda.png)
+![Static Portfolio vs RMM-01 Porftolio absolute returns](/assets/images/6e2e21399207fe5af4d476e915efabb0dab3a520c515da3c589b0962a209fdda.png)
 
 Static Portfolio vs RMM-01 Porftolio absolute returns
 
 We calculated realized volatility based on the ETH reported price in the chart below. The first half of the pool duration had an average volatility of 79% and swap volume of 541,472 USDC. In the second half, average volatility fell to 18% while swap volume increased to 783,097 USDC. Realized volatility followed IV more closely in the first half compared to the second half.
 
-![Real Volatility vs IV](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/8146182bba467610c72032e18765527751d0e0b91e58d34a9a9d4907acb6c562.png)
+![Real Volatility vs IV](/assets/images/8146182bba467610c72032e18765527751d0e0b91e58d34a9a9d4907acb6c562.png)
 
 Real Volatility vs IV
 
@@ -51,13 +51,13 @@ There were a total of 44 swaps routed through the pool that accounted for a tota
 
 The chart below shows how the replicating portfolio composition shifted from the original 690 ETH and 79,623 USDC to 756 ETH and 41.83 USDC. Although the pool composition shifted almost entirely to ETH, since the payoff function is being replicated by Black-Scholes, the riskiness of the different pool compositions remains the same.
 
-![IV, real volatility vs swap volume](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/ebd74bf564ce3d3532a9072c658c2d594ead6e51e748d5ce2d849fd1f31138cd.png)
+![IV, real volatility vs swap volume](/assets/images/ebd74bf564ce3d3532a9072c658c2d594ead6e51e748d5ce2d849fd1f31138cd.png)
 
 IV, real volatility vs swap volume
 
 As the reported price converged towards the strike price, the replicating portfolio composition approached a 50/50 split. However, the reported price ultimately did not end above the strike price, so the replicating portfolio composition shifted towards nearly 100% ETH. If the reported price had ended above the strike price, the replicating portfolio composition would have shifted towards 100% USDC.
 
-![Replicating Portfolio Portfolio Composition](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/e913ba6b23a9a601c2a09b7d789d1fd1870b46b5560f973137fc207aee1485cc.png)
+![Replicating Portfolio Portfolio Composition](/assets/images/e913ba6b23a9a601c2a09b7d789d1fd1870b46b5560f973137fc207aee1485cc.png)
 
 Replicating Portfolio Portfolio Composition
 
@@ -65,19 +65,19 @@ Replicating Portfolio Portfolio Composition
 
 To measure dynamically concentrated liquidity, we use a KDE to estimate various liquidity distributions and illustrate how liquidity dynamically concentrates over time. By observing the peaks in the chart below, we can see that liquidity was most concentrated when the pool was composed of 15% USDC and 80% ETH. There was not a large overlap where ETH/USDC reserves oscillated around 50/50. This implies liquidity could have been better dynamically concentrated.
 
-![Reserve Liquidity Distributions](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/f477c9f6223773999f45b92309059af3e793c4c4c1752647fff9bb863a299422.png)
+![Reserve Liquidity Distributions](/assets/images/f477c9f6223773999f45b92309059af3e793c4c4c1752647fff9bb863a299422.png)
 
 Reserve Liquidity Distributions
 
 Creating another KDE on the swap distributions, we can see that swapping USDC to ETH had a very tight range compared to swapping ETH to USDC. If the terminal-reported price ended above the strike price, the portfolio composition would have become more USDC heavy, allowing a larger dynamic range for the USDC liquidity to be deployed. 
 
-![Liquidity Depth Distributions](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/2cb8e845227519682cf0b7139eed07ebb42d5c5145773e31a69cd487edc3373f.png)
+![Liquidity Depth Distributions](/assets/images/2cb8e845227519682cf0b7139eed07ebb42d5c5145773e31a69cd487edc3373f.png)
 
 Liquidity Depth Distributions
 
 The liquidity efficiency measures the percent of the portfolio reserve used for market making. ETH to USDC swaps saw levels of usage around 5% of USDC reserves. USDC to ETH had a much larger usage, around 10-20% of ETH reserves. This means that liquidity was more dynamically concentrated around ETH reserves.
 
-![Dynamic Reserve Liquidity Utilization](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/084272a8c0119a15eff34e4a119e74637c7120187142debab30e89230e205010.png)
+![Dynamic Reserve Liquidity Utilization](/assets/images/084272a8c0119a15eff34e4a119e74637c7120187142debab30e89230e205010.png)
 
 Dynamic Reserve Liquidity Utilization
 

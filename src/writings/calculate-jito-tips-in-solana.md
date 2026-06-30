@@ -30,21 +30,21 @@ Before diving into the technical details, it's crucial to understand the importa
 
 The end results show some transaction-level insights for a single block (277533216), which had 2,588 transactions. Unlike Ethereum, where the top of the block is a contentious area, the same does not apply to the Solana slot. The chart below illustrates that some of the highest fees are paid in the 500-1000 transaction index range.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/d694b33110e327f18d53f621bc3b1c41.png)
+![post image](/assets/images/d694b33110e327f18d53f621bc3b1c41.png)
 
 The next chart demonstrates that fees paid do not correlate with higher computational costs. In fact, the majority of higher fees are clustered in transactions with lower compute units. This indicates that the most highly contested states take very little of the overall compute cost in Solana blocks. The majority of transactions take less than 200,000 compute costs.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/5700830b3e3b01405d8749a7d85b14ad.png)
+![post image](/assets/images/5700830b3e3b01405d8749a7d85b14ad.png)
 
 ### Jito
 
 The jito tips for this block are distributed throughout the block. Looking at the next chart, it looks like there is a small cluster of jito tips towards the end of the block (highest transaction indexes), but all of the high outlier jito tips are dispersed throughout the block.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/91fdd158741a6ebb1849d09f2ac07e43.png)
+![post image](/assets/images/91fdd158741a6ebb1849d09f2ac07e43.png)
 
 Finally we also compare the jito tips being for transactions with varying compute costs. This chart shows that there is a skew towards higher jito fees for less compute units with a large cluster of fees paid for less than 25,000 compute cost. It is also observed that Jito fees are also widely distributed within the the block, but it is not clear given this sample data why that is.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/0d375e9004cfac9a2d503235e62e3d7a.png)
+![post image](/assets/images/0d375e9004cfac9a2d503235e62e3d7a.png)
 
 ### Conclusion
 

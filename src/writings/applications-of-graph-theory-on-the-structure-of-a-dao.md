@@ -17,13 +17,13 @@ An organization can be represented as a graph by allowing each node to be a depa
 
 In the above example, the following nodes are operations, treasury, sales, and marketing, and two miscellaneous departments. Notice that there is a connection between every node. This type of graph is called a [complete graph](https://mathworld.wolfram.com/CompleteGraph.html#:~:text=A%20complete%20graph%20is%20a,are%20sometimes%20called%20universal%20graphs.) or fully connected. If any node is removed, the graph will still remain complete. In other words, none of the functions of the remaining nodes will be affected because the graph is still a complete graph, which can be seen as an equivalent definition for ‘decentralization’.
 
-![Example - Complete Graph of a DAO, maximally decentralized](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/7b51e28713d69a8ecc214d2d3e0c55ed3bdc263d41bc5c6a2c17dab9a4e199e4.jpg)
+![Example - Complete Graph of a DAO, maximally decentralized](/assets/images/7b51e28713d69a8ecc214d2d3e0c55ed3bdc263d41bc5c6a2c17dab9a4e199e4.jpg)
 
 Example - Complete Graph of a DAO, maximally decentralized
 
 An observation about complete graphs is that a complete graph also represents a maximally decentralized graph. To see why this is true, consider the following graph below to the left, which is a connected graph, but not complete. Notice that the operations node is the gateway in which all the other nodes are connected. Thus the operations node makes this graph very centralized. If the operations node is removed, the organization will cease to function properly and the graph will no longer be a connected graph as seen below to the right. 
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/0e71ddb57d05fbbce4cbbd9c7a2e0f23f51e46e39bd418f0d5c507525b238b45.jpg)
+![post image](/assets/images/0e71ddb57d05fbbce4cbbd9c7a2e0f23f51e46e39bd418f0d5c507525b238b45.jpg)
 
 ## Maximal Decentralization in a Graph
 
@@ -33,7 +33,7 @@ Viewing the organizational structure of a DAO or any organization through the le
 
 We can use the graph structure to describe the complexities of a DAO. For example consider this sample DAO structure represented as a graph:
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/4e1e48f20f3ef5c1f583b2a00a6d6b92ef036e235e3d5a1a59cdc4adc3565369.jpg)
+![post image](/assets/images/4e1e48f20f3ef5c1f583b2a00a6d6b92ef036e235e3d5a1a59cdc4adc3565369.jpg)
 
 Although not a complete graph, we can immediately see the level of decentralization each department has based on the number of edges that belong to the node. The more edges a node has, the more ‘reliant’ the entire DAO will be on that node. A higher number of total edges in the graph implies an overall higher level of decentralization. 
 

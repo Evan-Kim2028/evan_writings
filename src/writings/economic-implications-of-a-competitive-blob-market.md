@@ -23,9 +23,7 @@ Until recently, the blob market has seen minimal competition, with fees hovering
 
 This shift transitions the blob market from its initial bootstrapping phase to an arena of active competition. We briefly saw the impact at peak blob volatility: inclusion times spiked to over 10 minutes, with rollup costs surging past 15 ETH due to blob slippage. [Blob slippage](https://mirror.xyz/preconf.eth/xX2wu_3DC76qVYy1GHi1WVeOV2cXDF_rtDh7GlD6ZEU) occurs when the blob fee paid exceeds the fee that would have applied if the blob had been included sooner, at a lower rate. The below chart shows thelayer zero airdrop caused severe blob market congestion.
 
-[![image](https://ethresear.ch/uploads/default/optimized/3X/1/3/1326a1281287785a2caf0035248d50711625c910_2_690x345.jpeg)
-
-image880×440 80.8 KB](https://ethresear.ch/uploads/default/original/3X/1/3/1326a1281287785a2caf0035248d50711625c910.jpeg "image")
+![image](/assets/images/1326a1281287785a2caf0035248d50711625c910_2_690x345.jpeg)
 
 This shift from low competition to a competitive environment not only signals potentially higher fees for builders and providers, but also requires more competitive blob posting strategies to mitigate blob fee slippage. These strategies include increasing priority fees or [utilizing preconfirmations](https://mirror.xyz/preconf.eth/cxUO8pPBfqnqAlzFUzoEUa6sgnr68DRmsNhBWPb2u-c) to ensure timely blob inclusion.
 
@@ -35,9 +33,7 @@ Builders and Validators profit from blobs only through priority fees, as base fe
 
 The chart below shows the cumulative fees generated in the blob market.  
 
-[![image](https://ethresear.ch/uploads/default/optimized/3X/c/9/c956fe4bf5e9cf5e83a5e557426a1ecaeec4bc2f_2_690x210.png)
-
-image1197×365 89.5 KB](https://ethresear.ch/uploads/default/original/3X/c/9/c956fe4bf5e9cf5e83a5e557426a1ecaeec4bc2f.png "image")
+![image](/assets/images/c956fe4bf5e9cf5e83a5e557426a1ecaeec4bc2f_2_690x210.png)
 
 The majority of fees, ~89% have come from the base execution and consensus fees, which are burned. As blob market fees influence builder and validator revenue, they also affect the profit margins of major market users, especially L2s.
 
@@ -45,16 +41,12 @@ The majority of fees, ~89% have come from the base execution and consensus fees,
 
 The largest Blob market users have been rollups. Transitioning from calldata to the blob market has had an overwhelmingly positive effect on L2 profit margins. The largest L2s have collectively profited $ 19.8 million from switching to the blob market.
 
-[![image](https://ethresear.ch/uploads/default/optimized/3X/f/0/f080ee7a775a70e5e82ef3802ccf89041233278d_2_690x222.jpeg)
-
-image1376×444 81.4 KB](https://ethresear.ch/uploads/default/original/3X/f/0/f080ee7a775a70e5e82ef3802ccf89041233278d.jpeg "image")
+![image](/assets/images/f080ee7a775a70e5e82ef3802ccf89041233278d_2_690x222.jpeg)
 
   
 The chart below shows that immediately after Dencun, some rollup margins shot up to approximately 99% profit margins with all the rollups in the dataset seeing over 70% profit margins in the past 3 months alone.
 
-[![image](https://ethresear.ch/uploads/default/optimized/3X/f/0/f00284c3f86af8739714bcaead91fd7d046e09de_2_690x437.jpeg)
-
-image880×558 83.1 KB](https://ethresear.ch/uploads/default/original/3X/f/0/f00284c3f86af8739714bcaead91fd7d046e09de.jpeg "image")
+![image](/assets/images/f00284c3f86af8739714bcaead91fd7d046e09de_2_690x437.jpeg)
 
 In competitive markets, such high profit margins are rare. As more rollups enter the blob market, competition will intensify, compelling rollups to adopt more competitive inclusion strategies to defend their profit margins by securing blob space. This heightened competition is expected to drive down profit margins and generated increased blob market fees.
 

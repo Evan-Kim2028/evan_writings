@@ -32,7 +32,7 @@ Shared object mutations now occur in nearly every Sui checkpoint, indicating mar
 
 The most common examples of shared objects are liquidity pools, where users have shared access to many pools of liquidity. Over the past six months, the number of shared liquidity pool objects has reached saturation, with at least one shared object being [mutated](https://intro.sui-book.com/unit-two/lessons/2_ownership.html) in almost every Sui checkpoint (equivalent to a block).
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/028c31c970c574d5cb27d605f8be10f9.png)
+![post image](/assets/images/028c31c970c574d5cb27d605f8be10f9.png)
 
 This saturation indicates growing network activity and highlights the importance of efficient transaction ordering mechanisms. The data reveals that shared object mutations have become a fundamental part of Sui's daily operations, particularly in DeFi applications where multiple users frequently interact with the same liquidity pools.
 
@@ -42,13 +42,13 @@ Max gas fees represent the highest amount a user is willing to pay for the compu
 
 However, quantitative analysis of 28 weeks of transaction data, focusing on shared liquidity pool objects, reveals an intriguing insight: paying the maximum gas fee does not consistently guarantee a superior position within a block. The data shows that over 50% of transactions that opted for the highest gas fees ended up in positions that were worse than the median block position.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/901283a51bc2d992532df1662733e5ff.png)
+![post image](/assets/images/901283a51bc2d992532df1662733e5ff.png)
 
 Ideally, users expect that higher gas fees would translate to higher priority and quicker inclusion in blocks, but this is only the case approximately 20% of the time. This discrepancy suggests that while the Sui network's gas pricing mechanism is designed to prioritize transactions based on fee offerings, other factors—such as network congestion and validator behavior—significantly influence transaction ordering. Consequently, users do not always benefit from setting their max gas fees to the highest possible values to maximize transaction inclusion.
 
 Additionally, while the number of shared liquidity object mutations has increased, the number of max gas paid for these mutations has decreased. At the same time the number of shared objects that get the top position has been rising steadily. The below chart shows that a sender has a higher probability of getting top of block (~ 7 -10%) over those paying the max gas fee (.001 - .002%).
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/1d18bc2aece9158a3cca825e3b0d36dd.png)
+![post image](/assets/images/1d18bc2aece9158a3cca825e3b0d36dd.png)
 
 This misalignment between gas fees and transaction positioning presents a significant challenge for users seeking predictable transaction inclusion times. The data suggests that the current gas fee mechanism may need refinement to better serve its intended purpose of transaction prioritization.
 

@@ -23,17 +23,17 @@ CSI aims to generalize levels of fear and greed to levels of speculation. Positi
 
 CSI uses daily data and has both a 30 day and 90 day signal converted to a percentile scale from 0% to 100% for easier understanding. Below are the last  5 days worth of values from the signals in ascending order. Values below ~50% are negative while values above 50% are positive. 
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/0a9d3439fe343e8ecc30cb9c91208bb33e19458c3eddde92d718a969cd516ccd.png)
+![post image](/assets/images/0a9d3439fe343e8ecc30cb9c91208bb33e19458c3eddde92d718a969cd516ccd.png)
 
 The charts below show cumulative levels of speculation accrued in the system throughout the year. These charts show the raw data that the CSI is calculated from and is not in a percentile scale. Interestingly, levels of speculation are overall lower at the beginning 2022 compared to the beginning of 2021. 
 
 The 30day chart shows that there were 3 bull markets and 3 bear markets, characterized by the peaks/valleys of the chart. The 90day chart doesn’t have this much granularity but still captures the trend as 2 major bull cycles and 1 major bear market, with a potential second bear market approaching if current market conditions persist.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/b942dbc19a1c00fa27344ef5c2be365b06042d2bea40054605a5556c3b83acf6.png)
+![post image](/assets/images/b942dbc19a1c00fa27344ef5c2be365b06042d2bea40054605a5556c3b83acf6.png)
 
 By having multiple signal time frames, we can identify turning points in the market. For example when the 30 day flips the 90 day in the chart below for an extended period of time, say a week, that provides a high level of confidence that a macro trend reversal is occurring. This can be further expanded to include 5 vs 15, 15 vs 30, 30 vs 60, etc to identify turning points along multiple short term and long term time frames.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/a00fbf2811dd338f368715ee6859d720abefc2c6468adcf5156941fb6d06d67a.png)
+![post image](/assets/images/a00fbf2811dd338f368715ee6859d720abefc2c6468adcf5156941fb6d06d67a.png)
 
 ## Reasoning behind changes:
 

@@ -19,7 +19,7 @@ Decentralized exchanges (DEXs) have fueled immense growth and activity on the Et
 
 Using convex analysis, Angeris et al. [[Replicating Monotonic Payoffs Without Oracles, September 2021]](https://arxiv.org/abs/2111.13740) provide a general method to construct various derivatives. Estelle et al. [[Primitive RMM-01, October 2021]](https://primitive.xyz/whitepaper-rmm-01.pdf) showed the first implementation on the Ethereum mainnet, replicating the Black Scholes price of a European covered call. Estelle et al. [[Replicating Portfolios: Constructing Permissionless Derivatives, May 2022]](https://arxiv.org/abs/2205.09890) then derived more theoretical results, expanding the arsenal of possible derivative implementations to binary options, cash or nothing calls, straddles, and liquidation free lending.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/67534b37f8c02c95a92993758660a3b0c0c29a1fc51d98692eac682fc1b30023.png)
+![post image](/assets/images/67534b37f8c02c95a92993758660a3b0c0c29a1fc51d98692eac682fc1b30023.png)
 
 ## Replicating Portfolios
 
@@ -29,4 +29,4 @@ A **replicating portfolio** for a given asset or series of cash flows is a portf
 
 A **self-financing portfolio** is a type of replicating portfolio that contains long and short investments such that the sum of their investment weights, or net investment, is zero. This contrasts with a standard portfolio that has investment weights summing to one. Examples of self-financing portfolios are hedges, overlays, arbitrage portfolios, swaps, and long/short portfolios. Both CFMMs and RMMs are incomplete self-financing dynamically replicating portfolios. The key here is that the combination of any CFMMs will never form a self-financing replicating portfolio whereas it is theoretically possible to create one using RMMs by super hedging. **Super hedging** is a risk management strategy that hedges positions in a self-financing portfolio. In theory, super hedged portfolios remain profitable regardless of the market's ups and downs. In a complete market, which assumes negligible transaction costs and perfect information (completely rational), super hedging is equivalent to hedging. In practice, however, markets are incomplete and investors rationality is bounded.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/6ef5a714b11901efc28cbde8bdb243187c7b8f82008c88a1ad07d718ed7fd4db.png)
+![post image](/assets/images/6ef5a714b11901efc28cbde8bdb243187c7b8f82008c88a1ad07d718ed7fd4db.png)

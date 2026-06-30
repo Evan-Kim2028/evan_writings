@@ -61,6 +61,17 @@ module.exports = function(eleventyConfig) {
     return arr.join(sep || ', ');
   });
 
+  eleventyConfig.addFilter('countByCollection', (items, collection) => {
+    return items.filter(i => i.data.collection === collection).length;
+  });
+
+  eleventyConfig.addFilter('excerpt', (content) => {
+    if (!content) return '';
+    const text = content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const firstSentence = text.split(/\.\s+/)[0];
+    return firstSentence.length > 180 ? firstSentence.slice(0, 180) + '…' : firstSentence + '.';
+  });
+
   return {
     dir: {
       input: 'src',

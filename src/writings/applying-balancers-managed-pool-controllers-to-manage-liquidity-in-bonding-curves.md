@@ -43,7 +43,7 @@ To access the full capabilities of MPs, controllers are being built that extend 
 
 Valory is a team that focuses on building open source autonomous applications on distributed ledger technology. Their [Autonolas](https://www.autonolas.network/) application uses the Open Autonomy framework to manage multi-agent services off-chain, extending smart contract functionality and allowing complex operations to be executed in a decentralized, trust-minimized, and transparent way. Autonomous sources can pull data from a variety of sources, such as AWS storage buckets and cryp-native data sources like IPFS, Ceramic, or The Graph. Agents that run services must agree on servicer terms similar to service level agreements (SLAs) and achieve consensus using the tendermint library, which is the same consensus method used by the Cosmos ecosystem. Valory [recently received a Balancer grant](https://medium.com/@BalancerGrants/valory-is-building-smart-managed-pools-on-balancer-1b03a2f4cc89) to extend the current MP structure to include automation via smart managed pools (SMPs), which use autonomous agent software to create robotic MP managers.
 
-![Source for diagram ](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/3f19ef18e94a8805d40ee1ff00ac06c8d773f4e698275c41e1a0ddafd6b09d4d.png)
+![Source for diagram ](/assets/images/3f19ef18e94a8805d40ee1ff00ac06c8d773f4e698275c41e1a0ddafd6b09d4d.png)
 
 Source for diagram
 
@@ -69,7 +69,7 @@ Recently, there has been interest in providing controllers for bonding curves to
 
 Asymmetric liquidity allows for the creation of individual user strategies composed of two bonding curves, where each curve executes irreversible trades. This gives users the ability to create automated trading strategies composed of one or two on-chain limit or range orders for any given token pair, with each order represented by a unique, adjustable bonding curve.
 
-![post image](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/a5dd62a3fdc9ee321d11dbd9646238a46a5f0c8d282996877a93cd30514ca032.png)
+![post image](/assets/images/a5dd62a3fdc9ee321d11dbd9646238a46a5f0c8d282996877a93cd30514ca032.png)
 
 The specifics of Carbon require Bancor DAO governance approval and are subject to change, with voting occurring via Carbon's proposed governance token, vBNT. Although Bancor governance might make Carbon adoption difficult outside of Bancor, the ideas of asymmetric liquidity are similar to MP liquidity, where the token weight composition is mapped to a range of buying and selling price ranges for tokens within the pool.
 

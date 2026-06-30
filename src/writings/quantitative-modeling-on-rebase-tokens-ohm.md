@@ -36,7 +36,7 @@ The following models tested are - balanced, conservative, aggressive, and vanill
 
 ## Results
 
-![Fig 1 - Portfolio Returns](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/618742edb137f7d49a64810f73fc97c17438987037f83058804acd767591672e.png)
+![Fig 1 - Portfolio Returns](/assets/images/618742edb137f7d49a64810f73fc97c17438987037f83058804acd767591672e.png)
 
 Fig 1 - Portfolio Returns
 
@@ -49,11 +49,11 @@ Returns at the end of the backtesting period:
 
 Fig 1 shows a fairly high correlation between all of the strategy returns. This is because they all receive rebase yield to a varying degree and that is the main driver of returns, and not price appreciation. Aggressive performs the best while conservative performs the worst due to the fact that aggressive buys more ohm and maximizes the rebase yield while conservative sits on a larger position of stables. Balanced performs slightly better than buy and hold. This is hypothesized to be due to the fact that it is dipping into the stable position more to accumulate more Ohm, which taps into a higher rebase yield compared to Vanilla.
 
-![Fig 2 - Stablecoin Position Size](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/e1a2a0f43e01f96b9abda0103685f9bb32b8eea779f76683093d7fdf47676994.png)
+![Fig 2 - Stablecoin Position Size](/assets/images/e1a2a0f43e01f96b9abda0103685f9bb32b8eea779f76683093d7fdf47676994.png)
 
 Fig 2 - Stablecoin Position Size
 
-![Fig 3 - Ohm Position Size](https://img.paragraph.com/cdn-cgi/image/format=auto,width=3840,quality=85/https://storage.googleapis.com/papyrus_images/f0b9edf09e5c9654a7af3dcb158baa4dc26938c6666c3cb3d581602ea272a7ef.png)
+![Fig 3 - Ohm Position Size](/assets/images/f0b9edf09e5c9654a7af3dcb158baa4dc26938c6666c3cb3d581602ea272a7ef.png)
 
 Fig 3 - Ohm Position Size
 
