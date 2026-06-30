@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+_site/
+.cache/
+*.log
+.env
+.env.local
+mcp/dist/

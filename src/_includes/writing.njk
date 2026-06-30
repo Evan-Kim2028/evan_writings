@@ -1,0 +1,24 @@
+---
+layout: base.njk
+---
+
+<article class="writing">
+  <header class="writing-header">
+    <h1>{{ title }}</h1>
+    <div class="meta">
+      <span class="date">{{ date | formatDate }}</span>
+      <span class="collection">{{ collection }}</span>
+      {% if source_url %}<a href="{{ source_url }}" class="source">Original ↗</a>{% endif %}
+    </div>
+    {% if tags %}
+    <div class="tags">
+      {% for tag in tags %}
+        <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </header>
+  <div class="writing-body">
+    {{ content | safe }}
+  </div>
+</article>

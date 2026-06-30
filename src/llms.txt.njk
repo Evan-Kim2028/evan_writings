@@ -1,0 +1,12 @@
+---
+permalink: /llms.txt
+layout: null
+eleventyExcludeFromCollections: true
+---
+# Evan's Writings
+
+Collected writings on DeFi, data, MEV, and math.
+
+{% for writing in collections.writings | sortByDate %}
+- {{ writing.data.title }} ({{ writing.data.date | formatDate }}): {{ writing.url | absoluteUrl }}
+{% endfor %}

@@ -1,0 +1,19 @@
+---
+permalink: /llms-full.txt
+layout: null
+eleventyExcludeFromCollections: true
+---
+# Evan's Writings — Full Text Index
+
+{% for writing in collections.writings | sortByDate %}
+## {{ writing.data.title }}
+- Date: {{ writing.data.date | formatDate }}
+- Collection: {{ writing.data.collection }}
+- Tags: {{ writing.data.tags | join(', ') }}
+- URL: {{ writing.url | absoluteUrl }}
+- Original: {{ writing.data.source_url }}
+
+{{ writing.templateContent | striptags }}
+
+---
+{% endfor %}

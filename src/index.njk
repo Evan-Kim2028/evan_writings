@@ -1,0 +1,39 @@
+---
+title: Home
+description: Collected writings on DeFi, data, MEV, and math.
+layout: base.njk
+---
+
+<section class="hero">
+  <h1>Collected Writings</h1>
+  <p>DeFi, data, degens, MEV, and math — curated and searchable.</p>
+  <p class="links">
+    <a href="https://github.com/Evan-Kim2028">GitHub</a>
+    <a href="https://x.com/EvanDeKim">Twitter</a>
+    <a href="https://dune.com/evandekim">Dune</a>
+  </p>
+</section>
+
+<section class="featured">
+  <h2>Highlights</h2>
+  <ul class="writing-list">
+  {% for writing in collections.writings | sortByDate | limit(10) %}
+    <li>
+      <a href="{{ writing.url }}">{{ writing.data.title }}</a>
+      <span class="meta">{{ writing.data.date | formatDate }} · {{ writing.data.collection }}</span>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+
+<section class="collections-overview">
+  <h2>Collections</h2>
+  <div class="collection-grid">
+    <a href="/collections/latest/" class="card">Latest</a>
+    <a href="/collections/highlights/" class="card">Highlights</a>
+    <a href="/collections/data/" class="card">Data</a>
+    <a href="/collections/mev/" class="card">MEV</a>
+    <a href="/collections/defi/" class="card">DeFi</a>
+    <a href="/collections/math/" class="card">Math</a>
+  </div>
+</section>

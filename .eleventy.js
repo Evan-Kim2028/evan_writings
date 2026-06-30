@@ -1,0 +1,63 @@
+module.exports = function(eleventyConfig) {
+  eleventyConfig.addPassthroughCopy('src/styles.css');
+  eleventyConfig.addPassthroughCopy('src/assets');
+
+  eleventyConfig.addCollection('writings', (collectionApi) => {
+    return collectionApi.getFilteredByTag('writing');
+  });
+
+  eleventyConfig.addFilter('formatDate', (date) => {
+    if (!date) return '';
+    const d = new Date(date);
+    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+  });
+
+  eleventyConfig.addFilter('sortByDate', (items) => {
+    return items.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+  });
+
+  eleventyConfig.addFilter('groupByCollection', (items) => {
+    const groups = {};
+    for (const item of items) {
+      const c = item.data.collection || 'uncategorized';
+      if (!groups[c]) groups[c] = [];
+      groups[c].push(item);
+    }
+    return groups;
+  });
+
+  eleventyConfig.addFilter('limit', (items, count) => {
+    return items.slice(0, count);
+  });
+
+  eleventyConfig.addFilter('title', (str) => {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  });
+
+  eleventyConfig.addFilter('absoluteUrl', (path) => {
+    const base = 'https://Evan-Kim2028.github.io/evan_writings';
+    const cleanPath = path && path.startsWith('/') ? path : '/' + (path || '');
+    return base + cleanPath;
+  });
+
+  eleventyConfig.addFilter('striptags', (html) => {
+    if (!html) return '';
+    return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  });
+
+  eleventyConfig.addFilter('join', (arr, sep) => {
+    if (!Array.isArray(arr)) return '';
+    return arr.join(sep || ', ');
+  });
+
+  return {
+    dir: {
+      input: 'src',
+      output: '_site',
+      includes: '_includes',
+      data: '_data'
+    },
+    templateFormats: ['md', 'njk', 'txt']
+  };
+};

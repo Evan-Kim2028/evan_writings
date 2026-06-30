@@ -1,0 +1,26 @@
+{
+  "name": "evan_writings",
+  "version": "1.0.0",
+  "description": "Personal writings and blog archive, hosted on GitHub Pages.",
+  "scripts": {
+    "dev": "eleventy --serve --watch",
+    "build": "eleventy",
+    "clean": "rm -rf _site",
+    "mcp:build": "cd mcp && npm run build",
+    "mcp:run": "cd mcp && npm run start"
+  },
+  "keywords": [
+    "blog",
+    "writings",
+    "eleventy",
+    "github-pages"
+  ],
+  "author": "Evan Kim",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

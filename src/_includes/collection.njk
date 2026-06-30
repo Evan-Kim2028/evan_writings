@@ -1,0 +1,16 @@
+---
+layout: base.njk
+---
+
+<h1>{{ collection_name }} Writings</h1>
+<ul class="writing-list">
+{% for writing in collections.writings | sortByDate %}
+  {% if writing.data.collection == collection_key %}
+  <li>
+    <a href="{{ writing.url }}">{{ writing.data.title }}</a>
+    <span class="meta">{{ writing.data.date | formatDate }}</span>
+  </li>
+  {% endif %}
+{% endfor %}
+</ul>
+<p><a href="{{ '/collections/' | url }}">← All collections</a></p>

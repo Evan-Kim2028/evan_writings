@@ -1,0 +1,8 @@
+SPEC.md
+README.md
+package.json
+package-lock.json
+scripts/
+mcp/
+.gitignore
+.eleventyignore

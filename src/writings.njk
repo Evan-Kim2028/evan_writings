@@ -1,0 +1,14 @@
+---
+title: All Writings
+layout: base.njk
+---
+
+<h1>All Writings</h1>
+<ul class="writing-list">
+{% for writing in collections.writings | sortByDate %}
+  <li>
+    <a href="{{ writing.url }}">{{ writing.data.title }}</a>
+    <span class="meta">{{ writing.data.date | formatDate }} · {{ writing.data.collection }}</span>
+  </li>
+{% endfor %}
+</ul>
