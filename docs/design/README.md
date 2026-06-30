@@ -64,10 +64,27 @@ This folder documents the visual design system for the site so future changes st
 - Card padding: 1.5–1.75rem
 - Article card padding: 2.5rem
 
+## Accessibility
+
+- Skip-to-content link on every page
+- Visible `:focus-visible` outline (2px accent, 2px offset)
+- Semantic HTML: `<header>`, `<nav>`, `<main>`, `<footer>`, `<article>`
+- Descriptive link text and `aria-label` where helpful
+- `theme-color` meta tag for mobile browsers
+- `lang="en"` on `<html>`
+
 ## Responsive breakpoints
 
 - Mobile: < 480px
 - Tablet: < 768px
 - Desktop: 768px+
 
-Card grids collapse to single column on mobile.
+Card grids collapse to single column on mobile. Navigation wraps on tablet and stacks vertically on small phones.
+
+## Assets
+
+- Favicon: `src/favicon.svg` (SVG, blue "E" on dark surface)
+- 404 page: `src/404.njk`
+- `robots.txt`: allows all, references sitemap
+- Sitemap: `src/sitemap.xml.njk` with homepage, listings, and every writing
+- Open Graph / Twitter Card meta tags on every page

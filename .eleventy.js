@@ -1,6 +1,8 @@
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/styles.css');
   eleventyConfig.addPassthroughCopy('src/assets');
+  eleventyConfig.addPassthroughCopy('src/favicon.svg');
+  eleventyConfig.addPassthroughCopy('src/robots.txt');
 
   eleventyConfig.addCollection('writings', (collectionApi) => {
     return collectionApi.getFilteredByTag('writing');
@@ -20,6 +22,17 @@ module.exports = function(eleventyConfig) {
       return String(date);
     }
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+  });
+
+  eleventyConfig.addFilter('formatDateIso', (date) => {
+    if (!date) return '';
+    if (date instanceof Date) {
+      return date.toISOString().split('T')[0];
+    }
+    if (String(date).includes('-')) {
+      return String(date).split(' ')[0];
+    }
+    return String(date);
   });
 
   eleventyConfig.addFilter('sortByDate', (items) => {

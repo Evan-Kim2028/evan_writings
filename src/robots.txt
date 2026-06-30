@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://evan-kim2028.github.io/evan_writings/sitemap.xml
