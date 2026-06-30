@@ -11,7 +11,7 @@ layout: base.njk
   <ul class="writing-list">
   {% for writing in items %}
     <li>
-      <a href="{{ writing.url }}">{{ writing.data.title }}</a>
+      <a href="{{ writing.url | url }}">{{ writing.data.title }}</a>
       <span class="meta">{{ writing.data.date | formatDate }}</span>
     </li>
   {% endfor %}

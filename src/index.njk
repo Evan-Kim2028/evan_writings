@@ -23,12 +23,12 @@ layout: base.njk
 <section class="featured">
   <div class="section-header">
     <h2>Featured Writings</h2>
-    <a href="/writings/" class="all-link">View all →</a>
+    <a href="{{ '/writings/' | url }}" class="all-link">View all →</a>
   </div>
   <div class="featured-grid">
   {% for writing in collections.writings | sortByDate | limit(6) %}
     <article class="featured-card">
-      <a href="{{ writing.url }}" class="card-title">{{ writing.data.title }}</a>
+      <a href="{{ writing.url | url }}" class="card-title">{{ writing.data.title }}</a>
       <p class="card-excerpt">{{ writing.templateContent | excerpt }}</p>
       <div class="card-meta">
         <span class="card-collection">{{ writing.data.collection }}</span>
@@ -44,27 +44,27 @@ layout: base.njk
     <h2>Browse by Collection</h2>
   </div>
   <div class="collection-grid">
-    <a href="/collections/latest/" class="card">
+    <a href="{{ '/collections/latest/' | url }}" class="card">
       <span class="card-name">Latest</span>
       <span class="card-count">{{ collections.writings | countByCollection('latest') }} writings</span>
     </a>
-    <a href="/collections/highlights/" class="card">
+    <a href="{{ '/collections/highlights/' | url }}" class="card">
       <span class="card-name">Highlights</span>
       <span class="card-count">{{ collections.writings | countByCollection('highlights') }} writings</span>
     </a>
-    <a href="/collections/data/" class="card">
+    <a href="{{ '/collections/data/' | url }}" class="card">
       <span class="card-name">Data</span>
       <span class="card-count">{{ collections.writings | countByCollection('data') }} writings</span>
     </a>
-    <a href="/collections/mev/" class="card">
+    <a href="{{ '/collections/mev/' | url }}" class="card">
       <span class="card-name">MEV</span>
       <span class="card-count">{{ collections.writings | countByCollection('mev') }} writings</span>
     </a>
-    <a href="/collections/defi/" class="card">
+    <a href="{{ '/collections/defi/' | url }}" class="card">
       <span class="card-name">DeFi</span>
       <span class="card-count">{{ collections.writings | countByCollection('defi') }} writings</span>
     </a>
-    <a href="/collections/math/" class="card">
+    <a href="{{ '/collections/math/' | url }}" class="card">
       <span class="card-name">Math</span>
       <span class="card-count">{{ collections.writings | countByCollection('math') }} writings</span>
     </a>
@@ -80,6 +80,6 @@ layout: base.njk
   </p>
   <p>
     All content is also exposed through a local MCP server so you can query it directly from Claude.
-    See the <a href="/llms-full.txt">full-text index</a> or the <a href="https://github.com/Evan-Kim2028/evan_writings">source repo</a>.
+    See the <a href="{{ '/llms-full.txt' | url }}">full-text index</a> or the <a href="https://github.com/Evan-Kim2028/evan_writings">source repo</a>.
   </p>
 </section>

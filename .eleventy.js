@@ -72,6 +72,16 @@ module.exports = function(eleventyConfig) {
     return firstSentence.length > 180 ? firstSentence.slice(0, 180) + '…' : firstSentence + '.';
   });
 
+  // Rewrite markdown asset paths to include the repo path prefix
+  eleventyConfig.addTransform('prefixAssets', (content, outputPath) => {
+    if (outputPath && outputPath.endsWith('.html')) {
+      return content
+        .replace(/src="\/assets\//g, 'src="/evan_writings/assets/')
+        .replace(/href="\/assets\//g, 'href="/evan_writings/assets/');
+    }
+    return content;
+  });
+
   return {
     dir: {
       input: 'src',
@@ -79,6 +89,7 @@ module.exports = function(eleventyConfig) {
       includes: '_includes',
       data: '_data'
     },
+    pathPrefix: '/evan_writings/',
     templateFormats: ['md', 'njk', 'txt']
   };
 };
