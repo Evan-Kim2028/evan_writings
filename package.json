@@ -6,7 +6,7 @@
     "dev": "eleventy --serve --watch",
     "build": "eleventy",
     "clean": "rm -rf _site",
-    "mcp:build": "cd mcp && npm run build",
+    "mcp:build": "cd mcp && npm install && npm run build",
     "mcp:run": "cd mcp && npm run start"
   },
   "keywords": [

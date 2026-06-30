@@ -8,7 +8,17 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter('formatDate', (date) => {
     if (!date) return '';
-    const d = new Date(date);
+    let d;
+    if (date instanceof Date) {
+      d = date;
+    } else if (String(date).includes('-')) {
+      // Parse YYYY-MM-DD as local to avoid UTC timezone shift
+      const [year, month, day] = String(date).split('-').map(Number);
+      if (!year || !month || !day) return String(date);
+      d = new Date(year, month - 1, day);
+    } else {
+      return String(date);
+    }
     return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
   });
 

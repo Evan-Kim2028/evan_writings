@@ -6,3 +6,4 @@ _site/
 .env
 .env.local
 mcp/dist/
+venv/
