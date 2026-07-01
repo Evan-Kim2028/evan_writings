@@ -6,3 +6,4 @@ scripts/
 mcp/
 .gitignore
 .eleventyignore
+src/_templates/
