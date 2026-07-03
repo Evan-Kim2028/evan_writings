@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/Q2tdbKQjTyrSixC4YaElqr83zJE0gUIOIzltxFa-VIQ
 source_platform: mirror
 slug: liquidity-management-and-supply-issuance-optimization-model
+description: DeFi liquidity management and supply issuance optimization extends control theory research, tuning bond durations and lock rates to minimize price volatility and boost capital efficiency.
 ---
 
 **This paper extends the results of** **[DeFi Liquidity Management via Optimal Control](https://people.eecs.berkeley.edu/~ksk/files/Ohm_Liquidity_Management.pdf)** **(Tarun, Kshitij, Guillermo, Alex, Victor) by optimizing liquidity management and supply issuance via bonding and staking. The result is increased capital efficiency of bond supply issuance, decreased risk by minimizing price volatility, and sustainable long term supply emissions growth. By implementing this liquidity management model in practice, this will add an additional layer of risk management and capital efficiency to POL (protocol owned liquidity)  assets and increase decentralized exchange volume.**

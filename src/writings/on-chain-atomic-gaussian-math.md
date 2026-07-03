@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.com/@evandekim/on-chain-atomic-gaussian-math
 source_platform: paragraph
 slug: on-chain-atomic-gaussian-math
+description: On-chain Gaussian math on Sui using the AAA algorithm for rational approximation of the normal CDF and inverse CDF, evaluated via Horner's method with fixed-point arithmetic.
 ---
 
 ## TL;DR

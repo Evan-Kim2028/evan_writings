@@ -11,19 +11,31 @@ permalink: /sitemap.xml
   <url>
     <loc>{{ '/writings/' | absoluteUrl }}</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>{{ '/collections/' | absoluteUrl }}</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  {% for writing in collections.writings %}
+  <url>
+    <loc>{{ '/feed.xml' | absoluteUrl }}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  {%- for collection in ['latest', 'highlights', 'data', 'mev', 'defi', 'math'] -%}
+  <url>
+    <loc>{{ '/collections/' | absoluteUrl }}{{ collection }}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  {%- endfor -%}
+  {%- for writing in collections.writings | sortByDate -%}
   <url>
     <loc>{{ writing.url | absoluteUrl }}</loc>
     <lastmod>{{ writing.date | formatDateIso }}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>{% if loop.first %}0.8{% elif loop.index <= 5 %}0.7{% else %}0.6{% endif %}</priority>
   </url>
-  {% endfor %}
+  {%- endfor -%}
 </urlset>

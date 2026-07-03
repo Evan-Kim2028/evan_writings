@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.xyz/@evandekim/sui-nft-collection-analytics
 source_platform: paragraph
 slug: sui-nft-analytics
+description: Sui NFT analytics pipeline built with Sentio processors and SQL Studio to track Rootlets NFT holder counts, ownership history, and thematic categorization.
 ---
 
 # Intro

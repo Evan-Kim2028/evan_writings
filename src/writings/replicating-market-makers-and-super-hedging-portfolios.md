@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/aUULTZFwhJ9XsOZ6XIbAYl1iaSncDKpDwKazCemJlI8
 source_platform: mirror
 slug: replicating-market-makers-and-super-hedging-portfolios
+description: "Replicating market makers and super hedging portfolios: how RMMs extend CFMMs to create oracle-free permissionless derivatives through static and dynamic replicating portfolios."
 ---
 
 ## What is a Replicating Market Maker?

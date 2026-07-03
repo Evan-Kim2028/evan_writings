@@ -9,6 +9,7 @@ tags:
 source_url: https://ethresear.ch/t/slot-inclusion-rates-and-blob-market-combinatorics/19817
 source_platform: ethresear.ch
 slug: slot-inclusion-rates-and-blob-market-combinatorics
+description: "Blob market combinatorics: an integer packing problem in Ethereum where small block capacity drives higher slot inclusion rates via rollup competition rather than builder censorship."
 ---
 
 [Evan-Kim2028](https://ethresear.ch/u/Evan-Kim2028)

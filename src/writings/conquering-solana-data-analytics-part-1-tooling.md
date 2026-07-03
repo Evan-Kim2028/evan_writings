@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.xyz/@evandekim/conquering-solana-data-analytics-part-1-tooling
 source_platform: paragraph
 slug: conquering-solana-data-analytics-part-1-tooling
+description: "Solana data analytics tooling comparison: benchmarking Cryptohouse, Dune, and Flipside on three SQL queries against the transactions table for performance and features."
 ---
 
 ## Intro

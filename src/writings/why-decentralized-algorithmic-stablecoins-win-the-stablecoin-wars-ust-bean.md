@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/pExa2KveQ5B3WWSyWEW_iVKi2Ka3oqeRdfkjYBxBIhE
 source_platform: mirror
 slug: why-decentralized-algorithmic-stablecoins-win-the-stablecoin-wars-ust-bean
+description: Decentralized algorithmic stablecoins UST and BEAN use seigniorage shares and credit-based models to maintain peg without collateral, challenging USDC and USDT.
 ---
 
 ```

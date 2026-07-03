@@ -9,6 +9,7 @@ tags:
 source_url: https://frontier.tech/measuring-reordering-slippage-in-mev
 source_platform: frontier.tech
 slug: trading-in-the-dark-measuring-reordering-slippage-in-mev
+description: Reordering slippage cost Uniswap users $9m in losses, negatively affecting 72% of swaps and 92% of large swaps over $250k from September to October 2023.
 ---
 
 ✍️

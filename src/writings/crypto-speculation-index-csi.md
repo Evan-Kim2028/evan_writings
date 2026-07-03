@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/ujJJbOtc25RAGJMewlPahBUcDyozOJaBF7qznEET3ik
 source_platform: mirror
 slug: crypto-speculation-index-csi
+description: Crypto Speculation Index (CSI) improves on the Fear and Greed Index by using momentum and stablecoin dominance to quantify market speculation across 30 and 90 day signals.
 ---
 
 ## Overview of CFGI

@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.xyz/@evandekim/economics-of-sui-shared-liquidity-pool-objects
 source_platform: paragraph
 slug: economics-of-sui-shared-liquidity-pool-objects
+description: Sui shared liquidity pool mutations saturate nearly every checkpoint, yet max gas fees don't guarantee top block position, informing SIP-45 prioritized transaction submission.
 ---
 
 ***Sentio Referral Code****: Reach out to @is\_ye in the* *[sentio telegram chat](https://dune.com/evandekim/t.me/sentioxyz)* *and give the referral code evandekim2025 for a 20% discount for Sentio subscription!*

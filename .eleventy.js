@@ -102,6 +102,87 @@ module.exports = function(eleventyConfig) {
     return `${minutes} min read`;
   });
 
+  // Extract the first <img src="..."> from rendered HTML content.
+  // Returns the src path (root-relative, e.g. /evan_writings/assets/x.png)
+  // or empty string if no image is present. The prefixAssets transform runs
+  // AFTER templates render, so content here still has unprefixed /assets/
+  // paths — we prepend the pathPrefix so absoluteImageUrl resolves correctly.
+  const PATH_PREFIX = '/evan_writings';
+  eleventyConfig.addFilter('firstImage', (content) => {
+    if (!content) return '';
+    const m = String(content).match(/<img[^>]+src="([^"]+)"/i);
+    if (!m) return '';
+    let src = m[1];
+    if (/^https?:\/\//.test(src) || src.startsWith('data:')) return src;
+    // Normalize unprefixed /assets/ -> /evan_writings/assets/
+    if (src.startsWith('/assets/')) src = PATH_PREFIX + src;
+    return src;
+  });
+
+  // Resolve a root-relative image path to an absolute URL (for OG/Twitter).
+  eleventyConfig.addFilter('absoluteImageUrl', (src) => {
+    if (!src) return '';
+    if (/^https?:\/\//.test(src)) return src;
+    const base = 'https://Evan-Kim2028.github.io';
+    const p = src.startsWith('/') ? src : '/' + src;
+    return base + p;
+  });
+
+  // ISO 8601 date for JSON-LD / article:published_time.
+  eleventyConfig.addFilter('isoDate', (date) => {
+    if (!date) return '';
+    let d;
+    if (date instanceof Date) {
+      d = date;
+    } else if (String(date).includes('-')) {
+      const [year, month, day] = String(date).split('-').map(Number);
+      if (!year || !month || !day) return '';
+      d = new Date(year, month - 1, day);
+    } else {
+      return '';
+    }
+    return d.toISOString().split('T')[0];
+  });
+
+  // ISO date or now — for Atom feed <updated> when a collection item is passed.
+  eleventyConfig.addFilter('isoDateOrNow', (item) => {
+    const date = item && item.data ? item.data.date : item;
+    const iso = eleventyConfig.getFilter('isoDate')(date);
+    return iso || new Date().toISOString();
+  });
+
+  // Escape a string for safe inclusion in JSON-LD <script> output.
+  eleventyConfig.addFilter('jsonLdEscape', (str) => {
+    if (str == null) return '';
+    return String(str)
+      .replace(/\\/g, '\\\\')
+      .replace(/"/g, '\\"')
+      .replace(/\n/g, '\\n')
+      .replace(/\r/g, '\\r')
+      .replace(/\t/g, '\\t');
+  });
+
+  // JSON.stringify wrapper for use inside Nunjucks templates.
+  eleventyConfig.addFilter('jsonify', (value) => {
+    return JSON.stringify(value == null ? '' : value);
+  });
+
+  // Filter out the generic 'writing' tag and the collection name from a tags
+  // array, returning only the meaningful tags for SEO.
+  eleventyConfig.addFilter('seoTags', (tags, collection) => {
+    if (!Array.isArray(tags)) return [];
+    return tags.filter((t) => t !== 'writing' && t !== collection);
+  });
+
+  // Related writings: same collection, excluding the current page, newest first.
+  eleventyConfig.addFilter('related', (writings, currentPage, collection, limit = 3) => {
+    if (!Array.isArray(writings)) return [];
+    return writings
+      .filter((w) => w.data.collection === collection && w.url !== currentPage.url)
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, limit);
+  });
+
   // Slugify a heading text into a URL-safe anchor id.
   function slugify(text) {
     return String(text)

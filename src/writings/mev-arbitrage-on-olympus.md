@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/Mc11J16dVP7Ervk1r2Sx_wkJ7dzb7Ce60Y2EpbRBlHY
 source_platform: mirror
 slug: mev-arbitrage-on-olympus
+description: "MEV arbitrage on Olympus POL: data-driven analysis showing bots are under 1% of addresses yet drive the majority of trading volume and fees across OHM liquidity pools."
 ---
 
 ```

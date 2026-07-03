@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/fuznGoiFzMmDk6iMdunDejkPiuRbJ5yqDRzg7-q2IYA
 source_platform: mirror
 slug: applications-of-graph-theory-on-the-structure-of-a-dao
+description: Graph theory applied to DAO organizational structure, using complete graphs to quantify decentralization and map department responsibilities and interdependencies.
 ---
 
 ## Graph Representation of a DAO

@@ -9,6 +9,7 @@ tags:
 source_url: https://github.com/Evan-Kim2028/math-studies/blob/main/independent_study_abstract_algebra_notes.pdf
 source_platform: github
 slug: abstract-algebra-groups-kernels-normal-subgroups
+description: Abstract algebra independent study notes covering groups, homomorphisms, kernels, normal subgroups, and quotient structures with worked proofs.
 ---
 
 Read the original on [github](https://github.com/Evan-Kim2028/math-studies/blob/main/independent_study_abstract_algebra_notes.pdf).

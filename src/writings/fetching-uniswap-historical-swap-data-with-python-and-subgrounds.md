@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/0x70b0451b1C047ed750C4661B4624B67FD94A31c5/-gq99zeoHqQxc1ViSJV4135u2ZgaH8v6q_WacrPECSA
 source_platform: mirror
 slug: fetching-uniswap-historical-swap-data-with-python-and-subgrounds
+description: Fetch Uniswap v2 and v3 historical swap data from The Graph decentralized network using Python and Subgrounds, with pre-defined schemas and Polars-based data exploration.
 ---
 
 ## Introduction

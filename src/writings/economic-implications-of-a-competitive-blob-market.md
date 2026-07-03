@@ -9,6 +9,7 @@ tags:
 source_url: https://ethresear.ch/t/economic-implications-of-a-competitive-blob-market/20931
 source_platform: ethresear.ch
 slug: economic-implications-of-a-competitive-blob-market
+description: The competitive Ethereum blob market pressures L2 profit margins (up to 99%) and projects fee revenue growth from $11M to $25M with expanded blob counts and higher priority fees.
 ---
 
 [Evan-Kim2028](https://ethresear.ch/u/Evan-Kim2028)

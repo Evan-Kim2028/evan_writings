@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.xyz/@evandekim/streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python
 source_platform: paragraph
 slug: streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python
+description: Embedded OLAP streaming data pipeline using LanceDB, DuckDB, and Hypersync to query and analyze blockchain data with mutable columnar storage in Python.
 ---
 
 ## Intro

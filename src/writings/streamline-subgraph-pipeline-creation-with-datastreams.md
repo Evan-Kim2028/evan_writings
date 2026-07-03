@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/0x70b0451b1C047ed750C4661B4624B67FD94A31c5/P-ZBadPVJLENgsLKoxgA9nPGchVARK9QoD0EfaNQeh8
 source_platform: mirror
 slug: streamline-subgraph-pipeline-creation-with-datastreams
+description: DataStreams is a Python Subgraph query utility built on Subgrounds that streamlines subgraph data pipelines with parallelized queries and CSV export.
 ---
 
 [DataStreams](https://github.com/Evan-Kim2028/DataStreams) a Subgraph query utility package that allows users to execute complex Subgraph queries. It provides extended functionality on top of The Graph data access python package [Subgrounds](https://github.com/Protean-Labs/subgrounds). The main benefit is that now anyone can query Subgraph data, save it to their local storage as csv files, and perform data analytics immediately. DataStreams creates a reproducible data pipeline creation process in a transparent, lightweight manner. No database needed!

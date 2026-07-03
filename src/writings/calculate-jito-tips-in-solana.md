@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.xyz/@evandekim/setup-a-solana-etl-pipeline-and-calculate-jito-tips
 source_platform: paragraph
 slug: calculate-jito-tips-in-solana
+description: Solana ETL pipeline in Python to calculate and analyze Jito tips, comparing transaction fees against compute costs across a single block using Solana-py.
 ---
 
 ### Intro

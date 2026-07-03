@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/0x70b0451b1C047ed750C4661B4624B67FD94A31c5/8yqC4SPzhEqeG5ZyNNIWtlP6oQxi5Nr1oO7wVrF3_w0
 source_platform: mirror
 slug: cross-chain-nft-marketplace-mev-strategy-with-artemis-a-technical-commentary
+description: Artemis MEV bot framework technical commentary on cross-market NFT arbitrage between Seaport and Sudoswap, covering collectors, executors, and strategy.rs logic.
 ---
 
 **"A strategy implementing atomic, cross-market NFT arbitrage between Seaport and Sudoswap. At a high level, we listen to a stream of new seaport orders, and compute whether we can atomically fulfill the order and sell the NFT into a sudoswap pool while making a profit."**

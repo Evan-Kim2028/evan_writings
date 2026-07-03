@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.com/@evandekim/building-an-agentic-native-mcp-for-data-science
 source_platform: paragraph
 slug: building-an-agentic-native-mcp-for-data-science
+description: Building igloo-mcp, an MCP server for Snowflake data science with safe query execution, schema-first tools, catalog building, and dependency graph analysis.
 ---
 
 ## Introduction

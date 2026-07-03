@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/Xb8XRL7nD-ORyeX76nrG6eOiTYOMTmKfOxEfMEpBae0
 source_platform: mirror
 slug: using-topological-data-analysis-to-identify-distinct-mev-behavior-blog
+description: Topological data analysis via the Mapper algorithm identifies six statistically distinct MEV behaviors in Olympus Sushiswap protocol-owned liquidity data.
 ---
 
 ```

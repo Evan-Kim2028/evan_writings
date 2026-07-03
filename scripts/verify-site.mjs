@@ -68,6 +68,8 @@ const requiredPages = [
   'sitemap.xml',
   'robots.txt',
   'llms-full.txt',
+  'feed.xml',
+  'assets/og-default.png',
 ];
 for (const rel of requiredPages) {
   const full = join(SITE, rel);
@@ -102,7 +104,37 @@ for (const htmlFile of htmlFiles) {
     if (!/<meta name="description" content="[^"]+">/.test(raw)) err(`Missing meta description: ${rel}`);
     if (!/property="og:title"/.test(raw)) err(`Missing og:title: ${rel}`);
     if (!/property="og:description"/.test(raw)) err(`Missing og:description: ${rel}`);
+    if (!/property="og:image"/.test(raw)) err(`Missing og:image: ${rel}`);
+    if (!/property="og:url"/.test(raw)) err(`Missing og:url: ${rel}`);
     if (!/name="twitter:card"/.test(raw)) err(`Missing twitter:card: ${rel}`);
+    if (!/name="twitter:image"/.test(raw)) err(`Missing twitter:image: ${rel}`);
+    if (!/rel="canonical"/.test(raw)) err(`Missing canonical link: ${rel}`);
+    if (!/application\/ld\+json/.test(raw)) err(`Missing JSON-LD structured data: ${rel}`);
+  }
+
+  // 2b. Article-specific OG tags on writing pages
+  if (isWriting) {
+    if (!/property="article:published_time"/.test(raw)) err(`Missing article:published_time: ${rel}`);
+    if (!/property="article:author"/.test(raw)) err(`Missing article:author: ${rel}`);
+    if (!/property="article:section"/.test(raw)) err(`Missing article:section: ${rel}`);
+    // Verify JSON-LD contains an Article node
+    if (!/"@type":\s*"Article"/.test(raw)) err(`Missing Article JSON-LD schema: ${rel}`);
+  }
+
+  // 2c. Verify OG image URL is absolute (https://)
+  const ogImgMatch = raw.match(/property="og:image" content="([^"]+)"/);
+  if (ogImgMatch && !/^https?:\/\//.test(ogImgMatch[1])) {
+    err(`og:image is not an absolute URL: ${ogImgMatch[1]} in ${rel}`);
+  }
+
+  // 2d. Verify JSON-LD is valid JSON (parse the script block)
+  const jsonLdMatch = raw.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  if (jsonLdMatch) {
+    try {
+      JSON.parse(jsonLdMatch[1].trim());
+    } catch (e) {
+      err(`Invalid JSON-LD in ${rel}: ${e.message}`);
+    }
   }
 
   // Collect all element ids in the document

@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/0KZf_XYMCfjgy7fng4nJL_2JOH2k1UOgb_deXoIQg_A
 source_platform: mirror
 slug: pari-mutuel-market-design
+description: Pari-mutuel market design takeaways covering Hanson's LMSR, cost function equivalence, the Sequential Convex Pari-mutuel Mechanism, and market maker risk attitudes.
 ---
 
 I read a paper from 2009 by Agrawal et al titled [“A Unified Framework for Dynamic Pari-Mutuel Information Market Design”](https://arxiv.org/pdf/0902.2429.pdf) and these are my takeaways:

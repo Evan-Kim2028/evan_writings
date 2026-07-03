@@ -40,3 +40,19 @@ layout: base.njk
     {{ content | safe }}
   </div>
 </article>
+
+{# Related writings — same collection, excluding the current one, newest first #}
+{% set _related = collections.writings | related(page, collection, 3) %}
+{% if _related.length %}
+<section class="related-writings">
+  <h2>More from {{ collection | title }}</h2>
+  <ul class="related-list">
+    {% for writing in _related %}
+    <li class="related-item">
+      <a href="{{ writing.url | url }}" class="related-title">{{ writing.data.title }}</a>
+      <span class="related-meta">{{ writing.data.date | formatDate }} · {{ writing.templateContent | readingTime }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

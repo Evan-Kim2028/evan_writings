@@ -1,0 +1,29 @@
+---
+permalink: /feed.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Evan's Writings</title>
+  <subtitle>Agents, Data, DeFi, Math — collected writings by Evan Kim.</subtitle>
+  <link href="{{ '/' | absoluteUrl }}" rel="alternate" type="text/html"/>
+  <link href="{{ '/feed.xml' | absoluteUrl }}" rel="self" type="application/atom+xml"/>
+  <id>{{ '/' | absoluteUrl }}</id>
+  <updated>{{ collections.writings | sortByDate | first | isoDateOrNow }}</updated>
+  <author>
+    <name>Evan Kim</name>
+    <uri>{{ '/' | absoluteUrl }}</uri>
+  </author>
+  {%- for writing in collections.writings | sortByDate | limit(20) -%}
+  <entry>
+    <title>{{ writing.data.title | jsonLdEscape }}</title>
+    <link href="{{ writing.url | absoluteUrl }}" rel="alternate" type="text/html"/>
+    <id>{{ writing.url | absoluteUrl }}</id>
+    <published>{{ writing.data.date | isoDate }}</published>
+    <updated>{{ writing.data.date | isoDate }}</updated>
+    <summary>{{ writing.data.description | default(writing.templateContent | excerpt) | jsonLdEscape }}</summary>
+    {%- if writing.data.collection -%}
+    <category term="{{ writing.data.collection }}"/>
+    {%- endif -%}
+  </entry>
+  {%- endfor -%}
+</feed>

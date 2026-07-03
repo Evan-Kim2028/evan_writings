@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/preconf.eth/cxUO8pPBfqnqAlzFUzoEUa6sgnr68DRmsNhBWPb2u-c
 source_platform: mirror
 slug: censorship-latency-and-preconfirmations-in-the-blob-market
+description: "EIP-4844 blob market analysis: blob propagation delays incentivize builder censorship, with mev-commit blob preconfirmations proposed as a reliable inclusion solution."
 ---
 
 `🙏 Special thanks to @terencechain for reviewing, @BertKellerman for his insights,and @ethpandaops for holesky data.`

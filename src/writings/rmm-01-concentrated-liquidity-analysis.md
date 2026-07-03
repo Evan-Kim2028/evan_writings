@@ -9,6 +9,7 @@ tags:
 source_url: https://primitive.mirror.xyz/wXPmtmaO4yvhyra36XKqwX36gM0qmR0X3YNTOBZB5Kk
 source_platform: mirror
 slug: rmm-01-concentrated-liquidity-analysis
+description: RMM-01 concentrated liquidity analysis of an ETH/USDC pool using kernel density estimation to evaluate directional LPing and dynamically concentrated liquidity distributions.
 ---
 
 ### Introduction

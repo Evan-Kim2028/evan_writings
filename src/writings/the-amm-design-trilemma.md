@@ -9,6 +9,7 @@ tags:
 source_url: https://mirror.xyz/evandekim.eth/SVp-wan8A0VtZVff8YgUKTQAhJlpKa4CPXNVKqW_d5o
 source_platform: mirror
 slug: the-amm-design-trilemma
+description: "The AMM design trilemma: no pricing rule can be path independent, translation invariant, and liquidity sensitive simultaneously, per Othman et al (2013)."
 ---
 
 Recently I have been on a quest to understand AMM’s from a historical context (pre-DeFi). This 2013 paper by [Othman et al titled “A Practical Liquidity-Sensitive Automated Market Maker”](https://www.cs.cmu.edu/~sandholm/liquidity-sensitive%20automated%20market%20maker.teac.pdf) takes an axiomatic approach to unify AMM designs by characterizing AMMs by three properties - path independence, translation invariance, and liquidity sensitivity.

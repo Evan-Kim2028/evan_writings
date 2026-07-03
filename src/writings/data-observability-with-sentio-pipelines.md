@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.xyz/@evandekim/data-observability-with-sentio-pipelines
 source_platform: paragraph
 slug: data-observability-with-sentio-pipelines
+description: Sentio pipelines enable end-to-end web3 data observability with typed TypeScript processors, real-time streaming, and SQL/GraphQL endpoints, demoed via a Sui LST dashboard.
 ---
 
 ***Sentio Referral Code****: Reach out to @is\_ye in the* *[sentio telegram chat](https://dune.com/evandekim/t.me/sentioxyz)* *and give the referral code evandekim2025 for a 20% discount for Sentio subscription!*

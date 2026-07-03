@@ -9,6 +9,7 @@ tags:
 source_url: https://paragraph.xyz/@evandekim/clustering-analysis-on-zeta-lessgreater-pyth-transaction-logs
 source_platform: paragraph
 slug: clustering-analysis-on-zeta-pyth-transaction-logs
+description: Agglomerative clustering analysis on Zeta and Pyth Solana transaction logs using Polars DataFrames to identify failure rate patterns and log message groupings.
 ---
 
 ## Intro
