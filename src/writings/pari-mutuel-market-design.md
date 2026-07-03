@@ -6,6 +6,9 @@ tags:
   - writing
   - defi
   - mirror
+  - pari-mutuel
+  - market-maker
+  - liquidity
 source_url: https://mirror.xyz/evandekim.eth/0KZf_XYMCfjgy7fng4nJL_2JOH2k1UOgb_deXoIQg_A
 source_platform: mirror
 slug: pari-mutuel-market-design

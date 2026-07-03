@@ -6,6 +6,9 @@ tags:
   - writing
   - highlights
   - ethresear.ch
+  - blob-market
+  - slot-inclusion
+  - preconfirmations
 source_url: https://ethresear.ch/t/slot-inclusion-rates-and-blob-market-combinatorics/19817
 source_platform: ethresear.ch
 slug: slot-inclusion-rates-and-blob-market-combinatorics

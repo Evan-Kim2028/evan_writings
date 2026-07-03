@@ -6,6 +6,8 @@ tags:
   - writing
   - data
   - mirror
+  - subgraph
+  - data-pipeline
 source_url: https://mirror.xyz/0x70b0451b1C047ed750C4661B4624B67FD94A31c5/P-ZBadPVJLENgsLKoxgA9nPGchVARK9QoD0EfaNQeh8
 source_platform: mirror
 slug: streamline-subgraph-pipeline-creation-with-datastreams

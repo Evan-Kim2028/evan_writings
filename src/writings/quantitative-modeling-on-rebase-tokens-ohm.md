@@ -6,6 +6,8 @@ tags:
   - writing
   - defi
   - mirror
+  - olympus
+  - quantitative-modeling
 source_url: https://mirror.xyz/evandekim.eth/_6voXoEEfJqy58fNAhQjDWo6K3PvDeCxubfFBC6oAes
 source_platform: mirror
 slug: quantitative-modeling-on-rebase-tokens-ohm

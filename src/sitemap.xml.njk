@@ -23,11 +23,23 @@ permalink: /sitemap.xml
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>{{ '/tags/' | absoluteUrl }}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
   {%- for collection in ['latest', 'highlights', 'data', 'mev', 'defi', 'math'] -%}
   <url>
     <loc>{{ '/collections/' | absoluteUrl }}{{ collection }}/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  {%- endfor -%}
+  {%- for tag in collections.tagList -%}
+  <url>
+    <loc>{{ '/tags/' | absoluteUrl }}{{ tag.slug }}/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   {%- endfor -%}
   {%- for writing in collections.writings | sortByDate -%}

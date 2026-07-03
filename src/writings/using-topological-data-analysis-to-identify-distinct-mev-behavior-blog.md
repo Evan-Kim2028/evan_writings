@@ -6,6 +6,8 @@ tags:
   - writing
   - mev
   - mirror
+  - topological-data-analysis
+  - olympus
 source_url: https://mirror.xyz/evandekim.eth/Xb8XRL7nD-ORyeX76nrG6eOiTYOMTmKfOxEfMEpBae0
 source_platform: mirror
 slug: using-topological-data-analysis-to-identify-distinct-mev-behavior-blog

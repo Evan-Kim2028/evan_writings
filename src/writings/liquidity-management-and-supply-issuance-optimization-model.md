@@ -6,6 +6,9 @@ tags:
   - writing
   - defi
   - mirror
+  - liquidity
+  - olympus
+  - control-theory
 source_url: https://mirror.xyz/evandekim.eth/Q2tdbKQjTyrSixC4YaElqr83zJE0gUIOIzltxFa-VIQ
 source_platform: mirror
 slug: liquidity-management-and-supply-issuance-optimization-model

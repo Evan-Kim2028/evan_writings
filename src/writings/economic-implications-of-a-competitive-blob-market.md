@@ -6,6 +6,10 @@ tags:
   - writing
   - data
   - ethresear.ch
+  - blob-market
+  - preconfirmations
+  - ethereum
+  - jito-tips
 source_url: https://ethresear.ch/t/economic-implications-of-a-competitive-blob-market/20931
 source_platform: ethresear.ch
 slug: economic-implications-of-a-competitive-blob-market

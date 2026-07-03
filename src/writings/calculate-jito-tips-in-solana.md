@@ -6,6 +6,9 @@ tags:
   - writing
   - mev
   - paragraph
+  - solana
+  - jito-tips
+  - data-pipeline
 source_url: https://paragraph.xyz/@evandekim/setup-a-solana-etl-pipeline-and-calculate-jito-tips
 source_platform: paragraph
 slug: calculate-jito-tips-in-solana

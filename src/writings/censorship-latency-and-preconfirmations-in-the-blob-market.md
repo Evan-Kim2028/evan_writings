@@ -6,6 +6,9 @@ tags:
   - writing
   - mev
   - mirror
+  - blob-market
+  - ethereum
+  - preconfirmations
 source_url: https://mirror.xyz/preconf.eth/cxUO8pPBfqnqAlzFUzoEUa6sgnr68DRmsNhBWPb2u-c
 source_platform: mirror
 slug: censorship-latency-and-preconfirmations-in-the-blob-market

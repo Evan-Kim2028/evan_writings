@@ -6,6 +6,12 @@ tags:
   - writing
   - highlights
   - mirror
+  - blob-market
+  - slot-inclusion
+  - dune
+  - optimism
+  - jito-tips
+  - ethereum
 source_url: https://mirror.xyz/preconf.eth/6lZYL62DR9U14KC7wCC4RHReVdHcBeMy5PKeHVbPq5k
 source_platform: mirror
 slug: analyzing-blob-inclusion-rates-and-market-strategies

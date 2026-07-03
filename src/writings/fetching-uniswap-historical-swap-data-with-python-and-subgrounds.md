@@ -6,6 +6,8 @@ tags:
   - writing
   - data
   - mirror
+  - subgraph
+  - uniswap
 source_url: https://mirror.xyz/0x70b0451b1C047ed750C4661B4624B67FD94A31c5/-gq99zeoHqQxc1ViSJV4135u2ZgaH8v6q_WacrPECSA
 source_platform: mirror
 slug: fetching-uniswap-historical-swap-data-with-python-and-subgrounds

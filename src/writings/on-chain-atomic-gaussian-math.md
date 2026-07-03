@@ -6,6 +6,10 @@ tags:
   - writing
   - latest
   - paragraph
+  - gaussian-math
+  - sui
+  - amm
+  - oracle
 source_url: https://paragraph.com/@evandekim/on-chain-atomic-gaussian-math
 source_platform: paragraph
 slug: on-chain-atomic-gaussian-math

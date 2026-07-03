@@ -6,6 +6,7 @@ tags:
   - writing
   - latest
   - paragraph
+  - mcp
 source_url: https://paragraph.com/@evandekim/building-an-agentic-native-mcp-for-data-science
 source_platform: paragraph
 slug: building-an-agentic-native-mcp-for-data-science

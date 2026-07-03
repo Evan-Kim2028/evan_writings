@@ -1,0 +1,25 @@
+---
+title: Tag
+layout: base.njk
+pagination:
+  data: collections.tagList
+  size: 1
+  alias: tag
+permalink: /tags/{{ tag.slug }}/index.html
+---
+
+<section class="page-header">
+  <a href="{{ '/tags/' | url }}" class="back-link">← All Tags</a>
+  <h1>{{ tag.name }}</h1>
+  <p class="page-description">{{ tag.writings.length }} writing{{ tag.writings.length | pluralize }} tagged “{{ tag.name }}”.</p>
+</section>
+
+<ul class="writing-list writing-list-cards">
+  {% for writing in tag.writings %}
+  <li class="writing-list-item">
+    <a href="{{ writing.url | url }}" class="writing-list-title">{{ writing.data.title }}</a>
+    <span class="writing-list-meta">{{ writing.data.date | formatDate }}</span>
+    <span class="writing-list-reading-time">{{ writing.templateContent | readingTime }}</span>
+  </li>
+  {% endfor %}
+</ul>

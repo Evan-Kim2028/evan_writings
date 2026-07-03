@@ -6,6 +6,9 @@ tags:
   - writing
   - highlights
   - mirror
+  - blob-market
+  - preconfirmations
+  - ethereum
 source_url: https://mirror.xyz/preconf.eth/xX2wu_3DC76qVYy1GHi1WVeOV2cXDF_rtDh7GlD6ZEU
 source_platform: mirror
 slug: tackling-blob-fee-slippage-with-preconfirmations

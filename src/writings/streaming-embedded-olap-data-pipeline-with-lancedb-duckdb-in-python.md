@@ -6,6 +6,10 @@ tags:
   - writing
   - data
   - paragraph
+  - lancedb
+  - data-pipeline
+  - olap
+  - duckdb
 source_url: https://paragraph.xyz/@evandekim/streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python
 source_platform: paragraph
 slug: streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python

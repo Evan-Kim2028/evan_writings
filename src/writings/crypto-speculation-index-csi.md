@@ -6,6 +6,8 @@ tags:
   - writing
   - defi
   - mirror
+  - stablecoin
+  - ethereum
 source_url: https://mirror.xyz/evandekim.eth/ujJJbOtc25RAGJMewlPahBUcDyozOJaBF7qznEET3ik
 source_platform: mirror
 slug: crypto-speculation-index-csi

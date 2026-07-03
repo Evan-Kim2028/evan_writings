@@ -6,6 +6,10 @@ tags:
   - writing
   - data
   - paragraph
+  - solana
+  - dune
+  - flipside
+  - oracle
 source_url: https://paragraph.xyz/@evandekim/conquering-solana-data-analytics-part-1-tooling
 source_platform: paragraph
 slug: conquering-solana-data-analytics-part-1-tooling

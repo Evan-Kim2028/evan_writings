@@ -6,6 +6,8 @@ tags:
   - writing
   - highlights
   - frontier.tech
+  - uniswap
+  - slot-inclusion
 source_url: https://frontier.tech/measuring-reordering-slippage-in-mev
 source_platform: frontier.tech
 slug: trading-in-the-dark-measuring-reordering-slippage-in-mev

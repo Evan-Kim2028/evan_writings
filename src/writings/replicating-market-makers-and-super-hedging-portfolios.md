@@ -6,6 +6,10 @@ tags:
   - writing
   - defi
   - mirror
+  - market-maker
+  - amm
+  - liquidity
+  - oracle
 source_url: https://mirror.xyz/evandekim.eth/aUULTZFwhJ9XsOZ6XIbAYl1iaSncDKpDwKazCemJlI8
 source_platform: mirror
 slug: replicating-market-makers-and-super-hedging-portfolios

@@ -6,6 +6,9 @@ tags:
   - writing
   - defi
   - mirror
+  - liquidity
+  - amm
+  - pari-mutuel
 source_url: https://mirror.xyz/evandekim.eth/SVp-wan8A0VtZVff8YgUKTQAhJlpKa4CPXNVKqW_d5o
 source_platform: mirror
 slug: the-amm-design-trilemma

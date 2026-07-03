@@ -6,6 +6,7 @@ tags:
   - writing
   - math
   - github
+  - neural-networks
 source_url: https://github.com/Evan-Kim2028/math-studies/blob/main/independent_study_perceptron_neural_network_notes.pdf
 source_platform: github
 slug: perceptron-neural-networks

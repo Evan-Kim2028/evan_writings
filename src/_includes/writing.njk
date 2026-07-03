@@ -17,7 +17,11 @@ layout: base.njk
   {% if tags %}
   <div class="tags">
     {% for tag in tags %}
+      {% if tag | isTopicalTag %}
+      <a href="{{ '/tags/' | url }}{{ tag | tagSlug }}/" class="tag tag-link">{{ tag }}</a>
+      {% else %}
       <span class="tag">{{ tag }}</span>
+      {% endif %}
     {% endfor %}
   </div>
   {% endif %}

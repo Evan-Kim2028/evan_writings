@@ -6,6 +6,10 @@ tags:
   - writing
   - highlights
   - paragraph
+  - sentio
+  - nft
+  - sui
+  - data-pipeline
 source_url: https://paragraph.xyz/@evandekim/sui-nft-collection-analytics
 source_platform: paragraph
 slug: sui-nft-analytics

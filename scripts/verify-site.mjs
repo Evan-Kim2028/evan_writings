@@ -65,6 +65,7 @@ const requiredPages = [
   'index.html',
   'writings/index.html',
   'collections/index.html',
+  'tags/index.html',
   'sitemap.xml',
   'robots.txt',
   'llms-full.txt',
@@ -75,6 +76,18 @@ for (const rel of requiredPages) {
   const full = join(SITE, rel);
   if (!existsSync(full)) err(`Missing required page: ${rel}`);
   else if (statSync(full).size === 0) err(`Empty required page: ${rel}`);
+}
+
+// ---------- 1b. Tag pages exist ----------
+const tagDir = join(SITE, 'tags');
+if (existsSync(tagDir)) {
+  const tagDirs = readdirSync(tagDir, { withFileTypes: true })
+    .filter((e) => e.isDirectory());
+  if (tagDirs.length === 0) err('No tag pages generated in _site/tags/');
+  for (const td of tagDirs) {
+    const tagIndex = join(tagDir, td.name, 'index.html');
+    if (!existsSync(tagIndex)) err(`Missing tag page: tags/${td.name}/index.html`);
+  }
 }
 
 // ---------- Gather all HTML files ----------
@@ -119,6 +132,8 @@ for (const htmlFile of htmlFiles) {
     if (!/property="article:section"/.test(raw)) err(`Missing article:section: ${rel}`);
     // Verify JSON-LD contains an Article node
     if (!/"@type":\s*"Article"/.test(raw)) err(`Missing Article JSON-LD schema: ${rel}`);
+    // Verify at least one clickable tag link (tag-link class, href in any order)
+    if (!/<a\b[^>]*class="tag tag-link"[^>]*href=/.test(raw) && !/<a\b[^>]*href="[^"]*"[^>]*class="tag tag-link"/.test(raw)) err(`No clickable tag links on writing page: ${rel}`);
   }
 
   // 2c. Verify OG image URL is absolute (https://)

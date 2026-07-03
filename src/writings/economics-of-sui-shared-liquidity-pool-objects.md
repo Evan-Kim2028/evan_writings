@@ -6,6 +6,11 @@ tags:
   - writing
   - highlights
   - paragraph
+  - liquidity
+  - amm
+  - sui
+  - sentio
+  - dune
 source_url: https://paragraph.xyz/@evandekim/economics-of-sui-shared-liquidity-pool-objects
 source_platform: paragraph
 slug: economics-of-sui-shared-liquidity-pool-objects

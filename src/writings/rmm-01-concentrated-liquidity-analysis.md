@@ -6,6 +6,13 @@ tags:
   - writing
   - defi
   - mirror
+  - liquidity
+  - amm
+  - market-maker
+  - ethereum
+  - kernel-density
+  - uniswap
+  - abstract-algebra
 source_url: https://primitive.mirror.xyz/wXPmtmaO4yvhyra36XKqwX36gM0qmR0X3YNTOBZB5Kk
 source_platform: mirror
 slug: rmm-01-concentrated-liquidity-analysis

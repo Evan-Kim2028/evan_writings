@@ -6,6 +6,9 @@ tags:
   - writing
   - defi
   - mirror
+  - dao
+  - graph-theory
+  - subgraph
 source_url: https://mirror.xyz/evandekim.eth/fuznGoiFzMmDk6iMdunDejkPiuRbJ5yqDRzg7-q2IYA
 source_platform: mirror
 slug: applications-of-graph-theory-on-the-structure-of-a-dao

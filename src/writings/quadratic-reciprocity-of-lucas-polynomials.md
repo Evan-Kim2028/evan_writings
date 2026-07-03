@@ -6,6 +6,7 @@ tags:
   - writing
   - math
   - github
+  - quadratic-reciprocity
 source_url: https://github.com/Evan-Kim2028/math-studies/blob/main/quadratic_reciprocity_lucas_polynomials.pdf
 source_platform: github
 slug: quadratic-reciprocity-of-lucas-polynomials

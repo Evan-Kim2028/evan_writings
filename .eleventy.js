@@ -8,6 +8,33 @@ module.exports = function(eleventyConfig) {
     return collectionApi.getFilteredByTag('writing');
   });
 
+  // Build a collection of all topical tags (excluding structural tags like
+  // 'writing' and collection/source-platform names) with their writings.
+  // Returns an array of { name, slug, writings: [...] } sorted by writings count.
+  const STRUCTURAL_TAGS = new Set([
+    'writing', 'data', 'defi', 'highlights', 'latest', 'math', 'mev',
+    'mirror', 'paragraph', 'github', 'ethresear.ch', 'frontier.tech',
+  ]);
+  eleventyConfig.addCollection('tagList', (collectionApi) => {
+    const writings = collectionApi.getFilteredByTag('writing');
+    const tagMap = new Map();
+    for (const w of writings) {
+      const tags = w.data.tags || [];
+      for (const tag of tags) {
+        if (STRUCTURAL_TAGS.has(tag)) continue;
+        if (!tagMap.has(tag)) tagMap.set(tag, []);
+        tagMap.get(tag).push(w);
+      }
+    }
+    return [...tagMap.entries()]
+      .map(([name, items]) => ({
+        name,
+        slug: slugify(name),
+        writings: items.sort((a, b) => new Date(b.date) - new Date(a.date)),
+      }))
+      .sort((a, b) => b.writings.length - a.writings.length || a.name.localeCompare(b.name));
+  });
+
   eleventyConfig.addFilter('formatDate', (date) => {
     if (!date) return '';
     let d;
@@ -167,12 +194,21 @@ module.exports = function(eleventyConfig) {
     return JSON.stringify(value == null ? '' : value);
   });
 
-  // Filter out the generic 'writing' tag and the collection name from a tags
-  // array, returning only the meaningful tags for SEO.
+  // Filter out structural tags (writing, collection, source platform) from a
+  // tags array, returning only the meaningful topical tags for SEO.
   eleventyConfig.addFilter('seoTags', (tags, collection) => {
     if (!Array.isArray(tags)) return [];
-    return tags.filter((t) => t !== 'writing' && t !== collection);
+    return tags.filter((t) => !STRUCTURAL_TAGS.has(t) && t !== collection);
   });
+
+  // Slugify a tag name for use in tag page URLs.
+  eleventyConfig.addFilter('tagSlug', (tag) => slugify(tag));
+
+  // Pluralize: returns 's' for counts != 1, '' for count == 1.
+  eleventyConfig.addFilter('pluralize', (count) => (count === 1 ? '' : 's'));
+
+  // Check if a tag is topical (not structural).
+  eleventyConfig.addFilter('isTopicalTag', (tag) => !STRUCTURAL_TAGS.has(tag));
 
   // Related writings: same collection, excluding the current page, newest first.
   eleventyConfig.addFilter('related', (writings, currentPage, collection, limit = 3) => {

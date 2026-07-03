@@ -7,6 +7,10 @@ tags:
   - writing
   - latest
   - data
+  - iceberg
+  - duckdb
+  - data-pipeline
+  - solana
 source_url: https://silphcoanalytics.xyz/blog/iceberg-lakehouse-8gb-ram
 source_platform: github
 slug: iceberg-lakehouse-8gb-ram

@@ -6,6 +6,11 @@ tags:
   - writing
   - highlights
   - paragraph
+  - sentio
+  - dune
+  - data-observability
+  - sui
+  - data-pipeline
 source_url: https://paragraph.xyz/@evandekim/data-observability-with-sentio-pipelines
 source_platform: paragraph
 slug: data-observability-with-sentio-pipelines

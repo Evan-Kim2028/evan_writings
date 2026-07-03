@@ -1,0 +1,19 @@
+---
+title: Tags
+layout: base.njk
+permalink: /tags/index.html
+---
+
+<section class="page-header">
+  <h1>Tags</h1>
+  <p class="page-description">Browse writings by topic across all collections.</p>
+</section>
+
+<section class="tag-cloud">
+  {% for tag in collections.tagList %}
+  <a href="{{ '/tags/' | url }}{{ tag.slug }}/" class="tag-cloud-item" data-count="{{ tag.writings.length }}">
+    <span class="tag-cloud-name">{{ tag.name }}</span>
+    <span class="tag-cloud-count">{{ tag.writings.length }}</span>
+  </a>
+  {% endfor %}
+</section>

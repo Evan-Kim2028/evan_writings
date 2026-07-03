@@ -6,6 +6,9 @@ tags:
   - writing
   - mev
   - mirror
+  - sudo
+  - nft
+  - opensea
 source_url: https://mirror.xyz/0x70b0451b1C047ed750C4661B4624B67FD94A31c5/8yqC4SPzhEqeG5ZyNNIWtlP6oQxi5Nr1oO7wVrF3_w0
 source_platform: mirror
 slug: cross-chain-nft-marketplace-mev-strategy-with-artemis-a-technical-commentary

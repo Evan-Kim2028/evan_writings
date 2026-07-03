@@ -6,6 +6,11 @@ tags:
   - writing
   - mev
   - mirror
+  - olympus
+  - liquidity
+  - atomic-execution
+  - subgraph
+  - dune
 source_url: https://mirror.xyz/evandekim.eth/Mc11J16dVP7Ervk1r2Sx_wkJ7dzb7Ce60Y2EpbRBlHY
 source_platform: mirror
 slug: mev-arbitrage-on-olympus

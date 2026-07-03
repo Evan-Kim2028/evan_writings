@@ -6,6 +6,10 @@ tags:
   - writing
   - data
   - mirror
+  - cryo
+  - ethereum
+  - polygon
+  - olap
 source_url: https://mirror.xyz/0x70b0451b1C047ed750C4661B4624B67FD94A31c5/86O5gGvnrm3q_J2ZCAkZZL0o9ernHSGVMvoX564hzlA
 source_platform: mirror
 slug: free-historical-blockchain-extraction-with-cryo-merkle-reth-nodes

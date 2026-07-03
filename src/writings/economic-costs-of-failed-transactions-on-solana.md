@@ -6,6 +6,9 @@ tags:
   - writing
   - data
   - paragraph
+  - solana
+  - oracle
+  - dune
 source_url: https://paragraph.xyz/@evandekim/economic-costs-of-failed-transactions-on-solana
 source_platform: paragraph
 slug: economic-costs-of-failed-transactions-on-solana
