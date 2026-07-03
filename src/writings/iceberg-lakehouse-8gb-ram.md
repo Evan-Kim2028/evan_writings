@@ -2,7 +2,7 @@
 title: "3 Lessons from Building a 170GB Iceberg Lakehouse with 8GB RAM"
 date: "2026-06-07"
 collection: latest
-description: "How the SilphCo Pokémon TCG analytics lakehouse unifies 9 marketplace pipelines into one Apache Iceberg medallion model on a single 8GB-RAM server: a lane registry and schema contracts, incremental gold with snapshot-consistent DuckDB serving, and memory-bounded promotion."
+description: "Building a 170GB Apache Iceberg lakehouse on 8GB RAM: lane registry and schema contracts for 9 pipelines, incremental gold with snapshot-consistent DuckDB serving, and memory-bounded promotion."
 tags:
   - writing
   - latest

@@ -70,6 +70,8 @@ const requiredPages = [
   'robots.txt',
   'llms-full.txt',
   'feed.xml',
+  'search-index.json',
+  'search.js',
   'assets/og-default.png',
 ];
 for (const rel of requiredPages) {
@@ -78,7 +80,14 @@ for (const rel of requiredPages) {
   else if (statSync(full).size === 0) err(`Empty required page: ${rel}`);
 }
 
-// ---------- 1b. Tag pages exist ----------
+// ---------- 1c. Search box on writings page ----------
+const writingsPage = join(SITE, 'writings', 'index.html');
+if (existsSync(writingsPage)) {
+  const wRaw = readFileSync(writingsPage, 'utf8');
+  if (!/id="search-input"/.test(wRaw)) err('Missing search input on writings page');
+  if (!/id="writing-list"/.test(wRaw)) err('Missing writing-list container on writings page');
+  if (!/search\.js/.test(wRaw)) err('Missing search.js script tag on writings page');
+}
 const tagDir = join(SITE, 'tags');
 if (existsSync(tagDir)) {
   const tagDirs = readdirSync(tagDir, { withFileTypes: true })

@@ -8,6 +8,11 @@ layout: base.njk
   <p class="page-description">Every article in the archive, sorted by date.</p>
 </section>
 
+<div class="search-box">
+  <input type="search" id="search-input" placeholder="Search writings..." aria-label="Search writings" autocomplete="off">
+  <span class="search-count" id="search-count" aria-live="polite"></span>
+</div>
+
 <section class="tag-cloud tag-cloud-compact">
   {% for tag in collections.tagList | limit(15) %}
   <a href="{{ '/tags/' | url }}{{ tag.slug }}/" class="tag-cloud-item" data-count="{{ tag.writings.length }}">
@@ -19,13 +24,16 @@ layout: base.njk
 </section>
 
 <section class="writing-list-section">
-  <ul class="writing-list writing-list-cards">
+  <ul class="writing-list writing-list-cards" id="writing-list">
   {% for writing in collections.writings | sortByDate %}
-    <li class="writing-list-item">
+    <li class="writing-list-item" data-title="{{ writing.data.title | lower }}" data-description="{{ (writing.data.description or '') | lower }}" data-collection="{{ writing.data.collection }}" data-tags="{{ (writing.data.tags or []) | join(' ') | lower }}">
       <a href="{{ writing.url | url }}" class="writing-list-title">{{ writing.data.title }}</a>
       <span class="writing-list-meta">{{ writing.data.date | formatDate }} · {{ writing.data.collection }}</span>
       <span class="writing-list-reading-time">{{ writing.templateContent | readingTime }}</span>
     </li>
   {% endfor %}
   </ul>
+  <p class="search-no-results" id="search-no-results" style="display:none;">No writings found. Try a different search term.</p>
 </section>
+
+<script src="{{ '/search.js' | url }}?v=1" defer></script>

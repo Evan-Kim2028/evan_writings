@@ -3,6 +3,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/assets');
   eleventyConfig.addPassthroughCopy('src/favicon.svg');
   eleventyConfig.addPassthroughCopy('src/robots.txt');
+  eleventyConfig.addPassthroughCopy('src/search.js');
 
   eleventyConfig.addCollection('writings', (collectionApi) => {
     return collectionApi.getFilteredByTag('writing');

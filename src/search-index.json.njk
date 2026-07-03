@@ -1,0 +1,18 @@
+---
+permalink: /search-index.json
+layout: null
+eleventyExcludeFromCollections: true
+---
+[
+{% for writing in collections.writings | sortByDate %}
+  {
+    "title": {{ writing.data.title | jsonify | safe }},
+    "description": {{ (writing.data.description or '') | jsonify | safe }},
+    "url": {{ writing.url | jsonify | safe }},
+    "date": {{ writing.data.date | isoDate | jsonify | safe }},
+    "collection": {{ (writing.data.collection or '') | jsonify | safe }},
+    "tags": {{ (writing.data.tags or []) | jsonify | safe }},
+    "readingTime": {{ writing.templateContent | readingTime | jsonify | safe }}
+  }{% if not loop.last %},{% endif %}
+{% endfor %}
+]

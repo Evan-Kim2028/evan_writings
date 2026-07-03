@@ -7,9 +7,13 @@
     "build": "eleventy",
     "verify": "node scripts/verify-site.mjs",
     "test": "npm run build && npm run verify",
+    "new": "node scripts/new-post.mjs",
+    "suggest-tags": "node scripts/suggest-tags.mjs",
+    "check-links": "node scripts/check-links.mjs",
     "clean": "rm -rf _site",
     "mcp:build": "cd mcp && npm install && npm run build",
-    "mcp:run": "cd mcp && npm run start"
+    "mcp:run": "cd mcp && npm run start",
+    "prepare": "husky"
   },
   "keywords": [
     "blog",
@@ -20,9 +24,14 @@
   "author": "Evan Kim",
   "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0"
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "lint-staged": {
+    "src/writings/*.md": "node scripts/lint-frontmatter.mjs"
   }
 }

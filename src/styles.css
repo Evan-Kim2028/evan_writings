@@ -593,6 +593,50 @@ button:focus-visible,
   color: var(--accent);
 }
 
+/* Search box */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.search-box input[type="search"] {
+  flex: 1;
+  max-width: 500px;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  font-family: var(--font-body, inherit);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-box input[type="search"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.search-box input[type="search"]::placeholder {
+  color: var(--text-dim);
+}
+
+.search-count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.search-no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
 /* Writing list (card style) */
 .writing-list-section {
   margin-bottom: 3rem;
