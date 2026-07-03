@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "eleventy --serve --watch",
     "build": "eleventy",
+    "verify": "node scripts/verify-site.mjs",
+    "test": "npm run build && npm run verify",
     "clean": "rm -rf _site",
     "mcp:build": "cd mcp && npm install && npm run build",
     "mcp:run": "cd mcp && npm run start"
