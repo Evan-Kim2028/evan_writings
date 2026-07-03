@@ -1,6 +1,6 @@
 ---
 title: Home
-description: Collected writings on DeFi, data, MEV, and math by Evan Kim.
+description: Agents, Data, DeFi, Math — collected writings by Evan Kim.
 layout: base.njk
 ---
 
@@ -9,7 +9,7 @@ layout: base.njk
     <span class="eyebrow">Evan Kim</span>
     <h1>Collected Writings</h1>
     <p class="hero-tagline">
-      Research, builds, and notes on DeFi, data infrastructure, MEV, and math.
+      Agents, Data, DeFi, Math.
     </p>
     <p class="hero-links">
       <a href="https://github.com/Evan-Kim2028" class="pill">GitHub</a>
@@ -33,6 +33,11 @@ layout: base.njk
       <div class="card-meta">
         <span class="card-collection">{{ writing.data.collection }}</span>
         <span>{{ writing.data.date | formatDate }}</span>
+      </div>
+      <div class="card-reading-time">
+        <span>{{ writing.templateContent | readingTime }}</span>
+        <span class="dot-sep">·</span>
+        <span>{{ writing.templateContent | wordCount }} words</span>
       </div>
     </article>
   {% endfor %}

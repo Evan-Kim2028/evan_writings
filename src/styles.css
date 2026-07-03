@@ -479,6 +479,17 @@ button:focus-visible,
   flex-wrap: wrap;
 }
 
+.reading-time {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.dot-sep {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
 .collection-badge {
   background: var(--accent-soft);
   color: var(--accent);
@@ -510,6 +521,76 @@ button:focus-visible,
   border-radius: var(--radius);
   padding: 2.5rem;
   box-shadow: var(--shadow);
+}
+
+/* Card reading-time row (home featured cards) */
+.card-reading-time {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+/* Reading-time row on writing-list cards */
+.writing-list-reading-time {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+/* Table of contents (article pages) */
+.writing-toc-wrapper {
+  margin: 0 0 2rem;
+}
+
+.toc {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+
+.toc-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.toc-link {
+  display: block;
+  padding: 0.3rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  line-height: 1.4;
+  border-left: 2px solid transparent;
+  padding-left: 0.75rem;
+  margin-left: -0.75rem;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.toc-link:hover {
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
+.toc-link-h3 {
+  padding-left: 1.75rem;
+  margin-left: -0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.toc-link-h3:hover {
+  color: var(--accent);
 }
 
 /* Writing list (card style) */

@@ -85,12 +85,72 @@ module.exports = function(eleventyConfig) {
     return firstSentence.length > 180 ? firstSentence.slice(0, 180) + '…' : firstSentence + '.';
   });
 
+  // Strip HTML tags and return plain text word count.
+  eleventyConfig.addFilter('wordCount', (content) => {
+    if (!content) return 0;
+    const text = content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!text) return 0;
+    return text.split(/\s+/).length;
+  });
+
+  // Reading time in minutes from rendered HTML content (200 wpm).
+  // Returns a human label like "8 min read" or "1 min read".
+  eleventyConfig.addFilter('readingTime', (content) => {
+    const words = eleventyConfig.getFilter('wordCount')(content);
+    if (!words) return '';
+    const minutes = Math.max(1, Math.round(words / 200));
+    return `${minutes} min read`;
+  });
+
+  // Slugify a heading text into a URL-safe anchor id.
+  function slugify(text) {
+    return String(text)
+      .toLowerCase()
+      .replace(/<[^>]+>/g, '')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  // Build a table-of-contents nav from the H2/H3 headings in rendered HTML.
+  // Returns an HTML string (empty if fewer than 2 headings).
+  eleventyConfig.addFilter('toc', (content) => {
+    if (!content) return '';
+    const headingRe = /<h([23])[^>]*>([\s\S]*?)<\/h\1>/gi;
+    const items = [];
+    let m;
+    while ((m = headingRe.exec(content)) !== null) {
+      const level = parseInt(m[1], 10);
+      const text = m[2].replace(/<[^>]+>/g, '').trim();
+      if (!text) continue;
+      const id = slugify(text);
+      items.push({ level, text, id });
+    }
+    if (items.length < 2) return '';
+    const links = items.map((it) => {
+      const cls = it.level === 2 ? 'toc-link toc-link-h2' : 'toc-link toc-link-h3';
+      return `<a href="#${it.id}" class="${cls}">${it.text}</a>`;
+    }).join('\n');
+    return `<nav class="toc" aria-label="Table of contents"><p class="toc-title">On this page</p>${links}</nav>`;
+  });
+
   // Rewrite markdown asset paths to include the repo path prefix
   eleventyConfig.addTransform('prefixAssets', (content, outputPath) => {
     if (outputPath && outputPath.endsWith('.html')) {
-      return content
+      let out = content
         .replace(/src="\/assets\//g, 'src="/evan_writings/assets/')
         .replace(/href="\/assets\//g, 'href="/evan_writings/assets/');
+      // Inject id attributes on H2/H3 inside .writing-body so TOC anchors resolve.
+      // Only adds an id when the heading doesn't already have one.
+      out = out.replace(/(<h([23]))((?:(?!id=)[^>])*)(>[\s\S]*?<\/h\2>)/gi, (match, open, level, attrs, rest) => {
+        if (/\bid=/i.test(attrs)) return match;
+        const text = rest.replace(/<[^>]+>/g, '').replace(/<\/?h[23]>/gi, '').trim();
+        const id = slugify(text);
+        if (!id) return match;
+        return `${open}${attrs} id="${id}"${rest}`;
+      });
+      return out;
     }
     return content;
   });

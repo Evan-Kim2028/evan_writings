@@ -8,6 +8,11 @@ layout: base.njk
   <div class="page-meta">
     <span class="date">{{ date | formatDate }}</span>
     <span class="collection-badge">{{ collection }}</span>
+    {% set _rt = content | readingTime %}
+    {% if _rt %}
+    <span class="dot-sep">·</span>
+    <span class="reading-time">{{ _rt }}</span>
+    {% endif %}
   </div>
   {% if tags %}
   <div class="tags">
@@ -22,6 +27,13 @@ layout: base.njk
   </p>
   {% endif %}
 </section>
+
+{% set _toc = content | toc %}
+{% if _toc %}
+<div class="writing-toc-wrapper">
+  {{ _toc | safe }}
+</div>
+{% endif %}
 
 <article class="writing-card">
   <div class="writing-body">
