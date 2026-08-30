@@ -60,3 +60,40 @@ layout: base.njk
   </ul>
 </section>
 {% endif %}
+<script>
+(function () {
+  const root = document.querySelector('.writing-body');
+  if (!root) return;
+  const parse = (txt) => {
+    const s = String(txt).replace(/[*$,]/g, '').trim();
+    if (s.endsWith('%')) return parseFloat(s);
+    const n = parseFloat(s);
+    return Number.isFinite(n) ? n : null;
+  };
+  const modeFor = (h) => {
+    const k = h.toLowerCase();
+    if (/pass|cache hit/.test(k) && !/spend/.test(k)) return 'max';
+    if (/hops|token|spend|cost/.test(k)) return 'min';
+    return null;
+  };
+  root.querySelectorAll('table').forEach((table) => {
+    const heads = [...table.querySelectorAll('thead th, tr:first-child th')].map((th) => th.textContent.trim());
+    const rows = [...table.querySelectorAll('tbody tr')];
+    if (!rows.length) return;
+    const body = table.querySelector('thead') ? rows : rows.slice(1);
+    const use = body.length ? body : rows;
+    heads.forEach((h, c) => {
+      if (c === 0) return;
+      const mode = modeFor(h);
+      if (!mode) return;
+      const vals = use.map((r) => parse(r.children[c] ? r.children[c].textContent : ''));
+      const nums = vals.filter((v) => v != null);
+      if (!nums.length) return;
+      const win = mode === 'max' ? Math.max(...nums) : Math.min(...nums);
+      use.forEach((r, i) => {
+        if (vals[i] != null && vals[i] === win && r.children[c]) r.children[c].classList.add('best');
+      });
+    });
+  });
+})();
+</script>

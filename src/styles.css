@@ -1014,6 +1014,17 @@ button:focus-visible,
   border-bottom: 1px solid var(--border);
 }
 
+.writing-body th:not(:first-child),
+.writing-body td:not(:first-child) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.writing-body td.best {
+  color: var(--success);
+  font-weight: 700;
+}
+
 .writing-body th {
   background: var(--surface);
   color: var(--text);
