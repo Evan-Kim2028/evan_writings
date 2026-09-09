@@ -25,7 +25,9 @@
   "license": "MIT",
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
+    "@vscode/markdown-it-katex": "^1.1.2",
     "husky": "^9.1.7",
+    "katex": "^0.18.7",
     "lint-staged": "^16.4.0"
   },
   "engines": {

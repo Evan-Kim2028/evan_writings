@@ -4,6 +4,45 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/favicon.svg');
   eleventyConfig.addPassthroughCopy('src/robots.txt');
   eleventyConfig.addPassthroughCopy('src/search.js');
+  eleventyConfig.addPassthroughCopy('src/site.js');
+  eleventyConfig.addPassthroughCopy({ 'node_modules/katex/dist/katex.min.css': 'vendor/katex.min.css' });
+  eleventyConfig.addPassthroughCopy({ 'node_modules/katex/dist/fonts': 'vendor/fonts' });
+
+  // Markdown: KaTeX math ($...$ and $$...$$) rendered at build time.
+  const markdownIt = require('markdown-it');
+  const md = markdownIt({ html: true });
+  try {
+    const katexPlugin = require('@vscode/markdown-it-katex');
+    md.use(katexPlugin.default || katexPlugin, { throwOnError: false });
+  } catch (e) {
+    console.warn('[eleventy] markdown-it-katex not available:', e.message);
+  }
+  eleventyConfig.setLibrary('md', md);
+
+  // {% chart "assets/charts/foo.json", "Caption text" %}
+  // Emits a lazy Plotly figure; site.js loads Plotly only when a chart is on the page.
+  eleventyConfig.addShortcode('chart', (src, caption = '', opts = {}) => {
+    const h = opts.height || 360;
+    const cap = caption ? `<figcaption>${caption}</figcaption>` : '';
+    return `<figure class="wide chart-figure"><div class="fig-box"><div class="chart" data-src="${src}" style="height:${h}px"></div></div>${cap}</figure>`;
+  });
+
+  // Group writings by year (newest first) for the archive.
+  eleventyConfig.addFilter('byYear', (items) => {
+    const groups = new Map();
+    for (const it of items.slice().sort((a, b) => new Date(b.date) - new Date(a.date))) {
+      const y = new Date(it.date).getFullYear();
+      if (!groups.has(y)) groups.set(y, []);
+      groups.get(y).push(it);
+    }
+    return [...groups.entries()].map(([year, writings]) => ({ year, writings }));
+  });
+
+  eleventyConfig.addFilter('shortDate', (date) => {
+    if (!date) return '';
+    const d = date instanceof Date ? date : new Date(String(date).split(' ')[0] + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short' });
+  });
 
   eleventyConfig.addCollection('writings', (collectionApi) => {
     return collectionApi.getFilteredByTag('writing');
@@ -268,6 +307,15 @@ module.exports = function(eleventyConfig) {
         if (!id) return match;
         return `${open}${attrs} id="${id}"${rest}`;
       });
+      // Wrap standalone images into <figure>; an immediately following
+      // paragraph that is only <em>…</em> becomes the figcaption.
+      out = out.replace(/<p>(<img[^>]+>)<\/p>\s*(?:<p><em>([\s\S]*?)<\/em><\/p>)?/gi, (m, img, cap) => {
+        const c = cap ? `<figcaption>${cap}</figcaption>` : '';
+        return `<figure class="wide">${img}${c}</figure>`;
+      });
+      // Wrap markdown tables so they can break out of the prose column and sort.
+      out = out.replace(/<table>([\s\S]*?)<\/table>/gi, (m) =>
+        `<figure class="wide"><div class="fig-box table-wrap">${m.replace('<table>', '<table class="sortable">')}</div></figure>`);
       return out;
     }
     return content;

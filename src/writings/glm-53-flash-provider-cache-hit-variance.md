@@ -7,6 +7,9 @@ tags:
   - writing
   - latest
   - data
+  - llm-inference
+  - openrouter
+  - benchmarks
 source_url: https://x.com/EvanDeKim/status/2094186460282789994
 source_platform: x
 slug: glm-53-flash-provider-cache-hit-variance
@@ -71,9 +74,7 @@ The provider needs to manage the model's cached state, keep the relevant replica
 
 The significant cache hit difference did not translate directly into a significant cost difference.
 
-![Cache hit rate versus total cost](/assets/images/glm-53-flash-cache-vs-spend.png)
-
-*Total cost at $0.15 input, $0.03 cached, $0.50 output. Cache hit rate does not order the bill.*
+{% chart "assets/charts/glm-53-flash-cache-vs-cost.json", "<b>Figure 1.</b> Cache hit rate versus total spend at $0.15 input, $0.03 cached, $0.50 output. Marker size is total tokens. Cache hit rate does not order the bill." %}
 
 Prompt cache only discounts input. Input size is almost the same on every provider, about 19k to 20k tokens across the 45 calls and the rest being output tokens. For instance Novita had 52k and DeepInfra had 30k output tokens.
 

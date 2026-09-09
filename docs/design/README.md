@@ -1,97 +1,43 @@
 # Evan's Writings — Design System
 
-This folder documents the visual design system for the site so future changes stay consistent.
+Editorial, light-first, figures-as-hero. Prototypes that drove this system live alongside this file (`index.html`, `prototype.html`).
 
-## Color palette
+## Tokens (`src/styles.css`)
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--bg` | `#0a0a0f` | Page background |
-| `--bg-elevated` | `#12121a` | Footer, code blocks |
-| `--surface` | `#181824` | Cards, elevated containers |
-| `--surface-hover` | `#202032` | Card hover state |
-| `--border` | `#2a2a3d` | Card borders, dividers |
-| `--border-subtle` | `#1f1f2e` | Section dividers |
-| `--text` | `#f0f0f5` | Headings, primary text |
-| `--text-muted` | `#9ca3af` | Body text, descriptions |
-| `--text-dim` | `#6b7280` | Metadata, captions |
-| `--accent` | `#60a5fa` | Primary accent (blue) |
-| `--accent-soft` | `rgba(96, 165, 250, 0.12)` | Subtle accent backgrounds |
-| `--accent-glow` | `rgba(96, 165, 250, 0.25)` | Hero glow effects |
-| `--secondary` | `#c084fc` | Secondary accent (purple) |
-| `--secondary-soft` | `rgba(192, 132, 252, 0.12)` | Secondary glow |
+Theme is set by `data-theme` on `<html>` (light default, follows `prefers-color-scheme`, toggle persists in `localStorage`, no-flash init script in `base.njk`).
+
+| Token | Light | Dark | Usage |
+|---|---|---|---|
+| `--bg` | `#fbfbf9` | `#0f1013` | Page |
+| `--bg-2` | `#f2f1ec` | `#16181d` | Figure boxes, code, inputs |
+| `--text` | `#1a1a1a` | `#e8e6e1` | Headings, body |
+| `--text-2` | `#4b4b4b` | `#b3b0a8` | Secondary text |
+| `--text-3` | `#8a8a85` | `#6f6d68` | Meta, captions |
+| `--line` | `#e3e2dc` | `#26282e` | Rules, borders |
+| `--accent` | `#1f5fbf` | `#7aa7ff` | Links, chart marks |
+| `--accent-2` | `#b6541e` | `#f19a5b` | Kickers |
+| `--hi` | `#fff3d6` | `#2a2410` | `td.best` highlight |
 
 ## Typography
 
-- **Body/UI:** system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue'
-- **Code:** 'SF Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier
-- **Headings:** 800 weight, tight letter-spacing, gradient text on hero and page headers
+- Body/UI: Inter, 17px, line-height 1.6, prose column `68ch`
+- Display/headings: Newsreader (serif), weight 500, tight tracking
+- Code: JetBrains Mono
+- Fonts load from Google Fonts with `display=swap`.
 
-## Components
+## Layout
 
-### Hero
-- Large gradient headline
-- Eyebrow badge with accent border
-- Pill-style social links
-- Radial glow accents behind content
+- Page width `--wide: 1180px`.
+- Article: 200px sticky left rail (TOC + back link) and a content column. Prose is capped at `68ch`; `figure.wide` fills the content column.
+- Home: intro, Latest (lead + two), Selected (= `highlights` collection), Archive grouped by year with collection filters.
 
-### Cards
-- Background: `--surface`
-- Border: 1px solid `--border`
-- Border-radius: 12px
-- Shadow: subtle drop shadow
-- Hover: lift up, border turns accent, deeper shadow
+## Article content conventions
 
-### Page header
-- Back link above title
-- Gradient headline
-- Page description text
-- Metadata and badges below
+- Markdown images become `<figure class="wide">`; an immediately following *italic paragraph* becomes the `<figcaption>`.
+- Markdown tables become sortable (`table.sortable`) inside a `.fig-box`. Mark the best cell with `<td class="best">` in raw HTML if needed.
+- Math: `$…$` and `$$…$$` rendered at build time with KaTeX.
+- Interactive charts: `{% chart "assets/charts/name.json", "<b>Figure N.</b> caption" %}`. The JSON is `{ data, layout }` in Plotly format. Colors omitted from the spec are filled from theme tokens and redrawn on theme toggle. Plotly is loaded from CDN only on pages that use a chart.
 
-### Writing list cards
-- Grid layout, min 300px
-- Each item is a card with title + date
-- Hover matches other cards
+## Motion
 
-### Writing article card
-- Article content wrapped in a card
-- Body text uses muted color with `--text` for headings
-
-## Spacing
-
-- `--max-width`: 1000px
-- Section gaps: 4–5rem
-- Card padding: 1.5–1.75rem
-- Article card padding: 2.5rem
-
-## Accessibility
-
-- Skip-to-content link on every page
-- Visible `:focus-visible` outline (2px accent, 2px offset)
-- Semantic HTML: `<header>`, `<nav>`, `<main>`, `<footer>`, `<article>`
-- Descriptive link text and `aria-label` where helpful
-- `theme-color` meta tag for mobile browsers
-- `lang="en"` on `<html>`
-
-## Responsive breakpoints
-
-- Mobile: < 480px
-- Tablet: < 768px
-- Desktop: 768px+
-
-Card grids collapse to single column on mobile. Navigation wraps on tablet and stacks vertically on small phones.
-
-## Mobile best practices
-
-- **Tap targets:** Interactive links (nav, footer, source, view-all, back-link, pills, all-link) are sized to at least `44px` tall for comfortable touch use.
-- **Overflow protection:** `overflow-wrap: break-word` is applied to `main`, `.writing-body`, `.writing-body a`, and inline code to prevent long URLs or code from breaking the layout.
-- **Responsive tables:** Tables inside `.writing-body` scroll horizontally (`overflow-x: auto`) on narrow viewports, and cell padding is reduced on mobile.
-- **320px breakpoint:** An extra small-screen breakpoint (`@media (max-width: 320px)`) further tightens padding and gaps for very small devices.
-
-## Assets
-
-- Favicon: `src/favicon.svg` (SVG, blue "E" on dark surface)
-- 404 page: `src/404.njk`
-- `robots.txt`: allows all, references sitemap
-- Sitemap: `src/sitemap.xml.njk` with homepage, listings, and every writing
-- Open Graph / Twitter Card meta tags on every page
+`.reveal` fade-up on intersection, reading-progress bar, hover lifts. All disabled under `prefers-reduced-motion`.

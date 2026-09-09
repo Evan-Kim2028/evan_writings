@@ -1,0 +1,16 @@
+{
+  "data": [{
+    "type": "scatter", "mode": "markers+text", "textposition": "top center",
+    "x": [80, 31, 24, 0, 0],
+    "y": [0.010, 0.014, 0.011, 0.009, 0.018],
+    "text": ["Z.AI", "Novita", "GMI", "DeepInfra", "Fireworks"],
+    "customdata": [58786, 72502, 58301, 50216, 48771],
+    "marker": { "size": [23.5, 29, 23.3, 20.1, 19.5], "opacity": 0.85, "line": { "width": 2 } },
+    "textfont": { "size": 12 },
+    "hovertemplate": "<b>%{text}</b><br>cache hit %{x}%<br>cost $%{y:.3f}<br>%{customdata:,} tokens<extra></extra>"
+  }],
+  "layout": {
+    "xaxis": { "title": "Cache hit rate (%)", "range": [-8, 95] },
+    "yaxis": { "title": "Total cost (USD)", "tickprefix": "$", "tickformat": ".3f", "range": [0.006, 0.021] }
+  }
+}

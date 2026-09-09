@@ -1,90 +1,94 @@
 ---
 title: Home
-description: Agents, Data, DeFi, Math — collected writings by Evan Kim.
+description: Agents, evals, data. Writing by Evan Kim.
 layout: base.njk
 ---
 
-<section class="hero">
-  <div class="hero-content">
-    <span class="eyebrow">Evan Kim</span>
-    <h1>Collected Writings</h1>
-    <p class="hero-tagline">
-      Agents, Data, DeFi, Math.
-    </p>
-    <p class="hero-links">
-      <a href="https://github.com/Evan-Kim2028" class="pill">GitHub</a>
-      <a href="https://x.com/EvanDeKim" class="pill">Twitter</a>
-      <a href="https://dune.com/evandekim" class="pill">Dune</a>
-      <a href="https://app.sentio.xyz/evandekim/sui-lst/dashboards/6fO9DNrQ" class="pill">Sentio</a>
-    </p>
+{% set _all = collections.writings | sortByDate %}
+
+<div class="intro">
+  <div>
+    <h1>Measuring systems, then writing down what the numbers say.</h1>
+    <p>Agents, evals, data.</p>
+    <div class="links">
+      <a href="https://x.com/evandekim">X</a>
+      <a href="https://github.com/Evan-Kim2028">GitHub</a>
+      <a href="https://www.linkedin.com/in/evan-kim-30943591">LinkedIn</a>
+      <a href="{{ '/feed.xml' | url }}">RSS</a>
+      <a href="{{ '/llms-full.txt' | url }}">llms.txt</a>
+    </div>
+  </div>
+</div>
+
+<section class="home">
+  <div class="sec-head"><h2>Latest</h2><a href="{{ '/writings/' | url }}">All writing →</a></div>
+  <div class="latest">
+    {% for writing in _all | limit(3) %}
+    {% set _img = writing.templateContent | firstImage %}
+    <a class="post{% if loop.first %} lead{% endif %} reveal" href="{{ writing.url | url }}">
+      {% if _img %}<div class="fig"><img src="{{ _img }}" alt="" loading="lazy"></div>{% endif %}
+      <div class="k"><span class="c">{{ writing.data.collection }}</span><span>{{ writing.data.date | formatDate }}</span><span>{{ writing.templateContent | readingTime }}</span></div>
+      <h3>{{ writing.data.title }}</h3>
+      <p>{{ writing.data.description or (writing.templateContent | excerpt) }}</p>
+    </a>
+    {% endfor %}
   </div>
 </section>
 
-<section class="featured">
-  <div class="section-header">
-    <h2>Featured Writings</h2>
-    <a href="{{ '/writings/' | url }}" class="all-link">View all →</a>
+<section class="home" id="selected">
+  <div class="sec-head"><h2>Selected</h2><a href="{{ '/collections/highlights/' | url }}">All highlights →</a></div>
+  <div class="selected">
+    {% for writing in _all %}
+      {% if writing.data.collection == 'highlights' and loop.index0 < 40 %}
+      <a class="sel reveal" href="{{ writing.url | url }}">
+        <span class="y">{{ writing.data.date | formatDateIso | truncate(4, true, '') }}</span>
+        <div>
+          <h3>{{ writing.data.title }}</h3>
+          <p>{{ writing.data.description or (writing.templateContent | excerpt) }}</p>
+        </div>
+      </a>
+      {% endif %}
+    {% endfor %}
   </div>
-  <div class="featured-grid">
-  {% for writing in collections.writings | sortByDate | limit(6) %}
-    <article class="featured-card">
-      <a href="{{ writing.url | url }}" class="card-title">{{ writing.data.title }}</a>
-      <p class="card-excerpt">{{ writing.templateContent | excerpt }}</p>
-      <div class="card-meta">
-        <span class="card-collection">{{ writing.data.collection }}</span>
-        <span>{{ writing.data.date | formatDate }}</span>
-      </div>
-      <div class="card-reading-time">
-        <span>{{ writing.templateContent | readingTime }}</span>
-        <span class="dot-sep">·</span>
-        <span>{{ writing.templateContent | wordCount }} words</span>
-      </div>
-    </article>
+</section>
+
+<section class="home" id="archive">
+  <div class="sec-head"><h2>Archive</h2><span>{{ _all.length }} pieces, {{ (_all | last).data.date | formatDateIso | truncate(4, true, '') }}–{{ (_all | first).data.date | formatDateIso | truncate(4, true, '') }}</span></div>
+  <div class="filters" role="group" aria-label="Filter by collection">
+    <button class="on" data-f="all">All</button>
+    <button data-f="latest">Latest</button>
+    <button data-f="highlights">Highlights</button>
+    <button data-f="data">Data</button>
+    <button data-f="mev">MEV</button>
+    <button data-f="defi">DeFi</button>
+    <button data-f="math">Math</button>
+  </div>
+  {% for group in _all | byYear %}
+  <div class="year">
+    <div class="y">{{ group.year }}</div>
+    <div class="rows">
+      {% for writing in group.writings %}
+      <a class="row" data-c="{{ writing.data.collection }}" href="{{ writing.url | url }}">
+        <span class="t">{{ writing.data.title }}</span>
+        <span class="m">{{ writing.data.collection }} · {{ writing.data.date | shortDate }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
   {% endfor %}
-  </div>
 </section>
 
-<section class="collections-overview">
-  <div class="section-header">
-    <h2>Browse by Collection</h2>
-  </div>
-  <div class="collection-grid">
-    <a href="{{ '/collections/latest/' | url }}" class="card">
-      <span class="card-name">Latest</span>
-      <span class="card-count">{{ collections.writings | countByCollection('latest') }} writings</span>
-    </a>
-    <a href="{{ '/collections/highlights/' | url }}" class="card">
-      <span class="card-name">Highlights</span>
-      <span class="card-count">{{ collections.writings | countByCollection('highlights') }} writings</span>
-    </a>
-    <a href="{{ '/collections/data/' | url }}" class="card">
-      <span class="card-name">Data</span>
-      <span class="card-count">{{ collections.writings | countByCollection('data') }} writings</span>
-    </a>
-    <a href="{{ '/collections/mev/' | url }}" class="card">
-      <span class="card-name">MEV</span>
-      <span class="card-count">{{ collections.writings | countByCollection('mev') }} writings</span>
-    </a>
-    <a href="{{ '/collections/defi/' | url }}" class="card">
-      <span class="card-name">DeFi</span>
-      <span class="card-count">{{ collections.writings | countByCollection('defi') }} writings</span>
-    </a>
-    <a href="{{ '/collections/math/' | url }}" class="card">
-      <span class="card-name">Math</span>
-      <span class="card-count">{{ collections.writings | countByCollection('math') }} writings</span>
-    </a>
-  </div>
-</section>
-
-<section class="about">
-  <h2>About</h2>
-  <p>
-    I'm a researcher and builder working at the intersection of blockchain data, DeFi mechanisms, and applied math.
-    This archive collects my past work across Paragraph, Mirror, ethresear.ch, and GitHub —
-    reorganized so it's easier to browse, reference, and search.
-  </p>
-  <p>
-    All content is also exposed through a local MCP server so you can query it directly from Claude.
-    See the <a href="{{ '/llms-full.txt' | url }}">full-text index</a> or the <a href="https://github.com/Evan-Kim2028/evan_writings">source repo</a>.
-  </p>
-</section>
+<script>
+  document.querySelectorAll('.filters button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.filters button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      var f = b.dataset.f;
+      document.querySelectorAll('.row').forEach(function (r) { r.classList.toggle('off', f !== 'all' && r.dataset.c !== f); });
+      document.querySelectorAll('.year').forEach(function (y) {
+        var any = Array.prototype.some.call(y.querySelectorAll('.row'), function (r) { return !r.classList.contains('off'); });
+        y.classList.toggle('off', !any);
+      });
+    });
+  });
+</script>

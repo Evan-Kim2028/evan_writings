@@ -2,98 +2,58 @@
 layout: base.njk
 ---
 
-<section class="page-header">
-  <a href="{{ '/writings/' | url }}" class="back-link">← All Writings</a>
-  <h1>{{ title }}</h1>
-  <div class="page-meta">
-    <span class="date">{{ date | formatDate }}</span>
-    <span class="collection-badge">{{ collection }}</span>
-    {% set _rt = content | readingTime %}
-    {% if _rt %}
-    <span class="dot-sep">·</span>
-    <span class="reading-time">{{ _rt }}</span>
-    {% endif %}
-  </div>
-  {% if tags %}
-  <div class="tags">
-    {% for tag in tags %}
-      {% if tag | isTopicalTag %}
-      <a href="{{ '/tags/' | url }}{{ tag | tagSlug }}/" class="tag tag-link">{{ tag }}</a>
-      {% else %}
-      <span class="tag">{{ tag }}</span>
-      {% endif %}
-    {% endfor %}
-  </div>
-  {% endif %}
-  {% if source_url %}
-  <p class="original-link">
-    <a href="{{ source_url }}" target="_blank" rel="noopener">View original ↗</a>
-  </p>
-  {% endif %}
-</section>
-
 {% set _toc = content | toc %}
-{% if _toc %}
-<div class="writing-toc-wrapper">
-  {{ _toc | safe }}
+<div class="article-layout">
+  <aside class="rail">
+    {% if _toc %}
+    {{ _toc | safe }}
+    {% endif %}
+    <a href="{{ '/writings/' | url }}" class="rail-back">← All writing</a>
+  </aside>
+
+  <article class="article">
+    <header class="article-head">
+      <div class="kicker">
+        <a href="{{ '/collections/' | url }}{{ collection }}/">{{ collection }}</a>
+        &nbsp;·&nbsp; {{ date | formatDate }}
+        {% set _rt = content | readingTime %}
+        {% if _rt %}&nbsp;·&nbsp; {{ _rt }}{% endif %}
+      </div>
+      <h1 class="title">{{ title }}</h1>
+      {% if description %}
+      <p class="dek">{{ description }}</p>
+      {% endif %}
+      <div class="meta">
+        <span>Evan Kim</span>
+        {% if tags %}
+          {% for tag in tags %}
+            {% if tag | isTopicalTag %}
+            <a href="{{ '/tags/' | url }}{{ tag | tagSlug }}/" class="tag tag-link">{{ tag }}</a>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </header>
+
+    <div class="writing-body">
+      {{ content | safe }}
+    </div>
+
+    <footer class="article-end">
+      {% if source_url %}
+      <p class="archive-note">Originally published on {{ source_platform or 'the web' }}, {{ date | formatDate }}. <a href="{{ source_url }}" target="_blank" rel="noopener">View original ↗</a></p>
+      {% endif %}
+      {% set _related = collections.writings | related(page, collection, 2) %}
+      {% if _related.length %}
+      <div class="related">
+        {% for r in _related %}
+        <a href="{{ r.url | url }}">
+          <div class="k">More in {{ r.data.collection }} · {{ r.data.date | formatDate }}</div>
+          <div class="t">{{ r.data.title }}</div>
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </footer>
+  </article>
 </div>
-{% endif %}
-
-<article class="writing-card">
-  <div class="writing-body">
-    {{ content | safe }}
-  </div>
-</article>
-
-{# Related writings — same collection, excluding the current one, newest first #}
-{% set _related = collections.writings | related(page, collection, 3) %}
-{% if _related.length %}
-<section class="related-writings">
-  <h2>More from {{ collection | title }}</h2>
-  <ul class="related-list">
-    {% for writing in _related %}
-    <li class="related-item">
-      <a href="{{ writing.url | url }}" class="related-title">{{ writing.data.title }}</a>
-      <span class="related-meta">{{ writing.data.date | formatDate }} · {{ writing.templateContent | readingTime }}</span>
-    </li>
-    {% endfor %}
-  </ul>
-</section>
-{% endif %}
-<script>
-(function () {
-  const root = document.querySelector('.writing-body');
-  if (!root) return;
-  const parse = (txt) => {
-    const s = String(txt).replace(/[*$,]/g, '').trim();
-    if (s.endsWith('%')) return parseFloat(s);
-    const n = parseFloat(s);
-    return Number.isFinite(n) ? n : null;
-  };
-  const modeFor = (h) => {
-    const k = h.toLowerCase();
-    if (/pass|cache hit/.test(k) && !/spend/.test(k)) return 'max';
-    if (/hops|token|spend|cost/.test(k)) return 'min';
-    return null;
-  };
-  root.querySelectorAll('table').forEach((table) => {
-    const heads = [...table.querySelectorAll('thead th, tr:first-child th')].map((th) => th.textContent.trim());
-    const rows = [...table.querySelectorAll('tbody tr')];
-    if (!rows.length) return;
-    const body = table.querySelector('thead') ? rows : rows.slice(1);
-    const use = body.length ? body : rows;
-    heads.forEach((h, c) => {
-      if (c === 0) return;
-      const mode = modeFor(h);
-      if (!mode) return;
-      const vals = use.map((r) => parse(r.children[c] ? r.children[c].textContent : ''));
-      const nums = vals.filter((v) => v != null);
-      if (!nums.length) return;
-      const win = mode === 'max' ? Math.max(...nums) : Math.min(...nums);
-      use.forEach((r, i) => {
-        if (vals[i] != null && vals[i] === win && r.children[c]) r.children[c].classList.add('best');
-      });
-    });
-  });
-})();
-</script>
