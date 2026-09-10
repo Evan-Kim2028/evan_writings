@@ -13,6 +13,8 @@ tags:
   - iceberg
 source_url: https://github.com/Evan-Kim2028/eval_tasks
 source_platform: github
+source_note: "This page is the writeup only. The task itself, the hidden verifier, the reference solution, and the raw trial artifacts live in the eval_tasks repository on GitHub."
+source_link_text: "View the task and implementation ↗"
 slug: terminal-bench-task-lakehouse-schema-contract-drift
 series: Evals
 series_index: 1

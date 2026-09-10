@@ -316,9 +316,11 @@ module.exports = function(eleventyConfig) {
       items.push({ level, text, id });
     }
     if (items.length < 2) return '';
+    let n = 0;
     const links = items.map((it) => {
       const cls = it.level === 2 ? 'toc-link toc-link-h2' : 'toc-link toc-link-h3';
-      return `<a href="#${it.id}" class="${cls}">${it.text}</a>`;
+      const num = it.level === 2 ? `<span class="toc-num">${String(++n).padStart(2, '0')}</span>` : '';
+      return `<a href="#${it.id}" class="${cls}">${num}${it.text}</a>`;
     }).join('\n');
     return `<nav class="toc" aria-label="Table of contents"><p class="toc-title">On this page</p>${links}</nav>`;
   });

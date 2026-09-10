@@ -53,6 +53,7 @@ layout: base.njk
     {%- if (w.data.series_index or 0) > (series_index or 0) and (not _next or (w.data.series_index or 0) < (_next.data.series_index or 0)) -%}{%- set _next = w -%}{%- endif -%}
   {%- endif -%}
 {%- endfor -%}
+{%- if _prev or _next -%}
 <nav class="series-nav" aria-label="Series navigation">
   <div class="series-nav-head">{{ series }} series · Part {{ series_index }}</div>
   <div class="series-nav-links">
@@ -61,11 +62,16 @@ layout: base.njk
   </div>
 </nav>
 {%- endif -%}
+{%- endif -%}
 
 
     <footer class="article-end">
       {% if source_url %}
+      {% if source_note %}
+      <p class="archive-note">{{ source_note }} <a href="{{ source_url }}" target="_blank" rel="noopener">{{ source_link_text or 'View source ↗' }}</a></p>
+      {% else %}
       <p class="archive-note">Originally published on {{ source_platform or 'the web' }}, {{ date | formatDate }}. <a href="{{ source_url }}" target="_blank" rel="noopener">View original ↗</a></p>
+      {% endif %}
       {% endif %}
       {% set _related = collections.writings | related(page, collection, 2) %}
       {% if _related.length %}

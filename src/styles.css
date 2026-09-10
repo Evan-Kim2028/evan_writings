@@ -6,7 +6,7 @@
   --font-serif: 'Fira Sans', system-ui, sans-serif; /* display slot; kept name for compatibility */
   --font-mono: 'Fira Code', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --prose: 68ch;
-  --prose-article: 74ch;
+  --prose-article: 41.3rem; /* ~74ch of body text; rem so headings share the same column */
   --wide: 1180px;
   --rail: 200px;
   --ease: cubic-bezier(.2, .7, .2, 1);
@@ -177,6 +177,8 @@ section.home { padding: 3rem 0 0; }
 .rail .toc-title { text-transform: uppercase; letter-spacing: .08em; font-size: .7rem; color: var(--text-3); margin: 0 0 .75rem; font-weight: 600; }
 .rail .toc-link { display: block; color: var(--text-3); padding: .25rem 0 .25rem .75rem; border-left: 1px solid var(--line); line-height: 1.4; transition: color .15s, border-color .15s; }
 .rail .toc-link-h3 { padding-left: 1.5rem; }
+.rail .toc-num { display: inline-block; min-width: 1.9em; color: var(--accent-2, var(--text-3)); font-variant-numeric: tabular-nums; font-weight: 600; }
+.rail .toc-link-h3 { padding-left: calc(.75rem + 1.9em); }
 .rail .toc-link.active { color: var(--text); border-left-color: var(--text); }
 .rail .toc-link:hover { color: var(--text); }
 .rail .rail-back { display: block; color: var(--text-3); margin-top: 2rem; }
@@ -230,7 +232,7 @@ figure.wide { width: 100%; max-width: 100%; }
   .article > div.writing-body.writing-body { max-width: none; }
   /* wider text column in articles, and figures centered on that column */
   .writing-body > :not(figure.wide) { max-width: var(--prose-article); }
-  .article > header.article-head.has-hero { max-width: var(--prose-article); }
+  .article > header.article-head.has-hero, .article > .article-end, .article > .series-nav { max-width: var(--prose-article); }
   .writing-body figure.wide { width: min(var(--prose-article), 100%); max-width: none; margin-left: 0; }
   .writing-body figure.wide > img { margin: 0 auto; }
 }
@@ -284,8 +286,9 @@ td.best { background: var(--hi); font-weight: 600; }
 .writing-body table { margin: 0; }
 
 /* article end */
-.article-end { border-top: 1px solid var(--line); margin-top: 4rem; padding-top: 2rem; font-size: .9rem; color: var(--text-2); }
-.archive-note { font-size: .8rem; color: var(--text-3); margin: 0 0 1.5rem; }
+.article-end { max-width: var(--prose-article); border-top: 1px solid var(--line); margin-top: 4rem; padding-top: 2rem; font-size: .9rem; color: var(--text-2); }
+.article-end > * { max-width: none; }
+.archive-note { font-size: .85rem; color: var(--text-2); margin: 0 0 1.5rem; }
 .related { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .related a { display: block; padding: 1rem; border: 1px solid var(--line); border-radius: 8px; color: var(--text); transition: border-color .15s, transform .2s var(--ease); }
 .related a:hover { border-color: var(--text-3); transform: translateY(-2px); }
