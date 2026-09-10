@@ -221,12 +221,7 @@ figure.wide { width: 100%; max-width: 100%; }
   .article > div.writing-body.writing-body { max-width: none; }
   /* wider text column in articles, and figures centered on that column */
   .writing-body > :not(figure.wide) { max-width: var(--prose-article); }
-  .writing-body figure.wide {
-    --fig-w: min(calc(var(--prose-article) + 280px), calc(100% + 8rem));
-    width: var(--fig-w); max-width: none;
-    margin-left: calc((min(var(--prose-article), 100%) - var(--fig-w)) / 2);
-    position: relative; z-index: 1;
-  }
+  .writing-body figure.wide { width: min(var(--prose-article), 100%); max-width: none; margin-left: 0; }
   .writing-body figure.wide > img { margin: 0 auto; }
 }
 figcaption { font-size: .82rem; color: var(--text-3); margin-top: .75rem; line-height: 1.5; }
