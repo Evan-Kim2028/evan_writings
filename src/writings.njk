@@ -29,7 +29,6 @@ layout: base.njk
     <li class="writing-list-item" data-title="{{ writing.data.title | lower }}" data-description="{{ (writing.data.description or '') | lower }}" data-collection="{{ writing.data.collection }}" data-tags="{{ (writing.data.tags or []) | join(' ') | lower }}">
       <a href="{{ writing.url | url }}" class="writing-list-title">{{ writing.data.title }}</a>
       <span class="writing-list-meta">{{ writing.data.date | formatDate }} · {{ writing.data.collection }}</span>
-      <span class="writing-list-reading-time">{{ writing.templateContent | readingTime }}</span>
     </li>
   {% endfor %}
   </ul>

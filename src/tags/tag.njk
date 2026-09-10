@@ -19,7 +19,6 @@ permalink: /tags/{{ tag.slug }}/index.html
   <li class="writing-list-item">
     <a href="{{ writing.url | url }}" class="writing-list-title">{{ writing.data.title }}</a>
     <span class="writing-list-meta">{{ writing.data.date | formatDate }}</span>
-    <span class="writing-list-reading-time">{{ writing.templateContent | readingTime }}</span>
   </li>
   {% endfor %}
 </ul>

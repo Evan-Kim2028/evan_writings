@@ -1,10 +1,9 @@
 ---
 title: "Building an Agentic Native MCP for Data Science"
 date: "2025-10-01"
-collection: latest
+collection: data
 tags:
   - writing
-  - latest
   - paragraph
   - mcp
 source_url: https://paragraph.com/@evandekim/building-an-agentic-native-mcp-for-data-science

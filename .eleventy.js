@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy('src/styles.css');
   eleventyConfig.addPassthroughCopy('src/assets');
@@ -305,12 +307,24 @@ module.exports = function(eleventyConfig) {
         const text = rest.replace(/<[^>]+>/g, '').replace(/<\/?h[23]>/gi, '').trim();
         const id = slugify(text);
         if (!id) return match;
-        return `${open}${attrs} id="${id}"${rest}`;
+        const inner = rest.replace(/^>/, '').replace(new RegExp(`</h${level}>$`, 'i'), '');
+        return `${open}${attrs} id="${id}"><a class="h-link" href="#${id}">${inner}</a></h${level}>`;
       });
       // Wrap standalone images into <figure>; an immediately following
       // paragraph that is only <em>…</em> becomes the figcaption.
       out = out.replace(/<p>(<img[^>]+>)<\/p>\s*(?:<p><em>([\s\S]*?)<\/em><\/p>)?/gi, (m, img, cap) => {
         const c = cap ? `<figcaption>${cap}</figcaption>` : '';
+        // If a `.dark.<ext>` sibling exists under src/assets, emit a light/dark pair
+        // toggled by [data-theme] (see .img-light/.img-dark in styles.css).
+        const sm = img.match(/src="\/evan_writings(\/assets\/[^"]+)\.(png|jpg|jpeg|webp|svg)"/i);
+        if (sm) {
+          const darkRel = `${sm[1]}.dark.${sm[2]}`;
+          if (fs.existsSync(path.join(__dirname, 'src', darkRel))) {
+            const light = img.replace(/<img/i, '<img class="img-light"');
+            const dark = img.replace(/<img/i, '<img class="img-dark"').replace(sm[0], `src="/evan_writings${darkRel}"`);
+            return `<figure class="wide">${light}${dark}${c}</figure>`;
+          }
+        }
         return `<figure class="wide">${img}${c}</figure>`;
       });
       // Wrap markdown tables so they can break out of the prose column and sort.

@@ -1,10 +1,9 @@
 ---
 title: "On-chain Atomic Gaussian Math"
 date: "2025-12-01"
-collection: latest
+collection: math
 tags:
   - writing
-  - latest
   - paragraph
   - gaussian-math
   - sui

@@ -27,7 +27,7 @@ layout: base.njk
     {% set _img = writing.templateContent | firstImage %}
     <a class="post{% if loop.first %} lead{% endif %} reveal" href="{{ writing.url | url }}">
       {% if _img %}<div class="fig"><img src="{{ _img }}" alt="" loading="lazy"></div>{% endif %}
-      <div class="k"><span class="c">{{ writing.data.collection }}</span><span>{{ writing.data.date | formatDate }}</span><span>{{ writing.templateContent | readingTime }}</span></div>
+      <div class="k"><span class="c">{{ writing.data.collection }}</span><span>{{ writing.data.date | formatDate }}</span></div>
       <h3>{{ writing.data.title }}</h3>
       <p>{{ writing.data.description or (writing.templateContent | excerpt) }}</p>
     </a>

@@ -1,11 +1,10 @@
 ---
 title: "5.3-Flash Has Large Provider Cache Hit Variance"
 date: "2026-08-30"
-collection: latest
+collection: data
 description: "GLM-5.3-Flash cache hit rates on OpenRouter ranged from 80% on Z.AI to 0% on DeepInfra and Fireworks. Quality clustered. Cost did not follow cache, because output tokens dominate this workload."
 tags:
   - writing
-  - latest
   - data
   - llm-inference
   - openrouter

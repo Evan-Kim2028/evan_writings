@@ -1,8 +1,8 @@
 ---
-title: "Exposing Training Priors with Local Contract Drift: A Terminal Bench Task Counterexample"
+title: "Terminal-Bench Task: Lakehouse Schema Contract Drift"
 date: "2026-09-10"
 collection: latest
-description: "A lakehouse Terminal-Bench task keeps every familiar Iceberg cue but assigns fresh, disjoint field IDs per schema epoch. Six honest trials on Claude Opus 5 and Grok 4.6 all failed the same four tests. The traces show the agents saw the collision, then verified the convention instead of the contract."
+description: "A Terminal Bench Task Counterexample"
 tags:
   - writing
   - latest
@@ -13,7 +13,9 @@ tags:
   - iceberg
 source_url: https://github.com/Evan-Kim2028/eval_tasks
 source_platform: github
-slug: exposing-training-priors-with-local-contract-drift
+slug: terminal-bench-task-lakehouse-schema-contract-drift
+series: Evals
+series_index: 1
 ---
 
 ![A field of arrows pulling one way, a single green contract line pointing the other, and an agent trajectory that bends toward the contract then falls back](/assets/images/lakehouse-priors-hero.png)
@@ -36,7 +38,6 @@ The environment therefore presents a recognizable lakehouse problem while changi
 
 ![Schema contract drift: Iceberg convention vs task contract](/assets/images/lakehouse-priors-fig1-schema-drift.png)
 
-*Figure 1. The same five columns under the two rules. The Iceberg convention carries IDs 1–4 into epoch 2 and appends 5. The task contract allocates a disjoint set 5–9. The verifier asserts disjointness between epochs.*
 
 The task documentation states the fresh-ID requirement explicitly. The hidden verifier checks whether the implementation preserves that requirement across schema readers, peer publishing, and composed recovery.
 
@@ -81,7 +82,6 @@ The two models expressed this pattern differently. Opus repeatedly encoded the s
 
 ![Flow of the six traces from observation to shipped artifact](/assets/images/lakehouse-priors-fig3-trace-flow.png)
 
-*Figure 2. Observe, interpret, verify, ship. Five trials resolved the sentence into the stable-ID reading and built verification that could only confirm it. One reached the contract reading and reverted.*
 
 ### Opus 5: Verifying the Familiar Convention
 
@@ -107,7 +107,6 @@ The agent then reverted the implementation and restored the stable-ID behavior. 
 
 ![Grok 4.6 trial 1 timeline: fix, verify, revert, ship](/assets/images/lakehouse-priors-fig4-grok-revert.png)
 
-*Figure 3. Grok 4.6 trial 1 in order. Own-suite counts at each step. The disjointness assertion it wrote is the hidden test's assertion.*
 
 Other Grok traces show the same tension. One run stated, `"I don't want to risk breaking the verifier,"` before later producing the correct diagnosis of the schema-ID requirement. Another argued that the requirement described additive schema evolution rather than a complete reset of field identities. A separate hardening run correctly described epoch 2 as using IDs `5-9` and called the result `"Fresh. Good."`
 
