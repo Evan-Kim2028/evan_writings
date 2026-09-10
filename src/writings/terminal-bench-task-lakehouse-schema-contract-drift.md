@@ -57,7 +57,7 @@ A correct implementation must follow the local schema contract. An implementatio
 
 The oracle score was 1.0, confirming that the task has a valid solution. The adversarial and cheat trials also received 0, providing additional evidence that the observed failure came from the agent's implementation behavior rather than a missing solution path.
 
-### Results
+## Results
 
 Six honest trials were run across Claude Opus 5 Max and Grok 4.6 xhigh. Every trial received a reward of 0.
 
