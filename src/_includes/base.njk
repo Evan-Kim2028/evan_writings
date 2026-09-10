@@ -17,14 +17,14 @@
   {%- endif -%}
   <link rel="canonical" href="{{ page.url | absoluteUrl }}">
   <link rel="icon" href="{{ '/favicon.svg' | url }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ '/styles.css' | url }}?v=17">
+  <link rel="stylesheet" href="{{ '/styles.css' | url }}?v=19">
   <link rel="alternate" type="application/rss+xml" title="Evan's Writings" href="{{ '/feed.xml' | absoluteUrl }}">
 
   {# Compute article-level SEO data when this is a writing page.
      We detect writing pages by the presence of a `collection` frontmatter field
      (set by every writing .md). Layouts/index pages don't have it. #}
   {%- set _is_article = collection and page.url and page.url.indexOf('/writings/') === 0 -%}
-  {%- set _first_img = content | firstImage -%}
+  {%- set _first_img = (hero | url) if hero else (content | firstImage) -%}
   {%- set _og_image = _first_img | absoluteImageUrl -%}
   {%- if not _og_image -%}
   {%- set _og_image = '/evan_writings/assets/og-default.png' | absoluteImageUrl -%}

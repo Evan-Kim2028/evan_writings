@@ -2,7 +2,7 @@
 title: "Terminal-Bench Task: Lakehouse Schema Contract Drift"
 date: "2026-09-10"
 collection: latest
-description: "A Terminal Bench Task Counterexample"
+description: "An unofficial Terminal Bench Task Counterexample"
 tags:
   - writing
   - latest
@@ -16,9 +16,9 @@ source_platform: github
 slug: terminal-bench-task-lakehouse-schema-contract-drift
 series: Evals
 series_index: 1
+hero: /assets/images/lakehouse-priors-hero.png
+hero_dark: /assets/images/lakehouse-priors-hero.dark.png
 ---
-
-![A field of arrows pulling one way, a single green contract line pointing the other, and an agent trajectory that bends toward the contract then falls back](/assets/images/lakehouse-priors-hero.png)
 
 ## Research Question - Learned Conventions as behavioral priors
 

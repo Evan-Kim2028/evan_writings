@@ -12,7 +12,7 @@ layout: base.njk
   </aside>
 
   <article class="article">
-    <header class="article-head">
+    <header class="article-head{% if hero %} has-hero{% endif %}"{% if hero %} style="--hero-light:url('{{ hero | url }}');--hero-dark:url('{{ (hero_dark or hero) | url }}')"{% endif %}>
       <div class="kicker">
         <a href="{{ '/collections/' | url }}{{ collection }}/">{{ collection }}</a>
         &nbsp;·&nbsp; {{ date | formatDate }}

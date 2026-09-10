@@ -184,6 +184,13 @@ section.home { padding: 3rem 0 0; }
 .article > :not(figure.wide), .writing-body > :not(figure.wide) { max-width: var(--prose); }
 .article-head { padding-top: 4rem; }
 .article-head .kicker { margin-top: 0; }
+/* hero header: image backdrop with the title over it */
+.article-head.has-hero { position: relative; margin-top: 2.5rem; padding: 3.5rem 2.5rem 2.25rem; min-height: 26rem; display: flex; flex-direction: column; justify-content: flex-end; border-radius: 14px; overflow: hidden; background-image: var(--hero-light); background-size: cover; background-position: center; border: 1px solid var(--line); }
+[data-theme="dark"] .article-head.has-hero { background-image: var(--hero-dark); }
+.article-head.has-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(247,245,239,.92) 0%, rgba(247,245,239,.72) 55%, rgba(247,245,239,.15) 100%); pointer-events: none; }
+[data-theme="dark"] .article-head.has-hero::before { background: linear-gradient(90deg, rgba(11,15,26,.92) 0%, rgba(11,15,26,.72) 55%, rgba(11,15,26,.15) 100%); }
+.article-head.has-hero > * { position: relative; max-width: 34rem; }
+.article-head.has-hero .meta { border-bottom: 0; padding-bottom: 0; margin-bottom: 0; }
 h1.title { font-family: var(--font-serif); font-weight: 500; font-size: 2.9rem; line-height: 1.08; letter-spacing: -.02em; margin: 0 0 1rem; text-wrap: balance; }
 .dek { font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.4; color: var(--text-2); margin: 0 0 1.5rem; text-wrap: pretty; }
 .meta { font-size: .85rem; color: var(--text-3); display: flex; gap: .6rem; flex-wrap: wrap; padding-bottom: 2.5rem; border-bottom: 1px solid var(--line); margin-bottom: 2.5rem; }
@@ -221,6 +228,7 @@ figure.wide { width: 100%; max-width: 100%; }
   .article > div.writing-body.writing-body { max-width: none; }
   /* wider text column in articles, and figures centered on that column */
   .writing-body > :not(figure.wide) { max-width: var(--prose-article); }
+  .article > header.article-head.has-hero { max-width: var(--prose-article); }
   .writing-body figure.wide { width: min(var(--prose-article), 100%); max-width: none; margin-left: 0; }
   .writing-body figure.wide > img { margin: 0 auto; }
 }
