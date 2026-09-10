@@ -16,6 +16,8 @@ source_platform: github
 slug: exposing-training-priors-with-local-contract-drift
 ---
 
+![A field of arrows pulling one way, a single green contract line pointing the other, and an agent trajectory that bends toward the contract then falls back](/assets/images/lakehouse-priors-hero.png)
+
 ## Research Question - Learned Conventions as behavioral priors
 
 **When a local specification conflicts with a strongly learned convention, which signal controls a coding agent's behavior?**
