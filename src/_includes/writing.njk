@@ -66,8 +66,8 @@ layout: base.njk
 
     <footer class="article-end">
       {% if source_url %}
-      {% if source_note %}
-      <p class="archive-note">{{ source_note }} <a href="{{ source_url }}" target="_blank" rel="noopener">{{ source_link_text or 'View source ↗' }}</a></p>
+      {% if source_note is defined %}
+      <p class="archive-note">{% if source_note %}{{ source_note }} {% endif %}<a href="{{ source_url }}" target="_blank" rel="noopener">{{ source_link_text or 'View source ↗' }}</a></p>
       {% else %}
       <p class="archive-note">Originally published on {{ source_platform or 'the web' }}, {{ date | formatDate }}. <a href="{{ source_url }}" target="_blank" rel="noopener">View original ↗</a></p>
       {% endif %}
