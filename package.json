@@ -10,6 +10,7 @@
     "new": "node scripts/new-post.mjs",
     "suggest-tags": "node scripts/suggest-tags.mjs",
     "check-links": "node scripts/check-links.mjs",
+    "figures:dark": "node scripts/dark-figures.mjs",
     "clean": "rm -rf _site",
     "mcp:build": "cd mcp && npm install && npm run build",
     "mcp:run": "cd mcp && npm run start",
@@ -35,5 +36,9 @@
   },
   "lint-staged": {
     "src/writings/*.md": "node scripts/lint-frontmatter.mjs"
+  },
+  "dependencies": {
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+    "markdown-it-footnote": "^4.0.0"
   }
 }

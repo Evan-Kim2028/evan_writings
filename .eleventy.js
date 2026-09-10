@@ -1,6 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+const footnote = require('markdown-it-footnote');
 module.exports = function(eleventyConfig) {
+  eleventyConfig.addPlugin(syntaxHighlight);
+  eleventyConfig.addPassthroughCopy('src/extras.css');
+  eleventyConfig.addPassthroughCopy('src/extras.js');
   eleventyConfig.addPassthroughCopy('src/styles.css');
   eleventyConfig.addPassthroughCopy('src/assets');
   eleventyConfig.addPassthroughCopy('src/favicon.svg');
@@ -19,6 +24,7 @@ module.exports = function(eleventyConfig) {
   } catch (e) {
     console.warn('[eleventy] markdown-it-katex not available:', e.message);
   }
+  md.use(footnote);
   eleventyConfig.setLibrary('md', md);
 
   // {% chart "assets/charts/foo.json", "Caption text" %}
@@ -177,6 +183,29 @@ module.exports = function(eleventyConfig) {
   // AFTER templates render, so content here still has unprefixed /assets/
   // paths — we prepend the pathPrefix so absoluteImageUrl resolves correctly.
   const PATH_PREFIX = '/evan_writings';
+  // Generated hero backdrop for posts without a hero image: a field of arrows
+  // seeded from the slug, hue-shifted per post. Returns a CSS url() data URI.
+  eleventyConfig.addFilter('heroPattern', (seed, theme) => {
+    let h = 2166136261;
+    for (const ch of String(seed || 'x')) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
+    const rand = () => { h = (Math.imul(h, 1664525) + 1013904223) >>> 0; return h / 4294967296; };
+    const hue = Math.floor(rand() * 360);
+    const dark = theme === 'dark';
+    const bg1 = dark ? `hsl(${hue} 30% 8%)` : `hsl(${hue} 35% 96%)`;
+    const bg2 = dark ? `hsl(${(hue + 30) % 360} 32% 13%)` : `hsl(${(hue + 30) % 360} 30% 91%)`;
+    const ink = dark ? `hsl(${hue} 30% 48%)` : `hsl(${hue} 30% 55%)`;
+    const acc = dark ? `hsl(${(hue + 150) % 360} 60% 60%)` : `hsl(${(hue + 150) % 360} 55% 40%)`;
+    const ang = (12 + rand() * 20) * Math.PI / 180;
+    let lines = '';
+    for (let x = -20; x < 1620; x += 52) for (let y = -20; y < 620; y += 52) {
+      const jx = x + (rand() - .5) * 18, jy = y + (rand() - .5) * 18, L = 26;
+      const op = (0.35 + rand() * 0.5).toFixed(2);
+      lines += `<line x1="${jx.toFixed(0)}" y1="${jy.toFixed(0)}" x2="${(jx + L * Math.cos(ang)).toFixed(0)}" y2="${(jy + L * Math.sin(ang)).toFixed(0)}" stroke="${ink}" stroke-width="1.4" opacity="${op}" marker-end="url(#m)"/>`;
+    }
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="600" viewBox="0 0 1600 600"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg1}"/><stop offset="1" stop-color="${bg2}"/></linearGradient><marker id="m" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6z" fill="${ink}"/></marker></defs><rect width="1600" height="600" fill="url(#g)"/>${lines}<line x1="1240" y1="470" x2="1340" y2="250" stroke="${acc}" stroke-width="4" stroke-linecap="round"/></svg>`;
+    return `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`;
+  });
+
   eleventyConfig.addFilter('firstImage', (content) => {
     if (!content) return '';
     const m = String(content).match(/<img[^>]+src="([^"]+)"/i);

@@ -12,7 +12,14 @@ layout: base.njk
   </aside>
 
   <article class="article">
-    <header class="article-head{% if hero %} has-hero{% endif %}"{% if hero %} style="--hero-light:url('{{ hero | url }}');--hero-dark:url('{{ (hero_dark or hero) | url }}')"{% endif %}>
+    {%- if hero -%}
+    {%- set _hl = "url('" + (hero | url) + "')" -%}
+    {%- set _hd = "url('" + ((hero_dark or hero) | url) + "')" -%}
+    {%- else -%}
+    {%- set _hl = slug | heroPattern('light') -%}
+    {%- set _hd = slug | heroPattern('dark') -%}
+    {%- endif -%}
+    <header class="article-head has-hero{% if not hero %} has-pattern{% endif %}" style="--hero-light:{{ _hl | safe }};--hero-dark:{{ _hd | safe }}">
       <div class="kicker">
         <a href="{{ '/collections/' | url }}{{ collection }}/">{{ collection }}</a>
         &nbsp;·&nbsp; {{ date | formatDate }}
@@ -37,6 +44,24 @@ layout: base.njk
     <div class="writing-body">
       {{ content | safe }}
     </div>
+{%- if series -%}
+{%- set _sameSeries = collections.writings | selectattr('data.series') | rejectattr('data.series','undefined') -%}
+{%- set _prev = null -%}{%- set _next = null -%}
+{%- for w in collections.writings -%}
+  {%- if w.data.series == series and w.url != page.url -%}
+    {%- if (w.data.series_index or 0) < (series_index or 0) and (not _prev or (w.data.series_index or 0) > (_prev.data.series_index or 0)) -%}{%- set _prev = w -%}{%- endif -%}
+    {%- if (w.data.series_index or 0) > (series_index or 0) and (not _next or (w.data.series_index or 0) < (_next.data.series_index or 0)) -%}{%- set _next = w -%}{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+<nav class="series-nav" aria-label="Series navigation">
+  <div class="series-nav-head">{{ series }} series · Part {{ series_index }}</div>
+  <div class="series-nav-links">
+    {% if _prev %}<a class="series-prev" href="{{ _prev.url | url }}"><span class="k">← Previous · Part {{ _prev.data.series_index }}</span><span class="t">{{ _prev.data.title }}</span></a>{% else %}<span class="series-empty">This is the first part.</span>{% endif %}
+    {% if _next %}<a class="series-next" href="{{ _next.url | url }}"><span class="k">Next · Part {{ _next.data.series_index }} →</span><span class="t">{{ _next.data.title }}</span></a>{% else %}<span class="series-empty">Next part not published yet.</span>{% endif %}
+  </div>
+</nav>
+{%- endif -%}
+
 
     <footer class="article-end">
       {% if source_url %}
