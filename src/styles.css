@@ -5,6 +5,7 @@
   --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --prose: 68ch;
+  --prose-article: 80ch;
   --wide: 1180px;
   --rail: 200px;
   --ease: cubic-bezier(.2, .7, .2, 1);
@@ -218,7 +219,15 @@ figure.wide { width: 100%; max-width: 100%; }
 /* break figures out over the TOC rail so charts render near full container width */
 @media (min-width: 1001px) {
   .article > div.writing-body.writing-body { max-width: none; }
-  .writing-body figure.wide { width: calc(100% + var(--rail) + 4rem); max-width: none; margin-left: calc(-1 * (var(--rail) + 4rem)); position: relative; z-index: 1; }
+  /* wider text column in articles, and figures centered on that column */
+  .writing-body > :not(figure.wide) { max-width: var(--prose-article); }
+  .writing-body figure.wide {
+    --fig-w: min(calc(var(--prose-article) + 280px), calc(100% + 8rem));
+    width: var(--fig-w); max-width: none;
+    margin-left: calc((min(var(--prose-article), 100%) - var(--fig-w)) / 2);
+    position: relative; z-index: 1;
+  }
+  .writing-body figure.wide > img { margin: 0 auto; }
 }
 figcaption { font-size: .82rem; color: var(--text-3); margin-top: .75rem; line-height: 1.5; }
 figcaption b, figcaption strong { color: var(--text-2); font-weight: 600; }
