@@ -21,8 +21,7 @@ layout: base.njk
     {%- endif -%}
     <header class="article-head has-hero{% if not hero %} has-pattern{% endif %}" style="--hero-light:{{ _hl | safe }};--hero-dark:{{ _hd | safe }}">
       <div class="kicker">
-        <a href="{{ '/collections/' | url }}{{ collection }}/">{{ collection }}</a>
-        &nbsp;·&nbsp; {{ date | formatDate }}
+        {% if collection and collection != 'latest' %}<a href="{{ '/collections/' | url }}{{ collection }}/">{{ collection }}</a>&nbsp;·&nbsp; {% endif %}{{ date | formatDate }}
       </div>
       {% if series %}<p class="series-line">{{ series }} · Part {{ series_index }}</p>{% endif %}
       <h1 class="title">{{ title }}</h1>
