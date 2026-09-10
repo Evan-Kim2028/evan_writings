@@ -2,7 +2,7 @@
 title: "Terminal-Bench Task: Lakehouse Schema Contract Drift"
 date: "2026-09-10"
 collection: latest
-description: "An unofficial Terminal Bench Task Counterexample"
+description: "A Terminal Bench Task Counterexample"
 tags:
   - writing
   - latest
@@ -10,7 +10,7 @@ tags:
   - evals
   - coding-agents
   - terminal-bench
-  - iceberg
+  - data-warehouse
 source_url: https://github.com/Evan-Kim2028/eval_tasks
 source_platform: github
 source_note: ""
