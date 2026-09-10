@@ -65,10 +65,6 @@ All six trials failed the same four tests:
 `test_composed_recovery_matches_serial`  
 `test_seeded_random_variant`
 
-![Six trials by eighteen hidden tests, same four failures](/assets/images/lakehouse-priors-fig2-results.png)
-
-*Figure 2. Verifier outcome per hidden test. All 24 failures trace to one assertion on epoch field-ID disjointness. The oracle passes 18/18.*
-
 The agents consistently produced behavior compatible with stable field identities while the task required fresh identities for each epoch. **Both frontier models encountered evidence supporting the local contract but ultimately converged on the familiar convention.**
 
 ### Agent Reasoning Traces
@@ -83,7 +79,7 @@ The two models expressed this pattern differently. Opus repeatedly encoded the s
 
 ![Flow of the six traces from observation to shipped artifact](/assets/images/lakehouse-priors-fig3-trace-flow.png)
 
-*Figure 3. Observe, interpret, verify, ship. Five trials resolved the sentence into the stable-ID reading and built verification that could only confirm it. One reached the contract reading and reverted.*
+*Figure 2. Observe, interpret, verify, ship. Five trials resolved the sentence into the stable-ID reading and built verification that could only confirm it. One reached the contract reading and reverted.*
 
 ### Opus 5: Verifying the Familiar Convention
 
@@ -109,7 +105,7 @@ The agent then reverted the implementation and restored the stable-ID behavior. 
 
 ![Grok 4.6 trial 1 timeline: fix, verify, revert, ship](/assets/images/lakehouse-priors-fig4-grok-revert.png)
 
-*Figure 4. Grok 4.6 trial 1 in order. Own-suite counts at each step. The disjointness assertion it wrote is the hidden test's assertion.*
+*Figure 3. Grok 4.6 trial 1 in order. Own-suite counts at each step. The disjointness assertion it wrote is the hidden test's assertion.*
 
 Other Grok traces show the same tension. One run stated, `"I don't want to risk breaking the verifier,"` before later producing the correct diagnosis of the schema-ID requirement. Another argued that the requirement described additive schema evolution rather than a complete reset of field identities. A separate hardening run correctly described epoch 2 as using IDs `5-9` and called the result `"Fresh. Good."`
 
