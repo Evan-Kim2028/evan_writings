@@ -1,0 +1,35 @@
+// markdownlint-cli2 config — prose-structure rules for src/writings.
+// Docs: https://github.com/DavidAnson/markdownlint-cli2
+{
+  "config": {
+    // Enable rules explicitly rather than inheriting the full default set,
+    // which includes noisy stylistic rules (e.g. MD013 line length).
+    "default": false,
+
+    // House rules (headings):
+    "MD001": true, // heading levels may only increment by one (no skipped levels)
+    "MD025": true, // a single top-level (h1) heading per document
+    "MD026": {
+      // No trailing punctuation in headings. '?' and '!' are omitted on
+      // purpose: question headings ("What is a replicating market maker?")
+      // are deliberate style here, not a lint error.
+      "punctuation": ".,;:。，；："
+    },
+
+    // House rules (spacing):
+    "MD031": true, // fenced code blocks surrounded by blank lines
+    "MD032": true, // lists surrounded by blank lines
+
+    // Tight hygiene rules in the same spirit:
+    "MD010": true, // no hard tabs
+    "MD012": { "maximum": 1 }, // no multiple consecutive blank lines
+    "MD022": true, // headings surrounded by blank lines
+    "MD023": true, // headings start at the beginning of the line
+    "MD047": true // file ends with a single newline
+  },
+  // No "globs" key on purpose. With globs set, markdownlint-cli2 ignores the
+  // filenames passed on the command line and lints the whole archive, so the
+  // pre-commit hook would fail on every commit regardless of what is staged.
+  // The glob lives in the "lint:md" npm script instead.
+  "gitignore": true
+}

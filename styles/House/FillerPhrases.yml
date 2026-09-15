@@ -1,0 +1,23 @@
+extends: existence
+message: "Filler phrase '%s': delete it or rewrite the sentence."
+level: error
+ignorecase: true
+tokens:
+  - it is worth noting
+  - it's worth noting
+  - it is important to note
+  - it's important to note
+  - it should be noted
+  - at the end of the day
+  - when it comes to
+  - at its core
+  - at it's core
+  - in today's world
+  - in todays world
+  - in the age of
+  - the reality is
+  - the truth is
+  - going forward
+  - in this article
+  - let's dive in
+  - lets dive in

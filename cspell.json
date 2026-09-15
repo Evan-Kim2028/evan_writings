@@ -1,0 +1,71 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "files": ["src/writings/**/*.md"],
+  "useGitignore": true,
+  "ignorePaths": ["node_modules/**", "_site/**", "docs/**"],
+  "dictionaries": ["project-terms"],
+  "dictionaryDefinitions": [
+    {
+      "name": "project-terms",
+      "path": "./cspell/project-terms.txt",
+      "description": "Technical terms, product names, and project vocabulary used in src/writings.",
+      "addWords": true
+    }
+  ],
+  "ignoreRegExpList": [
+    "fm-front-matter",
+    "fm-fenced-code",
+    "fm-inline-code",
+    "fm-display-math",
+    "fm-inline-math",
+    "fm-link-target",
+    "fm-bare-url",
+    "fm-html-tag",
+    "fm-html-comment",
+    "fm-footnote-ref"
+  ],
+  "patterns": [
+    {
+      "name": "fm-front-matter",
+      "pattern": "\\A---\\r?\\n[\\s\\S]*?\\r?\\n---"
+    },
+    {
+      "name": "fm-fenced-code",
+      "pattern": "(?ms)^\\s*```.*?^\\s*```\\s*$"
+    },
+    {
+      "name": "fm-inline-code",
+      "pattern": "`[^`\\n]+`"
+    },
+    {
+      "name": "fm-display-math",
+      "pattern": "\\$\\$[\\s\\S]*?\\$\\$"
+    },
+    {
+      "name": "fm-inline-math",
+      "pattern": "\\$[^\\s$](?:[^$\\n]*[^\\s$])?\\$(?!\\d)"
+    },
+    {
+      "name": "fm-link-target",
+      "pattern": "\\]\\([^)\\n]*\\)"
+    },
+    {
+      "name": "fm-bare-url",
+      "pattern": "https?://\\S+"
+    },
+    {
+      "name": "fm-html-tag",
+      "pattern": "</?[a-zA-Z][^>\\n]*>"
+    },
+    {
+      "name": "fm-html-comment",
+      "pattern": "<!--[\\s\\S]*?-->"
+    },
+    {
+      "name": "fm-footnote-ref",
+      "pattern": "\\[\\^[^\\]\\n]+\\]"
+    }
+  ]
+}

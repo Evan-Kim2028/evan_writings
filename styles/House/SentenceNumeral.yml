@@ -1,0 +1,8 @@
+extends: existence
+message: "Sentence opens with a numeral ('%s'); spell it out or reword so a word leads."
+level: warning
+scope:
+  - sentence & ~heading
+nonword: true
+raw:
+  - "^\\s*[\"'“”‘’]?\\d"

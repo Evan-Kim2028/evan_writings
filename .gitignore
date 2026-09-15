@@ -7,3 +7,6 @@ _site/
 .env.local
 mcp/dist/
 venv/
+# Vale packages — fetched by `vale sync`, not committed.
+styles/Google/
+styles/write-good/

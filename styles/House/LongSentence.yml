@@ -1,0 +1,7 @@
+extends: metric
+message: "Sentence is %s words; the limit is 40."
+level: warning
+scope:
+  - sentence & ~heading
+formula: words
+condition: "> 40.0"

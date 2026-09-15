@@ -1,0 +1,34 @@
+extends: substitution
+message: "Wordy: use '%s' instead of '%s'."
+level: warning
+ignorecase: true
+# Replaces write-good.TooWordy, which flagged precise technical nouns
+# ('maximum', 'minimum', 'requirement', 'utilization', 'equivalent') as
+# wordiness. Only phrases with a strictly shorter equivalent appear here.
+swap:
+  'due to the fact that': because
+  'in the event that': if
+  'for the purpose of': to
+  'in order to': to
+  'at this point in time': now
+  'at the present time': now
+  'prior to': before
+  'subsequent to': after
+  'in the vicinity of': near
+  'with respect to': about
+  'with regard to': about
+  'in regard to': about
+  'in terms of': rewrite without it
+  'a (?:large |small |)number of': several|many
+  'the majority of': most
+  'all of the': all
+  'has the ability to': can
+  'have the ability to': can
+  'is able to': can
+  'are able to': can
+  'in spite of the fact that': although
+  'despite the fact that': although
+  'on a (?:daily|weekly|monthly|yearly) basis': daily|weekly|monthly|yearly
+  'make(?:s|) a decision': decide
+  'conduct an analysis of': analyse
+  'serves? as a': is

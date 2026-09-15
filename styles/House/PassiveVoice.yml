@@ -1,0 +1,10 @@
+extends: existence
+message: "'%s' looks like passive voice; prefer an active construction."
+level: warning
+ignorecase: true
+nonword: true
+raw:
+  - '\b(?:is|are|was|were|be|been|being)\s+(?:\w+ly\s+)?(?:\w+ed|become|begun|bound|bought|brought|built|caught|chosen|come|cut|dealt|done|drawn|driven|eaten|fallen|fed|felt|flown|forgotten|fought|found|frozen|given|gotten|grown|heard|held|hidden|hit|hung|kept|known|laid|led|left|lost|made|meant|met|overcome|paid|put|read|ridden|risen|run|said|seen|sent|set|shown|shut|sold|sought|spent|split|spoken|stood|stolen|struck|sworn|taken|taught|thought|thrown|told|torn|undergone|understood|withheld|won|worn|written)\b'
+exceptions:
+  # '-ed' words that are usually adjectives or nouns, not participles.
+  - '\b(?:is|are|was|were|be|been|being)\s+(?:red|bed|shed|wed|seed|feed|deed|heed|weed|breed|creed|greed|speed|steed|naked|sacred|wicked|rugged|crooked|beloved|blessed|aged)\b'

@@ -1,0 +1,9 @@
+extends: existence
+message: "'%s': em dashes and double hyphens are banned; use a comma, colon, or split the sentence."
+level: warning
+nonword: true
+raw:
+  - '—|―|\w--|--\s'
+exceptions:
+  # HTML comments
+  - '<!--[\s\S]*?-->'

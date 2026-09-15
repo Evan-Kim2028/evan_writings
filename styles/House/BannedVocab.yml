@@ -1,0 +1,34 @@
+extends: substitution
+message: "House-banned word: use %s instead of '%s'."
+level: error
+ignorecase: true
+exceptions:
+  # Ethereum's Beacon Chain is a protocol term, not the banned metaphor.
+  - '\bbeacon (chain|block|node|client|committee|slot)s?\b'
+swap:
+  'delv(?:e|es|ed|ing)': dig into|examine|explore
+  'leverag(?:e|es|ed|ing)': use|exploit
+  'utiliz(?:e|es|ed|ing|ation)': use
+  'facilitat(?:e|es|ed|ing|ion)': help|ease|enable
+  'foster(?:s|ed|ing)?': encourage|support
+  'empower(?:s|ed|ing|ment)?': enable|allow
+  'streamlin(?:e|es|ed|ing)': simplify
+  'robust(?:ness)?': reliable|strong|resilient
+  'cutting.edge': advanced|new
+  'paradigm shifts?': fundamental change
+  'game.chang(?:er|ers|ing)': major advance
+  'tapestr(?:y|ies)': remove or reword
+  'realms?': area|domain
+  'beacons?': remove or reword
+  'multifaceted': complex|many-sided
+  'meticulous(?:ly)?': careful|carefully
+  'intricate(?:ly)?': complex
+  'paramount': crucial|essential
+  'transformative': significant|major
+  'elevat(?:e|es|ed|ing)': raise|improve
+  'embark(?:s|ed|ing)?': start|begin
+  'supercharg(?:e|es|ed|ing)': speed up|boost
+  # Noun 'agent harness' is the term of art for agent scaffolding, so only
+  # the verb inflections are banned ('harnessing the power of').
+  'harness(?:ed|ing)': use|exploit
+  'ever.evolving': changing|evolving

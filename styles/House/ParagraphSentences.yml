@@ -1,0 +1,6 @@
+extends: metric
+message: "Paragraph has %s sentences; the limit is 6."
+level: warning
+scope: paragraph
+formula: sentences
+condition: "> 6.0"

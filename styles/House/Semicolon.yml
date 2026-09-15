@@ -1,0 +1,10 @@
+extends: existence
+message: "Semicolon: if it joins two independent clauses, split the sentence or use a period."
+level: warning
+nonword: true
+raw:
+  - ';'
+exceptions:
+  # HTML entities (&nbsp;, &#38;, ...)
+  - '&\w+;'
+  - '&#\d+;'

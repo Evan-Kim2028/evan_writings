@@ -1,0 +1,45 @@
+extends: existence
+message: "First person '%s' is banned; rewrite in third person."
+level: error
+ignorecase: false
+exceptions:
+  # Roman numerals and figure/part labels ("Part I", "World War I").
+  - '\b(?:Part|Chapter|Appendix|Section|Phase|Step|Stage|Figure|Table|Type|Case|Tier|Class|Level|Version|World War|matrix|identity) I\b'
+  # Cloud region / zone IDs ("us-east-1", "eu-west-2").
+  - '\b[a-z]{2}-[a-z-]+-[0-9][a-z]?\b'
+tokens:
+  - I
+  - I'm
+  - I'll
+  - I'd
+  - I've
+  - me
+  - Me
+  - myself
+  - Myself
+  - my
+  - My
+  - mine
+  - Mine
+  - we
+  - We
+  - we're
+  - We're
+  - we've
+  - We've
+  - we'd
+  - We'd
+  - we'll
+  - We'll
+  - us
+  - Us
+  - our
+  - Our
+  - ours
+  - Ours
+  - ourselves
+  - Ourselves
+  - let's
+  - Let's
+  - let us
+  - Let us

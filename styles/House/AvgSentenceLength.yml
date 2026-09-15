@@ -1,0 +1,6 @@
+extends: metric
+message: "Average sentence length is %s words; aim for under 25."
+level: warning
+scope: summary
+formula: words / sentences
+condition: "> 25.0"

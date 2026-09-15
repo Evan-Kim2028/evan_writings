@@ -1,0 +1,6 @@
+extends: metric
+message: "Paragraph is %s words; the limit is 160."
+level: warning
+scope: paragraph
+formula: words
+condition: "> 160.0"
