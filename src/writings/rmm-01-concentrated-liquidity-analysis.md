@@ -18,6 +18,8 @@ source_platform: mirror
 slug: rmm-01-concentrated-liquidity-analysis
 description: RMM-01 concentrated liquidity analysis of an ETH/USDC pool using kernel density estimation to evaluate directional LPing and dynamically concentrated liquidity distributions.
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 -->
 
 ### Introduction
 
@@ -45,9 +47,9 @@ By selecting a 1255 USDC strike price, which is higher than the initial reported
 
 We compared performance to a static portfolio equal to the composition of pooled assets at creation. While the static portfolio appreciated 12.249%, the RMM-01 replicating portfolio appreciated 12.596%, outperforming the static portfolio by over .3% as shown in the below chart. Unlike Uniswap pools, there is no impermanent loss from the upside gains of specifying an accurate liquidity direction on RMM-01.
 
-![Static Portfolio vs RMM-01 Porftolio absolute returns](/assets/images/6e2e21399207fe5af4d476e915efabb0dab3a520c515da3c589b0962a209fdda.png)
+![Static Portfolio vs RMM-01 Portfolio absolute returns](/assets/images/6e2e21399207fe5af4d476e915efabb0dab3a520c515da3c589b0962a209fdda.png)
 
-Static Portfolio vs RMM-01 Porftolio absolute returns
+Static Portfolio vs RMM-01 Portfolio absolute returns
 
 We calculated realized volatility based on the ETH reported price in the chart below. The first half of the pool duration had an average volatility of 79% and swap volume of 541,472 USDC. In the second half, average volatility fell to 18% while swap volume increased to 783,097 USDC. Realized volatility followed IV more closely in the first half compared to the second half.
 

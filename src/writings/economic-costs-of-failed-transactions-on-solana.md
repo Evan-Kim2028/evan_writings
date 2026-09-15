@@ -14,6 +14,8 @@ source_platform: paragraph
 slug: economic-costs-of-failed-transactions-on-solana
 description: Solana's Pyth receiver contract has a 26.5% transaction failure rate, 3.3x the network average, costing publishers ~10 SOL monthly with no validator incentive to reduce failures.
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 MD025 MD026 -->
 
 # TLDR:
 

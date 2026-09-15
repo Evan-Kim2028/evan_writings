@@ -13,6 +13,8 @@ source_platform: mirror
 slug: using-topological-data-analysis-to-identify-distinct-mev-behavior-blog
 description: Topological data analysis via the Mapper algorithm identifies six statistically distinct MEV behaviors in Olympus Sushiswap protocol-owned liquidity data.
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 -->
 
 ```
 1 - Introduction
@@ -57,9 +59,9 @@ Nodes 4 and 5 are more troublesome. They have very large negative MEV mean volum
 
 In contrast, node 5’s negative MEV volume is more correlated with negative non-MEV volume as opposed to liquidations which indicates in general, a lot of negative selling during those days, but not directly a result of OHM liquidations.
 
-![Figure 4 - Geometric Visual Intepretation of the Mapper Algorithm Results](/assets/images/19d7f27edf195d6d0f5a1ae3ffe02e38c21deba21564ddecf2c0cae608f0ae3e.png)
+![Figure 4 - Geometric Visual Interpretation of the Mapper Algorithm Results](/assets/images/19d7f27edf195d6d0f5a1ae3ffe02e38c21deba21564ddecf2c0cae608f0ae3e.png)
 
-Figure 4 - Geometric Visual Intepretation of the Mapper Algorithm Results
+Figure 4 - Geometric Visual Interpretation of the Mapper Algorithm Results
 
 Figure 4 shows how the Figure 3 statistical properties of each behavior are visually represented. Looking at 2(b) Daily MEV vs non-MEV Volume scatterplot, each cluster of node points exists within a distinct area. The 2(b) Daily MEV vs Liquidation Volume chart shows similar geometric separation, but appears more cluttered. These geometric distinctions create new ways to categorize heavily connected DeFi data and allows a distinct classification of MEV behavior based on daily data as well as offering a rich area of research to further understand how to incentivize more positive MEV behaviors such as Nodes 1, 2 and 3 and avoid negative behaviors such as Nodes 4 and 5.
 

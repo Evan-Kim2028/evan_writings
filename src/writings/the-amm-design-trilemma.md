@@ -31,7 +31,7 @@ Path independence was formulated initially from a probabilistic point of view to
 
 Thus a translation invariant pricing rule means that the LP will take a loss as long as the ﬁnal market prices diverge from initial market prices.
 
-**How this is related to the concept of impermanent loss in CFMMs?** I couldn’t find a direct bridge to any literature. The closest thing I could find was Angeris et al describing the CFMM LP “portfolio value function” (payoff to LPs) as concave [in this paper](https://angeris.github.io/papers/cfmm-monotone.pdf). Angeris et al also talk about arbitrage earnings. Aribtrageurs and LPs seem to be at odds with each other - either the arbitrageur profits or the LP profits. **Is there a world where this can exist as a non-zero sum outcome?**
+**How this is related to the concept of impermanent loss in CFMMs?** I couldn’t find a direct bridge to any literature. The closest thing I could find was Angeris et al describing the CFMM LP “portfolio value function” (payoff to LPs) as concave [in this paper](https://angeris.github.io/papers/cfmm-monotone.pdf). Angeris et al also talk about arbitrage earnings. Arbitrageurs and LPs seem to be at odds with each other - either the arbitrageur profits or the LP profits. **Is there a world where this can exist as a non-zero sum outcome?**
 
 The first thing I think about for translation invariance are the parallels to [translation vectors in an affine space](https://en.wikipedia.org/wiki/Affine_space) (or invariant curves in an affine variety). Intuitively this suggests to me that the space of CFMM liquidity curves can be characterized as invariant curves in a reproducing kernel hilbert space (RKHS).
 

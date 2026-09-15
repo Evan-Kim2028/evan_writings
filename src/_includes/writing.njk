@@ -19,28 +19,33 @@ layout: base.njk
     {%- set _hl = slug | heroPattern('light') -%}
     {%- set _hd = slug | heroPattern('dark') -%}
     {%- endif -%}
-    <header class="article-head has-hero{% if not hero %} has-pattern{% endif %}" style="--hero-light:{{ _hl | safe }};--hero-dark:{{ _hd | safe }}">
+    {% if hero %}<figure class="hero-standalone" style="--hero-light:{{ _hl | safe }};--hero-dark:{{ _hd | safe }}" aria-hidden="true"></figure>{% endif %}
+    <header class="article-head{% if not hero %} has-hero has-pattern{% endif %}"{% if not hero %} style="--hero-light:{{ _hl | safe }};--hero-dark:{{ _hd | safe }}"{% endif %}>
       <div class="kicker">
         {% if collection and collection != 'latest' %}<a href="{{ '/collections/' | url }}{{ collection }}/">{{ collection }}</a>&nbsp;·&nbsp; {% endif %}{{ date | formatDate }}
       </div>
       {% if series %}<p class="series-line">{{ series }} · Part {{ series_index }}</p>{% endif %}
       <h1 class="title">{{ title }}</h1>
-      {% if description %}
+      {# The lede paragraph is the visible subtext when one is set, so the
+         dek would duplicate it. description stays in front matter either way
+         because base.njk needs it for the meta and social tags. #}
+      {% if description and not lede %}
       <p class="dek">{{ description }}</p>
       {% endif %}
-      <div class="meta">
-        <span>Evan Kim</span>
-        {% if tags %}
-          {% for tag in tags %}
-            {% if tag | isTopicalTag %}
-            <a href="{{ '/tags/' | url }}{{ tag | tagSlug }}/" class="tag tag-link">{{ tag }}</a>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      </div>
     </header>
 
-    <div class="writing-body">
+    <div class="meta meta-below">
+      <span>Evan Kim</span>
+      {% if tags %}
+        {% for tag in tags %}
+          {% if tag | isTopicalTag %}
+          <a href="{{ '/tags/' | url }}{{ tag | tagSlug }}/" class="tag tag-link">{{ tag }}</a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="writing-body{% if lede %} has-lede{% endif %}">
       {{ content | safe }}
     </div>
 {%- if series -%}
@@ -73,7 +78,7 @@ layout: base.njk
       {% endif %}
       {% endif %}
       {% set _related = collections.writings | related(page, collection, 2) %}
-      {% if _related.length %}
+      {% if _related.length and no_related != true %}
       <div class="related">
         {% for r in _related %}
         <a href="{{ r.url | url }}">

@@ -17,6 +17,8 @@ source_platform: mirror
 slug: analyzing-blob-inclusion-rates-and-market-strategies
 description: EIP-4844 blob market analysis measuring slot inclusion rates, Optimism and Base blob posting strategies, and priority fee correlation with inclusion speed.
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 MD025 -->
 
 `Special thanks to @sui414 for review, @ethpandaops for mempool, beacon chain data, and @envio_indexer for execution layer data.`
 

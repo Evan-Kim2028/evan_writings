@@ -14,6 +14,8 @@ source_platform: mirror
 slug: applying-balancers-managed-pool-controllers-to-manage-liquidity-in-bonding-curves
 description: Balancer managed pool controllers applied to bonding curve liquidity management, covering circuit breakers, dynamic token weights, and controller designs.
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 MD025 -->
 
 ```
 Table of Contents:

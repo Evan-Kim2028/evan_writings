@@ -13,6 +13,8 @@ source_platform: mirror
 slug: quantitative-modeling-on-rebase-tokens-ohm
 description: "Quantitative modeling of OHM rebase tokens: a CSI crossover momentum strategy vs (3,3) hold over six months, finding aggressive OHM accumulation maximizes rebase yield."
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD012 MD026 -->
 
 ## Introduction
 

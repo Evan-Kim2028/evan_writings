@@ -20,7 +20,7 @@ description: "Solana data analytics tooling comparison: benchmarking Cryptohouse
 
 This is the start of a series of posts that examines how to analyze Solana data in SQL using different platforms. We start off the series with a couple of key queries that yield insights to both the data platforms and the data themselves.
 
-The best free SQL based tools are [Cryptohouse (powered by Goldksy)](https://crypto.clickhouse.com/), [Dune](http://dune.com) and [Flipside](https://flipsidecrypto.xyz/) for accessing Solana data. This post evaluates the tradeoffs between using each of these platforms by using a test of useful queries. These queries look at the most fundamental table for Solana data, the `transactions` table, which forms the basis of most fundamental research on Solana.
+The best free SQL based tools are [Cryptohouse (powered by Goldsky)](https://crypto.clickhouse.com/), [Dune](http://dune.com) and [Flipside](https://flipsidecrypto.xyz/) for accessing Solana data. This post evaluates the tradeoffs between using each of these platforms by using a test of useful queries. These queries look at the most fundamental table for Solana data, the `transactions` table, which forms the basis of most fundamental research on Solana.
 
 We'll examine three queries:
 
@@ -48,7 +48,7 @@ This is a basic query that is commonly used to take a quick look at the dataset 
 
 Some notable comments about the `transactions` dataset differences is namely what is available and what format it shows up in. If the columns you want do not exist in the dataset, then that automatically restricts what data platform suits your needs.
 
-For example Cryptohouse does not have an `instructions` column. While dune has `instructions`, the output is not friendly for longer formats so it's not possible to inspect the output of larger sized columns. While Flipside has `instructions` as well, the layout is the opposite of dune where each column is maximally sized. This is not the most ergonomical because the width of the data returned is quite large to scroll through. Another example is that both Cryptohouse and Dune have a `tx_index` column whereas flipside doesn't.
+For example Cryptohouse does not have an `instructions` column. While dune has `instructions`, the output is not friendly for longer formats so it's not possible to inspect the output of larger sized columns. While Flipside has `instructions` as well, the layout is the opposite of dune where each column is maximally sized. This is not the most ergonomic because the width of the data returned is quite large to scroll through. Another example is that both Cryptohouse and Dune have a `tx_index` column whereas flipside doesn't.
 
 ### Performance
 
@@ -112,7 +112,7 @@ LIMIT 1000;
 
 This is a more complex query that filters transactions based on a subset of accounts. This is a very useful query because a lot of Solana `transactions` columns are stored as arrays so it's important to know how to filter through arrays. The second is that most analysis will be geared towards specific accounts (protocol accounts, mev accounts, trading accounts, etc).
 
-Notably Crytpohouse starts to shine with these kinds of queries and offers superior performance compared to Dune and Flipside. Cryptohouse also scanned nearly 4x as much data as the Dune. Flipside also performed fairly well with the filter task as well, but not as much data is available on the query statistics.
+Notably Cryptohouse starts to shine with these kinds of queries and offers superior performance compared to Dune and Flipside. Cryptohouse also scanned nearly 4x as much data as the Dune. Flipside also performed fairly well with the filter task as well, but not as much data is available on the query statistics.
 
 ### Performance
 

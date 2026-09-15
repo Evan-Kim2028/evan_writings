@@ -2,7 +2,7 @@
 title: "Terminal-Bench Task: Lakehouse Schema Contract Drift"
 date: "2026-09-10"
 collection: latest
-description: "A Terminal Bench Task Counterexample"
+description: "A Terminal-Bench task where the schema contract drifts between epochs, built as a counterexample for coding agents."
 tags:
   - writing
   - latest
@@ -32,14 +32,13 @@ The same mechanism can create failure modes when the local specification changes
 
 ## Terminal-Bench Counterexample: Lakehouse Schema Contract Drift
 
-The lakehouse task, which I designed and [can find here](https://github.com/Evan-Kim2028/eval_tasks), introduces a deliberate **schema contract drift**. The surrounding system follows familiar lakehouse patterns. However the schema semantics diverge from relevant Iceberg convention, using numeric field IDs but assign a fresh, disjoint ID set to every schema epoch.
+The lakehouse task, [published here](https://github.com/Evan-Kim2028/eval_tasks), introduces a deliberate **schema contract drift**. The surrounding system follows familiar lakehouse patterns. However the schema semantics diverge from relevant Iceberg convention, using numeric field IDs but assign a fresh, disjoint ID set to every schema epoch.
 
 Each schema epoch receives a fresh set of numeric field IDs. The ID sets for different epochs must remain disjoint. A schema attached to a commit represents the schema for that particular epoch rather than a globally stable column identity.
 
 The environment therefore presents a recognizable lakehouse problem while changing one of the assumptions that an agent may carry into that environment.
 
 ![Schema contract drift: Iceberg convention vs task contract](/assets/images/lakehouse-priors-fig1-schema-drift.png)
-
 
 The task documentation states the fresh-ID requirement explicitly. The hidden verifier checks whether the implementation preserves that requirement across schema readers, peer publishing, and composed recovery.
 
@@ -84,7 +83,6 @@ The two models expressed this pattern differently. Opus repeatedly encoded the s
 
 ![Flow of the six traces from observation to shipped artifact](/assets/images/lakehouse-priors-fig3-trace-flow.png)
 
-
 ### Opus 5: Verifying the Familiar Convention
 
 Across all four Opus reconstruction runs, the agents printed the colliding field IDs during their investigation. The traces showed epoch 2 reusing IDs from epoch 1, including sequences such as `[1, 2, 3, 4]` and `[1, 2, 3, 4, 5]`.
@@ -108,7 +106,6 @@ The assertion passed with epoch-1 IDs `{1,2,3,4}` and epoch-2 IDs `{5,6,7,8,9}`.
 The agent then reverted the implementation and restored the stable-ID behavior. After the reversal, the test count changed from `128/5` to `127/6`. The run concluded that the implementation was working and attributed the remaining failures to the tests.
 
 ![Grok 4.6 trial 1 timeline: fix, verify, revert, ship](/assets/images/lakehouse-priors-fig4-grok-revert.png)
-
 
 Other Grok traces show the same tension. One run stated, `"I don't want to risk breaking the verifier,"` before later producing the correct diagnosis of the schema-ID requirement. Another argued that the requirement described additive schema evolution rather than a complete reset of field identities. A separate hardening run correctly described epoch 2 as using IDs `5-9` and called the result `"Fresh. Good."`
 

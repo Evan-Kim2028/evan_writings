@@ -14,6 +14,8 @@ source_platform: mirror
 slug: tackling-blob-fee-slippage-with-preconfirmations
 description: Blob fee slippage during June 2024 Ethereum congestion cost rollups millions; preconfirmations on mev-commit cut inclusion times 1000x to ~75ms bid latency.
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 MD025 -->
 
 # TL;DR
 
@@ -26,7 +28,7 @@ description: Blob fee slippage during June 2024 Ethereum congestion cost rollups
 
 This research delves into the challenges faced by the blob market during the June 2024 congestion, focusing on factors that drove higher fees and prolonged inclusion times. Two major issues—**blob slippage** and **nonce gaps**—led to an inefficient blob market, and existing rollup strategies couldn't adequately address these problems to achieve lower inclusion times.
 
-By conducting an in-depth analysis on the Holesky network, we propose **preconfirmations** as a solution to enhance blob transaction efficiency. We tested preconfirmations through mev-commit, a p2p platform that facilitiates real time exchange of preconfirmations bids. mev-commit is also strengthened by [cryptographic commitments](https://mirror.xyz/preconf.eth/iz2J0uTXHhl8DiAkG-VLLwvCp-8qcc_Z7A8_4rU0A3g), enabling complete end to end privacy.
+By conducting an in-depth analysis on the Holesky network, we propose **preconfirmations** as a solution to enhance blob transaction efficiency. We tested preconfirmations through mev-commit, a p2p platform that facilitates real time exchange of preconfirmations bids. mev-commit is also strengthened by [cryptographic commitments](https://mirror.xyz/preconf.eth/iz2J0uTXHhl8DiAkG-VLLwvCp-8qcc_Z7A8_4rU0A3g), enabling complete end to end privacy.
 
 Our findings demonstrate that preconfirmations significantly improve inclusion times and create a more cost-effective environment for rollups. In addition to reducing fee slippage and inclusion times, this approach strengthens network stability and fosters innovation through private blob mempools.
 

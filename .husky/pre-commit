@@ -2,15 +2,18 @@
 # Pre-commit hook: verify the site still builds and renders correctly.
 # Only runs the full build+verify if source files are staged.
 
-# Ensure node/npm is available (Husky runs with a minimal PATH)
-# Find the first node binary in nvm versions
+# Ensure node/npm is available (Husky runs with a minimal PATH).
+# Pick the HIGHEST installed nvm version, not the first one the glob returns.
+# The glob is alphabetical, so it used to select v20 over v24 and cspell
+# refused to run ("Unsupported NodeJS version (20.20.2); >=22.18.0").
 NODE_BIN=""
-for dir in "$HOME"/.nvm/versions/node/*/bin; do
-  if [ -x "$dir/node" ]; then
-    NODE_BIN="$dir"
-    break
-  fi
-done
+if command -v node >/dev/null 2>&1; then
+  NODE_BIN="$(dirname "$(command -v node)")"
+else
+  NODE_BIN="$(ls -d "$HOME"/.nvm/versions/node/*/bin 2>/dev/null \
+    | sed 's#/bin$##' | sort -V | tail -1)/bin"
+  [ -x "$NODE_BIN/node" ] || NODE_BIN=""
+fi
 if [ -n "$NODE_BIN" ]; then
   export PATH="$NODE_BIN:$PATH"
 fi

@@ -14,6 +14,8 @@ source_platform: mirror
 slug: censorship-latency-and-preconfirmations-in-the-blob-market
 description: "EIP-4844 blob market analysis: blob propagation delays incentivize builder censorship, with mev-commit blob preconfirmations proposed as a reliable inclusion solution."
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 MD025 -->
 
 `🙏 Special thanks to @terencechain for reviewing, @BertKellerman for his insights,and @ethpandaops for holesky data.`
 

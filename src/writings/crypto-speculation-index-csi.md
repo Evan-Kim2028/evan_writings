@@ -13,6 +13,8 @@ source_platform: mirror
 slug: crypto-speculation-index-csi
 description: Crypto Speculation Index (CSI) improves on the Fear and Greed Index by using momentum and stablecoin dominance to quantify market speculation across 30 and 90 day signals.
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD012 MD026 -->
 
 ## Overview of CFGI
 

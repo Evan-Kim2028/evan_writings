@@ -15,6 +15,8 @@ source_platform: mirror
 slug: free-historical-blockchain-extraction-with-cryo-merkle-reth-nodes
 description: Extract free historical Ethereum data with Cryo's parallel Rust-based extractor and Merkle's free unlimited RPC archive node, outputting standardized parquet files for analysis.
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 -->
 
 ### **Introduction**
 
@@ -24,7 +26,7 @@ By leveraging [Cryo to extract historical data](https://github.com/paradigmxyz/c
 
 ## [Cryo](https://github.com/paradigmxyz/cryo)
 
-Cryo, a recent addition to data extraction tools, was announced in [July 2023](https://twitter.com/notnotstorm/status/1687517038305308672). It employs [ethers.rs](https://github.com/gakonst/ethers-rs) for JSON-RPC requests, making it compatible with various chains, including Ethereum, Optimism, Arbitrum, Polygon, BNB, and Avalanche. Since Cryo is built in rust, querying data is [embarassingly parallel](https://en.wikipedia.org/wiki/Embarrassingly_parallel). This actually makes Cryo so fast that by default, it will be too fast to use with most node providers.
+Cryo, a recent addition to data extraction tools, was announced in [July 2023](https://twitter.com/notnotstorm/status/1687517038305308672). It employs [ethers.rs](https://github.com/gakonst/ethers-rs) for JSON-RPC requests, making it compatible with various chains, including Ethereum, Optimism, Arbitrum, Polygon, BNB, and Avalanche. Since Cryo is built in rust, querying data is [embarrassingly parallel](https://en.wikipedia.org/wiki/Embarrassingly_parallel). This actually makes Cryo so fast that by default, it will be too fast to use with most node providers.
 
 When extracting data from a historical node, a common challenge involves preprocessing raw blockchain data to make it human-usable. Cryo takes care of this and standardizes the dataset across a wide variety of datasets. y default, data is saved into Apache's free, universal, and open-source column-oriented storage format—parquet files. These files use the `lz4` compression method by default (modifiable with the `--compression` syntax).
 

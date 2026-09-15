@@ -16,6 +16,8 @@ source_platform: mirror
 slug: mev-arbitrage-on-olympus
 description: "MEV arbitrage on Olympus POL: data-driven analysis showing bots are under 1% of addresses yet drive the majority of trading volume and fees across OHM liquidity pools."
 ---
+<!-- Archive post: heading structure predates the lint rules. See docs/linting.md. -->
+<!-- markdownlint-disable MD001 MD025 -->
 
 ```
 1 - Abstract

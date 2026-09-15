@@ -19,7 +19,7 @@ description: Agglomerative clustering analysis on Zeta and Pyth Solana transacti
 
 ## Intro
 
-Previous research looked at [transaction faliure rates](https://paragraph.xyz/@evandekim/economic-costs-of-failed-transactions-on-solana) on Solana and identified higher than average failure rates with the Pyth pull oracle contracts. Specifically the signer contract Zeta seems to be failing with many of its price updates, leading to upwards of 20 SOL a week in lost fees from submitting failed transactions.
+Previous research looked at [transaction failure rates](https://paragraph.xyz/@evandekim/economic-costs-of-failed-transactions-on-solana) on Solana and identified higher than average failure rates with the Pyth pull oracle contracts. Specifically the signer contract Zeta seems to be failing with many of its price updates, leading to upwards of 20 SOL a week in lost fees from submitting failed transactions.
 
 This post will follow up, examining the on-chain sample data (~1000 blocks is the data cap) more closely with [Polars DataFrame](https://pola.rs/) and [Agglomerative Clustering](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html) to analyze log message patterns.
 
