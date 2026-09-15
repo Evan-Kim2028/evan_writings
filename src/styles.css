@@ -180,8 +180,9 @@ section.home { padding: 3rem 0 0; }
 .rail .toc-num { display: inline-block; min-width: 1.9em; color: var(--accent-2, var(--text-3)); font-variant-numeric: tabular-nums; font-weight: 600; }
 .rail .toc-link-h2 { font-weight: 600; color: var(--text-2); margin-top: .45rem; }
 .rail .toc-link-h2:first-of-type { margin-top: 0; }
-.rail .toc-link-h3 { padding-left: calc(.75rem + 1.9em); font-size: .78rem; color: var(--text-3); }
-.rail .toc-link-h3::before { content: "–"; margin-right: .4em; color: var(--line); }
+.rail .toc-link-h3 { padding-left: 1.5rem; font-size: .78rem; color: var(--text-3); }
+.rail .toc-link-h3 .toc-num { min-width: 2.4em; font-weight: 500; }
+
 .rail .toc-link.active { color: var(--text); border-left-color: var(--text); }
 .rail .toc-link:hover { color: var(--text); }
 .rail .rail-back { display: block; color: var(--text-3); margin-top: 2rem; }
@@ -208,7 +209,7 @@ h1.title { font-family: var(--font-serif); font-weight: 700; font-size: 2.8rem; 
 .writing-body h2 { font-family: var(--font-serif); font-weight: 700; font-size: 2.1rem; line-height: 1.12; letter-spacing: -.025em; margin: 3.5rem 0 1.1rem; padding-top: 1.25rem; border-top: 2px solid var(--text); scroll-margin-top: 5rem; }
 .writing-body h3 { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 600; letter-spacing: -.015em; margin: 2.5rem 0 .7rem; scroll-margin-top: 5rem; }
 .writing-body h4 { font-size: .95rem; font-weight: 600; margin: 1.5rem 0 .5rem; }
-.writing-body p { margin: 0 0 1.25rem; text-wrap: pretty; hanging-punctuation: first last; }
+.writing-body p { margin: 0 0 .7rem; text-wrap: pretty; hanging-punctuation: first last; }
 .writing-body li { margin-bottom: .5rem; }
 .writing-body strong { font-weight: 600; }
 .writing-body a { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent); text-underline-offset: 3px; }
@@ -253,8 +254,9 @@ figure.wide > img { border: 1px solid var(--line); border-radius: 10px; backgrou
 [data-theme="light"] .img-dark { display: none !important; }
 :root:not([data-theme]) .img-dark { display: none !important; }
 .writing-body { counter-reset: sec; }
-.writing-body h2 { counter-increment: sec; }
-.writing-body h2 a.h-link::before { content: counter(sec, decimal-leading-zero); display: inline-block; min-width: 2.2em; font-size: .55em; font-weight: 500; letter-spacing: .04em; color: var(--accent-2, var(--text-3)); vertical-align: .35em; font-variant-numeric: tabular-nums; }
+.writing-body h2 { counter-increment: sec; counter-reset: sub; }
+.writing-body h3 { counter-increment: sub; }
+.writing-body h2 a.h-link::before { content: counter(sec); display: inline-block; min-width: 2.2em; font-size: .55em; font-weight: 500; letter-spacing: .04em; color: var(--accent-2, var(--text-3)); vertical-align: .35em; font-variant-numeric: tabular-nums; }
 .writing-body h2 a.h-link, .writing-body h3 a.h-link { color: inherit; text-decoration: none; }
 .writing-body h2 a.h-link::after, .writing-body h3 a.h-link::after { content: "#"; margin-left: .4em; color: var(--text-3); opacity: 0; font-weight: 400; transition: opacity .15s; }
 .writing-body h2:hover a.h-link::after, .writing-body h3:hover a.h-link::after { opacity: 1; }
@@ -342,3 +344,77 @@ td.best { background: var(--hi); font-weight: 600; }
   .reveal, .post, .related a { transition: none; opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Justified body text across all writings. Hyphenation prevents the rivers
+   that justification otherwise opens up at this column width. Lists, tables,
+   captions and code keep their natural ragged right. */
+.article p, .writing-body p {
+  /* Ragged right. Browsers justify by stretching word spaces only, with no
+     proper hyphenation and justification engine, so a flush right edge buys a
+     rigid block and uneven colour. The rag is set with text-wrap: pretty,
+     which balances the last lines and avoids orphans. */
+  text-align: left;
+  text-wrap: pretty;
+  hyphens: manual;
+}
+/* Lists, short blocks and the lede read better ragged. */
+.article li, .writing-body li { text-align: left; hyphens: manual; }
+.article figcaption, .writing-body figcaption,
+.article blockquote, .writing-body blockquote,
+.article pre, .writing-body pre,
+.article table, .writing-body table {
+  text-align: left;
+  hyphens: manual;
+}
+@media (max-width: 640px) {
+  /* Narrow columns justify badly, so fall back to ragged right. */
+  .article p, .writing-body p, .article li, .writing-body li { text-align: left; }
+}
+
+
+/* Byline and tags sit under the hero rather than over it. */
+.meta-below { margin-top: 1.4rem; padding-bottom: 1.6rem; }
+/* The lede: first paragraph of a writing body reads as an abstract. */
+.writing-body.has-lede > p:first-of-type {
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: var(--text-2);
+  text-align: left;
+  hyphens: manual;
+  margin-bottom: 2rem;
+}
+
+.writing-body h3 a.h-link::before { content: counter(sec) "." counter(sub); display: inline-block; min-width: 2.4em; font-size: .62em; font-weight: 500; color: var(--accent-2, var(--text-3)); font-variant-numeric: tabular-nums; }
+
+
+/* Standalone hero: the image is its own band, with nothing set over it. */
+.hero-standalone {
+  margin: 2.5rem 0 2rem;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background-image: var(--hero-light);
+  background-size: cover;
+  background-position: center;
+}
+[data-theme="dark"] .hero-standalone { background-image: var(--hero-dark); }
+.article-head:not(.has-hero) { padding-top: 0; }
+@media (max-width: 640px) { .hero-standalone { margin: 1.5rem 0 1.25rem; } }
+
+
+/* Term-led list items: make the leading term read as a label. */
+.writing-body ol > li > strong:first-child,
+.writing-body ul > li > strong:first-child { font-weight: 700; color: var(--text); }
+
+
+/* First-line indent on continuation paragraphs only. A paragraph that opens a
+   section is already marked by the heading above it and stays flush. Spacing
+   tightens where the indent is doing the work. */
+/* Editorial hybrid: a first-line indent with a reduced space between
+   paragraphs, about half a line. The indent marks the break, the space keeps
+   it scannable. A paragraph that opens a section stays flush, since the
+   heading above it already marks the start. */
+.writing-body p + p { text-indent: 1.4em; }
+.writing-body blockquote p + p, .writing-body li p + p { text-indent: 0; }
+.writing-body p.long { margin-bottom: 1.25rem; }
+@media (max-width: 640px) { .writing-body p + p { text-indent: 1.1em; } }

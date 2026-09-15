@@ -317,15 +317,44 @@ module.exports = function(eleventyConfig) {
     }
     if (items.length < 2) return '';
     let n = 0;
+    let sub = 0;
     const links = items.map((it) => {
       const cls = it.level === 2 ? 'toc-link toc-link-h2' : 'toc-link toc-link-h3';
-      const num = it.level === 2 ? `<span class="toc-num">${String(++n).padStart(2, '0')}</span>` : '';
+      let label;
+      if (it.level === 2) { n += 1; sub = 0; label = String(n); }
+      else { sub += 1; label = `${n}.${sub}`; }
+      const num = `<span class="toc-num">${label}</span>`;
       return `<a href="#${it.id}" class="${cls}">${num}${it.text}</a>`;
     }).join('\n');
     return `<nav class="toc" aria-label="Table of contents"><p class="toc-title">On this page</p>${links}</nav>`;
   });
 
   // Rewrite markdown asset paths to include the repo path prefix
+  // Indent paragraphs that run longer than three sentences. CSS cannot count
+  // sentences, so the class is applied here at build time. Decimals such as
+  // "4.65 percent" are masked first so they do not read as sentence ends.
+  eleventyConfig.addTransform('indentLongParagraphs', (content, outputPath) => {
+    if (!outputPath || !outputPath.endsWith('.html')) return content;
+    const countSentences = (html) => {
+      const text = html
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&[a-z]+;/gi, ' ')
+        .replace(/(\d)\.(\d)/g, '$1_$2')
+        .replace(/\b([A-Z][a-z]{0,3})\.\s/g, '$1_ ');
+      const m = text.match(/[.!?]["')\]]?(?=\s|$)/g);
+      return m ? m.length : 0;
+    };
+    return content.replace(
+      /<p(\s[^>]*)?>([\s\S]*?)<\/p>/g,
+      (whole, attrs, inner) => {
+        const a = attrs || '';
+        if (/class="/.test(a)) return whole;
+        if (countSentences(inner) <= 3) return whole;
+        return `<p class="long"${a}>${inner}</p>`;
+      }
+    );
+  });
+
   eleventyConfig.addTransform('prefixAssets', (content, outputPath) => {
     if (outputPath && outputPath.endsWith('.html')) {
       let out = content
