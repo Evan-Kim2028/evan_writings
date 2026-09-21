@@ -58,36 +58,36 @@ level is visible. Seven levels, because that is how many distinct kinds of help 
 actually use, ordered from the least specific to the most.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 812 348" role="img" data-anim="y" aria-label="Seven ascending bars labelled L0 to L6 showing how much the model is told. L0, a bug report, is marked fails. L2, a full description, is marked passes. A bracket at the right measures the distance between their tops and is labelled the gap.">
-<rect style="--d:1" x="60" y="256" width="84" height="26" rx="4" fill="var(--chart-2)" opacity="1"><title>L0</title></rect>
-<rect style="--d:2" x="150" y="224" width="84" height="58" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L1</title></rect>
-<rect style="--d:3" x="240" y="192" width="84" height="90" rx="4" fill="var(--chart-1)" opacity="1"><title>L2</title></rect>
-<rect style="--d:4" x="330" y="160" width="84" height="122" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L3</title></rect>
-<rect style="--d:5" x="420" y="128" width="84" height="154" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L4</title></rect>
-<rect style="--d:6" x="510" y="96" width="84" height="186" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L5</title></rect>
-<rect style="--d:7" x="600" y="64" width="84" height="218" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L6</title></rect>
-<line x1="60" y1="282" x2="690" y2="282" stroke="var(--line)" stroke-width="1.5"/>
-<line x1="144" y1="256" x2="700" y2="256" stroke="var(--chart-2)" stroke-width="1.5" opacity="0.5"/>
-<line x1="324" y1="192" x2="700" y2="192" stroke="var(--chart-1)" stroke-width="1.5" opacity="0.5"/>
-<path d="M700 256 L712 256 L712 192 L700 192" fill="none" stroke="var(--text-2)" stroke-width="1.5"/>
-<text style="--d:1" x="722" y="222" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
-<text style="--d:2" x="722" y="239" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2</text>
-<text style="--d:3" x="722" y="254" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">adds</text>
-<text style="--d:4" x="102" y="302" text-anchor="middle" fill="var(--chart-2)" font-size="13" font-family="var(--font-mono)">L0</text>
-<text style="--d:5" x="102" y="320" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">bug report</text>
-<text style="--d:6" x="192" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L1</text>
-<text style="--d:7" x="282" y="302" text-anchor="middle" fill="var(--chart-1)" font-size="13" font-family="var(--font-mono)">L2</text>
-<text style="--d:8" x="282" y="320" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">full description</text>
-<text style="--d:9" x="372" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L3</text>
-<text style="--d:10" x="462" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L4</text>
-<text style="--d:11" x="552" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L5</text>
-<text style="--d:12" x="642" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L6</text>
-<text style="--d:13" x="642" y="320" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">all tests</text>
-<text style="--d:14" x="102" y="246" fill="var(--chart-2)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--font-sans)">FAILS</text>
-<text style="--d:15" x="282" y="182" fill="var(--chart-1)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--font-sans)">PASSES</text>
-<text style="--d:16" x="20" y="176" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)" transform="rotate(-90 20 176)" text-anchor="middle">information given</text>
+<svg viewBox="0 0 720 452" role="img" aria-label="Seven nested circles tangent at the bottom. L0 at the core is the bug report and is marked fails. Each larger circle contains the one inside it and adds one kind of information, out to L6, every test. L2, the full description, is marked passes, and the band between L0 and L2 is labelled the gap.">
+<circle cx="330" cy="208" r="196" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L6: all tests</title></circle>
+<circle cx="330" cy="236" r="168" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L5: one hidden test</title></circle>
+<circle cx="330" cy="264" r="140" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L4: signatures</title></circle>
+<circle cx="330" cy="292" r="112" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L3: test names</title></circle>
+<circle cx="330" cy="320" r="84" fill="var(--chart-1)" fill-opacity="0.9" stroke="var(--chart-1)" stroke-width="1.5" stroke-opacity="0.55"><title>L2: full description</title></circle>
+<circle cx="330" cy="348" r="56" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L1: partial description</title></circle>
+<circle cx="330" cy="376" r="28" fill="var(--chart-2)" fill-opacity="1" stroke="var(--chart-2)" stroke-width="1.5" stroke-opacity="0.55"><title>L0: bug report</title></circle>
+<text x="330" y="365" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="700" font-family="var(--font-mono)">L0</text>
+<text x="330" y="381" text-anchor="middle" fill="var(--bg)" font-size="11.5" fill-opacity="0.85" font-family="var(--font-sans)">bug report</text>
+<text x="330" y="309" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L1</text>
+<text x="330" y="325" text-anchor="middle" fill="var(--bg)" font-size="11.5" fill-opacity="0.85" font-family="var(--font-sans)">partial description</text>
+<text x="330" y="253" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="700" font-family="var(--font-mono)">L2</text>
+<text x="330" y="269" text-anchor="middle" fill="var(--bg)" font-size="11.5" fill-opacity="0.85" font-family="var(--font-sans)">full description</text>
+<text x="330" y="197" text-anchor="middle" fill="var(--text-2)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L3</text>
+<text x="330" y="213" text-anchor="middle" fill="var(--text-3)" font-size="11.5" fill-opacity="1" font-family="var(--font-sans)">test names</text>
+<text x="330" y="141" text-anchor="middle" fill="var(--text-2)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L4</text>
+<text x="330" y="157" text-anchor="middle" fill="var(--text-3)" font-size="11.5" fill-opacity="1" font-family="var(--font-sans)">signatures</text>
+<text x="330" y="85" text-anchor="middle" fill="var(--text-2)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L5</text>
+<text x="330" y="101" text-anchor="middle" fill="var(--text-3)" font-size="11.5" fill-opacity="1" font-family="var(--font-sans)">one hidden test</text>
+<text x="330" y="29" text-anchor="middle" fill="var(--text-2)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L6</text>
+<text x="330" y="45" text-anchor="middle" fill="var(--text-3)" font-size="11.5" fill-opacity="1" font-family="var(--font-sans)">all tests</text>
+<text x="330" y="288" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-weight="700" letter-spacing="0.08em" font-family="var(--font-sans)">PASSES</text>
+<text x="330" y="430" text-anchor="middle" fill="var(--chart-2)" font-size="11.5" font-weight="700" letter-spacing="0.08em" font-family="var(--font-sans)">L0 FAILS</text>
+<line x1="246" y1="318" x2="150" y2="318" stroke="var(--text-2)" stroke-width="1.5"/>
+<circle cx="246" cy="318" r="3" fill="var(--text-2)"/>
+<text x="142" y="315" text-anchor="end" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
+<text x="142" y="332" text-anchor="end" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2 adds</text>
 </svg>
-<figcaption>Each level adds one kind of information about the removed behavior. A certificate is a failure at L0 and a pass at L2 by the same model. The distance between those two bars is the difficulty.</figcaption>
+<figcaption>Each level contains the one inside it and adds one kind of information about the removed behavior. A certificate is a failure at L0, the core, and a pass at L2. The band between them is the difficulty. Ring sizes are even steps; they show containment, not an amount.</figcaption>
 </figure>
 
 | Level | Name | What it adds over the level below |
