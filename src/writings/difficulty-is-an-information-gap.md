@@ -344,15 +344,21 @@ Composer 2.5 ran most of the ladder trials. Devin and Grok both authored tasks a
 | Model | Runs or sessions | Input | Cache read | Output | Cost |
 |---|---:|---:|---:|---:|---:|
 | Composer 2.5 | 1,233 runs | 2,302M | 2,244M | 16.8M | $520.13 |
-| Devin swe-2-max | 151 sessions | 162M | 3,270M | 22.7M | 185.5 ACU |
+| Devin swe-2-max | 151 sessions | 162M | 3,270M | 22.7M | $452 |
 | Grok 4.6 | 27 runs | 10.6M | 9.8M | 0.19M | $2.57 |
 
 Those rows do not sum, and the reason is the next paragraph. Composer and Grok processed 2.33
 billion tokens between them, cache reads included, because their cached count sits inside their
 input count. Devin processed a further 3.45 billion, because its cache reads are counted on top of
-its input. **The run so far is 5.78 billion tokens, $522.70 metered, and 185.5 Devin ACUs**, and
-5.5 billion of those tokens are cache reads, so most of the bill is a model re-reading a
-repository it has already seen.
+its input. **The run so far is 5.78 billion tokens for $975**, and 5.5 billion of those tokens are cache
+reads, so most of the bill is a model re-reading a repository it has already seen.
+
+Devin's share needs a pricing basis, because it bills in Agent Compute Units rather than tokens.
+Priced at the SWE-2 promotional rate of $0.75 per million input, $0.075 per million cache read and
+$3.75 per million output, its 151 sessions come to $452. Its 185.5 ACUs at the $2.25 list rate
+come to $417, so the two ways of pricing the same work agree within 8%. That agreement is the
+strongest available check that the token counts are right. At the full SWE-2 rate the same work
+would have been $1,808.
 
 The two vendors count caching differently, and the difference is large enough to change the
 headline. Composer and Grok report cached tokens as a subset of input, which a least-squares fit
@@ -405,8 +411,7 @@ The levels above L2 cost more than twice as much per run, $0.86 against $0.27 to
 their prompts carry test names and test bodies. Climbing the ladder costs money on both ends, in
 prompt size and in runs.
 
-139 certificates from 1,872 runs is 13.5 runs each, against a floor of two, and $3.76 plus 1.33
-ACU apiece. Most of the spend therefore went to runs past the deciding pair: re-running L2 after
+139 certificates from 1,872 runs is 13.5 runs each, against a floor of two, and $7.01 apiece. Most of the spend therefore went to runs past the deciding pair: re-running L2 after
 repairing a description, re-running L0, and exploring other levels. Almost none of it produced new
 information.
 
