@@ -431,16 +431,19 @@ td.best { background: var(--hi); font-weight: 600; }
 .fig-inline svg rect { transition: filter .15s var(--ease); }
 .fig-inline svg rect:hover { filter: brightness(1.12) saturate(1.05); cursor: default; }
 
+/* The pre-animation state is gated on .anim, which only JS adds, and only to
+   figures that start below the fold. No JS, no IntersectionObserver, reduced
+   motion, or already on screen: the figure just renders, fully legible. */
 @media (prefers-reduced-motion: no-preference) {
-  .fig-inline svg[data-anim] rect { transform-box: fill-box; }
-  .fig-inline svg[data-anim="y"] rect { transform-origin: 50% 100%; transform: scaleY(.02); }
-  .fig-inline svg[data-anim="x"] rect { transform-origin: 0% 50%; transform: scaleX(.01); }
-  .fig-inline svg[data-anim] text { opacity: 0; }
-  .fig-inline.in svg[data-anim] rect {
+  .fig-inline.anim svg[data-anim] rect { transform-box: fill-box; }
+  .fig-inline.anim svg[data-anim="y"] rect { transform-origin: 50% 100%; transform: scaleY(.02); }
+  .fig-inline.anim svg[data-anim="x"] rect { transform-origin: 0% 50%; transform: scaleX(.01); }
+  .fig-inline.anim svg[data-anim] text { opacity: 0; }
+  .fig-inline.anim.in svg[data-anim] rect {
     transform: none;
     transition: transform .62s cubic-bezier(.22,.8,.28,1) calc(var(--d, 0) * 55ms), filter .15s var(--ease);
   }
-  .fig-inline.in svg[data-anim] text {
+  .fig-inline.anim.in svg[data-anim] text {
     opacity: 1;
     transition: opacity .45s ease calc(260ms + var(--d, 0) * 40ms);
   }

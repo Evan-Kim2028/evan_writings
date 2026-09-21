@@ -141,19 +141,22 @@
   }
 })();
 
-/* Inline SVG figures: reveal bars on scroll. No-ops under reduced motion,
-   and the figure is fully legible with JS off because .in is the only gate. */
+/* Inline SVG figures: reveal bars on scroll. The hidden start state lives
+   behind .anim, which is added here, so the figures stay legible when this
+   never runs. Figures already on screen are left alone to avoid a flash. */
 (function () {
   var figs = document.querySelectorAll('figure.fig-inline');
   if (!figs.length) return;
-  if (!('IntersectionObserver' in window)) {
-    figs.forEach(function (f) { f.classList.add('in'); });
-    return;
-  }
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
   }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
-  figs.forEach(function (f) { io.observe(f); });
+  Array.prototype.forEach.call(figs, function (f) {
+    if (f.getBoundingClientRect().top < window.innerHeight * 0.9) return;
+    f.classList.add('anim');
+    io.observe(f);
+  });
 })();
