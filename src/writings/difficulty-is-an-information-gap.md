@@ -58,34 +58,34 @@ level is visible. Seven levels, because that is how many distinct kinds of help 
 actually use, ordered from the least specific to the most.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 452" role="img" aria-label="Seven nested circles tangent at the bottom. L0 at the core is the bug report and is marked fails. Each larger circle contains the one inside it and adds one kind of information, out to L6, every test. L2, the full description, is marked passes, and the band between L0 and L2 is labelled the gap.">
-<circle cx="330" cy="208" r="196" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L6: all tests</title></circle>
-<circle cx="330" cy="236" r="168" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L5: one hidden test</title></circle>
-<circle cx="330" cy="264" r="140" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L4: signatures</title></circle>
-<circle cx="330" cy="292" r="112" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L3: test names</title></circle>
-<circle cx="330" cy="320" r="84" fill="var(--chart-1)" fill-opacity="0.9" stroke="var(--chart-1)" stroke-width="1.5" stroke-opacity="0.55"><title>L2: full description</title></circle>
-<circle cx="330" cy="348" r="56" fill="var(--chart-mute)" fill-opacity="0.16" stroke="var(--line)" stroke-width="1.5" stroke-opacity="0.55"><title>L1: partial description</title></circle>
-<circle cx="330" cy="376" r="28" fill="var(--chart-2)" fill-opacity="1" stroke="var(--chart-2)" stroke-width="1.5" stroke-opacity="0.55"><title>L0: bug report</title></circle>
-<text x="330" y="365" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="700" font-family="var(--font-mono)">L0</text>
-<text x="330" y="381" text-anchor="middle" fill="var(--bg)" font-size="11.5" fill-opacity="0.85" font-family="var(--font-sans)">bug report</text>
-<text x="330" y="309" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L1</text>
-<text x="330" y="325" text-anchor="middle" fill="var(--bg)" font-size="11.5" fill-opacity="0.85" font-family="var(--font-sans)">partial description</text>
-<text x="330" y="253" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="700" font-family="var(--font-mono)">L2</text>
-<text x="330" y="269" text-anchor="middle" fill="var(--bg)" font-size="11.5" fill-opacity="0.85" font-family="var(--font-sans)">full description</text>
-<text x="330" y="197" text-anchor="middle" fill="var(--text-2)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L3</text>
-<text x="330" y="213" text-anchor="middle" fill="var(--text-3)" font-size="11.5" fill-opacity="1" font-family="var(--font-sans)">test names</text>
-<text x="330" y="141" text-anchor="middle" fill="var(--text-2)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L4</text>
-<text x="330" y="157" text-anchor="middle" fill="var(--text-3)" font-size="11.5" fill-opacity="1" font-family="var(--font-sans)">signatures</text>
-<text x="330" y="85" text-anchor="middle" fill="var(--text-2)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L5</text>
-<text x="330" y="101" text-anchor="middle" fill="var(--text-3)" font-size="11.5" fill-opacity="1" font-family="var(--font-sans)">one hidden test</text>
-<text x="330" y="29" text-anchor="middle" fill="var(--text-2)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L6</text>
-<text x="330" y="45" text-anchor="middle" fill="var(--text-3)" font-size="11.5" fill-opacity="1" font-family="var(--font-sans)">all tests</text>
-<text x="330" y="288" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-weight="700" letter-spacing="0.08em" font-family="var(--font-sans)">PASSES</text>
-<text x="330" y="430" text-anchor="middle" fill="var(--chart-2)" font-size="11.5" font-weight="700" letter-spacing="0.08em" font-family="var(--font-sans)">L0 FAILS</text>
+<svg viewBox="0 0 720 452" role="img" data-anim="r" aria-label="Seven nested circles tangent at the bottom, shaded in one blue ramp from the darkest core outward. L0 at the core is the bug report and fails. Each larger circle contains the one inside it and adds one kind of information, out to L6, every test. L2, the full description, passes. The band between L0 and L2 is the gap.">
+<circle style="--d:1" cx="330" cy="208" r="196" fill="var(--lvl-6)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L6: all tests</title></circle>
+<circle style="--d:2" cx="330" cy="236" r="168" fill="var(--lvl-5)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L5: one hidden test</title></circle>
+<circle style="--d:3" cx="330" cy="264" r="140" fill="var(--lvl-4)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L4: signatures</title></circle>
+<circle style="--d:4" cx="330" cy="292" r="112" fill="var(--lvl-3)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L3: test names</title></circle>
+<circle style="--d:5" cx="330" cy="320" r="84" fill="var(--lvl-2)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L2: full description</title></circle>
+<circle style="--d:6" cx="330" cy="348" r="56" fill="var(--lvl-1)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L1: partial description</title></circle>
+<circle style="--d:7" cx="330" cy="376" r="28" fill="var(--lvl-0)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L0: bug report</title></circle>
+<text style="--d:1" x="330" y="365" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="700" font-family="var(--font-mono)">L0</text>
+<text style="--d:2" x="330" y="381" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-family="var(--font-sans)">bug report</text>
+<text style="--d:3" x="330" y="309" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L1</text>
+<text style="--d:4" x="330" y="325" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-family="var(--font-sans)">partial description</text>
+<text style="--d:5" x="330" y="253" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="700" font-family="var(--font-mono)">L2</text>
+<text style="--d:6" x="330" y="269" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-family="var(--font-sans)">full description</text>
+<text style="--d:7" x="330" y="197" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L3</text>
+<text style="--d:8" x="330" y="213" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-family="var(--font-sans)">test names</text>
+<text style="--d:9" x="330" y="141" text-anchor="middle" fill="var(--text)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L4</text>
+<text style="--d:10" x="330" y="157" text-anchor="middle" fill="var(--text-2)" font-size="11.5" font-family="var(--font-sans)">signatures</text>
+<text style="--d:11" x="330" y="85" text-anchor="middle" fill="var(--text)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L5</text>
+<text style="--d:12" x="330" y="101" text-anchor="middle" fill="var(--text-2)" font-size="11.5" font-family="var(--font-sans)">one hidden test</text>
+<text style="--d:13" x="330" y="29" text-anchor="middle" fill="var(--text)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L6</text>
+<text style="--d:14" x="330" y="45" text-anchor="middle" fill="var(--text-2)" font-size="11.5" font-family="var(--font-sans)">all tests</text>
+<text style="--d:15" x="330" y="288" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-weight="700" letter-spacing="0.08em" font-family="var(--font-sans)">PASSES</text>
+<text style="--d:16" x="330" y="430" text-anchor="middle" fill="var(--text)" font-size="11.5" font-weight="700" letter-spacing="0.08em" font-family="var(--font-sans)">L0 FAILS</text>
 <line x1="246" y1="318" x2="150" y2="318" stroke="var(--text-2)" stroke-width="1.5"/>
-<circle cx="246" cy="318" r="3" fill="var(--text-2)"/>
-<text x="142" y="315" text-anchor="end" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
-<text x="142" y="332" text-anchor="end" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2 adds</text>
+<circle style="--d:8" cx="246" cy="318" r="3" fill="var(--text-2)"/>
+<text style="--d:17" x="142" y="315" text-anchor="end" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
+<text style="--d:18" x="142" y="332" text-anchor="end" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2 adds</text>
 </svg>
 <figcaption>Each level contains the one inside it and adds one kind of information about the removed behavior. A certificate is a failure at L0, the core, and a pass at L2. The band between them is the difficulty. Ring sizes are even steps; they show containment, not an amount.</figcaption>
 </figure>
@@ -242,6 +242,53 @@ Then worked examples, so no clause rests on prose alone:
 
 168 words become 668. Not one of the extra 500 names a file, a line number, or a function to edit.
 Every one states behavior a caller can observe. The model fails on 168 words and passes on 668.
+
+<figure class="fig-inline">
+<svg viewBox="0 0 720 330" role="img" data-anim="x" aria-label="Prompt length in words at each level, median with the middle half of the range. L0 is 101 words in a tight band. L2 is 450 words across a wide band. L4 to L6 fall back to about 324 because those levels add test files rather than prose.">
+<line x1="128" y1="30" x2="128" y2="250" stroke="var(--line)" stroke-width="1"/>
+<text style="--d:1" x="128" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">0</text>
+<line x1="258" y1="30" x2="258" y2="250" stroke="var(--line)" stroke-width="1"/>
+<text style="--d:2" x="258" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">200</text>
+<line x1="388" y1="30" x2="388" y2="250" stroke="var(--line)" stroke-width="1"/>
+<text style="--d:3" x="388" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">400</text>
+<line x1="518" y1="30" x2="518" y2="250" stroke="var(--line)" stroke-width="1"/>
+<text style="--d:4" x="518" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">600</text>
+<line x1="648" y1="30" x2="648" y2="250" stroke="var(--line)" stroke-width="1"/>
+<text style="--d:5" x="648" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">800</text>
+<text style="--d:6" x="112" y="48" text-anchor="end" fill="var(--text)" font-size="12.5" font-weight="600" font-family="var(--font-mono)">L0</text>
+<rect style="--d:1" x="181" y="37" width="24" height="14" rx="3" fill="var(--lvl-0)" fill-opacity="0.45"><title>L0: middle half 82 to 119 words, 615 prompts</title></rect>
+<circle cx="194" cy="44" r="5" fill="var(--lvl-0)"/>
+<text style="--d:7" x="215" y="48" fill="var(--text)" font-size="11.5" font-weight="600" font-family="var(--font-mono)">101</text>
+<text style="--d:8" x="112" y="78" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L1</text>
+<rect style="--d:2" x="268" y="67" width="111" height="14" rx="3" fill="var(--lvl-1)" fill-opacity="0.45"><title>L1: middle half 215 to 386 words, 24 prompts</title></rect>
+<circle cx="289" cy="74" r="5" fill="var(--lvl-1)"/>
+<text style="--d:9" x="389" y="78" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">247</text>
+<text style="--d:10" x="112" y="108" text-anchor="end" fill="var(--text)" font-size="12.5" font-weight="600" font-family="var(--font-mono)">L2</text>
+<rect style="--d:3" x="304" y="97" width="253" height="14" rx="3" fill="var(--lvl-2)" fill-opacity="0.45"><title>L2: middle half 270 to 659 words, 609 prompts</title></rect>
+<circle cx="420" cy="104" r="5" fill="var(--lvl-2)"/>
+<text style="--d:11" x="566" y="108" fill="var(--text)" font-size="11.5" font-weight="600" font-family="var(--font-mono)">450</text>
+<text style="--d:12" x="112" y="138" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L3</text>
+<rect style="--d:4" x="315" y="127" width="308" height="14" rx="3" fill="var(--lvl-3)" fill-opacity="0.45"><title>L3: middle half 288 to 762 words, 72 prompts</title></rect>
+<circle cx="471" cy="134" r="5" fill="var(--lvl-3)"/>
+<text style="--d:13" x="633" y="138" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">527</text>
+<text style="--d:14" x="112" y="168" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L4</text>
+<rect style="--d:5" x="297" y="157" width="176" height="14" rx="3" fill="var(--lvl-4)" fill-opacity="0.45"><title>L4: middle half 260 to 531 words, 31 prompts</title></rect>
+<circle cx="339" cy="164" r="5" fill="var(--lvl-4)"/>
+<text style="--d:15" x="483" y="168" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">324</text>
+<text style="--d:16" x="112" y="198" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L5</text>
+<rect style="--d:6" x="306" y="187" width="196" height="14" rx="3" fill="var(--lvl-5)" fill-opacity="0.45"><title>L5: middle half 274 to 575 words, 120 prompts</title></rect>
+<circle cx="345" cy="194" r="5" fill="var(--lvl-5)"/>
+<text style="--d:17" x="512" y="198" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">334</text>
+<text style="--d:18" x="112" y="228" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L6</text>
+<rect style="--d:7" x="305" y="217" width="64" height="14" rx="3" fill="var(--lvl-6)" fill-opacity="0.45"><title>L6: middle half 273 to 372 words, 70 prompts</title></rect>
+<circle cx="339" cy="224" r="5" fill="var(--lvl-6)"/>
+<text style="--d:19" x="380" y="228" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">324</text>
+<line x1="128" y1="250" x2="648" y2="250" stroke="var(--line)" stroke-width="1.5"/>
+<text style="--d:20" x="388" y="292" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">words in the prompt</text>
+<text style="--d:21" x="388" y="312" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-sans)">dot is the median, bar is the middle half of 1,541 prompts</text>
+</svg>
+<figcaption>Prompt length at each level, measured across every instruction on disk. The bug report is 101 words and barely varies. The full description is 450 and varies enormously, because it grows with how much behavior was cut. Above L3 the prompt stops growing: those levels add test files to the repository rather than prose to the prompt.</figcaption>
+</figure>
 
 ### What the checks reject
 

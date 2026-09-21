@@ -27,6 +27,13 @@
   --chart-1: #1f5fbf;
   --chart-2: #b6541e;
   --chart-mute: #b9b6ad;
+  --lvl-0: #0b2850;
+  --lvl-1: #133c6d;
+  --lvl-2: #1a4f8f;
+  --lvl-3: #2a68ad;
+  --lvl-4: #4180c6;
+  --lvl-5: #5c98d6;
+  --lvl-6: #7aaee2;
   color-scheme: light;
 }
 
@@ -45,6 +52,13 @@
   --chart-1: #4a8fe0;
   --chart-2: #d9752f;
   --chart-mute: #4d5260;
+  --lvl-0: #e2edfe;
+  --lvl-1: #bbd1f8;
+  --lvl-2: #95b4ec;
+  --lvl-3: #7196da;
+  --lvl-4: #5479bd;
+  --lvl-5: #3b5e98;
+  --lvl-6: #2c4e80;
   color-scheme: dark;
 }
 
@@ -439,6 +453,11 @@ td.best { background: var(--hi); font-weight: 600; }
   .fig-inline.anim svg[data-anim="y"] rect { transform-origin: 50% 100%; transform: scaleY(.02); }
   .fig-inline.anim svg[data-anim="x"] rect { transform-origin: 0% 50%; transform: scaleX(.01); }
   .fig-inline.anim svg[data-anim] text { opacity: 0; }
+  .fig-inline.anim svg[data-anim="r"] circle { opacity: 0; transform-box: fill-box; transform-origin: 50% 100%; transform: scale(.88); }
+  .fig-inline.anim.in svg[data-anim="r"] circle {
+    opacity: 1; transform: none;
+    transition: opacity .5s ease calc(var(--d, 0) * 60ms), transform .55s cubic-bezier(.22,.8,.28,1) calc(var(--d, 0) * 60ms);
+  }
   .fig-inline.anim.in svg[data-anim] rect {
     transform: none;
     transition: transform .62s cubic-bezier(.22,.8,.28,1) calc(var(--d, 0) * 55ms), filter .15s var(--ease);
