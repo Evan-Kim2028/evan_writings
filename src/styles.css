@@ -424,3 +424,34 @@ td.best { background: var(--hi); font-weight: 600; }
 .writing-body blockquote p + p, .writing-body li p + p { text-indent: 0; }
 .writing-body p.long { margin-bottom: 1.25rem; }
 @media (max-width: 640px) { .writing-body p + p { text-indent: 1.1em; } }
+
+/* ---- inline SVG figures: reveal motion + hover ---- */
+.fig-inline { margin: 1.75rem 0; }
+.fig-inline figcaption { font-size: .85rem; color: var(--text-3); margin-top: .6rem; line-height: 1.5; }
+.fig-inline svg rect { transition: filter .15s var(--ease); }
+.fig-inline svg rect:hover { filter: brightness(1.12) saturate(1.05); cursor: default; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .fig-inline svg[data-anim] rect { transform-box: fill-box; }
+  .fig-inline svg[data-anim="y"] rect { transform-origin: 50% 100%; transform: scaleY(.02); }
+  .fig-inline svg[data-anim="x"] rect { transform-origin: 0% 50%; transform: scaleX(.01); }
+  .fig-inline svg[data-anim] text { opacity: 0; }
+  .fig-inline.in svg[data-anim] rect {
+    transform: none;
+    transition: transform .62s cubic-bezier(.22,.8,.28,1) calc(var(--d, 0) * 55ms), filter .15s var(--ease);
+  }
+  .fig-inline.in svg[data-anim] text {
+    opacity: 1;
+    transition: opacity .45s ease calc(260ms + var(--d, 0) * 40ms);
+  }
+}
+
+/* A row carrying bold cells is a total or the row under discussion: rule it off
+   from the body above and tint it so the eye lands there first. */
+.writing-body tbody tr:has(strong) td,
+.article tbody tr:has(strong) td {
+  border-top: 1px solid var(--text-3);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+.writing-body thead th, .article thead th { border-bottom: 1px solid var(--line); }
+.writing-body tbody td, .article tbody td { line-height: 1.45; }

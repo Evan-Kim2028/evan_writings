@@ -140,3 +140,20 @@
     });
   }
 })();
+
+/* Inline SVG figures: reveal bars on scroll. No-ops under reduced motion,
+   and the figure is fully legible with JS off because .in is the only gate. */
+(function () {
+  var figs = document.querySelectorAll('figure.fig-inline');
+  if (!figs.length) return;
+  if (!('IntersectionObserver' in window)) {
+    figs.forEach(function (f) { f.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+  figs.forEach(function (f) { io.observe(f); });
+})();
