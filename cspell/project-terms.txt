@@ -1,11 +1,9 @@
-# Project dictionary for src/writings — technical terms, product/protocol names,
-# author names, ticker symbols, and LaTeX-source artifacts already used in the posts.
-# Add new project vocabulary here rather than weakening the linter.
 ABDK
 Abramowitz
 Acklam
 Acklam's
 Acta
+# Add new project vocabulary here rather than weakening the linter.
 afsui
 Agrawal
 Akdeniz
@@ -16,12 +14,14 @@ Aptos
 araghava
 Auctus
 Aufiero
+# author names, ticker symbols, and LaTeX-source artifacts already used in the posts.
 Autonolas
 backpressure
 backrun
 backtest
 backtesting
 baryrat
+bbolt
 Beaverbuild
 bigg
 BLAS
@@ -110,6 +110,7 @@ jito
 Jito
 Kolibrio
 Koopman
+kops
 Kshitij
 Kwon
 lakehouse
@@ -171,6 +172,7 @@ preconfs
 Preconfs
 Primev
 primitivefinance
+# Project dictionary for src/writings — technical terms, product/protocol names,
 Prysm
 qₘxᵐ
 Raphson
@@ -227,9 +229,11 @@ tickticktick
 titn
 totalisator
 Trefethen
+trialled
 trilema
 Trino
 TWAP
+underspecified
 Valory
 Valory’s
 vsui
