@@ -37,8 +37,7 @@ behavior those tests check. Keep the task when the first fails and the second pa
 Those two runs are the product. The failure shows the task is hard. The pass shows it is solvable
 as written. One prompt cannot show both, and every comparable generation pipeline uses one prompt.
 
-Stage 1 is Go, nine repositories, self-funded: 527 tasks authored, 1,239 runs, 2.32 billion tokens, $519,
-139 certified so far.
+Stage 1 is Go, nine repositories, self-funded: 527 tasks authored and 139 certified so far.
 
 ## The information gap
 
@@ -59,7 +58,7 @@ level is visible. Seven levels, because that is how many distinct kinds of help 
 actually use, ordered from the least specific to the most.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 348" role="img" aria-label="Seven ascending bars labelled L0 to L6 showing how much the model is told. L0, a bug report, is marked fails. L2, a full description, is marked passes. A bracket between their tops is labelled the gap.">
+<svg viewBox="0 0 812 348" role="img" aria-label="Seven ascending bars labelled L0 to L6 showing how much the model is told. L0, a bug report, is marked fails. L2, a full description, is marked passes. A bracket at the right measures the distance between their tops and is labelled the gap.">
 <rect x="60" y="256" width="84" height="26" rx="4" fill="var(--chart-2)" opacity="1"><title>L0</title></rect>
 <rect x="150" y="224" width="84" height="58" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L1</title></rect>
 <rect x="240" y="192" width="84" height="90" rx="4" fill="var(--chart-1)" opacity="1"><title>L2</title></rect>
@@ -67,12 +66,13 @@ actually use, ordered from the least specific to the most.
 <rect x="420" y="128" width="84" height="154" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L4</title></rect>
 <rect x="510" y="96" width="84" height="186" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L5</title></rect>
 <rect x="600" y="64" width="84" height="218" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L6</title></rect>
-<line x1="60" y1="282" x2="700" y2="282" stroke="var(--line)" stroke-width="1.5"/>
-<line x1="144" y1="256" x2="352" y2="256" stroke="var(--chart-2)" stroke-width="1.5" opacity="0.65"/>
-<line x1="324" y1="192" x2="352" y2="192" stroke="var(--chart-1)" stroke-width="1.5" opacity="0.65"/>
-<path d="M352 256 L362 256 L362 192 L352 192" fill="none" stroke="var(--text-2)" stroke-width="1.5"/>
-<text x="374" y="223" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
-<text x="374" y="240" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2 adds</text>
+<line x1="60" y1="282" x2="690" y2="282" stroke="var(--line)" stroke-width="1.5"/>
+<line x1="144" y1="256" x2="700" y2="256" stroke="var(--chart-2)" stroke-width="1.5" opacity="0.5"/>
+<line x1="324" y1="192" x2="700" y2="192" stroke="var(--chart-1)" stroke-width="1.5" opacity="0.5"/>
+<path d="M700 256 L712 256 L712 192 L700 192" fill="none" stroke="var(--text-2)" stroke-width="1.5"/>
+<text x="722" y="222" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
+<text x="722" y="239" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2</text>
+<text x="722" y="254" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">adds</text>
 <text x="102" y="302" text-anchor="middle" fill="var(--chart-2)" font-size="13" font-family="var(--font-mono)">L0</text>
 <text x="102" y="320" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">bug report</text>
 <text x="192" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L1</text>
@@ -345,6 +345,7 @@ asked to produce may already be in its weights.
 
 The table held three surprises.
 
+Of the 2.32 billion tokens, 2.24 billion were cache reads and only 16.9 million were output.
 Output is 0.74% of input. These runs are almost entirely a model reading a repository, so the
 token bill is a reading bill, and anything that shortens what the model must read is worth more
 than anything that shortens what it writes. The 97.4% cache hit rate is what makes the whole
@@ -416,7 +417,7 @@ cheap half.
 
 Stage 1 is Go, nine repositories, in-repo cuts, and one model for 95% of runs. Those are budget
 choices, not findings. This is self-funded, so the bank is small and deep instead of broad. It is
-enough to show the method works and to price it, not enough to claim it generalizes.
+enough to show the method works, not enough to claim it generalizes.
 
 Removing behavior cleanly leans on Go’s package layout and test conventions, so a second language
 is the real test. A certificate may not hold for a model that never took part in screening; right
