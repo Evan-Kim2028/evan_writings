@@ -12,7 +12,7 @@ tags:
   - coding-agents
 source_url: https://github.com/Evan-Kim2028/open_swe_traces_research
 source_platform: github
-slug: building-a-synthetic-swe-factory-stage-1-go
+slug: difficulty-is-an-information-gap
 description: "Stage 1: Go, nine repositories, 527 tasks. A coding task is hard because of what its prompt leaves out, and that gap can be set on purpose and measured."
 series: Evals
 series_index: 3
@@ -59,37 +59,33 @@ level is visible. Seven levels, because that is how many distinct kinds of help 
 actually use, ordered from the least specific to the most.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 350" role="img" aria-label="Seven ascending steps labelled L0 to L6. Height is how much the model is told. L0, a bug report, is marked fail. L2, a full description, is marked pass. The distance between them is labelled the gap.">
-  <g fill="var(--accent)" opacity="0.22">
-    <rect x="60" y="256" width="84" height="26"/>
-    <rect x="150" y="224" width="84" height="58"/>
-    <rect x="240" y="192" width="84" height="90"/>
-    <rect x="330" y="160" width="84" height="122"/>
-    <rect x="420" y="128" width="84" height="154"/>
-    <rect x="510" y="96" width="84" height="186"/>
-    <rect x="600" y="64" width="84" height="218"/>
-  </g>
-  <rect x="60" y="256" width="84" height="26" fill="var(--accent-2)"/>
-  <rect x="240" y="192" width="84" height="90" fill="var(--accent)"/>
-  <line x1="60" y1="282" x2="700" y2="282" stroke="var(--line)" stroke-width="1.5"/>
-  <line x1="144" y1="256" x2="352" y2="256" stroke="var(--text-3)" stroke-width="1" stroke-dasharray="3 4"/>
-  <line x1="324" y1="192" x2="352" y2="192" stroke="var(--text-3)" stroke-width="1" stroke-dasharray="3 4"/>
-  <path d="M352 256 L362 256 L362 192 L352 192" fill="none" stroke="var(--text-2)" stroke-width="1.5"/>
-  <text x="372" y="219" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
-  <text x="372" y="236" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2 adds</text>
-  <g font-size="13" font-family="var(--font-mono)" fill="var(--text-2)" text-anchor="middle">
-    <text x="102" y="302">L0</text><text x="192" y="302">L1</text><text x="282" y="302">L2</text>
-    <text x="372" y="302">L3</text><text x="462" y="302">L4</text><text x="552" y="302">L5</text>
-    <text x="642" y="302">L6</text>
-  </g>
-  <g font-size="12" font-family="var(--font-sans)" fill="var(--text-3)" text-anchor="middle">
-    <text x="102" y="320">bug</text><text x="102" y="334">report</text>
-    <text x="282" y="320">full</text><text x="282" y="334">description</text>
-    <text x="642" y="320">all</text><text x="642" y="334">tests</text>
-  </g>
-  <text x="102" y="248" fill="var(--accent-2)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--font-sans)">FAILS</text>
-  <text x="282" y="184" fill="var(--accent)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--font-sans)">PASSES</text>
-  <text x="20" y="180" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)" transform="rotate(-90 20 180)" text-anchor="middle">information given</text>
+<svg viewBox="0 0 720 348" role="img" aria-label="Seven ascending bars labelled L0 to L6 showing how much the model is told. L0, a bug report, is marked fails. L2, a full description, is marked passes. A bracket between their tops is labelled the gap.">
+<rect x="60" y="256" width="84" height="26" rx="4" fill="var(--chart-2)" opacity="1"><title>L0</title></rect>
+<rect x="150" y="224" width="84" height="58" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L1</title></rect>
+<rect x="240" y="192" width="84" height="90" rx="4" fill="var(--chart-1)" opacity="1"><title>L2</title></rect>
+<rect x="330" y="160" width="84" height="122" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L3</title></rect>
+<rect x="420" y="128" width="84" height="154" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L4</title></rect>
+<rect x="510" y="96" width="84" height="186" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L5</title></rect>
+<rect x="600" y="64" width="84" height="218" rx="4" fill="var(--chart-mute)" opacity="0.42"><title>L6</title></rect>
+<line x1="60" y1="282" x2="700" y2="282" stroke="var(--line)" stroke-width="1.5"/>
+<line x1="144" y1="256" x2="352" y2="256" stroke="var(--chart-2)" stroke-width="1.5" opacity="0.65"/>
+<line x1="324" y1="192" x2="352" y2="192" stroke="var(--chart-1)" stroke-width="1.5" opacity="0.65"/>
+<path d="M352 256 L362 256 L362 192 L352 192" fill="none" stroke="var(--text-2)" stroke-width="1.5"/>
+<text x="374" y="223" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
+<text x="374" y="240" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2 adds</text>
+<text x="102" y="302" text-anchor="middle" fill="var(--chart-2)" font-size="13" font-family="var(--font-mono)">L0</text>
+<text x="102" y="320" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">bug report</text>
+<text x="192" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L1</text>
+<text x="282" y="302" text-anchor="middle" fill="var(--chart-1)" font-size="13" font-family="var(--font-mono)">L2</text>
+<text x="282" y="320" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">full description</text>
+<text x="372" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L3</text>
+<text x="462" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L4</text>
+<text x="552" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L5</text>
+<text x="642" y="302" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L6</text>
+<text x="642" y="320" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">all tests</text>
+<text x="102" y="246" fill="var(--chart-2)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--font-sans)">FAILS</text>
+<text x="282" y="182" fill="var(--chart-1)" font-size="12" font-weight="700" text-anchor="middle" font-family="var(--font-sans)">PASSES</text>
+<text x="20" y="176" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)" transform="rotate(-90 20 176)" text-anchor="middle">information given</text>
 </svg>
 <figcaption>Each level adds one kind of information about the removed behavior. A certificate is a failure at L0 and a pass at L2 by the same model. The distance between those two bars is the difficulty.</figcaption>
 </figure>
@@ -266,60 +262,79 @@ Agent-side web tools run on the vendor’s servers and cannot be blocked from in
 
 ## The synthetic dataset
 
-### Yield
+### What a task contains
+
+139 certified tasks so far, cut from nine Go repositories: client-go, kops, helm, go-git,
+go-github, goa, gin, bbolt, and nats-server. Kubernetes tooling, version control, API design,
+storage, HTTP services, and messaging.
+
+Each task ships as a Docker environment plus five artifacts. The repository with the behavior
+removed. A bug report, which is the L0 prompt. A written description of every behavior the tests
+check, which is the L2 prompt. A hidden test suite that only calls exported functions. And the
+answer key, the code that was cut.
+
+These are not toy edits. The median answer key is 127 lines, most fall between 80 and 320, and a
+quarter touch two or more files.
+
+Every task also carries the model that certified it. 124 of the 139 had the same model fail L0 and
+pass L2, which is the clean claim. The other 15 failed L0 on one model and passed L2 on another,
+which might be an information gap or a capability gap, so they are labelled separately rather than
+pooled.
+
+### What the filter removed
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 300" role="img" aria-label="A funnel. 527 tasks authored, 339 trialled, 299 decided, 139 certified. The 299 decided tasks split into 131 solved from the bug report, 139 certified, and 29 that failed both prompts.">
-  <g font-family="var(--font-sans)" font-size="13">
-    <text x="112" y="34" text-anchor="end" fill="var(--text-2)">authored</text>
-    <rect x="124" y="20" width="528" height="22" fill="var(--accent)" opacity="0.30"/>
-    <text x="662" y="36" fill="var(--text)" font-family="var(--font-mono)" font-weight="600">527</text>
-    <text x="112" y="68" text-anchor="end" fill="var(--text-2)">trialled</text>
-    <rect x="124" y="54" width="340" height="22" fill="var(--accent)" opacity="0.45"/>
-    <text x="474" y="70" fill="var(--text)" font-family="var(--font-mono)" font-weight="600">339</text>
-    <text x="112" y="102" text-anchor="end" fill="var(--text-2)">decided</text>
-    <rect x="124" y="88" width="300" height="22" fill="var(--accent)" opacity="0.60"/>
-    <text x="434" y="104" fill="var(--text)" font-family="var(--font-mono)" font-weight="600">299</text>
-    <text x="112" y="136" text-anchor="end" fill="var(--text-2)">certified</text>
-    <rect x="124" y="122" width="139" height="22" fill="var(--accent)"/>
-    <text x="273" y="138" fill="var(--text)" font-family="var(--font-mono)" font-weight="600">139</text>
-  </g>
-  <line x1="124" y1="176" x2="652" y2="176" stroke="var(--line)" stroke-width="1"/>
-  <text x="124" y="204" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">the 299 decided tasks</text>
-  <rect x="124" y="216" width="231" height="34" fill="var(--accent-2)" opacity="0.55"/>
-  <rect x="355" y="216" width="245" height="34" fill="var(--accent)"/>
-  <rect x="600" y="216" width="52" height="34" fill="var(--text-2)"/>
-  <g font-family="var(--font-mono)" font-size="13" font-weight="600" fill="var(--bg)" text-anchor="middle">
-    <text x="239" y="238">131</text><text x="477" y="238">139</text><text x="626" y="238">29</text>
-  </g>
-  <g font-family="var(--font-sans)" font-size="12" fill="var(--text-2)" text-anchor="middle">
-    <text x="239" y="270">solved from the</text><text x="239" y="284">bug report alone</text>
-    <text x="477" y="270">failed L0, passed L2</text><text x="477" y="284">certified</text>
-    <text x="626" y="270">failed</text><text x="626" y="284">both</text>
-  </g>
+<svg viewBox="0 0 720 300" role="img" aria-label="Funnel: 527 authored, 339 trialled, 299 decided, 139 certified. The 299 decided split into 131 solved from the bug report, 139 certified, and 29 that failed both prompts.">
+<text x="112" y="36" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">authored</text>
+<rect x="124" y="20" width="528" height="22" rx="3" fill="var(--chart-1)" opacity="0.34"><title>authored: 527</title></rect>
+<text x="662" y="36" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">527</text>
+<text x="112" y="70" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">trialled</text>
+<rect x="124" y="54" width="340" height="22" rx="3" fill="var(--chart-1)" opacity="0.34"><title>trialled: 339</title></rect>
+<text x="474" y="70" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">339</text>
+<text x="112" y="104" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">decided</text>
+<rect x="124" y="88" width="300" height="22" rx="3" fill="var(--chart-1)" opacity="0.34"><title>decided: 299</title></rect>
+<text x="434" y="104" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">299</text>
+<text x="112" y="138" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">certified</text>
+<rect x="124" y="122" width="139" height="22" rx="3" fill="var(--chart-1)" opacity="1"><title>certified: 139</title></rect>
+<text x="273" y="138" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">139</text>
+<line x1="124" y1="176" x2="652" y2="176" stroke="var(--line)" stroke-width="1"/>
+<text x="124" y="202" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">the 299 decided tasks</text>
+<rect x="124" y="214" width="229" height="34" rx="3" fill="var(--chart-2)"><title>solved from the bug report alone: 131</title></rect>
+<text x="238" y="236" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="600" font-family="var(--font-mono)">131</text>
+<text x="238" y="268" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">solved from the</text>
+<text x="238" y="282" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">bug report alone</text>
+<rect x="355" y="214" width="243" height="34" rx="3" fill="var(--chart-1)"><title>failed L0, passed L2 certified: 139</title></rect>
+<text x="476" y="236" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="600" font-family="var(--font-mono)">139</text>
+<text x="476" y="268" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">failed L0, passed L2</text>
+<text x="476" y="282" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">certified</text>
+<rect x="600" y="214" width="50" height="34" rx="3" fill="var(--chart-mute)"><title>failed both: 29</title></rect>
+<text x="625" y="236" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">29</text>
+<text x="625" y="268" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">failed</text>
+<text x="625" y="282" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">both</text>
 </svg>
 <figcaption>527 authored tasks produce 139 certificates. The screen and the certificate remove about as much as each other: 131 tasks were never hard, and 29 failed both prompts.</figcaption>
 </figure>
 
-Nearly half of what a careful pipeline authors is already solvable from a symptom report. Any
-generator shipping unscreened tasks is shipping a lot of freebies and cannot tell you which ones.
+Of the 299 decided tasks, 131 were solved from the bug report alone and never reached the
+certificate. Nearly half of what a careful pipeline authors is already solvable from a symptom
+report. Any generator shipping unscreened tasks is shipping a lot of freebies and cannot tell you
+which ones. The 29 that failed both prompts came out too, and every one audited turned out to be a
+defective description rather than an impossible task.
 
-Each certificate names its model. 124 of the 139 had the same model on both ends, which is the
-clean claim. The other 15 failed L0 on one model and passed L2 on another, which might be an
-information gap or a capability gap. Those are kept and labelled separately.
+Roughly one authored task in four survives to the dataset. The screen and the certificate each
+remove about as much as the other.
 
-### Provenance
+### Why it cannot be contaminated
 
 Across 1,545 task files there are zero references to issues, pull requests, or CVEs. The answer
 keys are 102,586 added lines against 638 non-stub deletions, because restoring removed code is
-almost entirely addition. These tasks cannot be in anyone’s training set, because they did not
-exist until the cut was made.
+almost entirely addition. No task in this dataset can sit in any model's training data, because
+none of them existed until the cut was made.
 
-They are also not toys. The median answer key is 127 lines, most fall between 80 and 320, and a
-quarter touch two or more files. The nine repositories are client-go, kops, helm, go-git,
-go-github, goa, gin, bbolt, and nats-server.
+That separates the dataset from anything mined out of GitHub history, where the fix a model is
+asked to produce may already be in its weights.
 
-### Cost
+### What it cost to produce
 
 | Stage | Runs | Input | Output | Cache hit | Cost | $/run |
 |---|---:|---:|---:|---:|---:|---:|
@@ -334,7 +349,7 @@ Output is 0.74% of input. These runs are almost entirely a model reading a repos
 token bill is a reading bill, and anything that shortens what the model must read is worth more
 than anything that shortens what it writes. The 97.4% cache hit rate is what makes the whole
 project affordable at all: the repository context repeats across every run of a task, and at list
-prices without caching this bank would have cost roughly ten times as much.
+prices without caching this dataset would have cost roughly ten times as much.
 
 The levels above L2 cost twice as much per run, $0.86 against $0.43, because their prompts carry
 test names and test bodies. Climbing the ladder costs money on both ends, in prompt size and in
@@ -342,30 +357,30 @@ runs. It also explains the shape of the spending, because almost every run sits 
 the certificate needs.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 300" role="img" aria-label="Runs per information level. L0 has 461 runs and L2 has 613. The other five levels together have 113.">
-<rect x="110" y="104" width="56" height="128" rx="3" fill="var(--accent-2)" opacity="1"/>
-<text x="138" y="96" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">461</text>
-<text x="138" y="252" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">L0</text>
-<rect x="194" y="228" width="56" height="4" rx="3" fill="var(--text-3)" opacity="0.55"/>
-<text x="222" y="220" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">16</text>
-<text x="222" y="252" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">L1</text>
-<rect x="278" y="62" width="56" height="170" rx="3" fill="var(--accent)" opacity="1"/>
-<text x="306" y="54" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">613</text>
-<text x="306" y="252" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">L2</text>
-<rect x="362" y="225" width="56" height="7" rx="3" fill="var(--text-3)" opacity="0.55"/>
-<text x="390" y="217" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">24</text>
-<text x="390" y="252" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">L3</text>
-<rect x="446" y="229" width="56" height="3" rx="3" fill="var(--text-3)" opacity="0.55"/>
-<text x="474" y="221" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">12</text>
-<text x="474" y="252" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">L4</text>
-<rect x="530" y="222" width="56" height="10" rx="3" fill="var(--text-3)" opacity="0.55"/>
-<text x="558" y="214" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">36</text>
-<text x="558" y="252" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">L5</text>
-<rect x="614" y="225" width="56" height="7" rx="3" fill="var(--text-3)" opacity="0.55"/>
-<text x="642" y="217" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">25</text>
-<text x="642" y="252" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">L6</text>
-<line x1="96" y1="232" x2="700" y2="232" stroke="var(--line)" stroke-width="1.5"/>
-<text x="360" y="268" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">the deciding pair carries 90% of the runs; the rest of the ladder is thinly sampled</text>
+<svg viewBox="0 0 720 286" role="img" aria-label="Runs per information level. L0 has 461 runs and L2 has 613. The other five levels together have 113.">
+<rect x="110" y="101" width="56" height="123" rx="3" fill="var(--chart-2)" opacity="1"><title>L0: 461 runs</title></rect>
+<text x="138" y="93" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">461</text>
+<text x="138" y="244" text-anchor="middle" fill="var(--chart-2)" font-size="13" font-family="var(--font-mono)">L0</text>
+<rect x="194" y="220" width="56" height="4" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L1: 16 runs</title></rect>
+<text x="222" y="212" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">16</text>
+<text x="222" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L1</text>
+<rect x="278" y="60" width="56" height="164" rx="3" fill="var(--chart-1)" opacity="1"><title>L2: 613 runs</title></rect>
+<text x="306" y="52" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">613</text>
+<text x="306" y="244" text-anchor="middle" fill="var(--chart-1)" font-size="13" font-family="var(--font-mono)">L2</text>
+<rect x="362" y="218" width="56" height="6" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L3: 24 runs</title></rect>
+<text x="390" y="210" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">24</text>
+<text x="390" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L3</text>
+<rect x="446" y="221" width="56" height="3" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L4: 12 runs</title></rect>
+<text x="474" y="213" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">12</text>
+<text x="474" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L4</text>
+<rect x="530" y="214" width="56" height="10" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L5: 36 runs</title></rect>
+<text x="558" y="206" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">36</text>
+<text x="558" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L5</text>
+<rect x="614" y="217" width="56" height="7" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L6: 25 runs</title></rect>
+<text x="642" y="209" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">25</text>
+<text x="642" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L6</text>
+<line x1="96" y1="224" x2="700" y2="224" stroke="var(--line)" stroke-width="1.5"/>
+<text x="398" y="262" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">the deciding pair carries 90% of the runs; the rest of the ladder is thinly sampled</text>
 </svg>
 <figcaption>Runs per level, 1,187 scored runs. L0 and L2 take 1,074 of them. L1 and L3 through L6 share 113, which is why the shape of the curve between them stays unmeasured.</figcaption>
 </figure>
@@ -374,19 +389,19 @@ the certificate needs.
 the 8.3 runs each certificate actually took, so 73% of tokens paid for runs past the deciding pair:
 39% re-running L2 after repairing a description, 15% re-running L0, 19% exploring other levels.
 <figure class="fig-inline">
-<svg viewBox="0 0 720 250" role="img" aria-label="Runs needed per certificate. Parallel with no gate 9.0, sequential with no gate 7.7, sequential with a gate 3.2, against a floor of 2.">
-<text x="246" y="56" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">parallel, no gate</text>
-<rect x="260" y="34" width="396" height="32" rx="3" fill="var(--text-3)" opacity="0.55"/>
-<text x="666" y="56" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">9.0</text>
-<text x="246" y="110" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">sequential, no gate</text>
-<rect x="260" y="88" width="339" height="32" rx="3" fill="var(--text-3)" opacity="0.55"/>
-<text x="609" y="110" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">7.7</text>
-<text x="246" y="164" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">sequential, gated</text>
-<rect x="260" y="142" width="141" height="32" rx="3" fill="var(--accent)" opacity="1"/>
-<text x="411" y="164" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">3.2</text>
-<line x1="348" y1="20" x2="348" y2="212" stroke="var(--accent-2)" stroke-width="2" stroke-dasharray="5 5"/>
-<text x="356" y="208" fill="var(--accent-2)" font-size="12" font-family="var(--font-sans)">floor of 2</text>
-<text x="490" y="238" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">runs per certificate</text>
+<svg viewBox="0 0 720 236" role="img" aria-label="Runs needed per certificate: parallel with no gate 9.0, sequential with no gate 7.7, sequential with a gate 3.2, against a floor of 2.">
+<text x="248" y="49" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">parallel, no gate</text>
+<rect x="262" y="28" width="378" height="30" rx="3" fill="var(--chart-mute)" opacity="0.6"><title>parallel, no gate: 9.0 runs per certificate</title></rect>
+<text x="650" y="49" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">9.0</text>
+<text x="248" y="101" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">sequential, no gate</text>
+<rect x="262" y="80" width="323" height="30" rx="3" fill="var(--chart-mute)" opacity="0.6"><title>sequential, no gate: 7.7 runs per certificate</title></rect>
+<text x="595" y="101" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">7.7</text>
+<text x="248" y="153" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">sequential, gated</text>
+<rect x="262" y="132" width="134" height="30" rx="3" fill="var(--chart-1)" opacity="1"><title>sequential, gated: 3.2 runs per certificate</title></rect>
+<text x="406" y="153" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">3.2</text>
+<line x1="346" y1="16" x2="346" y2="192" stroke="var(--chart-2)" stroke-width="2"/>
+<text x="354" y="188" fill="var(--chart-2)" font-size="12" font-family="var(--font-sans)">floor of 2</text>
+<text x="480" y="222" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">runs per certificate</text>
 </svg>
 <figcaption>Runs spent per certificate under three schedules. Refusing a run whose outcome is already determined is worth about 4×. Running trials in sequence, on its own, is worth almost nothing.</figcaption>
 </figure>
