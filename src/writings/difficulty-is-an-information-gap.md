@@ -27,7 +27,8 @@ chains, more behavior removed at once. That turns out not to work. A task is har
 its prompt leaves out, and a factory can set that directly. Hold the code, the tests, and the model
 fixed, change only how much the prompt says about the missing behavior, and the same model goes from
 failing to passing. The information ladder is that dial, six prompts for one task, each telling the
-solver more. This post describes a factory built on the ladder and what its first 591 Go tasks show.
+solver more. Agents build each task and execution checks it, so no step needs a person, and the
+factory scales with compute instead of reviewers. This post describes a factory built on the ladder and what its first 591 Go tasks show.
 
 - **The prompt sets the difficulty.** Composer fails `gin-clientip` from a 96-word bug report and
   passes it three runs in three from a 596-word description of the same behavior. Inverting one line
@@ -146,6 +147,9 @@ three levels too low. Three tasks now carry independent certificates from two mo
 are the tasks that can separate a task's difficulty from a model's.
 
 ## The factory
+
+The factory is built to run without a person in the loop. Agents cut, test, and describe each
+task, and Docker checks it by execution. People design the checks and audit samples.
 
 ### Building a task
 
