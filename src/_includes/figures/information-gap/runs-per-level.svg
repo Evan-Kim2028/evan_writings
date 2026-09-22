@@ -1,0 +1,36 @@
+<svg viewBox="0 0 720 294" role="img" data-anim="y" aria-label="Runs with a verdict per level, stacked by model. L1 605, L2 708, L3 to L6 276 together.">
+<line x1="40.0" y1="250.0" x2="700.0" y2="250.0" stroke="var(--line)" stroke-width="1.5"/>
+<rect x="84.0" y="113.0" width="64.0" height="137.0" rx="0.0" fill="var(--chart-1)"><title>L1, Composer: 462 runs</title></rect>
+<rect x="84.0" y="73.2" width="64.0" height="39.7" rx="0.0" fill="var(--chart-2)"><title>L1, Devin: 134 runs</title></rect>
+<rect x="84.0" y="70.6" width="64.0" height="2.7" rx="0.0" fill="var(--chart-3)"><title>L1, Grok: 9 runs</title></rect>
+<text x="116.0" y="60.6" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">605</text>
+<text x="116.0" y="280.0" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L1</text>
+<rect x="188.0" y="61.1" width="64.0" height="188.9" rx="0.0" fill="var(--chart-1)"><title>L2, Composer: 637 runs</title></rect>
+<rect x="188.0" y="40.9" width="64.0" height="20.2" rx="0.0" fill="var(--chart-2)"><title>L2, Devin: 68 runs</title></rect>
+<rect x="188.0" y="40.0" width="64.0" height="0.9" rx="0.0" fill="var(--chart-3)"><title>L2, Grok: 3 runs</title></rect>
+<text x="220.0" y="30.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">708</text>
+<text x="220.0" y="280.0" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L2</text>
+<rect x="292.0" y="224.8" width="64.0" height="25.2" rx="0.0" fill="var(--chart-1)"><title>L3, Composer: 85 runs</title></rect>
+<rect x="292.0" y="223.3" width="64.0" height="1.5" rx="0.0" fill="var(--chart-3)"><title>L3, Grok: 5 runs</title></rect>
+<text x="324.0" y="213.3" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">90</text>
+<text x="324.0" y="280.0" text-anchor="middle" fill="var(--text-2)" font-size="20" font-weight="700" font-family="var(--font-mono)">L3</text>
+<rect x="396.0" y="232.8" width="64.0" height="17.2" rx="0.0" fill="var(--chart-1)"><title>L4, Composer: 58 runs</title></rect>
+<rect x="396.0" y="231.9" width="64.0" height="0.9" rx="0.0" fill="var(--chart-2)"><title>L4, Devin: 3 runs</title></rect>
+<rect x="396.0" y="231.0" width="64.0" height="0.9" rx="0.0" fill="var(--chart-3)"><title>L4, Grok: 3 runs</title></rect>
+<text x="428.0" y="221.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">64</text>
+<text x="428.0" y="280.0" text-anchor="middle" fill="var(--text-2)" font-size="20" font-weight="700" font-family="var(--font-mono)">L4</text>
+<rect x="500.0" y="224.2" width="64.0" height="25.8" rx="0.0" fill="var(--chart-1)"><title>L5, Composer: 87 runs</title></rect>
+<rect x="500.0" y="223.3" width="64.0" height="0.9" rx="0.0" fill="var(--chart-3)"><title>L5, Grok: 3 runs</title></rect>
+<text x="532.0" y="213.3" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">90</text>
+<text x="532.0" y="280.0" text-anchor="middle" fill="var(--text-2)" font-size="20" font-weight="700" font-family="var(--font-mono)">L5</text>
+<rect x="604.0" y="241.4" width="64.0" height="8.6" rx="0.0" fill="var(--chart-1)"><title>L6, Composer: 29 runs</title></rect>
+<rect x="604.0" y="240.5" width="64.0" height="0.9" rx="0.0" fill="var(--chart-3)"><title>L6, Grok: 3 runs</title></rect>
+<text x="636.0" y="230.5" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">32</text>
+<text x="636.0" y="280.0" text-anchor="middle" fill="var(--text-2)" font-size="20" font-weight="700" font-family="var(--font-mono)">L6</text>
+<rect x="450.0" y="10.0" width="14.0" height="14.0" rx="2.0" fill="var(--chart-1)"></rect>
+<text x="470.0" y="22.0" fill="var(--text-2)" font-size="16" font-family="var(--font-sans)">Composer</text>
+<rect x="560.0" y="10.0" width="14.0" height="14.0" rx="2.0" fill="var(--chart-2)"></rect>
+<text x="580.0" y="22.0" fill="var(--text-2)" font-size="16" font-family="var(--font-sans)">Devin</text>
+<rect x="640.0" y="10.0" width="14.0" height="14.0" rx="2.0" fill="var(--chart-3)"></rect>
+<text x="660.0" y="22.0" fill="var(--text-2)" font-size="16" font-family="var(--font-sans)">Grok</text>
+</svg>

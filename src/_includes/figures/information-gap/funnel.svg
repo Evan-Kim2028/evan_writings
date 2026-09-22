@@ -1,0 +1,13 @@
+<svg viewBox="0 0 720 178" role="img" data-anim="x" aria-label="591 tasks authored, 436 trialled, 414 graded on the ladder.">
+<text x="114.0" y="40.0" text-anchor="end" fill="var(--text)" font-size="20" font-family="var(--font-sans)">authored</text>
+<rect x="130.0" y="16.0" width="380.0" height="34.0" rx="3.0" fill="var(--chart-1)" fill-opacity="0.3"><title>authored: 591</title></rect>
+<text x="520.0" y="41.0" fill="var(--text)" font-size="21" font-weight="700" font-family="var(--font-mono)">591</text>
+<text x="114.0" y="96.0" text-anchor="end" fill="var(--text)" font-size="20" font-family="var(--font-sans)">trialled</text>
+<rect x="130.0" y="72.0" width="280.3" height="34.0" rx="3.0" fill="var(--chart-1)" fill-opacity="0.6"><title>trialled: 436</title></rect>
+<text x="420.3" y="97.0" fill="var(--text)" font-size="21" font-weight="700" font-family="var(--font-mono)">436</text>
+<text x="466.8" y="96.0" fill="var(--text-3)" font-size="16" font-family="var(--font-sans)">155 not yet run</text>
+<text x="114.0" y="152.0" text-anchor="end" fill="var(--text)" font-size="20" font-family="var(--font-sans)">graded</text>
+<rect x="130.0" y="128.0" width="266.2" height="34.0" rx="3.0" fill="var(--chart-1)" fill-opacity="1"><title>graded: 414</title></rect>
+<text x="406.2" y="153.0" fill="var(--text)" font-size="21" font-weight="700" font-family="var(--font-mono)">414</text>
+<text x="452.7" y="152.0" fill="var(--text-3)" font-size="16" font-family="var(--font-sans)">22 still without a verdict</text>
+</svg>

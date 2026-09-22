@@ -13,7 +13,7 @@ tags:
 source_url: https://github.com/Evan-Kim2028/open_swe_traces_research
 source_platform: github
 slug: difficulty-is-an-information-gap
-description: "Stage 1: Go, nine repositories, 591 tasks. The information ladder sets what a prompt withholds, and the factory uses it to build a synthetic dataset."
+description: "A coding task is hard because of what its prompt leaves out. The information ladder sets that one level at a time and grades tasks and models on one scale. Stage 1: Go, nine repositories, 591 tasks."
 series: Evals
 series_index: 3
 hero: /assets/images/information-gap-hero.png
@@ -22,162 +22,163 @@ hero_dark: /assets/images/information-gap-hero.dark.png
 
 ## Summary
 
-Difficulty is an information gap.
+Generated coding tasks are usually made harder by working on the code: more files, deeper call
+chains, more behavior removed at once. That turns out not to work. A task is hard because of what
+its prompt leaves out, and a factory can set that directly. Hold the code, the tests, and the model
+fixed, change only how much the prompt says about the missing behavior, and the same model goes from
+failing to passing. The information ladder is that dial, six prompts for one task, each telling the
+solver more. This post describes a factory built on the ladder and what its first 591 Go tasks show.
 
-A coding task is hard when the prompt leaves out something the solver needs and cannot work out
-from what remains. Widen the gap and the task gets harder. Close it and the task gets solved. The
-ladder sets the width, one level at a time.
+- **The prompt sets the difficulty.** Composer fails `gin-clientip` from a 96-word bug report and
+  passes it three runs in three from a 596-word description of the same behavior. Inverting one line
+  of a working description made seven of eight passing tasks fail, each on the inverted line.
+- **Two prompts separate a hard task from a broken one.** A failing task might be hard or
+  impossible, and rerunning it cannot tell which. A task is certified only when one model fails the
+  bug report and passes the full description. The comparable pipelines skip that second run.
+- **Complex code is not hard code.** Twenty-five tasks with up to seven functions deleted across
+  four files were all solved. Callers or tests left in the repository gave the answer away almost
+  every time.
+- **The same ladder grades models.** Composer and Devin both fail `archive` from the bug report, so
+  a solve rate calls them equal, and the ladder puts them two steps apart. At the top, Composer
+  fails two tasks with the hidden tests in front of it, and Grok solves both.
+- **Every task gets a grade.** Of 414 graded tasks, 172 are solved from the bug report, 241 are
+  certified higher up, and one has beaten two models at every level. Stage 1 cost $1.2k.
 
-The factory below is built around that ladder. Cut a working behavior out of a real Go repository. Have a
-second agent write hidden tests from a written specification, never from the code. Then run the
-same model twice. The first run gets only a bug report. The second gets a full description of every
-behavior those tests check. Keep the task when the first fails and the second passes.
+## The information ladder
 
-Those two runs are how a task enters the synthetic dataset. The failure shows the task is hard.
-The pass shows it is solvable as written. One prompt cannot show both, and every comparable generation pipeline uses one prompt.
+### Six prompts for one task
 
-Stage 1 is Go, nine repositories, self-funded: 591 tasks authored and 238 certified so far.
+A task starts from a working Go repository. An agent cuts out one behavior, keeps it as the answer
+key, and leaves the exported functions behind as stubs that panic, so the package still builds. The
+solver passes when a hidden test suite passes, and the ladder changes only what the solver is shown.
 
-## The information gap
+Take `httpmux`, from goa's HTTP package. Its cut removes the router: route registration, `{name}`
+and `{*name}` wildcards, middleware order, and matching a request to its pattern. The answer key is
+109 lines of `http/mux.go`, and the hidden suite is ten tests in one file.
 
-### The ladder
-
-A generated coding task can fail two ways that look identical from the outside. It can be too easy,
-in which case it separates no two models. Or it can be underspecified, where the prompt never
-carried enough for anyone to solve it, so every model fails and the failure says nothing about
-ability. Both show up as a number in a results table, and a solve rate cannot tell them apart. Most
-pipelines carry no other instrument.
-
-Both failures are about information. A task is too easy when the prompt plus what the repository
-still shows already contains the answer. It is underspecified when the two together leave out
-something nobody could derive. The ladder therefore makes information the thing to set and measure.
-
-Each level contains the one below it and adds one kind of information about the removed behavior.
-Nothing above the level is visible.
-
-A certificate uses two of them. The task fails the bug report and passes the full description.
-From the next level up, the levels hand over the tests, and a certified task never sees a test
-name.
-
-| Level | Name | What it adds over the level below |
+| Level | The solver gets | For `httpmux` |
 |---|---|---|
-| L0 | Bug report | The symptom, and how to reproduce it. The implementation is gone. |
-| L1 | Partial description | Every requirement but one, in prose. |
-| L2 | Full description | Every behavior the hidden tests check, one line per assertion. |
-| L3 | Test names | The names of the hidden tests, and a one-line summary of each. |
-| L4 | Signatures | The exported function signatures, as empty stubs. |
-| L5 | One test | The full body of one hidden test file. |
-| L6 | All tests | Every test in the tree. |
+| L1 bug report | The symptom and a command to reproduce it | 75 words, opening "Registering a route, serving a request, reading path variables, or resolving the matched pattern panics." |
+| L2 full description | Every behavior the tests check, one line per assertion, with worked examples | 567 words, such as "`{*name}` captures the whole remainder" and "pattern `/users/{id}` with request `/users` gives nil vars" |
+| L3 test names | L2 plus the names of the hidden tests | `TestDetail01_WildcardForms` through `TestDetail10_WildcardNameClass` |
+| L4 signatures | L3 plus the exported signatures as stubs | Nothing new, because the cut already left them |
+| L5 one test | L4 plus one hidden test file in the repository | `mux_hidden_test.go`, 431 lines, now in the tree |
+| L6 all tests | Every hidden test in the repository | Nothing new, because that was the only file |
 
-The rings are even steps. They show containment, not an amount. Blackwell's theorem is why the
-containment matters: an agent with the richer prompt can ignore what was added, so the richer
-prompt is at least as useful. A pass on the full description leaves the bug report undecided, so
-both runs are made.
+Each level contains the one below, so a solver given more can always ignore the extra, and a task
+passed at one level is solvable at every level above it. That is Blackwell's ordering of
+experiments, and the rings in the figure at the top draw it. Up to L3 the ladder changes the
+prompt, and from L4 on it changes the repository. Two levels rarely add anything here. The cut
+already keeps the signatures, so L4 matched L3 on 44 of 49 tasks built at both, and 443 of 448
+tasks have one hidden test file, so L6 is L5. The charts use the four real steps: bug report, full
+description, test names, and the test file.
 
-From the bug report to the full description, the levels change the prose.
+<figure class="fig-inline">
+{% include "figures/information-gap/prompt-words.svg" %}
+<figcaption>Typical prompt length at each level: the median bug report, plus the median words each level adds over tasks built at both, not counting the no-network paragraph every prompt shares. The prompt grows through L3. Above that it stays the same, and each level adds files to the repository instead.</figcaption>
+</figure>
 
-The ladder builds a task when the levels are written for it. The same ladder edits a task that
-already exists: remove what a level added, or add the next level, and leave the tests fixed.
-Mapping the names onto Terminal-Bench by instruction content, without that edit, puts almost
-every task at L1, a goal plus unstated requirements plus hidden tests. A benchmark that does not
-vary information cannot be used to study information.
-
-### Why the prompt has to carry it
-
-If the gap sets difficulty, everything the repository still shows is part of the gap. Three leaks
-account for most of what has to be closed.
-
-**Call sites.** Cut a function out of a dependency, leave its callers intact, and the call sites
-specify the contract. Argument shapes, call order, and what the caller asserts afterward are enough
-to reconstruct it. Nineteen of 23 such tasks were solved from the bug report alone. Obscurity does
-not help, because reconstruction from usage needs no recall: a round aimed at behavior no model
-could have memorized came in at 12 of 14.
-
-**Tests in the tree.** A complete test suite is a specification. Every task that kept its
-in-tree tests was solved, 36 of 36 for one model and 26 of 26 for another.
-
-**Test names.** Before a check caught it, hidden test names handed over the name of the removed
-function on every task.
-
-The same principle explains why structural complexity does not create difficulty. A generator with eight knobs sets exactly that: call hops, edit sites, decoy locations, cross-module placement,
-test sparsity, guard tests, interface removal. Twenty-five tasks, up to seven functions deleted
-across four files. A frontier model passed all 25, and the knobs moved solve time from 1.34 minutes
-to 7.57 without moving the outcome. Rearranging code does not remove information. It moves the
+If the prompt sets the difficulty, anything left in the repository counts as prompt. Callers give a
+removed function away through argument shapes, call order, and what they check afterward. Of 23
+tasks cut with their callers in place, 19 were solved from the bug report, and 12 of 14 were solved
+even when the behavior was chosen so no model could have memorized it. In-tree tests are a
+specification, and every task that kept them was solved, 36 of 36 for one model and 26 of 26 for
+another. Structural complexity fails for the same reason. A generator with eight knobs, including
+call hops, decoys, cross-module placement, and interface removal, made 25 tasks with up to seven
+functions deleted across four files, and a frontier model solved all 25. The knobs moved solve time
+from 1.3 minutes to 7.6 and never moved the outcome, because rearranging code only moves
 information somewhere less convenient.
 
 ### The certificate
 
-A task earns a place in the synthetic dataset on two runs by one model. The first
-gives it only a bug report, and it fails. The second gives it a full description of every behavior
-the hidden tests check, and it passes.
+A failing task is ambiguous. It may be hard, or its prompt may be missing something nobody could
+guess, and both score zero on every rerun. A certificate settles it with two runs by one model.
+Failing at L1 shows the task is hard for that model from a bug report alone. Passing at L2 shows it
+is solvable from a description that names no file, line, or function to edit. If L2 fails too, the
+model keeps climbing, and the certificate records the first level it passes.
 
-The L0 failure shows the task is hard. Not hard in the abstract. Hard for a named model at a named
-amount of information, which is the only kind of hard that means anything.
+That depends on each description saying what it claims, and an inversion test checks it. On eight
+tasks a model had passed at L2, one line of the description was flipped to state the opposite of
+the removed code, with everything else fixed. Seven of the eight then failed, each on the flipped
+property. The same audit found that 40% of the first batch described the removed code wrongly, and
+all seven investigated tasks that failed at both L1 and L2 had a defective description. When the
+prose is wrong, the run measures the prose.
 
-The L2 pass shows the task is fair. Somebody did it, from a prompt naming no file, no line number,
-no symbol, and no diff. One prompt cannot give you that second claim. A single failing run is
-ambiguous between a hard task and an impossible one, and re-running it does not help, because both
-readings predict the same failure.
+### Grading models
 
-### The inversion test
+Follow one model up one task, and its first passing level grades the task. Hold the task and change
+the model, and the gap between their levels compares the models in information instead of points.
+Composer ran most trials, including the cheap L1 screen that finds tasks solvable from the bug
+report. Devin is climbing tasks Composer already graded, and Grok ran the three tasks where
+Composer ran out of ladder.
 
-The ladder could still be a story imposed after the fact. Tasks at low levels might fail for reasons that
-have nothing to do with information. Here is the test that separates the two readings.
+<figure class="fig-inline">
+{% include "figures/information-gap/curves.svg" %}
+<figcaption>Each lane is one model on one task. The tint runs from the bug report to the first pass, so its length is how much information that model needed. A filled dot is a pass at that step and a ring is a fail. Devin's climbs are still running.</figcaption>
+</figure>
 
-Take eight tasks a model passes at L2. Hold the code, the tests, the repository, and the model
-fixed. Invert one line of the written description so it states the opposite of what the removed
-code did.
+On `archive` and `defval`, Composer and Devin both fail the bug report, which a solve rate scores
+as a tie. Devin then passes from the full description, and Composer needs the test file. On
+`ipqueue` Devin needs only the bug report. On `httperrexpr` both pass at L2, a difficulty that
+belongs to the task.
 
-Seven of the eight flipped to failing, each on exactly the property that was inverted.
+At the top, Composer failed `httpmux`, `httpencoding`, and `exprhash` at every level, test file
+included. With no wider prompt left, only a second model can show those tasks are solvable. Grok
+passed `httpmux` and `httpencoding` with the test file in one run of two, which certifies both.
+`exprhash` is solvable by construction, since its answer key passes the suite, yet 28 runs from two
+models have not solved it.
 
-One sentence of prose moved and the outcome moved with it. The description carries the task. Two
-findings from the same audit back this up: 40% of the first batch described the removed code
-incorrectly, and all seven tasks investigated that failed at both L0 and L2 turned out to have a
-defective description rather than being impossible.
+The bug report alone separates models too. Composer and Devin both screened 74 tasks at L1.
 
-A level is therefore a claim about what a competent programmer could work out from what they were
-handed. If the prose is wrong, the level is a lie, and the run measures the prose instead of the
-model’s ability.
+<figure class="fig-inline">
+{% include "figures/information-gap/bug-report-agreement.svg" %}
+<figcaption>Tasks both models screened at the bug report. Composer screened first on most of them, and tasks it passed rarely went on to Devin, which is why the top row is nearly empty.</figcaption>
+</figure>
 
-### When the ladder runs out
+They agree on 55. On the other 19, Devin passed where Composer failed, a one-sided split because
+these tasks reached Devin after Composer failed them. "Hard at L1" is a statement about a model, so
+every certificate names its model. An earlier version took the lowest passing level across all
+models, which let the stronger model erase the weaker one's difficulty and put two certificates
+three levels too low. Three tasks now carry independent certificates from two models, and those
+are the tasks that can separate a task's difficulty from a model's.
 
-Three tasks failed every rung. Composer 2.5 took the bug report, the full description, the test
-names, the signatures, a restored test, and finally every test in the tree, and failed all six
-levels on `exprhash`, `httpencoding` and `httpmux`.
+## The factory
 
-That repeats the ambiguity the certificate removes, at the other end of the ladder. Failing at L6
-reads equally as a task at the edge of what a model can do and as a task nobody can do, and
-re-running the same model separates neither reading, for the same reason a repeated L0 failure
-does not. A second prompt cannot settle it either, because no wider prompt exists. L6 hands over
-the entire suite.
+### Building a task
 
-The second claim therefore has to come from a second model. Grok 4.7 ran the complete ladder on
-all three, measuring every level rather than inferring it from the one below.
+Three agents and a Docker harness build each task.
 
-| Task | Composer 2.5 | Grok 4.7 |
-|---|---|---|
-| `httpencoding` | fails L0 through L6 | fails L0 through L5, **passes L6** |
-| `httpmux` | fails L0 through L6 | fails L0 through L5, **passes L6** |
-| `exprhash` | fails L0 through L6 | fails L0 through L6 |
+1. **Cut.** An agent removes one self-contained behavior from a Go repository. Public signatures
+   stay as stubs, and the removed code becomes the answer key. The same agent writes the bug report
+   and a list of behaviors a solver must restore.
+2. **Write blind tests.** A second agent writes one hidden test per listed behavior. It sees the
+   list, the public API, and the cut repository, never the removed code, and its tests may only
+   call exported functions.
+3. **Validate.** Docker builds the task and runs the checks below.
+4. **Describe.** A third agent reads the answer key and the tests together and writes the full
+   description, one line per assertion.
+5. **Grade.** The task runs at L1, then at L2, and climbs the ladder only if L2 fails.
 
-Two of the three are solvable, and now carry a certificate saying so. Both Grok certificates bind
-at L6 over a recorded L5 failure, so neither rests on a skipped rung. Composer failed both tasks
-with every test in front of it.
+Step 2 is blind so the tests check behavior a caller can see. Tests from the agent that removed
+the code would test the missing implementation, and fail a correct solver who wrote it differently.
 
-`exprhash` did not resolve, and it is not a broken task. Its answer key restores the removed code
-and passes the hidden suite, the A1 check every task clears before it reaches a trial at all. It
-is solvable by construction. Two frontier models, six levels each, 28 trials between them, and
-neither wrote it.
+### Task validation
 
-Three things follow. A task can be hard for one frontier model and tractable for another at the
-same level, which is the per-model claim the certificate makes, measured at the point where the
-gap between models is widest. The ladder has a top, and a task can sit above it for a given model,
-so a dataset that reports only "failed" at its highest level is reporting two different facts under
-one word. And a second model does for an exhausted ladder what a second prompt does for a single
-failing run: it is the instrument that separates hard from impossible when the first instrument has
-run out of range.
+Validation rejects any task a correct solver could fail or a wrong one could pass. Each check exists
+because a bad task once got through without it.
 
-### How other pipelines set difficulty
+- **The answer key passes and the cut repository fails.** Two tasks once shipped with an answer key
+  that failed its own tests.
+- **A fake fix fails.** A patch that hardcodes the test inputs must not pass. One task accepted a
+  special case, so its tests checked nothing.
+- **The answer key never touches a test file.**
+- **Every behavior is derivable.** A judge drops lines no solver could work out, like the value of
+  an internal constant. One pass over 170 tasks dropped or weakened 245 of 1.6k lines.
+- **No network.** Agent-side web tools run on vendor servers, out of the container's reach, so any
+  run that used one is thrown out. That disqualified 15 of 30 runs from one model and none of 32
+  from another.
+
+### Other pipelines
 
 | Method | How difficulty is set | Evidence it is hard | Prompt proven |
 |---|---|---|---|
@@ -186,411 +187,126 @@ run out of range.
 | R2E-Gym | inherited from the commit | ✗ | ✗ |
 | ProgramDistill | how many behaviors are restored together | authored depth | ✗ |
 | CodeMidas | screening model drops always-pass and always-fail | the screening model failed it | ✗ |
-| This work | what the prompt withholds, L0 against L2 | one model failed the bug report | ✓ the same model passed the full description |
+| This work | what the prompt withholds, L1 against L2 | one model failed the bug report | ✓ the same model passed the full description |
 
-The first three inherit difficulty from something a human already made, so it belongs to the pool
-rather than to any one task. The last three set it per task.
-
-CodeMidas is the closest relative, and the only other row that starts from source code alone
-(Ye et al., [arXiv:2609.22068](https://arxiv.org/abs/2609.22068), Table 1). It keeps 5,545 tasks
-across 23 languages, forty times this dataset, so the two differ somewhere other than scale. Every row above the last
-can show that a model failed a task. Only a second prompt that passes separates a hard task from an
-underspecified one. CodeMidas also builds its tests by running the original code, so its tests come
-from the answer. These come from a written specification of it.
-
-## The factory
-
-### Four steps, three agents
-
-These four steps are how the ladder gets built.
-
-**The cut.** An agent reads a Go repository and removes one self-contained behavior. Public
-signatures stay, so tests can still call them. The removed code becomes the answer key. The same
-agent writes a bug report and a list of behaviors a solver should restore.
-
-**Blind tests.** A second agent writes one hidden test per listed behavior. It sees the behavior
-list, the public API, and the repository with the hole in it. It never sees the removed code. Tests
-may only call exported functions.
-
-**Execution checks.** Build the task in Docker and prove four things. The cut repository fails the
-suite. Restoring the answer key makes it pass. A fake fix that hardcodes the test inputs still
-fails. The answer key never touches a test file.
-
-**The description.** A third agent reads the answer key and the tests together and writes the full
-description, one line per assertion. Then one run at L0 and one at L2.
-
-Keeping the first two agents apart is what makes the rest work. Suppose the agent that removed the
-code also wrote the tests. Those tests would describe the implementation that is gone rather than
-the behavior a caller can see, and a solver who writes different but correct code would fail for no
-good reason.
-
-### One task, two prompts
-
-`gin-clientip` is a certified task. The cut removes gin’s request-introspection helpers: client IP
-resolution behind proxies, scheme detection, content-type parsing, websocket detection. Composer
-2.5 failed it at L0, then passed it at L2 three times out of three.
-
-The entire L0 prompt, minus the no-network boilerplate:
-
-> **Bug report.** Client-IP and request introspection are broken: behind a proxy the reported
-> client address is the proxy itself or empty, forwarded-IP headers are ignored or the wrong entry
-> of a multi-IP list is chosen, the request content type still carries its parameters, websocket
-> upgrade requests are not detected, and the URL scheme ignores forwarded-proto headers.
->
-> Expected: the helpers honor trusted proxies and forwarded headers per the documented precedence.
-> Got: the helpers panic or return raw values. Reproduce with `go test -count=1 .`
-
-A competent Go programmer can tell what broke. They cannot tell what the documented precedence is,
-because the documentation left with the code.
-
-L2 keeps that bug report word for word and puts a contract above it. One clause of five:
-
-> **ClientIP precedence.** Validation walks the joined header list right-to-left, trimming spaces,
-> and returns the first entry from the right that either is the leftmost entry or is not itself a
-> trusted proxy. An unparsable entry invalidates the whole header.
-
-Then worked examples, so no clause rests on prose alone:
-
-> Remote `1.2.3.4:5678` trusted, `X-Forwarded-For: 9.9.9.9, 8.8.8.8` with `8.8.8.8`
-> also trusted, gives `9.9.9.9`. With `8.8.8.8` untrusted it gives `8.8.8.8`.
-
-168 words become 668. Not one of the extra 500 names a file, a line number, or a function to edit.
-Every one states behavior a caller can observe. The model fails on 168 words and passes on 668.
-
-<figure class="fig-inline">
-<svg viewBox="0 0 720 460" role="img" data-anim="x" aria-label="Prompt length in words at each level. L0 is 101 words. L2 is 450. L4 to L6 fall back to about 324.">
-<line x1="150" y1="24" x2="150" y2="400" stroke="var(--line)" stroke-width="1"/>
-<text x="150" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">0</text>
-<line x1="280" y1="24" x2="280" y2="400" stroke="var(--line)" stroke-width="1"/>
-<text x="280" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">200</text>
-<line x1="410" y1="24" x2="410" y2="400" stroke="var(--line)" stroke-width="1"/>
-<text x="410" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">400</text>
-<line x1="540" y1="24" x2="540" y2="400" stroke="var(--line)" stroke-width="1"/>
-<text x="540" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">600</text>
-<line x1="670" y1="24" x2="670" y2="400" stroke="var(--line)" stroke-width="1"/>
-<text x="670" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">800</text>
-<text x="128" y="54" text-anchor="end" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">L0</text>
-<rect x="203.3" y="33.0" width="24.1" height="26" rx="4" fill="var(--lvl-0)" fill-opacity="0.45"><title>L0</title></rect>
-<circle cx="215.7" cy="46" r="7" fill="var(--lvl-0)"/>
-<text x="239.4" y="54" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">101</text>
-<text x="128" y="104" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L1</text>
-<rect x="289.8" y="83.0" width="111.1" height="26" rx="4" fill="var(--lvl-1)" fill-opacity="0.45"><title>L1</title></rect>
-<circle cx="310.6" cy="96" r="7" fill="var(--lvl-1)"/>
-<text x="412.9" y="104" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">247</text>
-<text x="128" y="154" text-anchor="end" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">L2</text>
-<rect x="325.5" y="133.0" width="252.9" height="26" rx="4" fill="var(--lvl-2)" fill-opacity="0.45"><title>L2</title></rect>
-<circle cx="442.5" cy="146" r="7" fill="var(--lvl-2)"/>
-<text x="590.4" y="154" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">450</text>
-<text x="128" y="204" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L3</text>
-<rect x="337.2" y="183.0" width="308.1" height="26" rx="4" fill="var(--lvl-3)" fill-opacity="0.45"><title>L3</title></rect>
-<circle cx="492.6" cy="196" r="7" fill="var(--lvl-3)"/>
-<text x="657.3" y="204" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">527</text>
-<text x="128" y="254" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L4</text>
-<rect x="319.0" y="233.0" width="176.2" height="26" rx="4" fill="var(--lvl-4)" fill-opacity="0.45"><title>L4</title></rect>
-<circle cx="360.6" cy="246" r="7" fill="var(--lvl-4)"/>
-<text x="507.2" y="254" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">324</text>
-<text x="128" y="304" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L5</text>
-<rect x="328.1" y="283.0" width="195.6" height="26" rx="4" fill="var(--lvl-5)" fill-opacity="0.45"><title>L5</title></rect>
-<circle cx="367.1" cy="296" r="7" fill="var(--lvl-5)"/>
-<text x="535.8" y="304" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">334</text>
-<text x="128" y="354" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L6</text>
-<rect x="327.5" y="333.0" width="64.3" height="26" rx="4" fill="var(--lvl-6)" fill-opacity="0.45"><title>L6</title></rect>
-<circle cx="360.6" cy="346" r="7" fill="var(--lvl-6)"/>
-<text x="403.8" y="354" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">324</text>
-<line x1="150" y1="400" x2="670" y2="400" stroke="var(--line)" stroke-width="1.5"/>
-<text x="410" y="458" text-anchor="middle" fill="var(--text-2)" font-size="20" font-family="var(--font-sans)">words in the prompt</text>
-</svg>
-<figcaption>Above L3 the prompt stops growing. Those levels add test files to the repository rather than prose to the prompt. The bug report is 101 words and barely varies. The full description is 450 and varies with how much behavior was cut.</figcaption>
-</figure>
-
-### What the checks reject
-
-**The answer key must pass the tests.** Two tasks shipped where it did not. Both were unsolvable,
-and invisible until something ran them.
-
-**A fake fix must fail.** One task passed with a hardcoded special case, so its tests were not
-checking behavior at all.
-
-**Every behavior must be derivable.** A judge reads each line of the behavior list and asks whether
-a solver could work out the answer from what they can see. Some answers are arbitrary, like an
-internal constant. Such a line becomes an assertion no solver can satisfy at any level. One pass
-over 170 tasks dropped or weakened 245 of 1,560 lines.
-
-**No network.** The container has no egress, and any run where the agent used a web tool is thrown
-out. 15 of 30 runs from one model were disqualified this way, against 0 of 32 from another.
-Agent-side web tools run on the vendor’s servers and cannot be blocked from inside the container.
+The first three inherit difficulty from an issue, a bug, or a commit, so it belongs to the pool
+and not to any one task. The last three set it per task, and only this work runs the second prompt
+that separates a hard task from an underspecified one. Benchmarks hold the prompt fixed, and read
+by instruction content almost every Terminal-Bench task sits between L1 and L2. CodeMidas is the
+closest relative and the only other method that starts from source code alone (Ye et al.,
+[arXiv:2609.22068](https://arxiv.org/abs/2609.22068), Table 1). It keeps 5.5k tasks across 23
+languages, forty times this dataset, but builds its tests by running the original code, so its
+tests come from the answer. These come from a written specification of it.
 
 ## The synthetic dataset
 
-### What a task contains
+### The graded tasks
 
-The synthetic dataset is the set of tasks the ladder kept.
-
-238 certified tasks so far, cut from nine Go repositories: client-go, kops, helm, go-git,
-go-github, goa, gin, bbolt, and nats-server. Kubernetes tooling, version control, API design,
-storage, HTTP services, and messaging.
-
-Each task ships as a Docker environment plus five artifacts. The repository with the behavior
-removed. A bug report, which is the L0 prompt. A written description of every behavior the tests
-check, which is the L2 prompt. A hidden test suite that only calls exported functions. And the
-answer key, the code that was cut.
-
-These are not toy edits. The median answer key is 127 lines, most fall between 80 and 320, and a
+The tasks come from nine Go repositories: client-go, kops, helm, go-git, go-github, goa, gin, bbolt,
+and nats-server. They cover Kubernetes tooling, version control, API design, storage, HTTP
+services, and messaging. The median answer key is 127 lines, most fall between 80 and 320, and a
 quarter touch two or more files.
 
-Every task carries the model that certified it, and a certificate now requires one model to do
-both halves: the same model fails L0 and passes the level that certifies it. An earlier count
-labelled 15 tasks where one model failed L0 and a different one passed L2 as a weaker kind of
-certificate. That category is gone. Inspecting the six that were left, four were two halves that
-never joined, with no single model doing both, and the other two were complete certificates that
-pooling had misreported by three levels each, because taking the lowest passing level across models
-lets the stronger one erase the weaker one's difficulty. That is the quantity the ladder exists to
-measure, so the pooled view was retired rather than kept alongside.
-
-Only two tasks carry a curve climbed independently by two models, which is the population that can
-separate a task's difficulty from a model's. That count stays small for a plain reason: a second
-curve costs a second full climb. A further 17 tasks pass L0 for one model while another model holds
-a certificate on them, so difficulty at the bug report is already model-dependent.
-
-### What the filter removed
-
 <figure class="fig-inline">
-<svg viewBox="0 0 720 250" role="img" data-anim="x" aria-label="Funnel: 591 authored, 436 trialled, 411 decided, 238 certified.">
-<text x="168" y="54" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">authored</text>
-<rect x="184" y="28" width="460.0" height="36" rx="4" fill="var(--chart-1)" opacity="1"><title>authored: 591</title></rect>
-<text x="656.0" y="54" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">591</text>
-<text x="168" y="110" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">trialled</text>
-<rect x="184" y="84" width="339.4" height="36" rx="4" fill="var(--chart-1)" opacity="0.34"><title>trialled: 436</title></rect>
-<text x="535.4" y="110" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">436</text>
-<text x="168" y="166" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">decided</text>
-<rect x="184" y="140" width="319.9" height="36" rx="4" fill="var(--chart-1)" opacity="0.34"><title>decided: 411</title></rect>
-<text x="515.9" y="166" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">411</text>
-<text x="168" y="222" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">certified</text>
-<rect x="184" y="196" width="185.2" height="36" rx="4" fill="var(--chart-1)" opacity="1"><title>certified: 238</title></rect>
-<text x="381.2" y="222" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">238</text>
-</svg>
-
-<figcaption>591 authored tasks produce 238 certificates.</figcaption>
+{% include "figures/information-gap/funnel.svg" %}
+<figcaption>591 tasks authored. 414 have been graded on the ladder, and the rest are queued or still running.</figcaption>
 </figure>
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 380" role="img" data-anim="x" aria-label="411 decided tasks on two planes. 172 passed the bug report. 238 failed it and passed a higher level. 1 failed every level.">
-<rect x="164.0" y="90.9" width="117.9" height="118.0" fill="none" stroke="var(--text-3)" stroke-width="1.2" stroke-dasharray="3 3.5"/>
-<polygon points="34.0,214.0 156.9,214.0 163.9,213.7 41.0,213.7" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/>
-<polygon points="421.9,208.9 552.0,208.9 559.0,208.6 428.9,208.6" fill="var(--chart-1)" fill-opacity="0.14" stroke="var(--text-3)" stroke-width="1"/>
-<polygon points="293.9,214.0 424.0,214.0 431.0,213.7 300.9,213.7" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/>
-<polygon points="689.0,208.9 720.1,208.9 727.1,208.6 696.0,208.6" fill="var(--chart-1)" fill-opacity="0.14" stroke="var(--text-3)" stroke-width="1"/>
-<polygon points="561.0,214.0 592.1,214.0 599.1,213.7 568.0,213.7" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/>
-<polygon points="303.3,213.7 427.6,213.7 548.6,90.9 424.3,90.9" fill="var(--chart-1)" fill-opacity="0.28" stroke="none"/>
-<polygon points="570.4,213.7 595.7,213.7 716.7,208.9 691.4,208.9" fill="var(--chart-mute)" fill-opacity="0.5" stroke="none"/>
-<polygon points="43.3,213.7 160.6,213.7 160.6,95.7 43.3,95.7" fill="var(--chart-1)"/>
-<polygon points="303.2,213.7 427.7,213.7 427.7,208.7 303.2,208.7" fill="var(--chart-mute)"/>
-<polygon points="424.2,208.9 548.7,208.9 548.7,90.9 424.2,90.9" fill="var(--chart-1)"/>
-<polygon points="570.3,213.7 595.8,213.7 595.8,208.7 570.3,208.7" fill="var(--chart-mute)"/>
-<polygon points="691.3,208.9 716.8,208.9 716.8,203.9 691.3,203.9" fill="var(--chart-mute)"/>
-<line x1="31.0" y1="213.7" x2="31.0" y2="89.7" stroke="var(--text)" stroke-width="1"/>
-<line x1="31.0" y1="89.7" x2="27.5" y2="95.7" stroke="var(--text)" stroke-width="1"/>
-<line x1="31.0" y1="89.7" x2="34.5" y2="95.7" stroke="var(--text)" stroke-width="1"/>
-<text x="24.0" y="154.7" fill="var(--text)" text-anchor="middle" font-family="var(--font-sans)" font-size="18" font-weight="700" transform="rotate(-90 24.0 154.7)">Outcome</text>
-<text x="49.0" y="110.7" fill="var(--bg)" font-family="var(--font-sans)" font-size="20" font-weight="700">pass</text>
-<text x="102.0" y="204.0" fill="var(--bg)" text-anchor="middle" font-family="var(--font-sans)" font-size="18" font-weight="600">bug report</text>
-<text x="304.9" y="200.7" fill="var(--text-2)" font-family="var(--font-sans)" font-size="20" font-weight="700">fail</text>
-<text x="222.9" y="126.9" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="22" font-weight="700">L2</text>
-<text x="222.9" y="144.9" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">empty</text>
-<text x="486.4" y="82.9" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="12">L2</text>
-<text x="95.0" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">172</text>
-<text x="130.0" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Passed the bug report.</text>
-<text x="358.4" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">238</text>
-<text x="358.4" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Failed, then passed.</text>
-<text x="576.0" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">1</text>
-<text x="576.0" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Failed both.</text>
-<line x1="295.9" y1="328.0" x2="589.1" y2="328.0" stroke="var(--text)" stroke-width="1"/>
-<line x1="295.9" y1="328.0" x2="295.9" y2="320.0" stroke="var(--text)" stroke-width="1"/>
-<line x1="589.1" y1="328.0" x2="589.1" y2="320.0" stroke="var(--text)" stroke-width="1"/>
-<text x="442.5" y="352.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-sans)" font-size="20" font-weight="600">168 failures on the bug report alone</text>
-</svg>
-<figcaption>411 decided tasks. Height is the outcome. Depth is the prompt. On the bug report, the 238 and the 1 are one pile of 239 failures. The higher levels lift the 238. Block proportions are from the earlier snapshot and are due a redraw.</figcaption>
+{% include "figures/information-gap/first-pass.svg" %}
+<figcaption>The lowest level at which each graded task was passed, by the model that graded it. L4 and L6 are merged into the step below, since on most tasks they are the same task.</figcaption>
 </figure>
 
-Of the 411 decided tasks, 172 were solved from the bug report by every model that tried, and never
-reached the certificate. Nearly half of what a careful pipeline authors is already solvable from a
-symptom report. Any generator shipping unscreened tasks is shipping a lot of freebies and cannot
-tell you which ones.
+The 172 tasks solved from the bug report sit at the easy end, a gap of zero for the model that
+tried them and possibly more for a weaker one. The 241 certified tasks sit higher, 192 at the full
+description, 9 at the test names, and 40 at the test file. The bucket that failed every level held
+29 tasks before the upper levels were measured. Every audited one had a defective description, the
+rest certified once a higher level supplied what the prose left out, and only `exprhash` remains.
 
-The tasks that failed both prompts have almost all resolved, and the ladder is what resolved them.
-That bucket stood at 29 while the levels over the full description still had few measurements.
-Climbing them left exactly one task, `exprhash`, that no model has passed at any level. Of the
-earlier 29, every one audited turned out to carry a defective description rather than an impossible
-task, and the rest certified once a higher level supplied what the prose had left out.
+None of these tasks can be in a model's training data, because none existed before its cut. The
+1.5k task files contain no references to issues, pull requests, or CVEs, and the answer keys are
+103k added lines against 638 non-stub deletions. Tasks mined from GitHub history cannot say that,
+since the fix a model is asked to write may already be in its weights.
 
-Roughly one authored task in four survives to the dataset. The screen and the certificate each
-remove about as much as the other.
+### Cost and what it limited
 
-### Why it cannot be contaminated
+Stage 1 cost $1.2k, paid by one researcher, and the budget shaped the dataset more than any design
+choice did.
 
-Across 1,545 task files there are zero references to issues, pull requests, or CVEs. The answer
-keys are 102,586 added lines against 638 non-stub deletions, because restoring removed code is
-almost entirely addition. No task in this dataset can sit in any model's training data, because
-none of them existed until the cut was made.
+| Model | Runs or sessions | Cost | Share | Per run |
+|---|---:|---:|---:|---:|
+| Composer 2.5 | 1.4k runs | $678 | 59% | $0.47 |
+| Devin swe-2-max | 151 sessions | $452 | 39% | $2.99 |
+| Grok 4.7 and 4.6 | 48 runs | $26 | 2% | $0.55 |
 
-That separates the dataset from anything mined out of GitHub history, where the fix a model is
-asked to produce may already be in its weights.
+Almost all of it paid for reading. Of 6.6 billion tokens, 6.3 billion were cache reads, a model re-reading a
+repository it had already loaded. Most of the bill went to the two runs every certificate needs.
+The levels above L2 cost $0.96 a run, more than three times an L2 run, because only harder tasks
+reach them and the solver has a test file to read.
 
-### What it cost to produce
+| Level | Runs | Cost | Per run |
+|---|---:|---:|---:|
+| L1, the screen | 541 | $198 | $0.37 |
+| L2, the certificate | 834 | $225 | $0.27 |
+| Levels above L2 | 97 | $93 | $0.96 |
 
-Three models did the work, and they bill and report differently, so the totals need stating per
-model rather than as one figure.
+Authoring was cheap, near $1.25 a task in an earlier, incomplete measurement. Grading was not, at
+7.0 runs and $4.80 per certificate, so the factory made tasks faster than the budget could grade
+them. That gap sets the dataset's limits.
 
-Composer 2.5 ran most of the ladder trials. Devin and Grok both authored tasks and ran trials, and
-Grok 4.7 ran the complete ladder on the three tasks under "When the ladder runs out."
+- **155 of the 591 authored tasks never ran**, and 22 more are waiting for a verdict.
+- **Most grades are Composer's.** It was the cheapest per run, so it screened almost every task and
+  carried almost every climb above L2.
+- **The second model is thin.** Devin costs about six times as much per run, so only 74 tasks have
+  its L1 screen and three have two independent climbs. Grok ran only the three tasks at the top.
+- **Most levels ran once per task per model.** One run cannot separate a model that needs the
+  information from one that got lucky, and Grok's one pass in two on `httpmux` is that case.
+- **The 172 tasks solved from the bug report carry Composer's grade alone.**
 
-| Model | Runs or sessions | Input | Cache read | Output | Cost |
-|---|---:|---:|---:|---:|---:|
-| Composer 2.5 | 1,439 runs | 3,005M | 2,931M | 21.9M | $678.23 |
-| Devin swe-2-max | 151 sessions | 162M | 3,270M | 22.7M | $452 |
-| Grok 4.7 | 22 runs | 79.4M | 66.4M | 1.47M | $23.69 |
-| Grok 4.6 | 26 runs | 10.6M | 9.8M | 0.19M | $2.57 |
-
-The Composer and Grok rows come from the trial ledger at the date above. The Devin row is the
-earlier export and is due a refresh: it bills in Agent Compute Units rather than tokens, so its
-cost is not derivable from the repository, and the repository's own per-model counts disagree with
-the token split below. Treat the Devin row as the ACU-based figure it is.
-
-Those rows do not sum, and the reason is the next paragraph. Composer and Grok processed 3.12
-billion tokens between them, cache reads included, because their cached count sits inside their
-input count. Devin processed a further 3.45 billion, because its cache reads are counted on top of
-its input. **The run so far is 6.57 billion tokens for $1,156**, and 6.28 billion of those tokens are
-cache reads, so most of the bill is a model re-reading a repository it has already seen.
-
-Devin's share needs a pricing basis, because it bills in Agent Compute Units rather than tokens.
-Priced at the SWE-2 promotional rate of $0.75 per million input, $0.075 per million cache read and
-$3.75 per million output, its 151 sessions come to $452. Its 185.5 ACUs at the $2.25 list rate
-come to $417, so the two ways of pricing the same work agree within 8%. That agreement is the
-strongest available check that the token counts are right. At the full SWE-2 rate the same work
-would have been $1,808.
-
-The two vendors count caching differently, and the difference is large enough to change the
-headline. Composer and Grok report cached tokens as a subset of input, which a least-squares fit
-of cost against the three counts confirms: treating cache as additive prices a cached token at
-negative money. Devin reports 3,270M cache against 162M input, twenty times larger, so there it
-has to be a separate count. Anyone re-deriving these numbers from the repository will hit that
-discrepancy, so it is worth naming rather than smoothing over.
-
-The two profiles differ in another way. Output is 0.74% of input for Composer and Grok, and 14%
-for Devin. One is almost entirely a reading bill; the other writes far more per token read.
-
-Spending concentrates on the two levels the certificate needs.
-
-| Level | Runs | Input | Cost | Cache hit | $/run |
-|---|---:|---:|---:|---:|---:|
-| L0, the screen | 541 | 907.6M | $198.10 | 97.4% | $0.37 |
-| L2, the certificate | 834 | 1,046.5M | $225.08 | 97.1% | $0.27 |
-| Other levels | 113 | 441.0M | $96.80 | 98.2% | $0.86 |
+At Devin's rate, a second model climbing all 414 graded tasks would cost roughly $4.3k, almost four
+times Stage 1, assuming 3.5 runs a task.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 360" role="img" data-anim="y" aria-label="Runs per information level. L0 has 541 runs and L2 has 834. The other five levels together have 113.">
-<rect x="70" y="152.7" width="70" height="97.3" rx="4" fill="var(--chart-2)" opacity="1"><title>L0: 541 runs</title></rect>
-<text x="105.0" y="140.7" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">541</text>
-<text x="105.0" y="282" text-anchor="middle" fill="var(--chart-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L0</text>
-<rect x="158" y="246.0" width="70" height="4.0" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L1: 16 runs</title></rect>
-<text x="193.0" y="234.0" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">16</text>
-<text x="193.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L1</text>
-<rect x="246" y="100.0" width="70" height="150.0" rx="4" fill="var(--chart-1)" opacity="1"><title>L2: 834 runs</title></rect>
-<text x="281.0" y="88.0" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">834</text>
-<text x="281.0" y="282" text-anchor="middle" fill="var(--chart-1)" font-size="24" font-weight="700" font-family="var(--font-mono)">L2</text>
-<rect x="334" y="245.7" width="70" height="4.3" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L3: 24 runs</title></rect>
-<text x="369.0" y="233.7" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">24</text>
-<text x="369.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L3</text>
-<rect x="422" y="246.0" width="70" height="4.0" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L4: 12 runs</title></rect>
-<text x="457.0" y="234.0" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">12</text>
-<text x="457.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L4</text>
-<rect x="510" y="243.5" width="70" height="6.5" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L5: 36 runs</title></rect>
-<text x="545.0" y="231.5" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">36</text>
-<text x="545.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L5</text>
-<rect x="598" y="245.5" width="70" height="4.5" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L6: 25 runs</title></rect>
-<text x="633.0" y="233.5" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">25</text>
-<text x="633.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L6</text>
-<line x1="56" y1="250" x2="690" y2="250" stroke="var(--line)" stroke-width="1.5"/>
-<text x="360" y="330" text-anchor="middle" fill="var(--text)" font-size="20" font-family="var(--font-sans)">L0 and L2 carry 92% of the runs</text>
-</svg>
-<figcaption>Runs per level across all three models, 1,488 runs whose level is recorded. L0 and L2 take 1,375 of them. L1 and L3 through L6 share 113, which is why the shape of the curve between them stays unmeasured.</figcaption>
+{% include "figures/information-gap/runs-per-level.svg" %}
+<figcaption>Runs with a verdict at each level, stacked by model. The upper levels and the second models are where the budget ran out.</figcaption>
 </figure>
 
-The levels above L2 cost more than twice as much per run, $0.86 against $0.27 to $0.37, because
-their prompts carry test names and test bodies. Climbing the ladder costs money on both ends, in
-prompt size and in runs.
-
-238 certificates from 1,685 trials is 7.1 trials each, against a floor of two, and $4.86 apiece.
-Both numbers roughly halved as the guards landed, which is the one place in this work where a gate
-beat a generator outright. The remainder still goes to trials past the deciding pair: re-running L2
-after repairing a description, re-running L0, and climbing the levels above.
+The one saving that worked was refusing runs whose outcome was already known, which cut the runs
+per certificate about fourfold.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 280" role="img" data-anim="x" aria-label="Runs needed per certificate: parallel with no gate 9.0, sequential with no gate 7.7, sequential with a gate 3.2, against a floor of 2.">
-<text x="264" y="52" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">parallel, no gate</text>
-<rect x="280" y="24" width="340.0" height="40" rx="4" fill="var(--chart-mute)" opacity="0.6"><title>parallel, no gate: 9.0</title></rect>
-<text x="632.0" y="52" fill="var(--text)" font-size="26" font-weight="700" font-family="var(--font-mono)">9.0</text>
-<text x="264" y="124" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">sequential, no gate</text>
-<rect x="280" y="96" width="290.9" height="40" rx="4" fill="var(--chart-mute)" opacity="0.6"><title>sequential, no gate: 7.7</title></rect>
-<text x="582.9" y="124" fill="var(--text)" font-size="26" font-weight="700" font-family="var(--font-mono)">7.7</text>
-<text x="264" y="196" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">sequential, gated</text>
-<rect x="280" y="168" width="120.9" height="40" rx="4" fill="var(--chart-1)" opacity="1"><title>sequential, gated: 3.2</title></rect>
-<text x="412.9" y="196" fill="var(--text)" font-size="26" font-weight="700" font-family="var(--font-mono)">3.2</text>
-<line x1="355.6" y1="12" x2="355.6" y2="232" stroke="var(--chart-2)" stroke-width="2"/>
-<text x="363.6" y="228" fill="var(--chart-2)" font-size="20" font-family="var(--font-sans)">floor of 2</text>
-<text x="470" y="266" text-anchor="middle" fill="var(--text)" font-size="20" font-family="var(--font-sans)">runs per certificate</text>
-</svg>
-<figcaption>Runs spent per certificate under three schedules. Refusing a run whose outcome is already determined is worth about 4×. Running trials in sequence, on its own, is worth almost nothing.</figcaption>
+{% include "figures/information-gap/runs-per-certificate.svg" %}
+<figcaption>Runs spent per certificate under three schedules. Gating is worth about 4×. Running trials in sequence, on its own, is worth almost nothing.</figcaption>
 </figure>
 
-Authoring is the part these figures cover worst. Devin's ledger folds authoring, verification and
-trials into one account total, so the split between building a task and measuring it cannot be
-recovered from the data as it stands. An earlier, partial measurement put authoring near $1.25 per
-task, which is small against the trial bill but should be read as an estimate.
-
-Re-measuring what you already know is what makes a task factory expensive. Generating tasks is the
-cheap half. That $1,156 is one researcher's bill. The chart is the cut still available on a bill
-like it.
+Two caveats on the tokens. Composer and Grok count cached tokens inside their input and Devin
+counts them on top, so each total follows its vendor's convention. Devin also bills in Agent
+Compute Units, and its tokens at the SWE-2 promotional rate ($452) and its 185.5 ACUs at the $2.25
+list rate ($417) agree within 8%. The Devin figures come from an earlier export.
 
 ## Conclusion and future work
 
-Stage 1 is Go, nine repositories, in-repo cuts, and one model for roughly three runs in four. Those are budget
-choices, not findings. This is self-funded, so the dataset is small and deep instead of broad. It is
-enough to show the method works, not enough to claim it generalizes.
+Difficulty is a relation between a task, a model, and an amount of information. The ladder sets the
+information and reads off the other two. Four lessons carry to any task factory: put the difficulty
+in the prompt, run two prompts, keep the test writer away from the answer key, and build the guards
+before the generator.
 
-A solve rate belongs to the model that produced it, and so does a certificate. Difficulty is a relation
-between a task, a model, and an amount of information, and what this work adds is a way to set the third term.
+Stage 1 is small because of its budget, with one language, nine repositories, and mostly one model.
+Three questions come next.
 
-Four results here should hold for anyone building a task factory. Put the difficulty in the prompt,
-because whatever you leave in the repository specifies what you took out. Use two prompts, because
-a failing run alone cannot distinguish a hard task from a broken one. Keep the test writer away
-from the answer key. Budget for the guards before the generator, because a gate that refuses a
-redundant run beat every generation improvement in this work.
-
-Stage 2 runs the same factory in a second language, which is the test of whether the cut mechanic
-survives outside Go. The cut, the blind tests, and the certificate stay.
-
-Two items that were future work here have started returning numbers. A held-out model screening
-the dataset answers whether a certificate means anything to a model that took no part in producing
-it; 42 certified tasks have now been re-screened at L0 by the solver that did not certify them,
-and the answer so far is that it depends on the repository rather than the dataset. Eight of ten
-`go-github` tasks were solved from the bug report alone by the second model against three of
-thirty-two everywhere else, which is a property of that repository's issues naming the fields its
-code turns on, not a property of the method. That rate is also one-directional: one model was the
-first screener in 41 of the 42 pairs, so it measures what the second model rescues from the first
-and not the reverse.
-
-Filling in the test names, the signatures and the tests gives the dose-response curve above the
-full description. The three tasks in "When the ladder runs out" have that curve complete for two
-models, every level measured, and 79% of certified tasks bind at the full description with 16% at
-a restored test, so the information does not arrive smoothly. Per-repository yield still needs an
-instrumented unit-to-repository map before it can be claimed at all.
+- **Does the cut work outside Go?** Stage 2 runs the same factory in a second language.
+- **Does a certificate transfer?** A second model has screened 68 certified tasks at L1, and so far
+  the answer depends on the repository. It solved eight of ten `go-github` tasks from the bug
+  report, whose issues name the fields the code turns on, and nine of sixty everywhere else.
+- **What does the curve above L2 look like?** 80% of certificates bind at the full description and
+  17% only once the test file is in the tree. Devin's climbs will add a second model to that curve.
 
 ---
 
 *Code and trial ledger:
 [open_swe_traces_research](https://github.com/Evan-Kim2028/open_swe_traces_research). Counts are a
 2026-09-22 snapshot of a run still in progress, derived from `trial_ledger.py` and `roots.py`.
-Earlier in this series: [Terminal-Bench Task: Lakehouse Schema Contract
+Figures regenerate from the ledger with `scripts/information-gap-figures.py`. Earlier in this
+series: [Terminal-Bench Task: Lakehouse Schema Contract
 Drift](/writings/terminal-bench-task-lakehouse-schema-contract-drift/) and [Four Verifiable
 Properties of a Useful Agent Task](/writings/four-verifiable-properties-of-a-useful-agent-task/).*

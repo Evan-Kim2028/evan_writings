@@ -1,0 +1,25 @@
+<svg viewBox="0 0 720 218" role="img" data-anim="x" aria-label="Lowest level each graded task passed at. L1 172, L2 192, L3–4 9, L5–6 40, none 1.">
+<text x="0.0" y="31.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L1</text>
+<text x="76.0" y="31.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">bug report</text>
+<rect x="250.0" y="12.0" width="268.8" height="24.0" rx="3.0" fill="var(--lvl-1)"><title>L1: 172</title></rect>
+<text x="528.8" y="32.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">172</text>
+<text x="0.0" y="73.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L2</text>
+<text x="76.0" y="73.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">full description</text>
+<rect x="250.0" y="54.0" width="300.0" height="24.0" rx="3.0" fill="var(--lvl-2)"><title>L2: 192</title></rect>
+<text x="560.0" y="74.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">192</text>
+<text x="0.0" y="115.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L3–4</text>
+<text x="76.0" y="115.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">test names</text>
+<rect x="250.0" y="96.0" width="14.1" height="24.0" rx="3.0" fill="var(--lvl-4)"><title>L3–4: 9</title></rect>
+<text x="274.1" y="116.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">9</text>
+<text x="0.0" y="157.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L5–6</text>
+<text x="76.0" y="157.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">the test file</text>
+<rect x="250.0" y="138.0" width="62.5" height="24.0" rx="3.0" fill="var(--lvl-6)"><title>L5–6: 40</title></rect>
+<text x="322.5" y="158.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">40</text>
+<text x="0.0" y="199.0" fill="var(--text-2)" font-size="20" font-weight="700" font-family="var(--font-mono)">none</text>
+<text x="76.0" y="199.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">no level yet</text>
+<rect x="250.0" y="180.0" width="2.0" height="24.0" rx="1.0" fill="var(--text-3)"><title>none: 1</title></rect>
+<text x="262.0" y="200.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">1</text>
+<path d="M632 56 H640 V160 H632" fill="none" stroke="var(--text-2)" stroke-width="1.5"/>
+<text x="650.0" y="110.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">241</text>
+<text x="650.0" y="130.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">certified</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg viewBox="0 0 720 372" role="img" aria-label="75 tasks screened at the bug report by Composer and Devin. Both failed 55, both passed 1, only Devin passed 19, only Composer passed 0.">
+<text x="325.0" y="26.0" text-anchor="middle" fill="var(--chart-2)" font-size="17" font-weight="600" font-family="var(--font-sans)">Devin passed</text>
+<text x="475.0" y="26.0" text-anchor="middle" fill="var(--chart-2)" font-size="17" font-weight="600" font-family="var(--font-sans)">Devin failed</text>
+<text x="400.0" y="48.0" text-anchor="middle" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">on the bug report</text>
+<text x="232.0" y="137.0" text-anchor="end" fill="var(--chart-1)" font-size="17" font-weight="600" font-family="var(--font-sans)">Composer passed</text>
+<text x="232.0" y="157.0" text-anchor="end" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">on the bug report</text>
+<rect x="250.0" y="64.0" width="150.0" height="150.0" rx="0.0" fill="none" stroke="var(--line)" stroke-width="1.5"></rect>
+<rect x="319.1" y="117.1" width="11.9" height="11.9" rx="2.0" fill="var(--chart-1)"><title>Composer pass, Devin pass: 1</title></rect>
+<text x="325.0" y="202.0" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">1</text>
+<rect x="400.0" y="64.0" width="150.0" height="150.0" rx="0.0" fill="none" stroke="var(--line)" stroke-width="1.5"></rect>
+<text x="475.0" y="202.0" text-anchor="middle" fill="var(--text-3)" font-size="20" font-weight="700" font-family="var(--font-mono)">0</text>
+<text x="232.0" y="287.0" text-anchor="end" fill="var(--chart-1)" font-size="17" font-weight="600" font-family="var(--font-sans)">Composer failed</text>
+<text x="232.0" y="307.0" text-anchor="end" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">on the bug report</text>
+<rect x="250.0" y="214.0" width="150.0" height="150.0" rx="0.0" fill="none" stroke="var(--line)" stroke-width="1.5"></rect>
+<rect x="299.1" y="247.1" width="51.7" height="51.7" rx="2.0" fill="var(--chart-2)"><title>Composer fail, Devin pass: 19</title></rect>
+<text x="325.0" y="352.0" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">19</text>
+<rect x="400.0" y="214.0" width="150.0" height="150.0" rx="0.0" fill="none" stroke="var(--line)" stroke-width="1.5"></rect>
+<rect x="431.0" y="229.0" width="88.0" height="88.0" rx="2.0" fill="var(--chart-1)"><title>Composer fail, Devin fail: 55</title></rect>
+<text x="475.0" y="352.0" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">55</text>
+<text x="576.0" y="86.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-sans)">75 tasks</text>
+<text x="576.0" y="110.0" fill="var(--text-2)" font-size="16" font-family="var(--font-sans)">screened by both</text>
+<text x="576.0" y="266.0" fill="var(--text-2)" font-size="16" font-family="var(--font-sans)">19 disagreements,</text>
+<text x="576.0" y="288.0" fill="var(--text-2)" font-size="16" font-family="var(--font-sans)">Devin passed all 19</text>
+</svg>
