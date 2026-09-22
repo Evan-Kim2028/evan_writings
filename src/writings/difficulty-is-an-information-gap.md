@@ -1,6 +1,6 @@
 ---
 title: "Building a Synthetic SWE Factory: The Information Ladder"
-date: "2026-09-21"
+date: "2026-09-22"
 collection: data
 lede: true
 tags:
@@ -13,7 +13,7 @@ tags:
 source_url: https://github.com/Evan-Kim2028/open_swe_traces_research
 source_platform: github
 slug: difficulty-is-an-information-gap
-description: "Stage 1: Go, nine repositories, 527 tasks. The information ladder sets what a prompt withholds, and the factory uses it to build a synthetic dataset."
+description: "Stage 1: Go, nine repositories, 591 tasks. The information ladder sets what a prompt withholds, and the factory uses it to build a synthetic dataset."
 series: Evals
 series_index: 3
 hero: /assets/images/information-gap-hero.png
@@ -36,7 +36,7 @@ behavior those tests check. Keep the task when the first fails and the second pa
 Those two runs are how a task enters the synthetic dataset. The failure shows the task is hard.
 The pass shows it is solvable as written. One prompt cannot show both, and every comparable generation pipeline uses one prompt.
 
-Stage 1 is Go, nine repositories, self-funded: 527 tasks authored and 139 certified so far.
+Stage 1 is Go, nine repositories, self-funded: 591 tasks authored and 238 certified so far.
 
 ## The information gap
 
@@ -326,7 +326,7 @@ Agent-side web tools run on the vendor’s servers and cannot be blocked from in
 
 The synthetic dataset is the set of tasks the ladder kept.
 
-139 certified tasks so far, cut from nine Go repositories: client-go, kops, helm, go-git,
+238 certified tasks so far, cut from nine Go repositories: client-go, kops, helm, go-git,
 go-github, goa, gin, bbolt, and nats-server. Kubernetes tooling, version control, API design,
 storage, HTTP services, and messaging.
 
@@ -338,34 +338,43 @@ answer key, the code that was cut.
 These are not toy edits. The median answer key is 127 lines, most fall between 80 and 320, and a
 quarter touch two or more files.
 
-Every task also carries the model that certified it. 124 of the 139 had the same model fail L0 and
-pass L2, which is the clean claim. The other 15 failed L0 on one model and passed L2 on another,
-which might be an information gap or a capability gap, so they are labelled separately rather than
-pooled.
+Every task carries the model that certified it, and a certificate now requires one model to do
+both halves: the same model fails L0 and passes the level that certifies it. An earlier count
+labelled 15 tasks where one model failed L0 and a different one passed L2 as a weaker kind of
+certificate. That category is gone. Inspecting the six that were left, four were two halves that
+never joined, with no single model doing both, and the other two were complete certificates that
+pooling had misreported by three levels each, because taking the lowest passing level across models
+lets the stronger one erase the weaker one's difficulty. That is the quantity the ladder exists to
+measure, so the pooled view was retired rather than kept alongside.
+
+Only two tasks carry a curve climbed independently by two models, which is the population that can
+separate a task's difficulty from a model's. That count stays small for a plain reason: a second
+curve costs a second full climb. A further 17 tasks pass L0 for one model while another model holds
+a certificate on them, so difficulty at the bug report is already model-dependent.
 
 ### What the filter removed
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 250" role="img" data-anim="x" aria-label="Funnel: 527 authored, 339 trialled, 299 decided, 139 certified.">
+<svg viewBox="0 0 720 250" role="img" data-anim="x" aria-label="Funnel: 591 authored, 436 trialled, 411 decided, 238 certified.">
 <text x="168" y="54" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">authored</text>
-<rect x="184" y="28" width="460.0" height="36" rx="4" fill="var(--chart-1)" opacity="1"><title>authored: 527</title></rect>
-<text x="656.0" y="54" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">527</text>
+<rect x="184" y="28" width="460.0" height="36" rx="4" fill="var(--chart-1)" opacity="1"><title>authored: 591</title></rect>
+<text x="656.0" y="54" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">591</text>
 <text x="168" y="110" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">trialled</text>
-<rect x="184" y="84" width="295.9" height="36" rx="4" fill="var(--chart-1)" opacity="0.34"><title>trialled: 339</title></rect>
-<text x="491.9" y="110" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">339</text>
+<rect x="184" y="84" width="339.4" height="36" rx="4" fill="var(--chart-1)" opacity="0.34"><title>trialled: 436</title></rect>
+<text x="535.4" y="110" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">436</text>
 <text x="168" y="166" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">decided</text>
-<rect x="184" y="140" width="261.0" height="36" rx="4" fill="var(--chart-1)" opacity="0.34"><title>decided: 299</title></rect>
-<text x="457.0" y="166" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">299</text>
+<rect x="184" y="140" width="319.9" height="36" rx="4" fill="var(--chart-1)" opacity="0.34"><title>decided: 411</title></rect>
+<text x="515.9" y="166" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">411</text>
 <text x="168" y="222" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">certified</text>
-<rect x="184" y="196" width="121.3" height="36" rx="4" fill="var(--chart-1)" opacity="1"><title>certified: 139</title></rect>
-<text x="317.3" y="222" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">139</text>
+<rect x="184" y="196" width="185.2" height="36" rx="4" fill="var(--chart-1)" opacity="1"><title>certified: 238</title></rect>
+<text x="381.2" y="222" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">238</text>
 </svg>
 
-<figcaption>527 authored tasks produce 139 certificates.</figcaption>
+<figcaption>591 authored tasks produce 238 certificates.</figcaption>
 </figure>
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 380" role="img" data-anim="x" aria-label="299 decided tasks on two planes. 131 passed the bug report. 139 failed it and passed the full description. 29 failed both.">
+<svg viewBox="0 0 720 380" role="img" data-anim="x" aria-label="411 decided tasks on two planes. 172 passed the bug report. 238 failed it and passed a higher level. 1 failed every level.">
 <rect x="164.0" y="90.9" width="117.9" height="118.0" fill="none" stroke="var(--text-3)" stroke-width="1.2" stroke-dasharray="3 3.5"/>
 <polygon points="34.0,214.0 156.9,214.0 163.9,213.7 41.0,213.7" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/>
 <polygon points="421.9,208.9 552.0,208.9 559.0,208.6 428.9,208.6" fill="var(--chart-1)" fill-opacity="0.14" stroke="var(--text-3)" stroke-width="1"/>
@@ -389,25 +398,30 @@ pooled.
 <text x="222.9" y="126.9" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="22" font-weight="700">L2</text>
 <text x="222.9" y="144.9" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">empty</text>
 <text x="486.4" y="82.9" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="12">L2</text>
-<text x="95.0" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">131</text>
+<text x="95.0" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">172</text>
 <text x="130.0" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Passed the bug report.</text>
-<text x="358.4" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">139</text>
+<text x="358.4" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">238</text>
 <text x="358.4" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Failed, then passed.</text>
-<text x="576.0" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">29</text>
+<text x="576.0" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">1</text>
 <text x="576.0" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Failed both.</text>
 <line x1="295.9" y1="328.0" x2="589.1" y2="328.0" stroke="var(--text)" stroke-width="1"/>
 <line x1="295.9" y1="328.0" x2="295.9" y2="320.0" stroke="var(--text)" stroke-width="1"/>
 <line x1="589.1" y1="328.0" x2="589.1" y2="320.0" stroke="var(--text)" stroke-width="1"/>
 <text x="442.5" y="352.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-sans)" font-size="20" font-weight="600">168 failures on the bug report alone</text>
 </svg>
-<figcaption>299 decided tasks. Height is the outcome. Depth is the prompt. On the bug report, the 139 and the 29 are one pile of 168 failures. The full description lifts the 139.</figcaption>
+<figcaption>411 decided tasks. Height is the outcome. Depth is the prompt. On the bug report, the 238 and the 1 are one pile of 239 failures. The higher levels lift the 238. Block proportions are from the earlier snapshot and are due a redraw.</figcaption>
 </figure>
 
-Of the 299 decided tasks, 131 were solved from the bug report alone and never reached the
-certificate. Nearly half of what a careful pipeline authors is already solvable from a symptom
-report. Any generator shipping unscreened tasks is shipping a lot of freebies and cannot tell you
-which ones. The 29 that failed both prompts came out too, and every one audited turned out to be a
-defective description rather than an impossible task.
+Of the 411 decided tasks, 172 were solved from the bug report by every model that tried, and never
+reached the certificate. Nearly half of what a careful pipeline authors is already solvable from a
+symptom report. Any generator shipping unscreened tasks is shipping a lot of freebies and cannot
+tell you which ones.
+
+The tasks that failed both prompts have almost all resolved, and the ladder is what resolved them.
+That bucket stood at 29 while the levels over the full description still had few measurements.
+Climbing them left exactly one task, `exprhash`, that no model has passed at any level. Of the
+earlier 29, every one audited turned out to carry a defective description rather than an impossible
+task, and the rest certified once a higher level supplied what the prose had left out.
 
 Roughly one authored task in four survives to the dataset. The screen and the certificate each
 remove about as much as the other.
@@ -427,19 +441,26 @@ asked to produce may already be in its weights.
 Three models did the work, and they bill and report differently, so the totals need stating per
 model rather than as one figure.
 
-Composer 2.5 ran most of the ladder trials. Devin and Grok both authored tasks and ran trials.
+Composer 2.5 ran most of the ladder trials. Devin and Grok both authored tasks and ran trials, and
+Grok 4.7 ran the complete ladder on the three tasks under "When the ladder runs out."
 
 | Model | Runs or sessions | Input | Cache read | Output | Cost |
 |---|---:|---:|---:|---:|---:|
-| Composer 2.5 | 1,233 runs | 2,302M | 2,244M | 16.8M | $520.13 |
+| Composer 2.5 | 1,439 runs | 3,005M | 2,931M | 21.9M | $678.23 |
 | Devin swe-2-max | 151 sessions | 162M | 3,270M | 22.7M | $452 |
-| Grok 4.6 | 27 runs | 10.6M | 9.8M | 0.19M | $2.57 |
+| Grok 4.7 | 22 runs | 79.4M | 66.4M | 1.47M | $23.69 |
+| Grok 4.6 | 26 runs | 10.6M | 9.8M | 0.19M | $2.57 |
 
-Those rows do not sum, and the reason is the next paragraph. Composer and Grok processed 2.33
+The Composer and Grok rows come from the trial ledger at the date above. The Devin row is the
+earlier export and is due a refresh: it bills in Agent Compute Units rather than tokens, so its
+cost is not derivable from the repository, and the repository's own per-model counts disagree with
+the token split below. Treat the Devin row as the ACU-based figure it is.
+
+Those rows do not sum, and the reason is the next paragraph. Composer and Grok processed 3.12
 billion tokens between them, cache reads included, because their cached count sits inside their
 input count. Devin processed a further 3.45 billion, because its cache reads are counted on top of
-its input. **The run so far is 5.78 billion tokens for $975**, and 5.5 billion of those tokens are cache
-reads, so most of the bill is a model re-reading a repository it has already seen.
+its input. **The run so far is 6.57 billion tokens for $1,156**, and 6.28 billion of those tokens are
+cache reads, so most of the bill is a model re-reading a repository it has already seen.
 
 Devin's share needs a pricing basis, because it bills in Agent Compute Units rather than tokens.
 Priced at the SWE-2 promotional rate of $0.75 per million input, $0.075 per million cache read and
@@ -499,9 +520,10 @@ The levels above L2 cost more than twice as much per run, $0.86 against $0.27 to
 their prompts carry test names and test bodies. Climbing the ladder costs money on both ends, in
 prompt size and in runs.
 
-139 certificates from 1,872 runs is 13.5 runs each, against a floor of two, and $7.01 apiece. Most of the spend therefore went to runs past the deciding pair: re-running L2 after
-repairing a description, re-running L0, and exploring other levels. Almost none of it produced new
-information.
+238 certificates from 1,685 trials is 7.1 trials each, against a floor of two, and $4.86 apiece.
+Both numbers roughly halved as the guards landed, which is the one place in this work where a gate
+beat a generator outright. The remainder still goes to trials past the deciding pair: re-running L2
+after repairing a description, re-running L0, and climbing the levels above.
 
 <figure class="fig-inline">
 <svg viewBox="0 0 720 280" role="img" data-anim="x" aria-label="Runs needed per certificate: parallel with no gate 9.0, sequential with no gate 7.7, sequential with a gate 3.2, against a floor of 2.">
@@ -527,7 +549,7 @@ recovered from the data as it stands. An earlier, partial measurement put author
 task, which is small against the trial bill but should be read as an estimate.
 
 Re-measuring what you already know is what makes a task factory expensive. Generating tasks is the
-cheap half. That $975 is one researcher's bill. The chart is the cut still available on a bill
+cheap half. That $1,156 is one researcher's bill. The chart is the cut still available on a bill
 like it.
 
 ## Conclusion and future work
@@ -568,7 +590,7 @@ instrumented unit-to-repository map before it can be claimed at all.
 
 *Code and trial ledger:
 [open_swe_traces_research](https://github.com/Evan-Kim2028/open_swe_traces_research). Counts are a
-2026-09-21 snapshot of a run still in progress, derived from `trial_ledger.py` and `roots.py`.
+2026-09-22 snapshot of a run still in progress, derived from `trial_ledger.py` and `roots.py`.
 Earlier in this series: [Terminal-Bench Task: Lakehouse Schema Contract
 Drift](/writings/terminal-bench-task-lakehouse-schema-contract-drift/) and [Four Verifiable
 Properties of a Useful Agent Task](/writings/four-verifiable-properties-of-a-useful-agent-task/).*
