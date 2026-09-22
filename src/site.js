@@ -65,17 +65,47 @@
     });
   });
 
-  // Active TOC link
+  // Active TOC link. The heading that has passed the reading line is the
+  // current one, including through a long section where no heading is
+  // crossing the screen. The list then slides so that link stays in view.
   var links = Array.prototype.slice.call(document.querySelectorAll('.rail .toc-link'));
-  var heads = document.querySelectorAll('.writing-body h2[id], .writing-body h3[id]');
-  if (links.length && heads.length && 'IntersectionObserver' in window) {
-    var hio = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        links.forEach(function (l) { l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id); });
+  var heads = Array.prototype.slice.call(document.querySelectorAll('.writing-body h2[id], .writing-body h3[id]'));
+  var rail = document.querySelector('.rail');
+  if (links.length && heads.length && rail) {
+    function reveal(link) {
+      if (rail.matches(':hover')) return;
+      var railBox = rail.getBoundingClientRect();
+      var linkBox = link.getBoundingClientRect();
+      if (rail.scrollWidth > rail.clientWidth + 1) {
+        if (linkBox.left < railBox.left || linkBox.right > railBox.right) {
+          rail.scrollLeft += linkBox.left - railBox.left - (rail.clientWidth - linkBox.width) / 2;
+        }
+      } else if (rail.scrollHeight > rail.clientHeight + 1) {
+        if (linkBox.top < railBox.top) rail.scrollTop -= railBox.top - linkBox.top + 8;
+        else if (linkBox.bottom > railBox.bottom) rail.scrollTop += linkBox.bottom - railBox.bottom + 8;
+      }
+    }
+    function mark() {
+      var line = 128;
+      var id = null;
+      var atEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      if (atEnd) id = heads[heads.length - 1].id;
+      else {
+        for (var i = 0; i < heads.length; i++) {
+          if (heads[i].getBoundingClientRect().top <= line) id = heads[i].id;
+        }
+      }
+      var current = null;
+      links.forEach(function (l) {
+        var on = id && l.getAttribute('href') === '#' + id;
+        l.classList.toggle('active', on);
+        if (on) current = l;
       });
-    }, { rootMargin: '-15% 0px -75% 0px' });
-    heads.forEach(function (h) { hio.observe(h); });
+      if (current) reveal(current);
+    }
+    function onScroll() { mark(); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    mark();
   }
 
   // Copy button on code blocks
