@@ -26,8 +26,7 @@ Difficulty is an information gap.
 
 A coding task is hard when the prompt leaves out something the solver needs and cannot work out
 from what remains. Widen the gap and the task gets harder. Close it and the task gets solved. The
-width is a dial, and turning it is the only reliable way to build a task at a chosen
-difficulty.
+width is a dial, and this factory sets a task's difficulty by turning it.
 
 The factory below is built around that dial. Cut a working behavior out of a real Go repository. Have a
 second agent write hidden tests from a written specification, never from the code. Then run the
@@ -56,6 +55,10 @@ something nobody could derive. The ladder therefore makes information the thing 
 Each level adds exactly one kind of information about the removed behavior. Nothing above the
 level is visible. Seven levels, because that is how many distinct kinds of help a solver can
 actually use, ordered from the least specific to the most.
+
+A certificate uses two of them. The task fails the bug report and passes the full description.
+From the next level up, the levels hand over the tests, and a certified task never sees a test
+name.
 
 <figure class="fig-inline">
 <svg viewBox="0 0 720 452" role="img" data-anim="r" aria-label="Seven nested circles tangent at the bottom, shaded in one blue ramp from the darkest core outward. L0 at the core is the bug report and fails. Each larger circle contains the one inside it and adds one kind of information, out to L6, every test. L2, the full description, passes. The band between L0 and L2 is the gap.">
@@ -101,8 +104,7 @@ actually use, ordered from the least specific to the most.
 | L6 | All tests | Every test in the tree. |
 
 The order matters more than the count. L0 through L2 vary how the behavior is described, and L3
-through L6 start handing over the tests themselves. The certificate lives entirely in the first
-group, so a certified task never sees a test name.
+through L6 start handing over the tests themselves.
 
 These levels build tasks. They do not read existing ones. Mapping them onto Terminal-Bench by
 instruction content puts almost every task at L1, a goal plus unstated requirements plus hidden
@@ -486,7 +488,7 @@ recovered from the data as it stands. An earlier, partial measurement put author
 task, which is small against the trial bill but should be read as an estimate.
 
 Re-measuring what you already know is what makes a task factory expensive. Generating tasks is the
-cheap half.
+cheap half. The $975 in the table is one researcher's bill, and the gate is what kept it there.
 
 ## Conclusion and future work
 
@@ -494,22 +496,14 @@ Stage 1 is Go, nine repositories, in-repo cuts, and one model for roughly three 
 choices, not findings. This is self-funded, so the bank is small and deep instead of broad. It is
 enough to show the method works, not enough to claim it generalizes.
 
-Removing behavior cleanly leans on Go’s package layout and test conventions, so a second language
-is the real test. A certificate may not hold for a model that never took part in screening; right
-now, too easy means Composer 2.5 solved it. L1 and L3 through L6 are sparsely sampled, so whether
-information helps smoothly or all at once is unmeasured. Per-repository yield varies widely, but
-those numbers need re-deriving before they can be claimed.
-
-A solve rate belongs to the model that produced it, and so does a certificate. The method treats that as a
-premise rather than as a shortcoming. Difficulty is a relation between a task, a model, and an
-amount of information, and what this work adds is a way to set the third term.
+A solve rate belongs to the model that produced it, and so does a certificate. Difficulty is a relation
+between a task, a model, and an amount of information, and what this work adds is a way to set the third term.
 
 Four results here should hold for anyone building a task factory. Put the difficulty in the prompt,
 because whatever you leave in the repository specifies what you took out. Use two prompts, because
 a failing run alone cannot distinguish a hard task from a broken one. Keep the test writer away
-from the answer key, because tests written from an implementation check that implementation, while
-tests written from a specification check the behavior. And budget for the guards before the
-generator, because a gate that refuses a redundant run beat every generation improvement in this work.
+from the answer key. Budget for the guards before the generator, because a gate that refuses a
+redundant run beat every generation improvement in this work.
 
 Stage 2 runs the same factory in a second language, which is the test of whether the cut mechanic
 survives outside Go. The cut, the blind tests, and the certificate stay. A held-out model screens
