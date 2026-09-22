@@ -488,7 +488,8 @@ recovered from the data as it stands. An earlier, partial measurement put author
 task, which is small against the trial bill but should be read as an estimate.
 
 Re-measuring what you already know is what makes a task factory expensive. Generating tasks is the
-cheap half. The $975 in the table is one researcher's bill, and the gate is what kept it there.
+cheap half. That $975 is one researcher's bill. The chart is the cut still available on a bill
+like it.
 
 ## Conclusion and future work
 
