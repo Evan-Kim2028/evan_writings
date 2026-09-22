@@ -34,13 +34,14 @@ solver more. This post describes a factory built on the ladder and what its firs
   of a working description made seven of eight passing tasks fail, each on the inverted line.
 - **Two prompts separate a hard task from a broken one.** A failing task might be hard or
   impossible, and rerunning it cannot tell which. A task is certified only when one model fails the
-  bug report and passes the full description. The comparable pipelines skip that second run.
-- **Complex code is not hard code.** Twenty-five tasks with up to seven functions deleted across
-  four files were all solved. Callers or tests left in the repository gave the answer away almost
+  bug report and passes the full description. None of the comparable pipelines reports that second
+  run.
+- **Complex code is not hard code.** One frontier model solved all 25 tasks built with up to seven
+  functions deleted across four files. Callers or tests left in the repository gave the answer away almost
   every time.
 - **The same ladder grades models.** Composer and Devin both fail `archive` from the bug report, so
   a solve rate calls them equal, and the ladder puts them two steps apart. At the top, Composer
-  fails two tasks with the hidden tests in front of it, and Grok solves both.
+  fails two tasks with the hidden tests in front of it, and Grok solves each in one of two runs.
 - **Every task gets a grade.** Of 414 graded tasks, 172 are solved from the bug report, 241 are
   certified higher up, and one has beaten two models at every level. Stage 1 cost $1.2k.
 
@@ -110,7 +111,9 @@ Follow one model up one task, and its first passing level grades the task. Hold 
 the model, and the gap between their levels compares the models in information instead of points.
 Composer ran most trials, including the cheap L1 screen that finds tasks solvable from the bug
 report. Devin is climbing tasks Composer already graded, and Grok ran the three tasks where
-Composer ran out of ladder.
+Composer ran out of ladder. The Devin climbs test the first thing any difficulty scale owes a
+reader, that it separates models the way existing benchmarks do. The budget allowed about one run
+per level, so each gap below is a single observation, not an estimate.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/curves.svg" %}
@@ -124,8 +127,8 @@ belongs to the task.
 
 At the top, Composer failed `httpmux`, `httpencoding`, and `exprhash` at every level, test file
 included. With no wider prompt left, only a second model can show those tasks are solvable. Grok
-passed `httpmux` and `httpencoding` with the test file in one run of two, which certifies both.
-`exprhash` is solvable by construction, since its answer key passes the suite, yet 28 runs from two
+passed `httpmux` and `httpencoding` with the test file in one run of two, which certifies both as
+solvable. `exprhash` is solvable by construction, since its answer key passes the suite, yet 28 runs from two
 models have not solved it.
 
 The bug report alone separates models too. Composer and Devin both screened 74 tasks at L1.
@@ -180,17 +183,17 @@ because a bad task once got through without it.
 
 ### Other pipelines
 
-| Method | How difficulty is set | Evidence it is hard | Prompt proven |
+| Method | How difficulty is set | Evidence it is hard | Evidence the prompt suffices |
 |---|---|---|---|
-| SWE-bench, SWE-Gym | inherited from the issue | reviewer judgment | ✗ |
-| SWE-smith | not set; follows the injected bug | ✗ | ✗ |
-| R2E-Gym | inherited from the commit | ✗ | ✗ |
-| ProgramDistill | how many behaviors are restored together | authored depth | ✗ |
-| CodeMidas | screening model drops always-pass and always-fail | the screening model failed it | ✗ |
-| This work | what the prompt withholds, L1 against L2 | one model failed the bug report | ✓ the same model passed the full description |
+| SWE-bench, SWE-Gym | inherited from the issue | reviewer judgment | not reported |
+| SWE-smith | not set; follows the injected bug | not reported | not reported |
+| R2E-Gym | inherited from the commit | not reported | not reported |
+| ProgramDistill | how many behaviors are restored together | authored depth | not reported |
+| CodeMidas | screening model drops always-pass and always-fail | the screening model failed it | not reported |
+| This work | what the prompt withholds, L1 against L2 | one model failed the bug report | the same model passed the full description |
 
 The first three inherit difficulty from an issue, a bug, or a commit, so it belongs to the pool
-and not to any one task. The last three set it per task, and only this work runs the second prompt
+and not to any one task. The last three set it per task, and only this work reports a second prompt
 that separates a hard task from an underspecified one. Benchmarks hold the prompt fixed, and read
 by instruction content almost every Terminal-Bench task sits between L1 and L2. CodeMidas is the
 closest relative and the only other method that starts from source code alone (Ye et al.,
@@ -223,10 +226,13 @@ description, 9 at the test names, and 40 at the test file. The bucket that faile
 29 tasks before the upper levels were measured. Every audited one had a defective description, the
 rest certified once a higher level supplied what the prose left out, and only `exprhash` remains.
 
-None of these tasks can be in a model's training data, because none existed before its cut. The
-1.5k task files contain no references to issues, pull requests, or CVEs, and the answer keys are
-103k added lines against 638 non-stub deletions. Tasks mined from GitHub history cannot say that,
-since the fix a model is asked to write may already be in its weights.
+The tasks are new, but their answer keys are upstream code from widely used repositories, so a
+model may have seen a removed function in training, and memorization cannot be ruled out. Two
+things limit it. No task file references an issue, pull request, or CVE, so nothing in the prompt
+names the code to recall. And the answer keys are 103k added lines against 638 non-stub
+deletions, behavior to rebuild instead of a known diff to replay. A direct probe, asking a model for
+each function from its name alone and comparing the output with the answer key, would measure
+what is left, and it is the next check.
 
 ### Cost and what it limited
 
@@ -263,8 +269,11 @@ them. That gap sets the dataset's limits.
   information from one that got lucky, and Grok's one pass in two on `httpmux` is that case.
 - **The 172 tasks solved from the bug report carry Composer's grade alone.**
 
-At Devin's rate, a second model climbing all 414 graded tasks would cost roughly $4.3k, almost four
-times Stage 1, assuming 3.5 runs a task.
+At Stage 1 prices, about $2.2k would buy the two measurements this budget could not. Three repeat
+runs on 50 tasks at L1 and L2, from both models, would show how often a grade changes on a rerun.
+Both models climbing the same random 100 tasks would remove the selection in the model comparison,
+since Devin now mostly sees tasks Composer failed. A second model climbing all 414 graded tasks
+would cost about $4.3k.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/runs-per-level.svg" %}
