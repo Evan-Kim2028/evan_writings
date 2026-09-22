@@ -1,5 +1,5 @@
 ---
-title: "Building a Synthetic SWE Factory: Difficulty Is an Information Gap"
+title: "Building a Synthetic SWE Factory: The Information Ladder"
 date: "2026-09-21"
 collection: data
 lede: true
@@ -13,7 +13,7 @@ tags:
 source_url: https://github.com/Evan-Kim2028/open_swe_traces_research
 source_platform: github
 slug: difficulty-is-an-information-gap
-description: "Stage 1: Go, nine repositories, 527 tasks. A coding task is hard because of what its prompt leaves out, and that gap can be set on purpose and measured."
+description: "Stage 1: Go, nine repositories, 527 tasks. The information ladder sets what a prompt withholds, and the factory uses it to build a synthetic dataset."
 series: Evals
 series_index: 3
 hero: /assets/images/information-gap-hero.png
@@ -26,15 +26,15 @@ Difficulty is an information gap.
 
 A coding task is hard when the prompt leaves out something the solver needs and cannot work out
 from what remains. Widen the gap and the task gets harder. Close it and the task gets solved. The
-width is a dial, and this factory sets a task's difficulty by turning it.
+ladder sets the width, one level at a time.
 
-The factory below is built around that dial. Cut a working behavior out of a real Go repository. Have a
+The factory below is built around that ladder. Cut a working behavior out of a real Go repository. Have a
 second agent write hidden tests from a written specification, never from the code. Then run the
 same model twice. The first run gets only a bug report. The second gets a full description of every
 behavior those tests check. Keep the task when the first fails and the second passes.
 
-Those two runs are the product. The failure shows the task is hard. The pass shows it is solvable
-as written. One prompt cannot show both, and every comparable generation pipeline uses one prompt.
+Those two runs are how a task enters the synthetic dataset. The failure shows the task is hard.
+The pass shows it is solvable as written. One prompt cannot show both, and every comparable generation pipeline uses one prompt.
 
 Stage 1 is Go, nine repositories, self-funded: 527 tasks authored and 139 certified so far.
 
@@ -52,46 +52,12 @@ Both failures are about information. A task is too easy when the prompt plus wha
 still shows already contains the answer. It is underspecified when the two together leave out
 something nobody could derive. The ladder therefore makes information the thing to set and measure.
 
-Each level adds exactly one kind of information about the removed behavior. Nothing above the
-level is visible. Seven levels, because that is how many distinct kinds of help a solver can
-actually use, ordered from the least specific to the most.
+Each level contains the one below it and adds one kind of information about the removed behavior.
+Nothing above the level is visible.
 
 A certificate uses two of them. The task fails the bug report and passes the full description.
 From the next level up, the levels hand over the tests, and a certified task never sees a test
 name.
-
-<figure class="fig-inline">
-<svg viewBox="0 0 720 452" role="img" data-anim="r" aria-label="Seven nested circles tangent at the bottom, shaded in one blue ramp from the darkest core outward. L0 at the core is the bug report and fails. Each larger circle contains the one inside it and adds one kind of information, out to L6, every test. L2, the full description, passes. The band between L0 and L2 is the gap.">
-<circle style="--d:1" cx="330" cy="208" r="196" fill="var(--lvl-6)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L6: all tests</title></circle>
-<circle style="--d:2" cx="330" cy="236" r="168" fill="var(--lvl-5)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L5: one hidden test</title></circle>
-<circle style="--d:3" cx="330" cy="264" r="140" fill="var(--lvl-4)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L4: signatures</title></circle>
-<circle style="--d:4" cx="330" cy="292" r="112" fill="var(--lvl-3)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L3: test names</title></circle>
-<circle style="--d:5" cx="330" cy="320" r="84" fill="var(--lvl-2)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L2: full description</title></circle>
-<circle style="--d:6" cx="330" cy="348" r="56" fill="var(--lvl-1)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L1: partial description</title></circle>
-<circle style="--d:7" cx="330" cy="376" r="28" fill="var(--lvl-0)" stroke="var(--bg)" stroke-width="1.5" stroke-opacity="0.35"><title>L0: bug report</title></circle>
-<text style="--d:1" x="330" y="365" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="700" font-family="var(--font-mono)">L0</text>
-<text style="--d:2" x="330" y="381" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-family="var(--font-sans)">bug report</text>
-<text style="--d:3" x="330" y="309" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L1</text>
-<text style="--d:4" x="330" y="325" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-family="var(--font-sans)">partial description</text>
-<text style="--d:5" x="330" y="253" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="700" font-family="var(--font-mono)">L2</text>
-<text style="--d:6" x="330" y="269" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-family="var(--font-sans)">full description</text>
-<text style="--d:7" x="330" y="197" text-anchor="middle" fill="var(--bg)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L3</text>
-<text style="--d:8" x="330" y="213" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-family="var(--font-sans)">test names</text>
-<text style="--d:9" x="330" y="141" text-anchor="middle" fill="var(--text)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L4</text>
-<text style="--d:10" x="330" y="157" text-anchor="middle" fill="var(--text-2)" font-size="11.5" font-family="var(--font-sans)">signatures</text>
-<text style="--d:11" x="330" y="85" text-anchor="middle" fill="var(--text)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L5</text>
-<text style="--d:12" x="330" y="101" text-anchor="middle" fill="var(--text-2)" font-size="11.5" font-family="var(--font-sans)">one hidden test</text>
-<text style="--d:13" x="330" y="29" text-anchor="middle" fill="var(--text)" font-size="12.5" font-weight="500" font-family="var(--font-mono)">L6</text>
-<text style="--d:14" x="330" y="45" text-anchor="middle" fill="var(--text-2)" font-size="11.5" font-family="var(--font-sans)">all tests</text>
-<text style="--d:15" x="330" y="288" text-anchor="middle" fill="var(--bg)" font-size="11.5" font-weight="700" letter-spacing="0.08em" font-family="var(--font-sans)">PASSES</text>
-<text style="--d:16" x="330" y="430" text-anchor="middle" fill="var(--text)" font-size="11.5" font-weight="700" letter-spacing="0.08em" font-family="var(--font-sans)">L0 FAILS</text>
-<line x1="246" y1="318" x2="150" y2="318" stroke="var(--text-2)" stroke-width="1.5"/>
-<circle style="--d:8" cx="246" cy="318" r="3" fill="var(--text-2)"/>
-<text style="--d:17" x="142" y="315" text-anchor="end" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">the gap</text>
-<text style="--d:18" x="142" y="332" text-anchor="end" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">what L2 adds</text>
-</svg>
-<figcaption>Each level contains the one inside it and adds one kind of information about the removed behavior. A certificate is a failure at L0, the core, and a pass at L2. The band between them is the difficulty. Ring sizes are even steps; they show containment, not an amount.</figcaption>
-</figure>
 
 | Level | Name | What it adds over the level below |
 |---|---|---|
@@ -103,12 +69,18 @@ name.
 | L5 | One test | The full body of one hidden test file. |
 | L6 | All tests | Every test in the tree. |
 
-The order matters more than the count. L0 through L2 vary how the behavior is described, and L3
-through L6 start handing over the tests themselves.
+The rings are even steps. They show containment, not an amount. Blackwell's theorem is why the
+containment matters: an agent with the richer prompt can ignore what was added, so the richer
+prompt is at least as useful. A pass on the full description leaves the bug report undecided, so
+both runs are made.
 
-These levels build tasks. They do not read existing ones. Mapping them onto Terminal-Bench by
-instruction content puts almost every task at L1, a goal plus unstated requirements plus hidden
-tests. A benchmark that does not vary information cannot be used to study information.
+From the bug report to the full description, the levels change the prose.
+
+The ladder builds a task when the levels are written for it. The same ladder edits a task that
+already exists: remove what a level added, or add the next level, and leave the tests fixed.
+Mapping the names onto Terminal-Bench by instruction content, without that edit, puts almost
+every task at L1, a goal plus unstated requirements plus hidden tests. A benchmark that does not
+vary information cannot be used to study information.
 
 ### Why the prompt has to carry it
 
@@ -135,7 +107,7 @@ information somewhere less convenient.
 
 ### The certificate
 
-A task earns a place in the bank, the set kept and shipped, on two runs by one model. The first
+A task earns a place in the synthetic dataset on two runs by one model. The first
 gives it only a bug report, and it fails. The second gives it a full description of every behavior
 the hidden tests check, and it passes.
 
@@ -167,6 +139,44 @@ A level is therefore a claim about what a competent programmer could work out fr
 handed. If the prose is wrong, the level is a lie, and the run measures the prose instead of the
 model’s ability.
 
+### When the ladder runs out
+
+Three tasks failed every rung. Composer 2.5 took the bug report, the full description, the test
+names, the signatures, a restored test, and finally every test in the tree, and failed all six
+levels on `exprhash`, `httpencoding` and `httpmux`.
+
+That repeats the ambiguity the certificate removes, at the other end of the ladder. Failing at L6
+reads equally as a task at the edge of what a model can do and as a task nobody can do, and
+re-running the same model separates neither reading, for the same reason a repeated L0 failure
+does not. A second prompt cannot settle it either, because no wider prompt exists. L6 hands over
+the entire suite.
+
+The second claim therefore has to come from a second model. Grok 4.7 ran the complete ladder on
+all three, measuring every level rather than inferring it from the one below.
+
+| Task | Composer 2.5 | Grok 4.7 |
+|---|---|---|
+| `httpencoding` | fails L0 through L6 | fails L0 through L5, **passes L6** |
+| `httpmux` | fails L0 through L6 | fails L0 through L5, **passes L6** |
+| `exprhash` | fails L0 through L6 | fails L0 through L6 |
+
+Two of the three are solvable, and now carry a certificate saying so. Both Grok certificates bind
+at L6 over a recorded L5 failure, so neither rests on a skipped rung. Composer failed both tasks
+with every test in front of it.
+
+`exprhash` did not resolve, and it is not a broken task. Its answer key restores the removed code
+and passes the hidden suite, the A1 check every task clears before it reaches a trial at all. It
+is solvable by construction. Two frontier models, six levels each, 28 trials between them, and
+neither wrote it.
+
+Three things follow. A task can be hard for one frontier model and tractable for another at the
+same level, which is the per-model claim the certificate makes, measured at the point where the
+gap between models is widest. The ladder has a top, and a task can sit above it for a given model,
+so a dataset that reports only "failed" at its highest level is reporting two different facts under
+one word. And a second model does for an exhausted ladder what a second prompt does for a single
+failing run: it is the instrument that separates hard from impossible when the first instrument has
+run out of range.
+
 ### How other pipelines set difficulty
 
 | Method | How difficulty is set | Evidence it is hard | Prompt proven |
@@ -183,7 +193,7 @@ rather than to any one task. The last three set it per task.
 
 CodeMidas is the closest relative, and the only other row that starts from source code alone
 (Ye et al., [arXiv:2609.22068](https://arxiv.org/abs/2609.22068), Table 1). It keeps 5,545 tasks
-across 23 languages, forty times this bank, so the two differ somewhere other than scale. Every row above the last
+across 23 languages, forty times this dataset, so the two differ somewhere other than scale. Every row above the last
 can show that a model failed a task. Only a second prompt that passes separates a hard task from an
 underspecified one. CodeMidas also builds its tests by running the original code, so its tests come
 from the answer. These come from a written specification of it.
@@ -191,6 +201,8 @@ from the answer. These come from a written specification of it.
 ## The factory
 
 ### Four steps, three agents
+
+These four steps are how the ladder gets built.
 
 **The cut.** An agent reads a Go repository and removes one self-contained behavior. Public
 signatures stay, so tests can still call them. The removed code becomes the answer key. The same
@@ -246,50 +258,49 @@ Then worked examples, so no clause rests on prose alone:
 Every one states behavior a caller can observe. The model fails on 168 words and passes on 668.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 330" role="img" data-anim="x" aria-label="Prompt length in words at each level, median with the middle half of the range. L0 is 101 words in a tight band. L2 is 450 words across a wide band. L4 to L6 fall back to about 324 because those levels add test files rather than prose.">
-<line x1="128" y1="30" x2="128" y2="250" stroke="var(--line)" stroke-width="1"/>
-<text style="--d:1" x="128" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">0</text>
-<line x1="258" y1="30" x2="258" y2="250" stroke="var(--line)" stroke-width="1"/>
-<text style="--d:2" x="258" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">200</text>
-<line x1="388" y1="30" x2="388" y2="250" stroke="var(--line)" stroke-width="1"/>
-<text style="--d:3" x="388" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">400</text>
-<line x1="518" y1="30" x2="518" y2="250" stroke="var(--line)" stroke-width="1"/>
-<text style="--d:4" x="518" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">600</text>
-<line x1="648" y1="30" x2="648" y2="250" stroke="var(--line)" stroke-width="1"/>
-<text style="--d:5" x="648" y="270" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-mono)">800</text>
-<text style="--d:6" x="112" y="48" text-anchor="end" fill="var(--text)" font-size="12.5" font-weight="600" font-family="var(--font-mono)">L0</text>
-<rect style="--d:1" x="181" y="37" width="24" height="14" rx="3" fill="var(--lvl-0)" fill-opacity="0.45"><title>L0: middle half 82 to 119 words, 615 prompts</title></rect>
-<circle cx="194" cy="44" r="5" fill="var(--lvl-0)"/>
-<text style="--d:7" x="215" y="48" fill="var(--text)" font-size="11.5" font-weight="600" font-family="var(--font-mono)">101</text>
-<text style="--d:8" x="112" y="78" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L1</text>
-<rect style="--d:2" x="268" y="67" width="111" height="14" rx="3" fill="var(--lvl-1)" fill-opacity="0.45"><title>L1: middle half 215 to 386 words, 24 prompts</title></rect>
-<circle cx="289" cy="74" r="5" fill="var(--lvl-1)"/>
-<text style="--d:9" x="389" y="78" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">247</text>
-<text style="--d:10" x="112" y="108" text-anchor="end" fill="var(--text)" font-size="12.5" font-weight="600" font-family="var(--font-mono)">L2</text>
-<rect style="--d:3" x="304" y="97" width="253" height="14" rx="3" fill="var(--lvl-2)" fill-opacity="0.45"><title>L2: middle half 270 to 659 words, 609 prompts</title></rect>
-<circle cx="420" cy="104" r="5" fill="var(--lvl-2)"/>
-<text style="--d:11" x="566" y="108" fill="var(--text)" font-size="11.5" font-weight="600" font-family="var(--font-mono)">450</text>
-<text style="--d:12" x="112" y="138" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L3</text>
-<rect style="--d:4" x="315" y="127" width="308" height="14" rx="3" fill="var(--lvl-3)" fill-opacity="0.45"><title>L3: middle half 288 to 762 words, 72 prompts</title></rect>
-<circle cx="471" cy="134" r="5" fill="var(--lvl-3)"/>
-<text style="--d:13" x="633" y="138" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">527</text>
-<text style="--d:14" x="112" y="168" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L4</text>
-<rect style="--d:5" x="297" y="157" width="176" height="14" rx="3" fill="var(--lvl-4)" fill-opacity="0.45"><title>L4: middle half 260 to 531 words, 31 prompts</title></rect>
-<circle cx="339" cy="164" r="5" fill="var(--lvl-4)"/>
-<text style="--d:15" x="483" y="168" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">324</text>
-<text style="--d:16" x="112" y="198" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L5</text>
-<rect style="--d:6" x="306" y="187" width="196" height="14" rx="3" fill="var(--lvl-5)" fill-opacity="0.45"><title>L5: middle half 274 to 575 words, 120 prompts</title></rect>
-<circle cx="345" cy="194" r="5" fill="var(--lvl-5)"/>
-<text style="--d:17" x="512" y="198" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">334</text>
-<text style="--d:18" x="112" y="228" text-anchor="end" fill="var(--text-2)" font-size="12.5" font-weight="400" font-family="var(--font-mono)">L6</text>
-<rect style="--d:7" x="305" y="217" width="64" height="14" rx="3" fill="var(--lvl-6)" fill-opacity="0.45"><title>L6: middle half 273 to 372 words, 70 prompts</title></rect>
-<circle cx="339" cy="224" r="5" fill="var(--lvl-6)"/>
-<text style="--d:19" x="380" y="228" fill="var(--text-3)" font-size="11.5" font-weight="400" font-family="var(--font-mono)">324</text>
-<line x1="128" y1="250" x2="648" y2="250" stroke="var(--line)" stroke-width="1.5"/>
-<text style="--d:20" x="388" y="292" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">words in the prompt</text>
-<text style="--d:21" x="388" y="312" text-anchor="middle" fill="var(--text-3)" font-size="11" font-family="var(--font-sans)">dot is the median, bar is the middle half of 1,541 prompts</text>
+<svg viewBox="0 0 720 460" role="img" data-anim="x" aria-label="Prompt length in words at each level. L0 is 101 words. L2 is 450. L4 to L6 fall back to about 324.">
+<line x1="150" y1="24" x2="150" y2="400" stroke="var(--line)" stroke-width="1"/>
+<text x="150" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">0</text>
+<line x1="280" y1="24" x2="280" y2="400" stroke="var(--line)" stroke-width="1"/>
+<text x="280" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">200</text>
+<line x1="410" y1="24" x2="410" y2="400" stroke="var(--line)" stroke-width="1"/>
+<text x="410" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">400</text>
+<line x1="540" y1="24" x2="540" y2="400" stroke="var(--line)" stroke-width="1"/>
+<text x="540" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">600</text>
+<line x1="670" y1="24" x2="670" y2="400" stroke="var(--line)" stroke-width="1"/>
+<text x="670" y="432" text-anchor="middle" fill="var(--text)" font-size="22" font-family="var(--font-mono)">800</text>
+<text x="128" y="54" text-anchor="end" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">L0</text>
+<rect x="203.3" y="33.0" width="24.1" height="26" rx="4" fill="var(--lvl-0)" fill-opacity="0.45"><title>L0</title></rect>
+<circle cx="215.7" cy="46" r="7" fill="var(--lvl-0)"/>
+<text x="239.4" y="54" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">101</text>
+<text x="128" y="104" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L1</text>
+<rect x="289.8" y="83.0" width="111.1" height="26" rx="4" fill="var(--lvl-1)" fill-opacity="0.45"><title>L1</title></rect>
+<circle cx="310.6" cy="96" r="7" fill="var(--lvl-1)"/>
+<text x="412.9" y="104" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">247</text>
+<text x="128" y="154" text-anchor="end" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">L2</text>
+<rect x="325.5" y="133.0" width="252.9" height="26" rx="4" fill="var(--lvl-2)" fill-opacity="0.45"><title>L2</title></rect>
+<circle cx="442.5" cy="146" r="7" fill="var(--lvl-2)"/>
+<text x="590.4" y="154" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">450</text>
+<text x="128" y="204" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L3</text>
+<rect x="337.2" y="183.0" width="308.1" height="26" rx="4" fill="var(--lvl-3)" fill-opacity="0.45"><title>L3</title></rect>
+<circle cx="492.6" cy="196" r="7" fill="var(--lvl-3)"/>
+<text x="657.3" y="204" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">527</text>
+<text x="128" y="254" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L4</text>
+<rect x="319.0" y="233.0" width="176.2" height="26" rx="4" fill="var(--lvl-4)" fill-opacity="0.45"><title>L4</title></rect>
+<circle cx="360.6" cy="246" r="7" fill="var(--lvl-4)"/>
+<text x="507.2" y="254" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">324</text>
+<text x="128" y="304" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L5</text>
+<rect x="328.1" y="283.0" width="195.6" height="26" rx="4" fill="var(--lvl-5)" fill-opacity="0.45"><title>L5</title></rect>
+<circle cx="367.1" cy="296" r="7" fill="var(--lvl-5)"/>
+<text x="535.8" y="304" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">334</text>
+<text x="128" y="354" text-anchor="end" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">L6</text>
+<rect x="327.5" y="333.0" width="64.3" height="26" rx="4" fill="var(--lvl-6)" fill-opacity="0.45"><title>L6</title></rect>
+<circle cx="360.6" cy="346" r="7" fill="var(--lvl-6)"/>
+<text x="403.8" y="354" fill="var(--text-2)" font-size="24" font-weight="500" font-family="var(--font-mono)">324</text>
+<line x1="150" y1="400" x2="670" y2="400" stroke="var(--line)" stroke-width="1.5"/>
+<text x="410" y="458" text-anchor="middle" fill="var(--text-2)" font-size="20" font-family="var(--font-sans)">words in the prompt</text>
 </svg>
-<figcaption>Prompt length at each level, measured across every instruction on disk. The bug report is 101 words and barely varies. The full description is 450 and varies enormously, because it grows with how much behavior was cut. Above L3 the prompt stops growing: those levels add test files to the repository rather than prose to the prompt.</figcaption>
+<figcaption>Above L3 the prompt stops growing. Those levels add test files to the repository rather than prose to the prompt. The bug report is 101 words and barely varies. The full description is 450 and varies with how much behavior was cut.</figcaption>
 </figure>
 
 ### What the checks reject
@@ -313,6 +324,8 @@ Agent-side web tools run on the vendor’s servers and cannot be blocked from in
 
 ### What a task contains
 
+The synthetic dataset is the set of tasks the ladder kept.
+
 139 certified tasks so far, cut from nine Go repositories: client-go, kops, helm, go-git,
 go-github, goa, gin, bbolt, and nats-server. Kubernetes tooling, version control, API design,
 storage, HTTP services, and messaging.
@@ -333,35 +346,61 @@ pooled.
 ### What the filter removed
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 300" role="img" data-anim="x" aria-label="Funnel: 527 authored, 339 trialled, 299 decided, 139 certified. The 299 decided split into 131 solved from the bug report, 139 certified, and 29 that failed both prompts.">
-<text style="--d:1" x="112" y="36" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">authored</text>
-<rect style="--d:1" x="124" y="20" width="528" height="22" rx="3" fill="var(--chart-1)" opacity="0.34"><title>authored: 527</title></rect>
-<text style="--d:2" x="662" y="36" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">527</text>
-<text style="--d:3" x="112" y="70" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">trialled</text>
-<rect style="--d:2" x="124" y="54" width="340" height="22" rx="3" fill="var(--chart-1)" opacity="0.34"><title>trialled: 339</title></rect>
-<text style="--d:4" x="474" y="70" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">339</text>
-<text style="--d:5" x="112" y="104" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">decided</text>
-<rect style="--d:3" x="124" y="88" width="300" height="22" rx="3" fill="var(--chart-1)" opacity="0.34"><title>decided: 299</title></rect>
-<text style="--d:6" x="434" y="104" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">299</text>
-<text style="--d:7" x="112" y="138" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">certified</text>
-<rect style="--d:4" x="124" y="122" width="139" height="22" rx="3" fill="var(--chart-1)" opacity="1"><title>certified: 139</title></rect>
-<text style="--d:8" x="273" y="138" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">139</text>
-<line x1="124" y1="176" x2="652" y2="176" stroke="var(--line)" stroke-width="1"/>
-<text style="--d:9" x="124" y="202" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">the 299 decided tasks</text>
-<rect style="--d:5" x="124" y="214" width="229" height="34" rx="3" fill="var(--chart-2)"><title>solved from the bug report alone: 131</title></rect>
-<text style="--d:10" x="238" y="236" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="600" font-family="var(--font-mono)">131</text>
-<text style="--d:11" x="238" y="268" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">solved from the</text>
-<text style="--d:12" x="238" y="282" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">bug report alone</text>
-<rect style="--d:6" x="355" y="214" width="243" height="34" rx="3" fill="var(--chart-1)"><title>failed L0, passed L2 certified: 139</title></rect>
-<text style="--d:13" x="476" y="236" text-anchor="middle" fill="var(--bg)" font-size="13" font-weight="600" font-family="var(--font-mono)">139</text>
-<text style="--d:14" x="476" y="268" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">failed L0, passed L2</text>
-<text style="--d:15" x="476" y="282" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">certified</text>
-<rect style="--d:7" x="600" y="214" width="50" height="34" rx="3" fill="var(--chart-mute)"><title>failed both: 29</title></rect>
-<text style="--d:16" x="625" y="236" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600" font-family="var(--font-mono)">29</text>
-<text style="--d:17" x="625" y="268" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">failed</text>
-<text style="--d:18" x="625" y="282" text-anchor="middle" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">both</text>
+<svg viewBox="0 0 720 250" role="img" data-anim="x" aria-label="Funnel: 527 authored, 339 trialled, 299 decided, 139 certified.">
+<text x="168" y="54" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">authored</text>
+<rect x="184" y="28" width="460.0" height="36" rx="4" fill="var(--chart-1)" opacity="1"><title>authored: 527</title></rect>
+<text x="656.0" y="54" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">527</text>
+<text x="168" y="110" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">trialled</text>
+<rect x="184" y="84" width="295.9" height="36" rx="4" fill="var(--chart-1)" opacity="0.34"><title>trialled: 339</title></rect>
+<text x="491.9" y="110" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">339</text>
+<text x="168" y="166" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">decided</text>
+<rect x="184" y="140" width="261.0" height="36" rx="4" fill="var(--chart-1)" opacity="0.34"><title>decided: 299</title></rect>
+<text x="457.0" y="166" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">299</text>
+<text x="168" y="222" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">certified</text>
+<rect x="184" y="196" width="121.3" height="36" rx="4" fill="var(--chart-1)" opacity="1"><title>certified: 139</title></rect>
+<text x="317.3" y="222" fill="var(--text)" font-size="24" font-weight="700" font-family="var(--font-mono)">139</text>
 </svg>
-<figcaption>527 authored tasks produce 139 certificates. The screen and the certificate remove about as much as each other: 131 tasks were never hard, and 29 failed both prompts.</figcaption>
+
+<figcaption>527 authored tasks produce 139 certificates.</figcaption>
+</figure>
+
+<figure class="fig-inline">
+<svg viewBox="0 0 720 380" role="img" data-anim="x" aria-label="299 decided tasks on two planes. 131 passed the bug report. 139 failed it and passed the full description. 29 failed both.">
+<rect x="164.0" y="90.9" width="117.9" height="118.0" fill="none" stroke="var(--text-3)" stroke-width="1.2" stroke-dasharray="3 3.5"/>
+<polygon points="34.0,214.0 156.9,214.0 163.9,213.7 41.0,213.7" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/>
+<polygon points="421.9,208.9 552.0,208.9 559.0,208.6 428.9,208.6" fill="var(--chart-1)" fill-opacity="0.14" stroke="var(--text-3)" stroke-width="1"/>
+<polygon points="293.9,214.0 424.0,214.0 431.0,213.7 300.9,213.7" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/>
+<polygon points="689.0,208.9 720.1,208.9 727.1,208.6 696.0,208.6" fill="var(--chart-1)" fill-opacity="0.14" stroke="var(--text-3)" stroke-width="1"/>
+<polygon points="561.0,214.0 592.1,214.0 599.1,213.7 568.0,213.7" fill="var(--bg-2)" stroke="var(--line)" stroke-width="1"/>
+<polygon points="303.3,213.7 427.6,213.7 548.6,90.9 424.3,90.9" fill="var(--chart-1)" fill-opacity="0.28" stroke="none"/>
+<polygon points="570.4,213.7 595.7,213.7 716.7,208.9 691.4,208.9" fill="var(--chart-mute)" fill-opacity="0.5" stroke="none"/>
+<polygon points="43.3,213.7 160.6,213.7 160.6,95.7 43.3,95.7" fill="var(--chart-1)"/>
+<polygon points="303.2,213.7 427.7,213.7 427.7,208.7 303.2,208.7" fill="var(--chart-mute)"/>
+<polygon points="424.2,208.9 548.7,208.9 548.7,90.9 424.2,90.9" fill="var(--chart-1)"/>
+<polygon points="570.3,213.7 595.8,213.7 595.8,208.7 570.3,208.7" fill="var(--chart-mute)"/>
+<polygon points="691.3,208.9 716.8,208.9 716.8,203.9 691.3,203.9" fill="var(--chart-mute)"/>
+<line x1="31.0" y1="213.7" x2="31.0" y2="89.7" stroke="var(--text)" stroke-width="1"/>
+<line x1="31.0" y1="89.7" x2="27.5" y2="95.7" stroke="var(--text)" stroke-width="1"/>
+<line x1="31.0" y1="89.7" x2="34.5" y2="95.7" stroke="var(--text)" stroke-width="1"/>
+<text x="24.0" y="154.7" fill="var(--text)" text-anchor="middle" font-family="var(--font-sans)" font-size="18" font-weight="700" transform="rotate(-90 24.0 154.7)">Outcome</text>
+<text x="49.0" y="110.7" fill="var(--bg)" font-family="var(--font-sans)" font-size="20" font-weight="700">pass</text>
+<text x="102.0" y="204.0" fill="var(--bg)" text-anchor="middle" font-family="var(--font-sans)" font-size="18" font-weight="600">bug report</text>
+<text x="304.9" y="200.7" fill="var(--text-2)" font-family="var(--font-sans)" font-size="20" font-weight="700">fail</text>
+<text x="222.9" y="126.9" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="22" font-weight="700">L2</text>
+<text x="222.9" y="144.9" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">empty</text>
+<text x="486.4" y="82.9" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="12">L2</text>
+<text x="95.0" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">131</text>
+<text x="130.0" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Passed the bug report.</text>
+<text x="358.4" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">139</text>
+<text x="358.4" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Failed, then passed.</text>
+<text x="576.0" y="262.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-mono)" font-size="28" font-weight="700">29</text>
+<text x="576.0" y="292.0" fill="var(--text-2)" text-anchor="middle" font-family="var(--font-sans)" font-size="20">Failed both.</text>
+<line x1="295.9" y1="328.0" x2="589.1" y2="328.0" stroke="var(--text)" stroke-width="1"/>
+<line x1="295.9" y1="328.0" x2="295.9" y2="320.0" stroke="var(--text)" stroke-width="1"/>
+<line x1="589.1" y1="328.0" x2="589.1" y2="320.0" stroke="var(--text)" stroke-width="1"/>
+<text x="442.5" y="352.0" fill="var(--text)" text-anchor="middle" font-family="var(--font-sans)" font-size="20" font-weight="600">168 failures on the bug report alone</text>
+</svg>
+<figcaption>299 decided tasks. Height is the outcome. Depth is the prompt. On the bug report, the 139 and the 29 are one pile of 168 failures. The full description lifts the 139.</figcaption>
 </figure>
 
 Of the 299 decided tasks, 131 were solved from the bug report alone and never reached the
@@ -428,30 +467,30 @@ Spending concentrates on the two levels the certificate needs.
 | Other levels | 113 | 441.0M | $96.80 | 98.2% | $0.86 |
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 286" role="img" data-anim="y" aria-label="Runs per information level across all three models. L0 has 541 runs and L2 has 834. The other five levels together have 113.">
-<rect style="--d:1" x="110" y="118" width="56" height="106" rx="3" fill="var(--chart-2)" opacity="1"><title>L0: 541 runs</title></rect>
-<text style="--d:1" x="138" y="110" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">541</text>
-<text style="--d:2" x="138" y="244" text-anchor="middle" fill="var(--chart-2)" font-size="13" font-family="var(--font-mono)">L0</text>
-<rect style="--d:2" x="194" y="221" width="56" height="3" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L1: 16 runs</title></rect>
-<text style="--d:3" x="222" y="213" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">16</text>
-<text style="--d:4" x="222" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L1</text>
-<rect style="--d:3" x="278" y="60" width="56" height="164" rx="3" fill="var(--chart-1)" opacity="1"><title>L2: 834 runs</title></rect>
-<text style="--d:5" x="306" y="52" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">834</text>
-<text style="--d:6" x="306" y="244" text-anchor="middle" fill="var(--chart-1)" font-size="13" font-family="var(--font-mono)">L2</text>
-<rect style="--d:4" x="362" y="219" width="56" height="5" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L3: 24 runs</title></rect>
-<text style="--d:7" x="390" y="211" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">24</text>
-<text style="--d:8" x="390" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L3</text>
-<rect style="--d:5" x="446" y="221" width="56" height="3" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L4: 12 runs</title></rect>
-<text style="--d:9" x="474" y="213" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">12</text>
-<text style="--d:10" x="474" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L4</text>
-<rect style="--d:6" x="530" y="217" width="56" height="7" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L5: 36 runs</title></rect>
-<text style="--d:11" x="558" y="209" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">36</text>
-<text style="--d:12" x="558" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L5</text>
-<rect style="--d:7" x="614" y="219" width="56" height="5" rx="3" fill="var(--chart-mute)" opacity="0.55"><title>L6: 25 runs</title></rect>
-<text style="--d:13" x="642" y="211" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600" font-family="var(--font-mono)">25</text>
-<text style="--d:14" x="642" y="244" text-anchor="middle" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">L6</text>
-<line x1="96" y1="224" x2="700" y2="224" stroke="var(--line)" stroke-width="1.5"/>
-<text style="--d:15" x="398" y="262" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">the deciding pair carries 92% of the runs; the rest of the ladder is thinly sampled</text>
+<svg viewBox="0 0 720 360" role="img" data-anim="y" aria-label="Runs per information level. L0 has 541 runs and L2 has 834. The other five levels together have 113.">
+<rect x="70" y="152.7" width="70" height="97.3" rx="4" fill="var(--chart-2)" opacity="1"><title>L0: 541 runs</title></rect>
+<text x="105.0" y="140.7" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">541</text>
+<text x="105.0" y="282" text-anchor="middle" fill="var(--chart-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L0</text>
+<rect x="158" y="246.0" width="70" height="4.0" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L1: 16 runs</title></rect>
+<text x="193.0" y="234.0" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">16</text>
+<text x="193.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L1</text>
+<rect x="246" y="100.0" width="70" height="150.0" rx="4" fill="var(--chart-1)" opacity="1"><title>L2: 834 runs</title></rect>
+<text x="281.0" y="88.0" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">834</text>
+<text x="281.0" y="282" text-anchor="middle" fill="var(--chart-1)" font-size="24" font-weight="700" font-family="var(--font-mono)">L2</text>
+<rect x="334" y="245.7" width="70" height="4.3" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L3: 24 runs</title></rect>
+<text x="369.0" y="233.7" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">24</text>
+<text x="369.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L3</text>
+<rect x="422" y="246.0" width="70" height="4.0" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L4: 12 runs</title></rect>
+<text x="457.0" y="234.0" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">12</text>
+<text x="457.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L4</text>
+<rect x="510" y="243.5" width="70" height="6.5" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L5: 36 runs</title></rect>
+<text x="545.0" y="231.5" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">36</text>
+<text x="545.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L5</text>
+<rect x="598" y="245.5" width="70" height="4.5" rx="4" fill="var(--chart-mute)" opacity="0.55"><title>L6: 25 runs</title></rect>
+<text x="633.0" y="233.5" text-anchor="middle" fill="var(--text)" font-size="22" font-weight="700" font-family="var(--font-mono)">25</text>
+<text x="633.0" y="282" text-anchor="middle" fill="var(--text-2)" font-size="24" font-weight="700" font-family="var(--font-mono)">L6</text>
+<line x1="56" y1="250" x2="690" y2="250" stroke="var(--line)" stroke-width="1.5"/>
+<text x="360" y="330" text-anchor="middle" fill="var(--text)" font-size="20" font-family="var(--font-sans)">L0 and L2 carry 92% of the runs</text>
 </svg>
 <figcaption>Runs per level across all three models, 1,488 runs whose level is recorded. L0 and L2 take 1,375 of them. L1 and L3 through L6 share 113, which is why the shape of the curve between them stays unmeasured.</figcaption>
 </figure>
@@ -465,19 +504,19 @@ repairing a description, re-running L0, and exploring other levels. Almost none 
 information.
 
 <figure class="fig-inline">
-<svg viewBox="0 0 720 236" role="img" data-anim="x" aria-label="Runs needed per certificate: parallel with no gate 9.0, sequential with no gate 7.7, sequential with a gate 3.2, against a floor of 2.">
-<text style="--d:1" x="248" y="49" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">parallel, no gate</text>
-<rect style="--d:1" x="262" y="28" width="378" height="30" rx="3" fill="var(--chart-mute)" opacity="0.6"><title>parallel, no gate: 9.0 runs per certificate</title></rect>
-<text style="--d:2" x="650" y="49" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">9.0</text>
-<text style="--d:3" x="248" y="101" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">sequential, no gate</text>
-<rect style="--d:2" x="262" y="80" width="323" height="30" rx="3" fill="var(--chart-mute)" opacity="0.6"><title>sequential, no gate: 7.7 runs per certificate</title></rect>
-<text style="--d:4" x="595" y="101" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">7.7</text>
-<text style="--d:5" x="248" y="153" text-anchor="end" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">sequential, gated</text>
-<rect style="--d:3" x="262" y="132" width="134" height="30" rx="3" fill="var(--chart-1)" opacity="1"><title>sequential, gated: 3.2 runs per certificate</title></rect>
-<text style="--d:6" x="406" y="153" fill="var(--text)" font-size="14" font-weight="600" font-family="var(--font-mono)">3.2</text>
-<line x1="346" y1="16" x2="346" y2="192" stroke="var(--chart-2)" stroke-width="2"/>
-<text style="--d:7" x="354" y="188" fill="var(--chart-2)" font-size="12" font-family="var(--font-sans)">floor of 2</text>
-<text style="--d:8" x="480" y="222" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">runs per certificate</text>
+<svg viewBox="0 0 720 280" role="img" data-anim="x" aria-label="Runs needed per certificate: parallel with no gate 9.0, sequential with no gate 7.7, sequential with a gate 3.2, against a floor of 2.">
+<text x="264" y="52" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">parallel, no gate</text>
+<rect x="280" y="24" width="340.0" height="40" rx="4" fill="var(--chart-mute)" opacity="0.6"><title>parallel, no gate: 9.0</title></rect>
+<text x="632.0" y="52" fill="var(--text)" font-size="26" font-weight="700" font-family="var(--font-mono)">9.0</text>
+<text x="264" y="124" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">sequential, no gate</text>
+<rect x="280" y="96" width="290.9" height="40" rx="4" fill="var(--chart-mute)" opacity="0.6"><title>sequential, no gate: 7.7</title></rect>
+<text x="582.9" y="124" fill="var(--text)" font-size="26" font-weight="700" font-family="var(--font-mono)">7.7</text>
+<text x="264" y="196" text-anchor="end" fill="var(--text)" font-size="22" font-family="var(--font-sans)">sequential, gated</text>
+<rect x="280" y="168" width="120.9" height="40" rx="4" fill="var(--chart-1)" opacity="1"><title>sequential, gated: 3.2</title></rect>
+<text x="412.9" y="196" fill="var(--text)" font-size="26" font-weight="700" font-family="var(--font-mono)">3.2</text>
+<line x1="355.6" y1="12" x2="355.6" y2="232" stroke="var(--chart-2)" stroke-width="2"/>
+<text x="363.6" y="228" fill="var(--chart-2)" font-size="20" font-family="var(--font-sans)">floor of 2</text>
+<text x="470" y="266" text-anchor="middle" fill="var(--text)" font-size="20" font-family="var(--font-sans)">runs per certificate</text>
 </svg>
 <figcaption>Runs spent per certificate under three schedules. Refusing a run whose outcome is already determined is worth about 4×. Running trials in sequence, on its own, is worth almost nothing.</figcaption>
 </figure>
@@ -494,7 +533,7 @@ like it.
 ## Conclusion and future work
 
 Stage 1 is Go, nine repositories, in-repo cuts, and one model for roughly three runs in four. Those are budget
-choices, not findings. This is self-funded, so the bank is small and deep instead of broad. It is
+choices, not findings. This is self-funded, so the dataset is small and deep instead of broad. It is
 enough to show the method works, not enough to claim it generalizes.
 
 A solve rate belongs to the model that produced it, and so does a certificate. Difficulty is a relation
@@ -507,11 +546,23 @@ from the answer key. Budget for the guards before the generator, because a gate 
 redundant run beat every generation improvement in this work.
 
 Stage 2 runs the same factory in a second language, which is the test of whether the cut mechanic
-survives outside Go. The cut, the blind tests, and the certificate stay. A held-out model screens
-the bank, which answers whether a certificate means anything to a model that took no part in
-producing it. Filling in L1 and L3 through L6 gives the dose-response curve, and shows whether
-information helps smoothly or arrives all at once. Per-repository yield needs an instrumented
-unit-to-repository map before it can be claimed at all.
+survives outside Go. The cut, the blind tests, and the certificate stay.
+
+Two items that were future work here have started returning numbers. A held-out model screening
+the dataset answers whether a certificate means anything to a model that took no part in producing
+it; 42 certified tasks have now been re-screened at L0 by the solver that did not certify them,
+and the answer so far is that it depends on the repository rather than the dataset. Eight of ten
+`go-github` tasks were solved from the bug report alone by the second model against three of
+thirty-two everywhere else, which is a property of that repository's issues naming the fields its
+code turns on, not a property of the method. That rate is also one-directional: one model was the
+first screener in 41 of the 42 pairs, so it measures what the second model rescues from the first
+and not the reverse.
+
+Filling in the test names, the signatures and the tests gives the dose-response curve above the
+full description. The three tasks in "When the ladder runs out" have that curve complete for two
+models, every level measured, and 79% of certified tasks bind at the full description with 16% at
+a restored test, so the information does not arrive smoothly. Per-repository yield still needs an
+instrumented unit-to-repository map before it can be claimed at all.
 
 ---
 
