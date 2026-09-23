@@ -570,6 +570,36 @@
    "grok": 3
   }
  },
+ "traces": {
+  "composer-fail": {
+   "median": 73.0,
+   "n": 710,
+   "q1": 51.0,
+   "q3": 101.0
+  },
+  "composer-pass": {
+   "median": 54.0,
+   "n": 648,
+   "q1": 37.0,
+   "q3": 74.75
+  },
+  "devin-fail": {
+   "median": 63,
+   "n": 131,
+   "q1": 38.0,
+   "q3": 119.0
+  },
+  "devin-pass": {
+   "median": 62,
+   "n": 157,
+   "q1": 43.0,
+   "q3": 96.5
+  },
+  "minutes": {
+   "composer": 3.2,
+   "devin": 18.0
+  }
+ },
  "unresolved": [
   "exprhash"
  ],

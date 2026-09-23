@@ -181,6 +181,18 @@ not settled by these tasks.
 <figcaption>Composer and Devin grades on the 75 tasks both graded that have a recorded description, split into thirds by the length of the full description. The models agree on about seven in ten tasks with a short or middling description and on one in five with a long one.</figcaption>
 </figure>
 
+The trial traces show how the two models work, and they work much alike. Both spend a median of
+62 tool calls on a trial, about two thirds of them reading and searching the repository and one in
+seven running the tests. Devin takes 18 minutes a trial to Composer's 3. They differ in how
+failure looks. Composer's failed runs take more calls than its passed runs, 73 against 54, and
+that holds at L1 and at L2 alone, so a long Composer run is an early sign of a miss that a budget
+could cut short. Devin's failed and passed runs look the same, 63 calls against 62.
+
+<figure class="fig-inline">
+{% include "figures/information-gap/trace-length.svg" %}
+<figcaption>Tool calls per graded trial, 1,358 Composer runs and 288 Devin runs. Each bar spans the middle half of the runs and the tick marks the median. Composer's failures run long, and Devin's do not.</figcaption>
+</figure>
+
 ## The factory
 
 The factory is built to run without a person in the loop. Agents cut, test, and describe each
