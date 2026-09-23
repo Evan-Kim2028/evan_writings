@@ -571,6 +571,72 @@
   }
  },
  "traces": {
+  "by_step": {
+   "composer|L1|fail": {
+    "median": 69,
+    "n": 289
+   },
+   "composer|L1|pass": {
+    "median": 52,
+    "n": 173
+   },
+   "composer|L2|fail": {
+    "median": 70.0,
+    "n": 282
+   },
+   "composer|L2|pass": {
+    "median": 51,
+    "n": 355
+   },
+   "composer|L3\u20134|fail": {
+    "median": 82.5,
+    "n": 128
+   },
+   "composer|L3\u20134|pass": {
+    "median": 75,
+    "n": 15
+   },
+   "composer|L5\u20136|fail": {
+    "median": 44,
+    "n": 11
+   },
+   "composer|L5\u20136|pass": {
+    "median": 71,
+    "n": 105
+   },
+   "devin|L1|fail": {
+    "median": 76,
+    "n": 81
+   },
+   "devin|L1|pass": {
+    "median": 65.0,
+    "n": 56
+   },
+   "devin|L2|fail": {
+    "median": 49,
+    "n": 23
+   },
+   "devin|L2|pass": {
+    "median": 59,
+    "n": 83
+   },
+   "devin|L3\u20134|fail": {
+    "median": 44.0,
+    "n": 22
+   },
+   "devin|L3\u20134|pass": {
+    "median": 86,
+    "n": 7
+   },
+   "devin|L5\u20136|fail": {
+    "median": 29,
+    "n": 5
+   },
+   "devin|L5\u20136|pass": {
+    "median": 59,
+    "n": 11
+   }
+  },
   "composer-fail": {
    "median": 73.0,
    "n": 710,
@@ -594,6 +660,30 @@
    "n": 157,
    "q1": 43.0,
    "q3": 96.5
+  },
+  "flips": {
+   "composer": {
+    "calls": [
+     68,
+     58
+    ],
+    "explore": [
+     0.723,
+     0.704
+    ],
+    "tasks": 207
+   },
+   "devin": {
+    "calls": [
+     68,
+     57
+    ],
+    "explore": [
+     0.643,
+     0.556
+    ],
+    "tasks": 73
+   }
   },
   "minutes": {
    "composer": 3.2,

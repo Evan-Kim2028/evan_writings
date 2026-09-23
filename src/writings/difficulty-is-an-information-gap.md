@@ -80,6 +80,12 @@ already keeps the signatures, so L4 matched L3 on 44 of 49 tasks built at both, 
 tasks have one hidden test file, so L6 is L5. The charts use the four real steps: bug report, full
 description, test names, and the test file.
 
+One cut therefore yields a task family rather than one task: the same code, answer key, and hidden
+tests, prompted at up to six levels. Authoring pays for the cut once, and each level after it comes
+nearly free, which is how the factory multiplies graded tasks without multiplying the agent work
+behind them. The levels are not independent samples, since they nest by design, so this post
+counts families and calls each one a task.
+
 <figure class="fig-inline">
 {% include "figures/information-gap/prompt-words.svg" %}
 <figcaption>Typical prompt length at each level: the median bug report, plus the median words each level adds over tasks built at both, not counting the no-network paragraph every prompt shares. The prompt grows through L3. Above that it stays the same, and each level adds files to the repository instead.</figcaption>
@@ -194,6 +200,31 @@ could cut short. Devin's failed and passed runs look the same, 63 calls against 
 <figcaption>Tool calls per graded trial, 1,358 Composer runs and 288 Devin runs. Each bar spans the middle half of the runs and the tick marks the median. Composer's failures run long, and Devin's do not.</figcaption>
 </figure>
 
+Up the ladder, failure changes shape. At the bug report and the full description, Composer's
+failed runs are its long ones, 69 and 70 calls against 52 and 51 for passes, with more edits, as it
+rewrites code that keeps failing. Higher up the order flips for both models, and failures become
+the short runs. With the test file in the tree Composer fails in 44 calls and passes in 71, and
+Devin's failures are the shorter runs from the full description on. The upper levels hold few
+runs, so read those points as a direction, not a measurement.
+
+<figure class="fig-inline">
+{% include "figures/information-gap/trace-steps.svg" %}
+<figcaption>Median tool calls per run at each ladder step. Solid lines and filled dots are passed runs, dashed lines and rings are failed runs. Above L2 each point rests on few runs, down to 5.</figcaption>
+</figure>
+
+Each step also holds different tasks, since only a task that fails lower down climbs, so the
+cleaner comparison holds the task fixed. On the 207 tasks Composer failed and then passed one
+level up, and Devin's 73, the passing run takes fewer calls than the failed run just below it, 58
+against 68 for Composer and 57 against 68 for Devin. What the extra information replaces differs
+by model. Devin spends a smaller share of its calls reading and searching the repository, 56%
+against 64%, while Composer's mix barely moves. The information does searching the model would
+otherwise have done.
+
+<figure class="fig-inline">
+{% include "figures/information-gap/trace-flips.svg" %}
+<figcaption>Same task, same model: the failed run just below the first passing level, and that passing run. Both models pass with fewer calls, and Devin spends less of them exploring.</figcaption>
+</figure>
+
 ## The factory
 
 The factory is built to run without a person in the loop. Agents cut, test, and describe each
@@ -261,6 +292,10 @@ The tasks come from nine Go repositories: client-go, kops, helm, go-git, go-gith
 and nats-server. They cover Kubernetes tooling, version control, API design, storage, HTTP
 services, and messaging. The median answer key is 127 lines, most fall between 80 and 320, and a
 quarter touch two or more files.
+
+Families cluster too. Tasks from one repository share its code and conventions, and a repository
+can move a model's grade on its own, as `go-github` does in the second screen. A training or
+evaluation split should keep each family, and where it can each repository, on one side.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/funnel.svg" %}

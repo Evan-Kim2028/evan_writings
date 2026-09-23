@@ -96,9 +96,10 @@ def trace_lengths():
                          cwd=RESEARCH, env={**os.environ, "PYTHONPATH": src},
                          capture_output=True, text=True, check=True).stdout
 
+    rows = [json.loads(line) for line in out.splitlines() if line.strip()]
     groups = collections.defaultdict(list)
     minutes = collections.defaultdict(list)
-    for r in (json.loads(line) for line in out.splitlines() if line.strip()):
+    for r in rows:
         key = f"{r['model']}-{'pass' if r['passed'] else 'fail'}"
         groups[key].append(r["calls"])
         if r["minutes"] is not None:
@@ -108,7 +109,42 @@ def trace_lengths():
         q = statistics.quantiles(xs, n=4)
         out[key] = {"n": len(xs), "q1": q[0], "median": statistics.median(xs), "q3": q[2]}
     out["minutes"] = {m: round(statistics.median(v), 1) for m, v in minutes.items()}
+    out["by_step"] = trace_steps(rows)
+    out["flips"] = trace_flips(rows)
     return out
+
+
+TRACE_STEP = {"0": "L1", "2": "L2", "3": "L3–4", "4": "L3–4", "5": "L5–6", "6": "L5–6"}
+
+
+def trace_steps(rows):
+    """Median tool calls for passed and failed runs at each ladder step, per model."""
+    g = collections.defaultdict(list)
+    for r in rows:
+        g[(r["model"], TRACE_STEP[r["rung"]], "pass" if r["passed"] else "fail")].append(r["calls"])
+    return {f"{m}|{s}|{v}": {"n": len(xs), "median": statistics.median(xs)} for (m, s, v), xs in g.items()}
+
+
+def trace_flips(rows):
+    """Same model and task: the failed run just below the first pass, against that pass."""
+    fam = collections.defaultdict(list)
+    for r in rows:
+        fam[(r["model"], r["base"])].append(r)
+    pairs = collections.defaultdict(list)
+    for (m, _), g in fam.items():
+        passes = [r for r in g if r["passed"]]
+        if not passes:
+            continue
+        p = min(passes, key=lambda r: int(r["rung"]))
+        lower = [r for r in g if not r["passed"] and int(r["rung"]) < int(p["rung"])]
+        if lower:
+            pairs[m].append((max(lower, key=lambda r: int(r["rung"])), p))
+    explore = lambda r: (r["read"] + r["search"]) / r["calls"]
+    return {m: {"tasks": len(ps),
+                "calls": [statistics.median(f["calls"] for f, _ in ps), statistics.median(p["calls"] for _, p in ps)],
+                "explore": [round(statistics.median(explore(f) for f, _ in ps), 3),
+                            round(statistics.median(explore(p) for _, p in ps), 3)]}
+            for m, ps in pairs.items()}
 
 
 def by_description_length(bases, pairs):
@@ -532,6 +568,72 @@ def fig_traces(s):
     return svg(16 + row * 4 + 62, label, body)
 
 
+def fig_trace_steps(s):
+    d = s["traces"]["by_step"]
+    steps = ["L1", "L2", "L3–4", "L5–6"]
+    x0, x1, y0, h, top = 110, 530, 30, 250, 100
+    xs = {st: x0 + i * (x1 - x0) / (len(steps) - 1) for i, st in enumerate(steps)}
+    sy = lambda v: y0 + h - h * v / top
+    body = []
+    for tick in range(0, top + 1, 25):
+        body.append(line(x0 - 10, sy(tick), x1 + 10, sy(tick), "var(--line)", 1))
+        body.append(text(x0 - 18, sy(tick) + 5, str(tick), 14, "var(--text-3)", "end", mono=True))
+    for st in steps:
+        body.append(text(xs[st], y0 + h + 28, st, 16, "var(--text-2)", "middle", 600, True))
+    for m in ("composer", "devin"):
+        for v in ("pass", "fail"):
+            pts = [(xs[st], sy(d[f"{m}|{st}|{v}"]["median"]), d[f"{m}|{st}|{v}"]["n"]) for st in steps
+                   if f"{m}|{st}|{v}" in d]
+            dash = "" if v == "pass" else ' stroke-dasharray="6 5"'
+            body.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y, _ in pts)}" fill="none" '
+                        f'stroke="{MODEL_COLOR[m]}" stroke-width="3"{dash}/>')
+            for x, y, n in pts:
+                body.append(glyph(x, y, MODEL_COLOR[m], v == "pass", f"{MODEL[m]} {v}, {n} runs"))
+            x, y, _ = pts[-1]
+            body.append(text(x + 16, y + 5, f"{MODEL[m]} {'passed' if v == 'pass' else 'failed'}", 15,
+                             MODEL_COLOR[m], weight=600))
+    body.append(text(x0 - 60, y0 - 10, "tool calls, median", 15, "var(--text-2)"))
+    label = ("Median tool calls per run at each ladder step, for passed and failed runs of each model. "
+             "At the bug report and the full description Composer's failures run longest. Higher up "
+             "the order flips, and failures are the short runs for both models.")
+    return svg(y0 + h + 44, label, body)
+
+
+def fig_trace_flips(s):
+    f = s["traces"]["flips"]
+    rows = [("composer", "calls", "tool calls"), ("devin", "calls", "tool calls"),
+            ("composer", "explore", "share exploring"), ("devin", "explore", "share exploring")]
+    x0, width, row = 250, 380, 50
+    body = []
+    for i, (m, k, name) in enumerate(rows):
+        y = 26 + i * row + (14 if i >= 2 else 0)
+        lo, hi = (30, 90) if k == "calls" else (0.4, 0.8)
+        sx = lambda v: x0 + width * (v - lo) / (hi - lo)
+        a, b = f[m][k]
+        fmt = (lambda v: f"{v:.0f}") if k == "calls" else (lambda v: f"{100 * v:.0f}%")
+        body.append(text(x0 - 16, y + 6, f"{MODEL[m]}, {name}", 16, MODEL_COLOR[m], "end", 600))
+        body.append(line(x0, y, x0 + width, y, "var(--line)", 1))
+        body.append(line(sx(a), y, sx(b), y, MODEL_COLOR[m], 4))
+        body.append(glyph(sx(a), y, MODEL_COLOR[m], False, f"failed run: {fmt(a)}"))
+        body.append(glyph(sx(b), y, MODEL_COLOR[m], True, f"passing run: {fmt(b)}"))
+        # Points closer than a label's width: the failed run's value goes under the line.
+        below = abs(sx(a) - sx(b)) < 44
+        body.append(text(sx(a), y + (28 if below else -16), fmt(a), 15, "var(--text-2)", "middle", mono=True))
+        body.append(text(sx(b), y - 16, fmt(b), 15, weight=700, anchor="middle", mono=True))
+    ly = 26 + 4 * row + 20
+    body.append(glyph(x0, ly, "var(--text-2)", False, "failed"))
+    body.append(text(x0 + 14, ly + 5, "failed run just below the first pass", 15, "var(--text-2)"))
+    body.append(glyph(x0, ly + 26, "var(--text-2)", True, "passed"))
+    body.append(text(x0 + 14, ly + 31, "the first passing run, same task", 15, "var(--text-2)"))
+    label = (f"Same task, same model. Composer ({f['composer']['tasks']} tasks) goes from "
+             f"{f['composer']['calls'][0]:.0f} calls on its failed run to {f['composer']['calls'][1]:.0f} on its pass, "
+             f"and Devin ({f['devin']['tasks']} tasks) from {f['devin']['calls'][0]:.0f} to {f['devin']['calls'][1]:.0f}. "
+             f"Devin's share of calls spent exploring drops from {100 * f['devin']['explore'][0]:.0f}% to "
+             f"{100 * f['devin']['explore'][1]:.0f}%, Composer's from {100 * f['composer']['explore'][0]:.0f}% to "
+             f"{100 * f['composer']['explore'][1]:.0f}%.")
+    return svg(ly + 44, label, body)
+
+
 def fig_runs(s):
     runs = s["runs"]
     lv = sorted(r for r in runs if r in LEVELS)
@@ -591,6 +693,8 @@ FIGURES = {
     "joint-grades": fig_joint,
     "agreement-by-length": fig_length,
     "trace-length": fig_traces,
+    "trace-steps": fig_trace_steps,
+    "trace-flips": fig_trace_flips,
     "runs-per-level": fig_runs,
     "runs-per-certificate": fig_runs_per_cert,
 }
