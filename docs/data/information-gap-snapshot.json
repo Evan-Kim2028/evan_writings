@@ -125,125 +125,7 @@
      1
     ],
     "5": [
-     0,
-     2
-    ],
-    "6": [
-     0,
-     1
-    ]
-   },
-   "grok": {
-    "0": [
-     0,
-     2
-    ],
-    "2": [
-     0,
-     1
-    ],
-    "3": [
-     0,
-     3
-    ],
-    "4": [
-     0,
-     1
-    ],
-    "5": [
-     0,
-     1
-    ],
-    "6": [
-     0,
-     1
-    ]
-   }
-  },
-  "helm-dlmanager": {
-   "composer": {
-    "0": [
-     0,
-     1
-    ],
-    "2": [
-     3,
-     3
-    ]
-   },
-   "devin": {
-    "0": [
-     0,
-     1
-    ],
-    "2": [
-     0,
-     1
-    ],
-    "3": [
-     0,
-     1
-    ],
-    "4": [
-     0,
-     1
-    ],
-    "5": [
-     0,
-     1
-    ],
-    "6": [
-     0,
-     1
-    ]
-   }
-  },
-  "httpencoding": {
-   "composer": {
-    "0": [
-     0,
-     1
-    ],
-    "2": [
-     0,
-     3
-    ],
-    "3": [
-     0,
-     1
-    ],
-    "4": [
-     0,
-     1
-    ],
-    "5": [
-     0,
-     1
-    ],
-    "6": [
-     0,
-     1
-    ]
-   },
-   "devin": {
-    "0": [
-     0,
-     1
-    ],
-    "2": [
-     0,
-     1
-    ],
-    "3": [
-     0,
-     1
-    ],
-    "4": [
-     0,
-     1
-    ],
-    "5": [
-     0,
+     1,
      1
     ],
     "6": [
@@ -251,28 +133,8 @@
      1
     ]
    },
-   "grok": {
-    "0": [
-     0,
-     1
-    ],
-    "2": [
-     0,
-     1
-    ],
-    "3": [
-     0,
-     1
-    ],
-    "4": [
-     0,
-     1
-    ],
+   "devin": {
     "5": [
-     0,
-     1
-    ],
-    "6": [
      1,
      1
     ]
@@ -319,35 +181,15 @@
      1
     ],
     "5": [
-     0,
+     1,
      1
     ],
     "6": [
-     0,
+     1,
      1
     ]
    },
    "grok": {
-    "0": [
-     0,
-     1
-    ],
-    "2": [
-     0,
-     1
-    ],
-    "3": [
-     0,
-     1
-    ],
-    "4": [
-     0,
-     1
-    ],
-    "5": [
-     0,
-     1
-    ],
     "6": [
      1,
      1
@@ -389,135 +231,128 @@
  "first_pass": {
   "0": 169,
   "2": 197,
-  "3": 8,
+  "3": 7,
   "4": 3,
-  "5": 32,
-  "6": 2
+  "5": 35
  },
  "funnel": {
   "authored": 591,
   "certified": 242,
-  "decided": 412,
+  "decided": 411,
   "too_easy": 169,
   "trialled": 432,
-  "unresolved": 1
+  "unresolved": 0
  },
  "gradient": {
   "all": {
-   "n": 412,
+   "n": 411,
    "share": [
-    41.0,
-    88.8,
+    41.1,
+    89.1,
     91.5,
-    99.8
+    100.0
    ]
   },
   "composer": {
-   "n": 343,
+   "n": 342,
    "share": [
-    38.8,
-    84.5,
-    87.5,
-    99.1
+    38.9,
+    84.8,
+    87.4,
+    100.0
    ]
   },
   "devin": {
-   "n": 147,
+   "n": 144,
    "share": [
-    38.1,
-    91.2,
-    94.6,
-    99.3
+    39.6,
+    93.1,
+    96.5,
+    100.0
    ]
   }
  },
  "joint": {
   "by_length": [
    {
-    "composer_lower": 1,
-    "devin_lower": 7,
+    "composer_lower": 0,
+    "devin_lower": 8,
     "from": 220,
-    "same": 17,
+    "same": 16,
     "to": 487
    },
    {
-    "composer_lower": 1,
+    "composer_lower": 0,
     "devin_lower": 6,
     "from": 490,
     "same": 18,
     "to": 690
    },
    {
-    "composer_lower": 4,
-    "devin_lower": 16,
+    "composer_lower": 3,
+    "devin_lower": 15,
     "from": 704,
-    "same": 5,
+    "same": 6,
     "to": 1403
    }
   ],
   "cells": {
    "0-0": 1,
-   "1-0": 13,
-   "1-1": 37,
+   "1-0": 14,
+   "1-1": 36,
    "1-2": 2,
-   "1-3": 3,
-   "1-4": 1,
+   "1-3": 1,
    "2-0": 2,
    "2-1": 2,
    "3-0": 2,
    "3-1": 6,
    "3-2": 3,
-   "3-3": 3,
-   "4-3": 1
+   "3-3": 4
   },
-  "n": 76,
-  "tau_b": 0.23
+  "n": 73,
+  "tau_b": 0.29
  },
  "l0_agreement": {
-  "fail-fail": 58,
-  "fail-pass": 19,
+  "fail-fail": 54,
+  "fail-pass": 20,
   "pass-pass": 1
  },
  "runs": {
   "0": {
-   "composer": 462,
-   "devin": 137,
-   "grok": 4
+   "composer": 459,
+   "devin": 134,
+   "grok": 1
   },
   "1": {
    "composer": 16
   },
   "2": {
    "composer": 637,
-   "devin": 106,
-   "grok": 3
+   "devin": 100
   },
   "3": {
-   "composer": 85,
-   "devin": 15,
-   "grok": 5
+   "composer": 81,
+   "devin": 12
   },
   "4": {
-   "composer": 58,
-   "devin": 14,
-   "grok": 3
+   "composer": 54,
+   "devin": 9
   },
   "5": {
-   "composer": 87,
-   "devin": 9,
-   "grok": 3
+   "composer": 85,
+   "devin": 6
   },
   "6": {
-   "composer": 29,
-   "devin": 7,
-   "grok": 3
+   "composer": 28,
+   "devin": 3,
+   "grok": 1
   }
  },
  "traces": {
   "by_step": {
    "composer|L1|fail": {
-    "median": 69,
-    "n": 289
+    "median": 69.0,
+    "n": 286
    },
    "composer|L1|pass": {
     "median": 52,
@@ -532,77 +367,73 @@
     "n": 355
    },
    "composer|L3\u20134|fail": {
-    "median": 82.5,
-    "n": 128
+    "median": 84,
+    "n": 121
    },
    "composer|L3\u20134|pass": {
-    "median": 75,
-    "n": 15
+    "median": 73.5,
+    "n": 14
    },
    "composer|L5\u20136|fail": {
-    "median": 44,
-    "n": 11
+    "median": 283.5,
+    "n": 4
    },
    "composer|L5\u20136|pass": {
     "median": 71,
-    "n": 105
+    "n": 109
    },
    "devin|L1|fail": {
     "median": 76,
-    "n": 81
+    "n": 77
    },
    "devin|L1|pass": {
-    "median": 65.0,
-    "n": 56
+    "median": 64,
+    "n": 57
    },
    "devin|L2|fail": {
-    "median": 49,
-    "n": 23
+    "median": 61,
+    "n": 17
    },
    "devin|L2|pass": {
     "median": 59,
     "n": 83
    },
    "devin|L3\u20134|fail": {
-    "median": 44.0,
-    "n": 22
+    "median": 75.5,
+    "n": 14
    },
    "devin|L3\u20134|pass": {
     "median": 86,
     "n": 7
    },
-   "devin|L5\u20136|fail": {
-    "median": 29,
-    "n": 5
-   },
    "devin|L5\u20136|pass": {
-    "median": 59,
-    "n": 11
+    "median": 89,
+    "n": 9
    }
   },
   "composer-fail": {
-   "median": 73.0,
-   "n": 710,
-   "q1": 51.0,
+   "median": 73,
+   "n": 693,
+   "q1": 52.0,
    "q3": 101.0
   },
   "composer-pass": {
-   "median": 54.0,
-   "n": 648,
+   "median": 54,
+   "n": 651,
    "q1": 37.0,
-   "q3": 74.75
+   "q3": 75.0
   },
   "devin-fail": {
-   "median": 63,
-   "n": 131,
-   "q1": 38.0,
-   "q3": 119.0
+   "median": 75.5,
+   "n": 108,
+   "q1": 45.75,
+   "q3": 124.0
   },
   "devin-pass": {
-   "median": 62,
-   "n": 157,
-   "q1": 43.0,
-   "q3": 96.5
+   "median": 62.5,
+   "n": 156,
+   "q1": 43.25,
+   "q3": 97.75
   },
   "flips": {
    "composer": {
@@ -611,18 +442,18 @@
      58
     ],
     "explore": [
-     0.723,
+     0.724,
      0.704
     ],
     "explore_calls": [
      50,
      38
     ],
-    "tasks": 207
+    "tasks": 209
    },
    "devin": {
     "calls": [
-     68,
+     69,
      57
     ],
     "explore": [
@@ -630,20 +461,18 @@
      0.556
     ],
     "explore_calls": [
-     43,
+     44,
      30
     ],
-    "tasks": 73
+    "tasks": 69
    }
   },
   "minutes": {
    "composer": 3.2,
-   "devin": 18.0
+   "devin": 19.3
   }
  },
- "unresolved": [
-  "exprhash"
- ],
+ "unresolved": [],
  "words": {
   "L0": 98.0,
   "d2": 343,

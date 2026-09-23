@@ -1,22 +1,20 @@
-<svg viewBox="0 0 720 262" role="img" aria-label="Agreement between Composer and Devin by length of the full description, in thirds of the shortest third: 17 of 25 agree, middle third: 18 of 25 agree, longest third: 5 of 25 agree.">
+<svg viewBox="0 0 720 262" role="img" aria-label="Agreement between Composer and Devin by length of the full description, in thirds of the shortest third: 16 of 24 agree, middle third: 18 of 24 agree, longest third: 6 of 24 agree.">
 <text x="214.0" y="40.0" text-anchor="end" fill="var(--text)" font-size="18" font-weight="600" font-family="var(--font-sans)">shortest third</text>
 <text x="214.0" y="62.0" text-anchor="end" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">220–487 words</text>
-<rect x="230.0" y="20.0" width="224.4" height="46.0" rx="0.0" fill="var(--chart-1)"><title>shortest third: same level 17 of 25</title></rect>
-<rect x="454.4" y="20.0" width="92.4" height="46.0" rx="0.0" fill="var(--chart-2)"><title>shortest third: Devin lower 7 of 25</title></rect>
-<rect x="546.8" y="20.0" width="13.2" height="46.0" rx="0.0" fill="var(--chart-2)" fill-opacity="0.45"><title>shortest third: Composer lower 1 of 25</title></rect>
-<text x="572.0" y="50.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">68% agree</text>
+<rect x="230.0" y="20.0" width="220.0" height="46.0" rx="0.0" fill="var(--chart-1)"><title>shortest third: same level 16 of 24</title></rect>
+<rect x="450.0" y="20.0" width="110.0" height="46.0" rx="0.0" fill="var(--chart-2)"><title>shortest third: Devin lower 8 of 24</title></rect>
+<text x="572.0" y="50.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">67% agree</text>
 <text x="214.0" y="116.0" text-anchor="end" fill="var(--text)" font-size="18" font-weight="600" font-family="var(--font-sans)">middle third</text>
 <text x="214.0" y="138.0" text-anchor="end" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">490–690 words</text>
-<rect x="230.0" y="96.0" width="237.6" height="46.0" rx="0.0" fill="var(--chart-1)"><title>middle third: same level 18 of 25</title></rect>
-<rect x="467.6" y="96.0" width="79.2" height="46.0" rx="0.0" fill="var(--chart-2)"><title>middle third: Devin lower 6 of 25</title></rect>
-<rect x="546.8" y="96.0" width="13.2" height="46.0" rx="0.0" fill="var(--chart-2)" fill-opacity="0.45"><title>middle third: Composer lower 1 of 25</title></rect>
-<text x="572.0" y="126.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">72% agree</text>
+<rect x="230.0" y="96.0" width="247.5" height="46.0" rx="0.0" fill="var(--chart-1)"><title>middle third: same level 18 of 24</title></rect>
+<rect x="477.5" y="96.0" width="82.5" height="46.0" rx="0.0" fill="var(--chart-2)"><title>middle third: Devin lower 6 of 24</title></rect>
+<text x="572.0" y="126.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">75% agree</text>
 <text x="214.0" y="192.0" text-anchor="end" fill="var(--text)" font-size="18" font-weight="600" font-family="var(--font-sans)">longest third</text>
 <text x="214.0" y="214.0" text-anchor="end" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">704–1403 words</text>
-<rect x="230.0" y="172.0" width="66.0" height="46.0" rx="0.0" fill="var(--chart-1)"><title>longest third: same level 5 of 25</title></rect>
-<rect x="296.0" y="172.0" width="211.2" height="46.0" rx="0.0" fill="var(--chart-2)"><title>longest third: Devin lower 16 of 25</title></rect>
-<rect x="507.2" y="172.0" width="52.8" height="46.0" rx="0.0" fill="var(--chart-2)" fill-opacity="0.45"><title>longest third: Composer lower 4 of 25</title></rect>
-<text x="572.0" y="202.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">20% agree</text>
+<rect x="230.0" y="172.0" width="82.5" height="46.0" rx="0.0" fill="var(--chart-1)"><title>longest third: same level 6 of 24</title></rect>
+<rect x="312.5" y="172.0" width="206.2" height="46.0" rx="0.0" fill="var(--chart-2)"><title>longest third: Devin lower 15 of 24</title></rect>
+<rect x="518.8" y="172.0" width="41.2" height="46.0" rx="0.0" fill="var(--chart-2)" fill-opacity="0.45"><title>longest third: Composer lower 3 of 24</title></rect>
+<text x="572.0" y="202.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">25% agree</text>
 <rect x="230.0" y="236.0" width="14.0" height="14.0" rx="2.0" fill="var(--chart-1)"></rect>
 <text x="250.0" y="248.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">same level</text>
 <rect x="380.0" y="236.0" width="14.0" height="14.0" rx="2.0" fill="var(--chart-2)"></rect>

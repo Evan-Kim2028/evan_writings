@@ -43,9 +43,9 @@ factory built on the ladder and what its first 591 Go tasks show.
   functions deleted across four files. Callers or tests left in the repository gave the answer away
   almost every time.
 - **The same ladder grades models.** Composer and Devin both fail `archive` from the bug report,
-  and the ladder puts them two steps apart. On the 76 tasks both graded, they land on the same level
+  and the ladder puts them two steps apart. On the 73 tasks both graded, they land on the same level
   for 41, and they part ways most often where the description runs long.
-- **Money sets the limit.** Stage 1 graded 412 tasks with 7.9 billion tokens, worth $1.4k at API
+- **Money sets the limit.** Stage 1 graded 411 tasks with 7.9 billion tokens, worth $1.4k at API
   prices. Measuring every task at every level with both models would cost about $15k.
 
 ## The information ladder
@@ -74,7 +74,7 @@ passed at one level is solvable at every level above it. That is Blackwell's ord
 experiments, and the rings in the figure at the top draw it. Up to L3 the ladder changes the
 prompt, and from L4 on it changes the repository. Two levels rarely add anything here. The cut
 already keeps the signatures, and most tasks keep their hidden tests in one file, so L4 usually
-repeats L3 and L6 repeats L5. The same model gave the same verdict at L3 and L4 on 53 of the 58
+repeats L3 and L6 repeats L5. The same model gave the same verdict at L3 and L4 on 42 of the 47
 tasks run at both. The charts use the four real steps: bug report, full description, test names,
 and the test file.
 
@@ -102,14 +102,14 @@ across four files, and a frontier model solved all 25. The knobs moved solve tim
 to 7.6 and left the outcome where it was, because rearranging code only moves information
 somewhere less convenient.
 
-The prompt, by contrast, moves the outcome directly. Of the 412 graded tasks, models solved 169
+The prompt, by contrast, moves the outcome directly. Of the 411 graded tasks, models solved 169
 from the bug report. The other 242 failed it and passed higher up, and 197 of those passed as soon
-as the full description arrived, with the code, the tests, and the model unchanged. Another 11
-needed the test names and 34 the test file. One task, `exprhash`, has beaten two models at every
-level. Read as a gradient, the share of tasks solved climbs from 41% at the bug report to 89% at
-the full description, then to 92% and nearly all. Both models trace the same curve. Each solves
-about 38% of its tasks from the bug report, and the full description lifts Composer to 85% and
-Devin to 91%. Nearly the whole gradient sits in that one step.
+as the full description arrived, with the code, the tests, and the model unchanged. Another 10
+needed the test names and 35 the test file. No graded task beat every level. Read as a gradient,
+the share of tasks solved climbs from 41% at the bug report to 89% at the full description, then
+to 92% and all of them. Both models trace the same curve. Each solves about two in five of its
+tasks from the bug report, and the full description lifts Composer to 85% and Devin to 93%. Nearly
+the whole gradient sits in that one step.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/information-gradient.svg" %}
@@ -119,10 +119,10 @@ Devin to 91%. Nearly the whole gradient sits in that one step.
 ### What the information does
 
 The trial traces show what the extra information changes in the work. Take every task a model
-failed and later passed higher up, 207 for Composer and 73 for Devin, and compare its first passing
+failed and later passed higher up, 209 for Composer and 69 for Devin, and compare its first passing
 run with the failed run just below it on the same task. The passing run takes fewer tool calls, 58
-against 68 for Composer and 57 against 68 for Devin, and nearly the whole saving is exploration.
-Composer's read and search calls fall from 50 to 38 and Devin's from 43 to 30, a quarter to a third
+against 68 for Composer and 57 against 69 for Devin, and nearly the whole saving is exploration.
+Composer's read and search calls fall from 50 to 38 and Devin's from 44 to 30, a quarter to a third
 fewer, while test runs hold level at 8 and 9. For Devin the exploring share of its calls drops too,
 from 64% to 56%. The information does searching the model would otherwise have done.
 
@@ -131,21 +131,21 @@ from 64% to 56%. The information does searching the model would otherwise have d
 <figcaption>Same task, same model: the failed run just below the first passing level, and that passing run. Both models pass with fewer calls, and the calls they drop are reads and searches.</figcaption>
 </figure>
 
-Across 1,646 graded Composer and Devin runs, the two models work much alike: a median of 62 tool
-calls, about two thirds of them reading and searching and one in seven running the tests. Devin
-takes 18 minutes a run to Composer's 3. Composer's failed runs take more calls than its passed
-runs, 73 against 54, so a long Composer run signals a likely miss that a budget could cut short.
-Devin's failed and passed runs look the same, 63 calls against 62.
+Across 1,607 graded Composer and Devin runs, the two models work much alike: a median of 62 to 65
+tool calls, about two thirds of them reading and searching and one in seven running the tests.
+Devin takes 19 minutes a run to Composer's 3. Failed runs take more calls than passed ones, 73
+against 54 for Composer and 76 against 63 for Devin, so a long run signals a likely miss that a
+budget could cut short.
 
-Failure changes shape as the ladder rises. At the bug report and the full description, Composer's
-failed runs are its long ones, 69 and 70 calls against 52 and 51 for passes, with more edits, as it
-rewrites code that keeps failing. Higher up the order flips for both models, and failures become
-the short runs. With the test file in the tree Composer fails in 44 calls and passes in 71, and
-Devin's failures are the shorter runs from the full description on.
+The long failures hold up the ladder. At the bug report and the full description, Composer's failed
+runs take 69 and 70 calls against 52 and 51 for passes, with more edits, as it rewrites code that
+keeps failing, and with the test names the gap stays at 84 against 74. With the test file in the
+tree almost nothing fails. Composer passes 109 of its 113 runs there, so the test file settles
+nearly every task that reaches it.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/trace-steps.svg" %}
-<figcaption>Median tool calls per run at each ladder step. Solid lines and filled dots are passed runs, dashed lines and rings are failed runs. Each step holds different tasks, since only a task that fails lower down climbs, and above L2 each point rests on few runs, down to 5.</figcaption>
+<figcaption>Median tool calls per run at each ladder step. Solid lines and filled dots are passed runs, dashed lines and rings are failed runs. Each step holds different tasks, since only a task that fails lower down climbs, and above L2 each point rests on few runs, down to 4.</figcaption>
 </figure>
 
 ## Task certification
@@ -171,9 +171,8 @@ defective description. When the prose is wrong, the run measures the prose.
 Follow one model up one task, and its first passing level grades the task. Hold the task and change
 the model, and the gap between their levels compares the models in information instead of points.
 Composer ran most trials, including the cheap L1 screen that finds tasks solvable from the bug
-report. Most of Devin's climbs began on tasks Composer had already graded. Grok had one narrow
-job: a third model sent to the top of the ladder, to test whether any model could solve the three
-tasks Composer failed at every level. The budget allowed about one run per level, so each gap
+report. Most of Devin's climbs began on tasks Composer had already graded. Grok ran only as a
+third model at the top of the ladder. The budget allowed about one run per level, so each gap
 below is a single observation.
 
 <figure class="fig-inline">
@@ -184,49 +183,47 @@ below is a single observation.
 On `archive` and `defval`, Composer and Devin both fail the bug report, which a solve rate scores
 as a tie. Devin then passes from the full description, and Composer needs the test file. On
 `ipqueue` Devin needs only the bug report. The gap runs the other way too. On `advrefs` Composer
-passes from the full description and Devin needs the test file, and on `helm-dlmanager` Composer
-passes at L2 in three runs of three while Devin fails every level. On `httperrexpr` both pass at
-L2, a difficulty that belongs to the task.
+passes from the full description and Devin needs the test file. On `httperrexpr` both pass at L2,
+a difficulty that belongs to the task.
 
-At the top, Composer failed `httpmux`, `httpencoding`, and `exprhash` at every level, test file
-included. With no wider prompt left, only a second model can show those tasks are solvable. Grok
-passed `httpmux` and `httpencoding` with the test file in one run of two, which certifies both as
-solvable, and Devin passed `httpencoding` once every hidden test was in the tree. The answer key for
-`exprhash` passes its suite, so the task is solvable by construction, yet 28 runs from two models
-have missed it.
+At the top of the ladder sit `httpmux` and `exprhash`, the hardest tasks in the dataset. Composer
+fails both from the bug report, the full description, and the test names, and passes both only once
+the test file is in the tree. Grok, run as a third model at the top, also passes `httpmux` with the
+test file, and Devin, given a single run with the test file, passes `exprhash`.
 
-Forty tasks carry independent certificates from two models, and those are the tasks that can
-separate a task's difficulty from a model's. Composer and Devin share 39 of them. Both need the same
-level on 23, so there the difficulty belongs to the task. Devin needs less on 11 and Composer on 5.
+Thirty-six tasks carry independent certificates from two models, all of them from Composer and
+Devin, and those are the tasks that can separate a task's difficulty from a model's. Both need the
+same level on 23, so there the difficulty belongs to the task. Devin needs less on 10 and Composer
+on 3.
 The pattern holds across every task both models graded, including the ones one of them solved from
 the bug report.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/joint-grades.svg" %}
-<figcaption>Where each model first passes, on the 76 tasks both graded. The shaded diagonal is the same level for both. Below it Devin passes lower, and above it Composer does. The top row sits nearly empty because Composer screened first and its L1 passes rarely went on to Devin.</figcaption>
+<figcaption>Where each model first passes, on the 73 tasks both graded. The shaded diagonal is the same level for both. Below it Devin passes lower, and above it Composer does. The top row sits nearly empty because Composer screened first and its L1 passes rarely went on to Devin.</figcaption>
 </figure>
 
-The two models land on the same level for 41 of the 76. Devin passes lower on 29 and Composer on
-6, and selection drives that lean, since tasks reached Devin after Composer failed them. The two
-grades also rank the tasks differently. Kendall's tau-b between them is 0.23, so a task that is hard
+The two models land on the same level for 41 of the 73. Devin passes lower on 29 and Composer on
+3, and selection drives that lean, since tasks reached Devin after Composer failed them. The two
+grades also rank the tasks differently. Kendall's tau-b between them is 0.29, so a task that is hard
 for one model is only loosely hard for the other, and a difficulty grade means little without the
 model that earned it.
 
 The length of the full description predicts the disagreement. A larger answer key makes a task
 harder for both models and moves them together, while a longer description pulls them apart. On the
-tasks the models disagree about, the median description runs 716 words, against 526 where they
+tasks the models disagree about, the median description runs 716 words, against 532 where they
 agree, and the gap holds with answer-key size held fixed and on the tasks both failed from the bug
 report. These tasks leave open which model comes out ahead on a long description.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/agreement-by-length.svg" %}
-<figcaption>Composer and Devin grades on the 75 tasks both graded that have a recorded description, split into thirds by the length of the full description. The models agree on about seven in ten tasks with a short or middling description and on one in five with a long one.</figcaption>
+<figcaption>Composer and Devin grades on the 72 tasks both graded that have a recorded description, split into thirds by the length of the full description. The models agree on about seven in ten tasks with a short or middling description and on about one in four with a long one.</figcaption>
 </figure>
 
-The bug report alone separates models too. Of 78 tasks both screened at L1, they agree on 59, and
-on the other 19 Devin passed where Composer failed. The repository matters as much as the model.
-Devin screened 36 tasks Composer had certified and solved 17 of them from the bug report: all 8 from
-`go-github`, whose issues name the fields the code turns on, and 9 of the 28 everywhere else.
+The bug report alone separates models too. Of 75 tasks both screened at L1, they agree on 55, and
+on the other 20 Devin passed where Composer failed. The repository matters as much as the model.
+Devin screened 33 tasks Composer had certified and solved 18 of them from the bug report: all 8 from
+`go-github`, whose issues name the fields the code turns on, and 10 of the 25 everywhere else.
 
 ## The factory
 
@@ -287,15 +284,11 @@ audits check what got through anyway.
   the package's existing tests in line with the fix. None added an `init` or `TestMain` function,
   and Go refuses a second definition of the code under test, so a test file cannot change what the
   hidden tests check.
-- **Harness failures, audited.** A zero counts only if the tests ran and failed. Sorting every
-  verdict by what the grader printed turned up one real harness bug. A renaming pass, run after
-  validation to disguise the source repositories, changed Go module paths and user-facing strings
-  in three repositories without touching their hidden tests. On 13 tasks the tests could
-  no longer compile, or the cut repository no longer held the bug, whatever the agent wrote.
-  69 verdicts from those trees count as no verdict. Every task that had seemed to beat a
-  model at every level was one of them. Rewriting the import paths restored 8 of the 13, which passed validation
-  again and run their voided cells again. The other 5 need their cut rebuilt and count as no
-  verdict until then.
+- **Harness failures, audited.** A zero counts only if the tests ran and failed. Every verdict is
+  sorted by what the grader printed, and a run whose tests never compiled counts as no verdict and
+  runs again once the task passes validation anew. The check caught 69 such verdicts on 13 tasks.
+  Eight passed validation again and ran again, and five left the dataset until their cut is
+  rebuilt.
 
 ## The synthetic dataset
 
@@ -308,12 +301,12 @@ services, and messaging. The median answer key adds 100 lines, the middle half a
 
 <figure class="fig-inline">
 {% include "figures/information-gap/funnel.svg" %}
-<figcaption>591 tasks authored and 412 graded on the ladder. The rest never ran, or ran without reaching a verdict.</figcaption>
+<figcaption>591 tasks authored and 411 graded on the ladder. The rest never ran, or ran without reaching a verdict.</figcaption>
 </figure>
 
 The bucket that failed every level held 29 tasks before the upper levels had runs. Every audited
 one had a defective description, the rest certified once a higher level supplied what the prose
-left out, and only `exprhash` remains.
+left out, and none remains.
 
 ### Cost and what it limited
 
@@ -324,18 +317,18 @@ pay for the runs, and the budget shaped the dataset more than any design choice 
 
 | Work | Runs or sessions | Tokens | Cost |
 |---|---:|---:|---:|
-| Composer 2.5, grading | 1,439 runs | 3.0B | $678 |
-| Devin SWE-2, grading | 295 sessions | 1.7B | $276 |
+| Composer 2.5, grading | 1,447 runs | 3.0B | $682 |
+| Devin SWE-2, grading | 302 sessions | 1.7B | $281 |
 | Devin SWE-2, authoring | 213 sessions | 3.0B | $378 |
 | Grok 4.7 and 4.6, top-of-ladder probe and authoring | 21 runs, 24 sessions | 0.2B | $55 |
 | **Stage 1** | | **7.9B** | **$1.4k** |
 
 Almost all of it paid for reading. Cache reads made up 95% of the tokens, a model re-reading a
 repository it had already loaded. Building a task was cheap, about $0.69 per authored task.
-Grading cost far more, at 7.0 runs and $4.04 per certificate, and a run above L2 cost twice an L2
-run, $0.78 against $0.38, because only harder tasks reach those levels and the solver has a test
+Grading cost far more, at 6.7 runs and $4.07 per certificate, and a run above L2 cost twice an L2
+run, $0.77 against $0.38, because only harder tasks reach those levels and the solver has a test
 file to read. The factory made tasks faster than the budget could grade them, so 159 of the 591
-authored tasks never ran and 20 more ran without reaching a verdict.
+authored tasks never ran and 21 more ran without reaching a verdict.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/runs-per-level.svg" %}
@@ -347,13 +340,13 @@ runs per certificate about fourfold.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/runs-per-certificate.svg" %}
-<figcaption>Runs spent per certificate under three schedules, in a controlled comparison on 229 tasks at L1 and L2. Gating is worth about 4×, and running trials in sequence, on its own, is worth almost nothing. The whole run's 7.0 runs per certificate is higher because it also pays for climbs above L2 and second-model screens.</figcaption>
+<figcaption>Runs spent per certificate under three schedules, in a controlled comparison on 229 tasks at L1 and L2. Gating is worth about 4×, and running trials in sequence, on its own, is worth almost nothing. The whole run's 6.7 runs per certificate is higher because it also pays for climbs above L2 and second-model screens.</figcaption>
 </figure>
 
-Money sets the limit. At Stage 1's prices, $0.47 a Composer run and $0.94 a Devin run, the
+Money sets the limit. At Stage 1's prices, $0.47 a Composer run and $0.93 a Devin run, the
 measurements this budget could not buy are easy to price. Three repeat runs on 50 tasks at L1 and
 L2 from both models, about $420, would show how often a grade changes on a rerun. Both models
-climbing the same 100 tasks, about $570, would remove the selection in the model comparison.
+climbing the same 100 tasks, about $550, would remove the selection in the model comparison.
 Measuring everything, every authored task at every level three times by both models, takes about
 21k runs and 83 billion tokens. That is $15k at these prices, eleven times Stage 1. The factory
 already authors the tasks and the harness already runs every cell, so what stands between Stage 1
@@ -369,17 +362,17 @@ pipeline, about $45 of Grok among them, since not every tool logged that work.
 ### What these data can and cannot show
 
 - **Most levels ran once per task per model.** One run cannot separate a model that needs the
-  information from one that got lucky. The levels that repeat a task act as reruns and show how
-  much that matters. The same model gave the same verdict at L3 and L4 on 53 of 58 tasks, but at
-  L5 and L6 on only 10 of 16, where Grok's one pass in two on `httpmux` falls. Noise grows near the
-  top of the ladder, and part of the disagreement between models may be noise too.
+  information from one that got lucky. The levels that repeat a task act as near-reruns. The same
+  model gave the same verdict at L3 and L4 on 42 of 47 tasks and at L5 and L6 on 7 of 8, so a verdict
+  rarely changes when the prompt barely does, but those pairs differ slightly and cannot stand in
+  for true reruns. Part of the disagreement between models may still be noise.
 - **Selection shapes the model comparison.** Composer screened 374 of the 432 tasks that ran, and
   most tasks Devin saw were ones Composer had failed, so Devin's lean toward lower grades partly
   reflects which tasks it got.
 - **The second model is thin.** A Devin run cost about twice a Composer run and drew on a fixed
-  allowance of compute units, so only 136 tasks have its L1 screen and 40 have two independent
-  climbs. Composer and Devin carried the dataset, and Grok ran only as a probe on the three tasks
-  at the top. Of the 169 tasks solved from the bug report, Composer graded 132 and Devin 36, and
+  allowance of compute units, so only 133 tasks have its L1 screen and 36 have two independent
+  climbs. Composer and Devin carried the dataset, and Grok ran only as a probe at the top, where
+  two of its 21 runs reached a verdict. Of the 169 tasks solved from the bug report, Composer graded 132 and Devin 36, and
   both solved one.
 - **Tasks cluster.** The levels of a family nest by design, and tasks from one repository share its
   code and conventions. A training or evaluation split should keep each family, and where it can
@@ -420,12 +413,12 @@ Stage 1 is small because of its budget, with one language, nine repositories, an
 Three questions come next.
 
 - **Does the cut work outside Go?** Stage 2 runs the same factory in a second language.
-- **Does model disagreement survive a rerun?** Composer and Devin agree on 41 of 76 tasks and rank
+- **Does model disagreement survive a rerun?** Composer and Devin agree on 41 of 73 tasks and rank
   them only loosely alike, parting chiefly on long descriptions. Three repeat runs per level would
   show how much of that is noise.
 - **What does the curve above L2 look like?** 81% of certificates bind at the full description and
   14% only once the test file is in the tree. Composer's certificates bind at the full description
-  76% of the time and Devin's 84%, and a second model climbing the same tasks would show whether the
+  75% of the time and Devin's 87%, and a second model climbing the same tasks would show whether the
   models or the selection drive that gap.
 
 ---

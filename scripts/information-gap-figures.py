@@ -33,15 +33,14 @@ MODEL_COLOR = {"composer": "var(--chart-1)", "devin": "var(--chart-2)", "grok": 
 
 CURVE_GROUPS = [
     ("Composer and Devin: Devin needs less", ("composer", "devin"), ["archive", "defval", "ipqueue"]),
-    ("Composer and Devin: Composer needs less", ("composer", "devin"), ["advrefs", "helm-dlmanager"]),
+    ("Composer and Devin: Composer needs less", ("composer", "devin"), ["advrefs"]),
     ("Composer and Devin: same level", ("composer", "devin"), ["httperrexpr"]),
-    ("The top of the ladder", ("composer", "grok"),
-     ["httpmux", "httpencoding", "exprhash"]),
+    ("The top of the ladder: the test file", ("composer", "grok"), ["httpmux", "exprhash"]),
 ]
-# The three tasks Composer failed at every level, where Grok ran as a probe.
+# The tasks Grok ran on as a top-of-ladder probe; its pilot elsewhere is left out.
 GROK_PROBE = {"httpmux", "httpencoding", "exprhash"}
 # A lane beyond the group's models, where the text relies on it.
-CURVE_EXTRA = {"httpencoding": ("devin",)}
+CURVE_EXTRA = {"exprhash": ("devin",)}
 # The cut keeps exported signatures, and nearly every task has one hidden test file, so on
 # most tasks L4 is the L3 task and L6 is the L5 task. Charts read them as one step.
 STEPS = [("L1", ("0",), "bug report"), ("L2", ("2",), "full description"),
@@ -466,11 +465,11 @@ def fig_curves(s):
                 if not first:
                     body.append(text(end_x + 20, cy + 5, "none", 15, "var(--text-3)"))
             y += len(present) * lane + gap
-    label = ("Ladder results for nine tasks. On archive, defval and ipqueue Devin passes at a lower "
-             "level than Composer, and on advrefs and helm-dlmanager Composer passes lower. On "
-             "httperrexpr both pass at L2. With the test file in the tree, Grok passes httpmux and "
-             "httpencoding in one run of two, Devin passes httpencoding with every hidden test, and "
-             "Composer passes neither. Nobody passes exprhash.")
+    label = ("Ladder results for eight tasks. On archive, defval and ipqueue Devin passes at a lower "
+             "level than Composer, and on advrefs Composer passes lower. On httperrexpr both pass "
+             "at L2. On httpmux and exprhash Composer fails through the test names and passes once "
+             "the test file is in the tree. Grok passes httpmux with the test file, and Devin, "
+             "given one run with the test file, passes exprhash.")
     return svg(y + 2, label, body)
 
 
