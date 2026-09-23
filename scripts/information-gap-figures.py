@@ -32,14 +32,14 @@ MODEL = {"composer": "Composer", "devin": "Devin", "grok": "Grok"}
 MODEL_COLOR = {"composer": "var(--chart-1)", "devin": "var(--chart-2)", "grok": "var(--chart-3)"}
 
 CURVE_GROUPS = [
-    ("Composer and Devin: Devin needs less", ("composer", "devin"),
-     ["gin-clientip", "client-go-memdbstaging", "ipqueue", "archive", "defval", "rootval"]),
-    ("Composer and Devin: Composer needs less", ("composer", "devin"),
-     ["advrefs", "helm-searchindex", "namescope"]),
+    ("Composer and Devin: Devin needs less", ("composer", "devin"), ["archive", "defval", "ipqueue"]),
+    ("Composer and Devin: Composer needs less", ("composer", "devin"), ["advrefs", "helm-dlmanager"]),
     ("Composer and Devin: same level", ("composer", "devin"), ["httperrexpr"]),
-    ("Composer and Grok: the top of the ladder", ("composer", "grok"),
+    ("The top of the ladder", ("composer", "grok"),
      ["httpmux", "httpencoding", "exprhash"]),
 ]
+# A lane beyond the group's models, where the text relies on it.
+CURVE_EXTRA = {"httpencoding": ("devin",)}
 # The cut keeps exported signatures, and nearly every task has one hidden test file, so on
 # most tasks L4 is the L3 task and L6 is the L5 task. Charts read them as one step.
 STEPS = [("L1", ("0",), "bug report"), ("L2", ("2",), "full description"),
@@ -200,7 +200,7 @@ def snapshot():
     for _, models, bases in CURVE_GROUPS:
         for b in bases:
             curves[b] = {m: {r: [sum(1 for x in v if x > 0), len(v)] for r, v in rr.items() if v}
-                         for m, rr in bys[b].items() if m in models}
+                         for m, rr in bys[b].items() if m in models + CURVE_EXTRA.get(b, ())}
 
     snap = {
         "date": datetime.date.today().isoformat(),
@@ -331,8 +331,8 @@ def fig_prompt_words(s):
 def fig_funnel(s):
     f = s["funnel"]
     rows = [("authored", f["authored"], None),
-            ("trialled", f["trialled"], f"{num(f['authored'] - f['trialled'])} not yet run"),
-            ("graded", f["decided"], f"{num(f['trialled'] - f['decided'])} still without a verdict")]
+            ("trialled", f["trialled"], f"{num(f['authored'] - f['trialled'])} never ran"),
+            ("graded", f["decided"], f"{num(f['trialled'] - f['decided'])} no verdict")]
     x0, scale, row, bh = 130, 380 / f["authored"], 56, 34
     body = []
     for i, (name, n, note) in enumerate(rows):
@@ -353,7 +353,7 @@ def fig_first_pass(s):
     """Where each graded task first passed, for the model that graded it."""
     fp = s["first_pass"]
     rows = [(name, lvls, desc, sum(fp.get(r, 0) for r in lvls)) for name, lvls, desc in STEPS]
-    rows.append(("none", (), "no level yet", len(s["unresolved"])))
+    rows.append(("none", (), "failed every level", len(s["unresolved"])))
     peak = max(r[3] for r in rows)
     x0, scale, row, bh = 250, 300 / peak, 42, 24
     body = []
@@ -399,7 +399,7 @@ def fig_curves(s):
         body.append(line(0, y + 30, 720, y + 30))
         y += head
         for b in bases:
-            present = [m for m in models if m in s["curves"][b]]
+            present = [m for m in models + CURVE_EXTRA.get(b, ()) if m in s["curves"][b]]
             for li, m in enumerate(present):
                 cy = y + li * lane + lane / 2
                 d = s["curves"][b][m]
@@ -426,10 +426,11 @@ def fig_curves(s):
                 if not first:
                     body.append(text(end_x + 20, cy + 5, "none", 15, "var(--text-3)"))
             y += len(present) * lane + gap
-    label = ("Ladder results for thirteen tasks run by two models. On six, Devin passes at a lower "
-             "level than Composer, and on three Composer passes lower than Devin. On httperrexpr both "
-             "pass at L2. With the test file in the tree, Grok passes httpmux and httpencoding in one "
-             "run of two and Composer in none. Nobody passes exprhash.")
+    label = ("Ladder results for nine tasks. On archive, defval and ipqueue Devin passes at a lower "
+             "level than Composer, and on advrefs and helm-dlmanager Composer passes lower. On "
+             "httperrexpr both pass at L2. With the test file in the tree, Grok passes httpmux and "
+             "httpencoding in one run of two, Devin passes httpencoding with every hidden test, and "
+             "Composer passes neither. Nobody passes exprhash.")
     return svg(y + 2, label, body)
 
 
@@ -556,6 +557,8 @@ def fig_trace_flips(s):
         below = abs(sx(a) - sx(b)) < 44
         body.append(text(sx(a), y + (28 if below else -16), fmt(a), 15, "var(--text-2)", "middle", mono=True))
         body.append(text(sx(b), y - 16, fmt(b), 15, weight=700, anchor="middle", mono=True))
+        body.append(text(max(sx(a), sx(b)) + 26, y + 5, f"{100 * (b - a) / a:+.0f}%".replace("-", "−"),
+                         16, MODEL_COLOR[m], weight=700, mono=True))
     ly = 26 + 4 * row + 20
     body.append(glyph(x0, ly, "var(--text-2)", False, "failed"))
     body.append(text(x0 + 14, ly + 5, "failed run just below the first pass", 15, "var(--text-2)"))
@@ -571,12 +574,17 @@ def fig_trace_flips(s):
 
 
 def fig_runs(s):
-    runs = s["runs"]
-    lv = sorted(r for r in runs if r in LEVELS)
+    raw = s["runs"]
+    runs = {}
+    for name, rungs, _ in STEPS:
+        runs[name] = collections.Counter()
+        for r in rungs:
+            runs[name].update(raw.get(r, {}))
+    lv = [name for name, _, _ in STEPS]
     totals = {r: sum(runs[r].values()) for r in lv}
     base, top = 250, 40
     scale = (base - top) / max(totals.values())
-    bw, step, x0 = 64, 104, 84
+    bw, step, x0 = 88, 150, 90
     body = [line(40, base, 700, base, "var(--line)", 1.5)]
     for i, r in enumerate(lv):
         x = x0 + i * step
@@ -586,18 +594,17 @@ def fig_runs(s):
             if not n:
                 continue
             h = n * scale
-            body.append(rect(x, y - h, bw, h, MODEL_COLOR[m], f"L{post_level(r)}, {MODEL[m]}: {n} runs", rx=0))
+            body.append(rect(x, y - h, bw, h, MODEL_COLOR[m], f"{r}, {MODEL[m]}: {n} runs", rx=0))
             y -= h
         body.append(text(x + bw / 2, y - 10, num(totals[r]), 19, anchor="middle", weight=700, mono=True))
-        key = r in ("0", "2")
-        body.append(text(x + bw / 2, base + 30, f"L{post_level(r)}", 20, "var(--text)" if key else "var(--text-2)",
+        key = r in ("L1", "L2")
+        body.append(text(x + bw / 2, base + 30, r, 20, "var(--text)" if key else "var(--text-2)",
                          "middle", 700, True))
     for lx, m in ((450, "composer"), (560, "devin"), (640, "grok")):
         body.append(rect(lx, 10, 14, 14, MODEL_COLOR[m], rx=2))
         body.append(text(lx + 20, 22, MODEL[m], 16, "var(--text-2)"))
-    above = sum(totals[r] for r in lv if r not in ("0", "2"))
-    label = (f"Runs with a verdict per level, stacked by model. L1 {totals.get('0', 0)}, "
-             f"L2 {totals.get('2', 0)}, L3 to L6 {above} together.")
+    label = ("Runs with a verdict per ladder step, stacked by model. "
+             + ", ".join(f"{r} {totals[r]}" for r in lv) + ".")
     return svg(base + 44, label, body, "y")
 
 

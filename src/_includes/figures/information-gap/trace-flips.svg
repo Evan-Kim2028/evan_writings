@@ -6,6 +6,7 @@
 <circle cx="427.33333333333337" cy="26" r="8.5" fill="var(--chart-1)"><title>passing run: 58</title></circle>
 <text x="490.7" y="10.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">68</text>
 <text x="427.3" y="10.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">58</text>
+<text x="516.7" y="31.0" fill="var(--chart-1)" font-size="16" font-weight="700" font-family="var(--font-mono)">−15%</text>
 <text x="234.0" y="82.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin, tool calls</text>
 <line x1="250.0" y1="76.0" x2="630.0" y2="76.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="490.7" y1="76.0" x2="421.0" y2="76.0" stroke="var(--chart-2)" stroke-width="4"/>
@@ -13,6 +14,7 @@
 <circle cx="421.0" cy="76" r="8.5" fill="var(--chart-2)"><title>passing run: 57</title></circle>
 <text x="490.7" y="60.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">68</text>
 <text x="421.0" y="60.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">57</text>
+<text x="516.7" y="81.0" fill="var(--chart-2)" font-size="16" font-weight="700" font-family="var(--font-mono)">−16%</text>
 <text x="234.0" y="146.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer, read and search calls</text>
 <line x1="250.0" y1="140.0" x2="630.0" y2="140.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="535.0" y1="140.0" x2="421.0" y2="140.0" stroke="var(--chart-1)" stroke-width="4"/>
@@ -20,6 +22,7 @@
 <circle cx="421.0" cy="140" r="8.5" fill="var(--chart-1)"><title>passing run: 38</title></circle>
 <text x="535.0" y="124.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">50</text>
 <text x="421.0" y="124.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">38</text>
+<text x="561.0" y="145.0" fill="var(--chart-1)" font-size="16" font-weight="700" font-family="var(--font-mono)">−24%</text>
 <text x="234.0" y="196.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin, read and search calls</text>
 <line x1="250.0" y1="190.0" x2="630.0" y2="190.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="468.5" y1="190.0" x2="345.0" y2="190.0" stroke="var(--chart-2)" stroke-width="4"/>
@@ -27,6 +30,7 @@
 <circle cx="345.0" cy="190" r="8.5" fill="var(--chart-2)"><title>passing run: 30</title></circle>
 <text x="468.5" y="174.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">43</text>
 <text x="345.0" y="174.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">30</text>
+<text x="494.5" y="195.0" fill="var(--chart-2)" font-size="16" font-weight="700" font-family="var(--font-mono)">−30%</text>
 <circle cx="250" cy="246" r="7.5" fill="var(--bg)" stroke="var(--text-2)" stroke-width="2"><title>failed</title></circle>
 <text x="264.0" y="251.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">failed run just below the first pass</text>
 <circle cx="250" cy="272" r="8.5" fill="var(--text-2)"><title>passed</title></circle>

@@ -16,7 +16,7 @@
 <rect x="250.0" y="138.0" width="51.8" height="24.0" rx="3.0" fill="var(--lvl-6)"><title>L5–6: 34</title></rect>
 <text x="311.8" y="158.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">34</text>
 <text x="0.0" y="199.0" fill="var(--text-2)" font-size="20" font-weight="700" font-family="var(--font-mono)">none</text>
-<text x="76.0" y="199.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">no level yet</text>
+<text x="76.0" y="199.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">failed every level</text>
 <rect x="250.0" y="180.0" width="2.0" height="24.0" rx="1.0" fill="var(--text-3)"><title>none: 1</title></rect>
 <text x="262.0" y="200.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">1</text>
 <path d="M632 56 H640 V160 H632" fill="none" stroke="var(--text-2)" stroke-width="1.5"/>

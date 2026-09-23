@@ -304,7 +304,7 @@ authored tasks never ran and 21 more ran without reaching a verdict.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/runs-per-level.svg" %}
-<figcaption>Runs with a verdict at each level, stacked by model. The upper levels and the second models are where the budget ran out.</figcaption>
+<figcaption>Runs with a verdict at each ladder step, stacked by model. The upper steps and the second models are where the budget ran out.</figcaption>
 </figure>
 
 The one saving that worked was refusing runs whose outcome was already known, which cut the runs
@@ -312,7 +312,7 @@ per certificate about fourfold.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/runs-per-certificate.svg" %}
-<figcaption>Runs spent per certificate under three schedules. Gating is worth about 4×. Running trials in sequence, on its own, is worth almost nothing.</figcaption>
+<figcaption>Runs spent per certificate under three schedules, in a controlled comparison on 229 tasks at L1 and L2. Gating is worth about 4×, and running trials in sequence, on its own, is worth almost nothing. The whole run's 7.0 runs per certificate is higher because it also pays for climbs above L2 and second-model screens.</figcaption>
 </figure>
 
 The limit is money, not method. At Stage 1's prices, $0.47 a Composer run and $0.94 a Devin run,
