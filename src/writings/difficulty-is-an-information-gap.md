@@ -73,9 +73,10 @@ Each level contains the one below, so a solver given more can always ignore the 
 passed at one level is solvable at every level above it. That is Blackwell's ordering of
 experiments, and the rings in the figure at the top draw it. Up to L3 the ladder changes the
 prompt, and from L4 on it changes the repository. Two levels rarely add anything here. The cut
-already keeps the signatures, so L4 matched L3 on 44 of 49 tasks built at both, and 443 of 448
-tasks have one hidden test file, so L6 is L5. The charts use the four real steps: bug report, full
-description, test names, and the test file.
+already keeps the signatures, and most tasks keep their hidden tests in one file, so L4 usually
+repeats L3 and L6 repeats L5. The same model gave the same verdict at L3 and L4 on 53 of the 58
+tasks run at both. The charts use the four real steps: bug report, full description, test names,
+and the test file.
 
 One cut therefore yields a task family: the same code, answer key, and hidden tests, prompted at up
 to six levels. Authoring pays for the cut once, and each level after it comes nearly free, which is
@@ -167,9 +168,10 @@ defective description. When the prose is wrong, the run measures the prose.
 Follow one model up one task, and its first passing level grades the task. Hold the task and change
 the model, and the gap between their levels compares the models in information instead of points.
 Composer ran most trials, including the cheap L1 screen that finds tasks solvable from the bug
-report. Most of Devin's climbs began on tasks Composer had already graded, and Grok climbed the three tasks
-where Composer ran out of ladder. The budget allowed about one run per level, so each gap below is
-a single observation.
+report. Most of Devin's climbs began on tasks Composer had already graded. Grok had one narrow
+job: a third model sent to the top of the ladder, to test whether any model could solve the three
+tasks Composer failed at every level. The budget allowed about one run per level, so each gap
+below is a single observation.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/curves.svg" %}
@@ -293,7 +295,7 @@ pay for the runs, and the budget shaped the dataset more than any design choice 
 | Composer 2.5, grading | 1,439 runs | 3.0B | $678 |
 | Devin SWE-2, grading | 295 sessions | 1.7B | $276 |
 | Devin SWE-2, authoring | 213 sessions | 3.0B | $378 |
-| Grok 4.7 and 4.6, grading and authoring | 48 runs, 24 sessions | 0.2B | $57 |
+| Grok 4.7 and 4.6, top-of-ladder probe and authoring | 48 runs, 24 sessions | 0.2B | $57 |
 | **Stage 1** | | **7.9B** | **$1.4k** |
 
 Almost all of it paid for reading. Cache reads made up 95% of the tokens, a model re-reading a
@@ -335,16 +337,19 @@ pipeline, about $45 of Grok among them, since not every tool logged that work.
 ### What these data can and cannot show
 
 - **Most levels ran once per task per model.** One run cannot separate a model that needs the
-  information from one that got lucky, and Grok's one pass in two on `httpmux` is that case. Part
-  of the disagreement between models may be run-to-run noise.
+  information from one that got lucky. The levels that repeat a task act as reruns and show how
+  much that matters. The same model gave the same verdict at L3 and L4 on 53 of 58 tasks, but at
+  L5 and L6 on only 10 of 16, where Grok's one pass in two on `httpmux` falls. Noise grows near the
+  top of the ladder, and part of the disagreement between models may be noise too.
 - **Selection shapes the model comparison.** Composer screened 374 of the 436 tasks that ran, and
   most tasks Devin saw were ones Composer had failed, so Devin's lean toward lower grades partly
   reflects which tasks it got.
 - **The second model is thin.** A Devin run cost about twice a Composer run and drew on a fixed
   allowance of compute units, so only 136 tasks have its L1 screen and 40 have two independent
-  climbs. Grok climbed only the three tasks at the top and screened five more at the bug report.
-  The 172 tasks solved from the bug report carry one model's grade: Composer's on 132, Devin's on
-  36, and Grok's on 3.
+  climbs. Composer and Devin carried the dataset, and Grok ran as a probe on the three tasks at the
+  top, plus a five-task pilot at the bug report from wiring up its harness. The 172 tasks solved
+  from the bug report carry one model's grade: Composer's on 132, Devin's on 36, and the Grok
+  pilot's on 3.
 - **Tasks cluster.** The levels of a family nest by design, and tasks from one repository share its
   code and conventions. A training or evaluation split should keep each family, and where it can
   each repository, on one side.
