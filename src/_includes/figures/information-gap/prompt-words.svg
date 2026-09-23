@@ -1,38 +1,61 @@
-<svg viewBox="0 0 720 360" role="img" data-anim="x" aria-label="Prompt length by level. The bug report is about 98 words, the full description about 441, and test names add 34. Above L3 the prompt stays the same and the levels add files to the repository.">
-<line x1="230.0" y1="18.0" x2="230.0" y2="294.0" stroke="var(--line)" stroke-width="1"/>
-<text x="230.0" y="320.0" text-anchor="middle" fill="var(--text-3)" font-size="16" font-family="var(--font-mono)">0</text>
-<line x1="330.0" y1="18.0" x2="330.0" y2="294.0" stroke="var(--line)" stroke-width="1"/>
-<text x="330.0" y="320.0" text-anchor="middle" fill="var(--text-3)" font-size="16" font-family="var(--font-mono)">200</text>
-<line x1="430.0" y1="18.0" x2="430.0" y2="294.0" stroke="var(--line)" stroke-width="1"/>
-<text x="430.0" y="320.0" text-anchor="middle" fill="var(--text-3)" font-size="16" font-family="var(--font-mono)">400</text>
-<line x1="530.0" y1="18.0" x2="530.0" y2="294.0" stroke="var(--line)" stroke-width="1"/>
-<text x="530.0" y="320.0" text-anchor="middle" fill="var(--text-3)" font-size="16" font-family="var(--font-mono)">600</text>
-<text x="0.0" y="41.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L1</text>
-<text x="38.0" y="41.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">bug report</text>
-<rect x="230.0" y="24.0" width="49.0" height="22.0" rx="3.0" fill="var(--chart-1)"><title>L1: about 98 words</title></rect>
-<text x="289.0" y="42.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">98</text>
-<text x="0.0" y="87.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L2</text>
-<text x="38.0" y="87.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">full description</text>
-<rect x="230.0" y="70.0" width="220.5" height="22.0" rx="3.0" fill="var(--chart-1)"><title>L2: about 441 words</title></rect>
-<text x="460.5" y="88.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">441</text>
-<text x="0.0" y="133.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L3</text>
-<text x="38.0" y="133.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">test names</text>
-<rect x="230.0" y="116.0" width="237.5" height="22.0" rx="3.0" fill="var(--chart-1)"><title>L3: about 475 words</title></rect>
-<text x="477.5" y="134.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">475</text>
-<text x="0.0" y="179.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L4</text>
-<text x="38.0" y="179.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">signatures</text>
-<rect x="230.0" y="162.0" width="237.5" height="22.0" rx="3.0" fill="var(--chart-1)"><title>L4: about 475 words</title></rect>
-<text x="477.5" y="180.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">475</text>
-<text x="527.5" y="179.0" fill="var(--chart-2)" font-size="16" font-family="var(--font-sans)">+ stubs, already in place</text>
-<text x="0.0" y="225.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L5</text>
-<text x="38.0" y="225.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">one test</text>
-<rect x="230.0" y="208.0" width="237.5" height="22.0" rx="3.0" fill="var(--chart-1)"><title>L5: about 475 words</title></rect>
-<text x="477.5" y="226.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">475</text>
-<text x="527.5" y="225.0" fill="var(--chart-2)" font-size="16" font-family="var(--font-sans)">+ the test file</text>
-<text x="0.0" y="271.0" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L6</text>
-<text x="38.0" y="271.0" fill="var(--text-2)" font-size="18" font-family="var(--font-sans)">all tests</text>
-<rect x="230.0" y="254.0" width="237.5" height="22.0" rx="3.0" fill="var(--chart-1)"><title>L6: about 475 words</title></rect>
-<text x="477.5" y="272.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">475</text>
-<text x="527.5" y="271.0" fill="var(--chart-2)" font-size="16" font-family="var(--font-sans)">+ any other test files</text>
-<text x="380.0" y="348.0" text-anchor="middle" fill="var(--text-2)" font-size="17" font-family="var(--font-sans)">words in the prompt</text>
+<svg viewBox="0 0 720 340" role="img" data-anim="x" aria-label="What each level adds. The prompt grows from about 98 words at the bug report to about 475 with the test names and stops there. From L5 the level adds test code to the repository instead: about 370 lines with one hidden test file and 399 with all of them.">
+<line x1="200.0" y1="14.0" x2="200.0" y2="284.0" stroke="var(--line)" stroke-width="1"/>
+<line x1="266.7" y1="14.0" x2="266.7" y2="284.0" stroke="var(--line)" stroke-width="1"/>
+<line x1="333.3" y1="14.0" x2="333.3" y2="284.0" stroke="var(--line)" stroke-width="1"/>
+<line x1="400.0" y1="14.0" x2="400.0" y2="284.0" stroke="var(--line)" stroke-width="1"/>
+<line x1="470.0" y1="14.0" x2="470.0" y2="284.0" stroke="var(--line)" stroke-width="1"/>
+<line x1="570.0" y1="14.0" x2="570.0" y2="284.0" stroke="var(--line)" stroke-width="1"/>
+<line x1="670.0" y1="14.0" x2="670.0" y2="284.0" stroke="var(--line)" stroke-width="1"/>
+<text x="0.0" y="36.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L1</text>
+<text x="38.0" y="36.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">bug report</text>
+<rect x="200.0" y="20.0" width="32.7" height="20.0" rx="3.0" fill="var(--chart-1)"><title>L1: about 98 words in the prompt</title></rect>
+<text x="240.7" y="36.0" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">98</text>
+<text x="478.0" y="36.0" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">none</text>
+<text x="0.0" y="80.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L2</text>
+<text x="38.0" y="80.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">full description</text>
+<rect x="200.0" y="64.0" width="147.0" height="20.0" rx="3.0" fill="var(--chart-1)"><title>L2: about 441 words in the prompt</title></rect>
+<text x="355.0" y="80.0" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">441</text>
+<text x="478.0" y="80.0" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">none</text>
+<text x="0.0" y="124.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L3</text>
+<text x="38.0" y="124.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">test names</text>
+<rect x="200.0" y="108.0" width="158.3" height="20.0" rx="3.0" fill="var(--chart-1)"><title>L3: about 475 words in the prompt</title></rect>
+<text x="366.3" y="124.0" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">475</text>
+<text x="478.0" y="124.0" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">none</text>
+<text x="0.0" y="168.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L4</text>
+<text x="38.0" y="168.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">signatures</text>
+<rect x="200.0" y="152.0" width="158.3" height="20.0" rx="3.0" fill="var(--chart-1)"><title>L4: about 475 words in the prompt</title></rect>
+<text x="366.3" y="168.0" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">475</text>
+<text x="478.0" y="168.0" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">none</text>
+<text x="0.0" y="212.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L5</text>
+<text x="38.0" y="212.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">one test</text>
+<rect x="200.0" y="196.0" width="158.3" height="20.0" rx="3.0" fill="var(--chart-1)"><title>L5: about 475 words in the prompt</title></rect>
+<text x="366.3" y="212.0" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">475</text>
+<rect x="470.0" y="196.0" width="147.8" height="20.0" rx="3.0" fill="var(--chart-2)"><title>L5: about 370 lines of test code in the repository</title></rect>
+<text x="625.8" y="212.0" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">370</text>
+<text x="0.0" y="256.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L6</text>
+<text x="38.0" y="256.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">all tests</text>
+<rect x="200.0" y="240.0" width="158.3" height="20.0" rx="3.0" fill="var(--chart-1)"><title>L6: about 475 words in the prompt</title></rect>
+<text x="366.3" y="256.0" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">475</text>
+<rect x="470.0" y="240.0" width="159.6" height="20.0" rx="3.0" fill="var(--chart-2)"><title>L6: about 399 lines of test code in the repository</title></rect>
+<text x="637.6" y="256.0" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">399</text>
+<line x1="200.0" y1="284.0" x2="400.0" y2="284.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="200.0" y1="284.0" x2="200.0" y2="289.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="200.0" y="306.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="266.7" y1="284.0" x2="266.7" y2="289.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="266.7" y="306.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">200</text>
+<line x1="333.3" y1="284.0" x2="333.3" y2="289.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="333.3" y="306.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">400</text>
+<line x1="400.0" y1="284.0" x2="400.0" y2="289.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="400.0" y="306.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">600</text>
+<text x="300.0" y="330.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">words in the prompt</text>
+<line x1="470.0" y1="284.0" x2="670.0" y2="284.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="470.0" y1="284.0" x2="470.0" y2="289.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="470.0" y="306.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="570.0" y1="284.0" x2="570.0" y2="289.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="570.0" y="306.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">250</text>
+<line x1="670.0" y1="284.0" x2="670.0" y2="289.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="670.0" y="306.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">500</text>
+<text x="570.0" y="330.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">lines of test code in the repository</text>
+<line x1="200.0" y1="14.0" x2="200.0" y2="284.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="470.0" y1="14.0" x2="470.0" y2="284.0" stroke="var(--text-3)" stroke-width="1.5"/>
 </svg>
