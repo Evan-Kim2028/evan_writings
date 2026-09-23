@@ -49,6 +49,40 @@ DISPLAY = {"client-go-memdbstaging": "memdbstaging"}
 
 # ---------------------------------------------------------------- snapshot
 
+GRADE_STEPS = ["L1", "L2", "L3–4", "L5–6", "none"]
+GRADE_OF = {"0": 0, "2": 1, "3": 2, "4": 2, "5": 3, "6": 3}
+
+
+def grade(rungs):
+    """The first step a model passed, 4 when it failed through the test file, None if unfinished."""
+    passed = sorted(GRADE_OF[r] for r, v in rungs.items() if r in GRADE_OF and v and max(v) > 0)
+    if passed:
+        return passed[0]
+    return 4 if rungs.get("5") or rungs.get("6") else None
+
+
+def joint_grades(bys):
+    """Composer's grade against Devin's on every task both models graded, and Kendall's tau-b."""
+    pairs = []
+    for d in bys.values():
+        if "composer" in d and "devin" in d:
+            c, v = grade(d["composer"]), grade(d["devin"])
+            if c is not None and v is not None:
+                pairs.append((c, v))
+    cells = collections.Counter(f"{c}-{v}" for c, v in pairs)
+    conc = disc = tie_c = tie_v = 0
+    for i, (a, b) in enumerate(pairs):
+        for c, v in pairs[i + 1:]:
+            s = (a - c) * (b - v)
+            conc += s > 0
+            disc += s < 0
+            tie_c += a == c
+            tie_v += b == v
+    n0 = len(pairs) * (len(pairs) - 1) / 2
+    tau = (conc - disc) / ((n0 - tie_c) * (n0 - tie_v)) ** 0.5 if pairs else 0.0
+    return {"cells": dict(cells), "n": len(pairs), "tau_b": round(tau, 2)}
+
+
 def snapshot():
     sys.path.insert(0, os.path.join(RESEARCH, "scripts/ops"))
     os.chdir(RESEARCH)
@@ -73,6 +107,8 @@ def snapshot():
         if c and v:
             agree[f"{'pass' if max(c) > 0 else 'fail'}-{'pass' if max(v) > 0 else 'fail'}"] += 1
 
+    joint = joint_grades(bys)
+
     curves = {}
     for _, models, bases in CURVE_GROUPS:
         for b in bases:
@@ -90,6 +126,7 @@ def snapshot():
         "runs": {r: dict(c) for r, c in sorted(runs.items())},
         "l0_agreement": dict(agree),
         "curves": curves,
+        "joint": joint,
         "words": prompt_words(),
     }
     os.makedirs(os.path.dirname(SNAPSHOT), exist_ok=True)
@@ -346,6 +383,43 @@ def fig_l0_agreement(s):
     return svg(y0 + 2 * cell + 8, label, body)
 
 
+def fig_joint(s):
+    j = s["joint"]
+    get = lambda c, v: j["cells"].get(f"{c}-{v}", 0)
+    n = len(GRADE_STEPS)
+    x0, y0, cell = 170, 70, 100
+    peak = max(j["cells"].values())
+    body = [text(x0 + n * cell / 2, 22, "Devin's first pass", 17, "var(--chart-2)", "middle", 600)]
+    for i, name in enumerate(GRADE_STEPS):
+        body.append(text(x0 + i * cell + cell / 2, 52, name, 16, "var(--text-2)", "middle", 600, True))
+        body.append(text(x0 - 16, y0 + i * cell + cell / 2 + 6, name, 16, "var(--text-2)", "end", 600, True))
+    body.append(text(20, y0 + n * cell / 2 - 10, "Composer's", 17, "var(--chart-1)", weight=600))
+    body.append(text(20, y0 + n * cell / 2 + 12, "first pass", 17, "var(--chart-1)", weight=600))
+    for ci in range(n):
+        for vi in range(n):
+            k = get(ci, vi)
+            x, y = x0 + vi * cell, y0 + ci * cell
+            same = ci == vi
+            body.append(rect(x, y, cell, cell, "var(--bg-2)" if same else "none", rx=0,
+                             extra=' stroke="var(--line)" stroke-width="1.5"'))
+            if k:
+                side = (cell - 34) * (k / peak) ** 0.5
+                who = "same level" if same else ("Devin needs less" if vi < ci else "Composer needs less")
+                body.append(rect(x + cell / 2 - side / 2, y + cell / 2 - side / 2 - 8, side, side,
+                                 "var(--chart-1)" if same else "var(--chart-2)",
+                                 f"Composer {GRADE_STEPS[ci]}, Devin {GRADE_STEPS[vi]}: {k} ({who})", rx=2,
+                                 extra="" if same or vi < ci else ' fill-opacity="0.45"'))
+            body.append(text(x + cell / 2, y + cell - 10, num(k), 17,
+                             "var(--text)" if k else "var(--text-3)", "middle", 700, True))
+    same = sum(get(i, i) for i in range(n))
+    lower_d = sum(get(c, v) for c in range(n) for v in range(n) if v < c)
+    lower_c = sum(get(c, v) for c in range(n) for v in range(n) if c < v)
+    label = (f"Where Composer and Devin first pass, on the {j['n']} tasks both graded. The same level "
+             f"on {same}. Devin passes lower on {lower_d} and Composer lower on {lower_c}. "
+             f"Kendall's tau-b between the two grades is {j['tau_b']}.")
+    return svg(y0 + n * cell + 8, label, body)
+
+
 def fig_runs(s):
     runs = s["runs"]
     lv = sorted(r for r in runs if r in LEVELS)
@@ -402,6 +476,7 @@ FIGURES = {
     "first-pass": fig_first_pass,
     "curves": fig_curves,
     "bug-report-agreement": fig_l0_agreement,
+    "joint-grades": fig_joint,
     "runs-per-level": fig_runs,
     "runs-per-certificate": fig_runs_per_cert,
 }

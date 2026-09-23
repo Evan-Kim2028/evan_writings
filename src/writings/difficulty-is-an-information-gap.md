@@ -1,6 +1,6 @@
 ---
 title: "Building a Synthetic SWE Factory: The Information Ladder"
-date: "2026-09-22"
+date: "2026-09-23"
 collection: data
 lede: true
 tags:
@@ -47,8 +47,8 @@ factory scales with compute instead of reviewers. This post describes a factory 
   each in one of two runs.
 - **Every task gets a grade.** Of 415 graded tasks, 172 are solved from the bug report, 242 are
   certified higher up, and one has beaten two models at every level.
-- **Money is the limit, not method.** Stage 1 used 7.8 billion tokens and cost $1.4k. Authoring a
-  task cost about $0.64 and grading cost about $4.05 per certified task, and measuring every task at every level with
+- **Money is the limit, not method.** Stage 1 used 7.9 billion tokens and cost $1.4k. Authoring a
+  task cost about $0.69 and grading cost about $4.05 per certified task, and measuring every task at every level with
   both models would cost about $15k.
 
 ## The information ladder
@@ -155,6 +155,20 @@ are the tasks that can separate a task's difficulty from a model's. Composer and
 them. Both need the same level on 23, so there the difficulty belongs to the task. Devin needs
 less on 11 and Composer on 5.
 
+Across every task both models graded, including the ones one of them solved from the bug report,
+the pattern holds.
+
+<figure class="fig-inline">
+{% include "figures/information-gap/joint-grades.svg" %}
+<figcaption>Where each model first passes, on the 76 tasks both graded. The shaded diagonal is the same level for both. Below it Devin passes lower, and above it Composer does. The top row is nearly empty because Composer screened first and its L1 passes rarely went on to Devin.</figcaption>
+</figure>
+
+The two models land on the same level for 41 of the 76. Devin passes lower on 29 and Composer on
+6, and selection drives that lean, since tasks reached Devin after Composer failed them.
+The two grades also rank the tasks differently. Kendall's tau-b between them is 0.23, so a task that
+is hard for one model is only loosely hard for the other, and a difficulty grade means little
+without the model that earned it.
+
 ## The factory
 
 The factory is built to run without a person in the loop. Agents cut, test, and describe each
@@ -249,7 +263,7 @@ what is left, and it is the next check.
 
 ### Cost and what it limited
 
-Stage 1 processed 7.8 billion tokens and cost about $1.4k, paid by one researcher. The factory
+Stage 1 processed 7.9 billion tokens and cost about $1.4k, paid by one researcher. The factory
 could author tasks and the harness could run them faster than that budget could pay for the runs,
 and the budget shaped the dataset more than any design choice did.
 
@@ -258,11 +272,11 @@ and the budget shaped the dataset more than any design choice did.
 | Composer 2.5, grading | 1,439 runs | 3.0B | $678 |
 | Devin SWE-2, grading | 295 sessions | 1.7B | $276 |
 | Devin SWE-2, authoring | 213 sessions | 3.0B | $378 |
-| Grok 4.7 and 4.6, grading | 48 runs | 0.1B | $26 |
-| **Stage 1** | | **7.8B** | **$1.4k** |
+| Grok 4.7 and 4.6, grading and authoring | 48 runs, 24 sessions | 0.2B | $57 |
+| **Stage 1** | | **7.9B** | **$1.4k** |
 
 Almost all of it paid for reading. Cache reads were 95% of the tokens, a model re-reading a
-repository it had already loaded. Building a task was cheap, about $0.64 of Devin's time per
+repository it had already loaded. Building a task was cheap, about $0.69 per
 authored task. Grading it was not, at 7.0 runs and $4.05 per certificate, and a run above L2 cost
 twice an L2 run, $0.78 against $0.38, because only harder tasks reach those levels and the solver
 has a test file to read. The factory made tasks faster than the budget could grade them, and that
@@ -298,7 +312,7 @@ and L2 from both models, about $420, would show how often a grade changes on a r
 climbing the same 100 tasks, about $570, would remove the selection in the model comparison, since
 Devin now mostly sees tasks Composer failed. Measuring everything, every authored task at every
 level three times by both models, is about 21k runs and 83 billion tokens. That is $15k at these
-prices, eleven times Stage 1, and about $45k with Devin at its list rate. The factory already
+prices, eleven times Stage 1. The factory already
 authors the tasks and the harness already runs every cell, so what stands between Stage 1 and a
 fully measured dataset is compute bought at scale, a bill beyond one researcher.
 
@@ -306,7 +320,8 @@ Two caveats on the tokens. Composer and Grok count cached tokens inside their in
 counts them on top, so each total follows its vendor's convention. Devin bills in Agent Compute
 Units, not tokens. Its counts here are exact, read request by request from its own session logs,
 and priced at the SWE-2 promotional rate, which matched the compute-unit bill within 8% when both
-were available. At the list rate Devin's rows would come to about $2.6k.
+were available. The table counts building and grading tasks only. It leaves out the agents that ran
+and analyzed the pipeline, about $45 of Grok among them, since not every tool logged that work.
 
 ## Conclusion and future work
 
