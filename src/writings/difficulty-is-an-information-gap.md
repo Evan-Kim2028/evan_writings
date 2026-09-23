@@ -45,6 +45,10 @@ factory built on the ladder and what its first 591 Go tasks show.
 - **The same ladder grades models.** Composer and Devin both fail `archive` from the bug report,
   and the ladder puts them two steps apart. On the 73 tasks both graded, they land on the same level
   for 41, and they part ways most often where the description runs long.
+- **The ladder scales.** Agents authored all 591 tasks in three days with no person in the loop,
+  and nearly all passed validation on the first try. Their answer keys change a small slice of nine
+  repositories, so the same factory grows to thousands of tasks by adding repositories and compute,
+  not people.
 - **Money sets the limit.** Stage 1 graded 411 tasks with 7.9 billion tokens, worth $1.4k at API
   prices. Measuring every task at every level with both models would cost about $15k.
 
@@ -262,6 +266,16 @@ because a bad task once got through without it.
 - **Every behavior is derivable.** A judge drops lines no solver could work out, like the value of
   an internal constant. One pass over 170 tasks dropped or weakened 245 of 1.6k lines.
 
+### Yield and headroom
+
+Authoring is the fast part of the factory. Agents authored the 591 tasks over three days, and
+validation passed 93% of them on the first try. Every level of the ladder comes from the same cut,
+so each authored task yields a family of graded prompts without further authoring. The source is
+far from used up: the answer keys change about one in seven of the source files in their nine
+repositories. Growth past that comes from new repositories, each needing only a base image and a
+validation pass, and the cut, the blind tests, and the description carry over to any language with
+a test runner.
+
 ### Keeping the grade honest
 
 A pass should mean the model fixed the code. Three defenses close the other routes, and three
@@ -318,14 +332,14 @@ pay for the runs, and the budget shaped the dataset more than any design choice 
 | Work | Runs or sessions | Tokens | Cost |
 |---|---:|---:|---:|
 | Composer 2.5, grading | 1,447 runs | 3.0B | $682 |
-| Devin SWE-2, grading | 302 sessions | 1.7B | $281 |
+| Devin SWE-2, grading | 304 sessions | 1.8B | $284 |
 | Devin SWE-2, authoring | 213 sessions | 3.0B | $378 |
 | Grok 4.7 and 4.6, top-of-ladder probe and authoring | 21 runs, 24 sessions | 0.2B | $55 |
 | **Stage 1** | | **7.9B** | **$1.4k** |
 
 Almost all of it paid for reading. Cache reads made up 95% of the tokens, a model re-reading a
 repository it had already loaded. Building a task was cheap, about $0.69 per authored task.
-Grading cost far more, at 6.7 runs and $4.07 per certificate, and a run above L2 cost twice an L2
+Grading cost far more, at 6.7 runs and $4.09 per certificate, and a run above L2 cost twice an L2
 run, $0.77 against $0.38, because only harder tasks reach those levels and the solver has a test
 file to read. The factory made tasks faster than the budget could grade them, so 159 of the 591
 authored tasks never ran and 21 more ran without reaching a verdict.
@@ -343,12 +357,12 @@ runs per certificate about fourfold.
 <figcaption>Runs spent per certificate under three schedules, in a controlled comparison on 229 tasks at L1 and L2. Gating is worth about 4×, and running trials in sequence, on its own, is worth almost nothing. The whole run's 6.7 runs per certificate is higher because it also pays for climbs above L2 and second-model screens.</figcaption>
 </figure>
 
-Money sets the limit. At Stage 1's prices, $0.47 a Composer run and $0.93 a Devin run, the
+Money sets the limit. At Stage 1's prices, $0.47 a Composer run and $0.94 a Devin run, the
 measurements this budget could not buy are easy to price. Three repeat runs on 50 tasks at L1 and
 L2 from both models, about $420, would show how often a grade changes on a rerun. Both models
-climbing the same 100 tasks, about $550, would remove the selection in the model comparison.
+climbing the same 100 tasks, about $560, would remove the selection in the model comparison.
 Measuring everything, every authored task at every level three times by both models, takes about
-21k runs and 83 billion tokens. That is $15k at these prices, eleven times Stage 1. The factory
+21k runs and 84 billion tokens. That is $15k at these prices, eleven times Stage 1. The factory
 already authors the tasks and the harness already runs every cell, so what stands between Stage 1
 and a fully measured dataset is compute bought at scale, a bill beyond one researcher.
 
