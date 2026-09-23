@@ -174,7 +174,8 @@ removes. A larger answer key makes a task harder for both models but does not se
 longer full description does. On the tasks the models disagree about, the median description runs
 716 words, against 526 where they agree, and the gap holds with answer-key size held fixed and on
 the tasks both failed from the bug report. Which model comes out ahead on a long description is
-not settled by these tasks.
+not settled by these tasks. Each grade is one run, so part of this disagreement may be run-to-run
+noise, which the repeat runs priced under cost would measure.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/agreement-by-length.svg" %}
