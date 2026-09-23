@@ -264,9 +264,38 @@ because a bad task once got through without it.
 - **The answer key never touches a test file.**
 - **Every behavior is derivable.** A judge drops lines no solver could work out, like the value of
   an internal constant. One pass over 170 tasks dropped or weakened 245 of 1.6k lines.
-- **No network.** Agent-side web tools run on vendor servers, out of the container's reach, so the
-  harness throws out any run that used one. That disqualified 15 of 30 runs from one model and none
-  of 32 from another.
+
+### Keeping the grade honest
+
+A pass should mean the model fixed the code. Three defenses close the other routes, and three
+audits check what got through anyway.
+
+- **A sealed container.** During a run the container reaches only the model vendor's own API hosts,
+  and the grader runs with no network at all. The repository ships without its git history, so no
+  old commit holds the fix. None of the 1.1k staged repositories carries a `.git` directory or a
+  copy of the answer key.
+- **Tests the agent cannot see or edit.** Below L5 the hidden tests stay outside the container
+  until the agent stops. One staged copy leaked its test into the repository at L2, and all three
+  runs on it failed anyway. At L5 and L6 the agent reads the test file, so the grader checks its
+  sha256 before and after installing it, and an edited copy scores zero. The grade runs only the
+  named hidden tests.
+- **Web tools, audited.** Agent-side web tools run on vendor servers, beyond the container's
+  reach, so the only defense is reading every trajectory. Across 1.8k runs and 123k tool calls,
+  one agent used one: Composer fetched the upstream copy of the file under test for
+  `helm-depresolver` at L3, then passed. That pass counts as no verdict.
+- **Test edits, audited.** 55 passing runs also edited a test file, nearly always to bring
+  the package's existing tests in line with the fix. None added an `init` or `TestMain` function,
+  and Go refuses a second definition of the code under test, so a test file cannot change what the
+  hidden tests check.
+- **Harness failures, audited.** A zero counts only if the tests ran and failed. Sorting every
+  verdict by what the grader printed turned up one real harness bug. A renaming pass, run after
+  validation to disguise the source repositories, changed Go module paths and user-facing strings
+  in three repositories without touching their hidden tests. On 13 tasks the tests could
+  no longer compile, or the cut repository no longer held the bug, whatever the agent wrote.
+  69 verdicts from those trees count as no verdict. Every task that had seemed to beat a
+  model at every level was one of them. Rewriting the import paths restored 8 of the 13, which passed validation
+  again and run their voided cells again. The other 5 need their cut rebuilt and count as no
+  verdict until then.
 
 ## The synthetic dataset
 
