@@ -433,44 +433,6 @@ def fig_curves(s):
     return svg(y + 2, label, body)
 
 
-def fig_l0_agreement(s):
-    a = s["l0_agreement"]
-    get = lambda c, d: a.get(f"{c}-{d}", 0)
-    total = sum(a.values())
-    x0, y0, cell = 250, 64, 150
-    peak = max(a.values())
-    body = [text(x0 + cell / 2, 26, "Devin passed", 17, "var(--chart-2)", "middle", 600),
-            text(x0 + cell * 1.5, 26, "Devin failed", 17, "var(--chart-2)", "middle", 600),
-            text(x0 + cell, 48, "on the bug report", 15, "var(--text-3)", "middle")]
-    for ri, c in enumerate(("pass", "fail")):
-        cy = y0 + ri * cell + cell / 2
-        body.append(text(x0 - 18, cy - 2, f"Composer {'passed' if c == 'pass' else 'failed'}", 17,
-                         "var(--chart-1)", "end", 600))
-        body.append(text(x0 - 18, cy + 18, "on the bug report", 15, "var(--text-3)", "end"))
-        for ci, d in enumerate(("pass", "fail")):
-            n = get(c, d)
-            cx = x0 + ci * cell + cell / 2
-            body.append(rect(x0 + ci * cell, y0 + ri * cell, cell, cell, "none", rx=0,
-                             extra=' stroke="var(--line)" stroke-width="1.5"'))
-            side = (cell - 62) * (n / peak) ** 0.5
-            agree = c == d
-            fill = "var(--chart-1)" if agree else "var(--chart-2)"
-            if n:
-                body.append(rect(cx - side / 2, cy - side / 2 - 16, side, side, fill,
-                                 f"Composer {c}, Devin {d}: {n}", rx=2))
-            body.append(text(cx, y0 + (ri + 1) * cell - 12, num(n), 20,
-                             "var(--text)" if n else "var(--text-3)", "middle", 700, True))
-    nx = x0 + 2 * cell + 26
-    body.append(text(nx, y0 + 22, f"{num(total)} tasks", 20, weight=700))
-    body.append(text(nx, y0 + 46, "screened by both", 16, "var(--text-2)"))
-    body.append(text(nx, y0 + cell + 52, f"{num(get('fail', 'pass'))} disagreements,", 16, "var(--text-2)"))
-    body.append(text(nx, y0 + cell + 74, f"Devin passed all {num(get('fail', 'pass'))}", 16, "var(--text-2)"))
-    label = (f"{total} tasks screened at the bug report by Composer and Devin. Both failed "
-             f"{get('fail', 'fail')}, both passed {get('pass', 'pass')}, only Devin passed "
-             f"{get('fail', 'pass')}, only Composer passed {get('pass', 'fail')}.")
-    return svg(y0 + 2 * cell + 8, label, body)
-
-
 def fig_joint(s):
     j = s["joint"]
     get = lambda c, v: j["cells"].get(f"{c}-{v}", 0)
@@ -539,35 +501,6 @@ def fig_length(s):
              + ", ".join(f"{n}: {r['same']} of {r['same'] + r['devin_lower'] + r['composer_lower']} agree"
                          for n, r in zip(names, rows)) + ".")
     return svg(ly + 14, label, body)
-
-
-def fig_traces(s):
-    tr = s["traces"]
-    rows = [("composer", "pass"), ("composer", "fail"), ("devin", "pass"), ("devin", "fail")]
-    x0, width, top, row = 230, 420, 150, 44
-    sx = lambda v: x0 + width * min(v, top) / top
-    body = []
-    for tick in range(0, top + 1, 25):
-        x = sx(tick)
-        body.append(line(x, 16, x, 16 + row * 4 + 6, "var(--line)", 1))
-        body.append(text(x, 16 + row * 4 + 26, str(tick), 14, "var(--text-3)", "middle", mono=True))
-    for i, (m, v) in enumerate(rows):
-        g = tr[f"{m}-{v}"]
-        y = 16 + i * row + row / 2
-        color = MODEL_COLOR[m]
-        body.append(text(x0 - 16, y + 6, f"{MODEL[m]}, {'passed' if v == 'pass' else 'failed'}", 17,
-                         color, "end", 600))
-        body.append(rect(sx(g["q1"]), y - 9, sx(g["q3"]) - sx(g["q1"]), 18, color,
-                         f"{MODEL[m]} {v}: middle half {g['q1']:.0f} to {g['q3']:.0f} calls", rx=3,
-                         extra=' fill-opacity="0.35"' if v == "fail" else ""))
-        body.append(line(sx(g["median"]), y - 13, sx(g["median"]), y + 13, "var(--text)", 3))
-        body.append(text(sx(g["q3"]) + 10, y + 6, f"{g['median']:.0f}", 16, weight=700, mono=True))
-    body.append(text(x0 + width / 2, 16 + row * 4 + 50, "tool calls per trial, middle half and median", 15,
-                     "var(--text-2)", "middle"))
-    label = ("Tool calls per trial. Composer's failed runs take more calls than its passed runs, "
-             f"median {tr['composer-fail']['median']:.0f} against {tr['composer-pass']['median']:.0f}. "
-             f"Devin's do not, {tr['devin-fail']['median']:.0f} against {tr['devin-pass']['median']:.0f}.")
-    return svg(16 + row * 4 + 62, label, body)
 
 
 def fig_trace_steps(s):
@@ -692,10 +625,8 @@ FIGURES = {
     "funnel": fig_funnel,
     "first-pass": fig_first_pass,
     "curves": fig_curves,
-    "bug-report-agreement": fig_l0_agreement,
     "joint-grades": fig_joint,
     "agreement-by-length": fig_length,
-    "trace-length": fig_traces,
     "trace-steps": fig_trace_steps,
     "trace-flips": fig_trace_flips,
     "runs-per-level": fig_runs,
