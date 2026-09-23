@@ -1,9 +1,9 @@
-<svg viewBox="0 0 720 294" role="img" data-anim="y" aria-label="Runs with a verdict per ladder step, stacked by model. L1 608, L2 746, L3–4 180, L5–6 138.">
+<svg viewBox="0 0 720 294" role="img" data-anim="y" aria-label="Runs with a verdict per ladder step, stacked by model. L1 603, L2 746, L3–4 180, L5–6 138.">
 <line x1="40.0" y1="250.0" x2="700.0" y2="250.0" stroke="var(--line)" stroke-width="1.5"/>
 <rect x="90.0" y="119.9" width="88.0" height="130.1" rx="0.0" fill="var(--chart-1)"><title>L1, Composer: 462 runs</title></rect>
 <rect x="90.0" y="81.4" width="88.0" height="38.6" rx="0.0" fill="var(--chart-2)"><title>L1, Devin: 137 runs</title></rect>
-<rect x="90.0" y="78.8" width="88.0" height="2.5" rx="0.0" fill="var(--chart-3)"><title>L1, Grok: 9 runs</title></rect>
-<text x="134.0" y="68.8" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">608</text>
+<rect x="90.0" y="80.3" width="88.0" height="1.1" rx="0.0" fill="var(--chart-3)"><title>L1, Grok: 4 runs</title></rect>
+<text x="134.0" y="70.3" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">603</text>
 <text x="134.0" y="280.0" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="700" font-family="var(--font-mono)">L1</text>
 <rect x="240.0" y="70.7" width="88.0" height="179.3" rx="0.0" fill="var(--chart-1)"><title>L2, Composer: 637 runs</title></rect>
 <rect x="240.0" y="40.8" width="88.0" height="29.8" rx="0.0" fill="var(--chart-2)"><title>L2, Devin: 106 runs</title></rect>

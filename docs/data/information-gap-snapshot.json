@@ -387,7 +387,7 @@
  },
  "date": "2026-09-23",
  "first_pass": {
-  "0": 172,
+  "0": 169,
   "2": 197,
   "3": 8,
   "4": 3,
@@ -397,10 +397,39 @@
  "funnel": {
   "authored": 591,
   "certified": 242,
-  "decided": 415,
-  "too_easy": 172,
-  "trialled": 436,
+  "decided": 412,
+  "too_easy": 169,
+  "trialled": 432,
   "unresolved": 1
+ },
+ "gradient": {
+  "all": {
+   "n": 412,
+   "share": [
+    41.0,
+    88.8,
+    91.5,
+    99.8
+   ]
+  },
+  "composer": {
+   "n": 343,
+   "share": [
+    38.8,
+    84.5,
+    87.5,
+    99.1
+   ]
+  },
+  "devin": {
+   "n": 147,
+   "share": [
+    38.1,
+    91.2,
+    94.6,
+    99.3
+   ]
+  }
  },
  "joint": {
   "by_length": [
@@ -453,7 +482,7 @@
   "0": {
    "composer": 462,
    "devin": 137,
-   "grok": 9
+   "grok": 4
   },
   "1": {
    "composer": 16

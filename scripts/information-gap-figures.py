@@ -38,6 +38,8 @@ CURVE_GROUPS = [
     ("The top of the ladder", ("composer", "grok"),
      ["httpmux", "httpencoding", "exprhash"]),
 ]
+# The three tasks Composer failed at every level, where Grok ran as a probe.
+GROK_PROBE = {"httpmux", "httpencoding", "exprhash"}
 # A lane beyond the group's models, where the text relies on it.
 CURVE_EXTRA = {"httpencoding": ("devin",)}
 # The cut keeps exported signatures, and nearly every task has one hidden test file, so on
@@ -59,6 +61,29 @@ def grade(rungs):
     if passed:
         return passed[0]
     return 4 if rungs.get("5") or rungs.get("6") else None
+
+
+def information_gradient(bys, first_pass, graded):
+    """Share of graded tasks solved by each ladder step, cumulative: all tasks at the level
+    their grading model first passed, and each model's own grades. A task passed at one
+    level counts as solved at every level above it, the ladder's nesting."""
+    def cumulative(counts, n):
+        out, run = [], 0
+        for step in range(4):
+            run += counts.get(step, 0)
+            out.append(round(100 * run / n, 1))
+        return out
+
+    pooled = collections.Counter()
+    for rung, n in first_pass.items():
+        if rung in GRADE_OF:
+            pooled[GRADE_OF[rung]] += n
+    out = {"all": {"n": graded, "share": cumulative(pooled, graded)}}
+    for m in ("composer", "devin"):
+        grades = [grade(d[m]) for d in bys.values() if m in d]
+        grades = [g for g in grades if g is not None]
+        out[m] = {"n": len(grades), "share": cumulative(collections.Counter(grades), len(grades))}
+    return out
 
 
 def joint_grades(bys):
@@ -174,6 +199,19 @@ def snapshot():
     os.chdir(RESEARCH)
     import trial_ledger as T
 
+    # Grok is in the post only as the top-of-ladder probe. Its other trials were a pilot
+    # from wiring up its harness, so every count here leaves them out. The ledger's own
+    # functions all read trials(), so scoping that one function scopes them all.
+    all_trials = T.trials
+
+    def probe_scoped(jobs_dir=T.JOBS):
+        for t in all_trials(jobs_dir):
+            if T.solver_of(t["model"]) == "grok" and t["base"] not in GROK_PROBE:
+                continue
+            yield t
+
+    T.trials = probe_scoped
+
     s = T.summary()
     certs = T.certificates()
     bys = T.ledger_by_solver()
@@ -194,6 +232,7 @@ def snapshot():
             agree[f"{'pass' if max(c) > 0 else 'fail'}-{'pass' if max(v) > 0 else 'fail'}"] += 1
 
     joint = joint_grades(bys)
+    gradient = information_gradient(bys, first_pass, len(certs) + len(s["too_easy"]) + len(s["nonflip"]))
     traces = trace_lengths()
 
     curves = {}
@@ -214,6 +253,7 @@ def snapshot():
         "l0_agreement": dict(agree),
         "curves": curves,
         "joint": joint,
+        "gradient": gradient,
         "traces": traces,
         "words": prompt_words(),
     }
@@ -434,6 +474,55 @@ def fig_curves(s):
     return svg(y + 2, label, body)
 
 
+def fig_gradient(s):
+    g = s["gradient"]
+    words = s["words"]
+    steps = [("L1", "bug report", f"{words['L0']:.0f} words"),
+             ("L2", "full description", f"+{words['d2']:.0f} words"),
+             ("L3–4", "test names", f"+{words['d3']:.0f} words"),
+             ("L5–6", "the test file", "+ a test file")]
+    x0, x1, y0, h = 110, 560, 36, 280
+    xs = [x0 + i * (x1 - x0) / 3 for i in range(4)]
+    sy = lambda v: y0 + h - h * v / 100
+    body = []
+    for tick in range(0, 101, 25):
+        body.append(line(x0 - 10, sy(tick), x1 + 10, sy(tick), "var(--line)", 1))
+        body.append(text(x0 - 18, sy(tick) + 5, f"{tick}%", 14, "var(--text-3)", "end", mono=True))
+    for x, (lv, name, add) in zip(xs, steps):
+        body.append(text(x, y0 + h + 28, lv, 17, "var(--text)", "middle", 700, True))
+        body.append(text(x, y0 + h + 48, name, 14, "var(--text-2)", "middle"))
+        body.append(text(x, y0 + h + 66, add, 13, "var(--text-3)", "middle", mono=True))
+    lines = (("all", "all tasks", "var(--text)", 3.5, ""),
+             ("composer", "Composer", MODEL_COLOR["composer"], 2.5, ' stroke-dasharray="6 5"'),
+             ("devin", "Devin", MODEL_COLOR["devin"], 2.5, ' stroke-dasharray="6 5"'))
+    for key, name, color, width, dash in lines:
+        pts = [(x, sy(v)) for x, v in zip(xs, g[key]["share"])]
+        body.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pts)}" fill="none" '
+                    f'stroke="{color}" stroke-width="{width}"{dash}/>')
+        for (x, y), v in zip(pts, g[key]["share"]):
+            body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{5 if key == "all" else 4}" fill="{color}">'
+                        f'<title>{esc(name)}: {v}% solved</title></circle>')
+    a = g["all"]["share"]
+    for x, v in zip(xs, a):
+        shown = f"{v:.1f}%" if 99.5 <= v < 100 else f"{v:.0f}%"
+        body.append(text(x, sy(v) - 14, shown, 16, weight=700, anchor="middle", mono=True))
+    # The step that carries the gradient.
+    jump = a[1] - a[0]
+    body.append(text((xs[0] + xs[1]) / 2 + 30, sy((a[0] + a[1]) / 2) + 30, f"+{jump:.0f} points", 16,
+                     "var(--text-2)", weight=700))
+    ly = sy(a[0]) + 44
+    for i, (key, name, color, _, dash) in enumerate(lines):
+        yy = ly + i * 22
+        body.append(f'<line x1="{x1 - 150}" y1="{yy - 5}" x2="{x1 - 124}" y2="{yy - 5}" stroke="{color}" '
+                    f'stroke-width="3"{dash}/>')
+        body.append(text(x1 - 116, yy, f"{name} ({g[key]['n']})", 15, "var(--text-2)"))
+    label = ("Share of graded tasks solved by each ladder step. All tasks: "
+             + ", ".join(f"{lv} {v}%" for (lv, _, _), v in zip(steps, a))
+             + f". Composer: {', '.join(f'{v}%' for v in g['composer']['share'])}. "
+             + f"Devin: {', '.join(f'{v}%' for v in g['devin']['share'])}.")
+    return svg(y0 + h + 76, label, body)
+
+
 def fig_joint(s):
     j = s["joint"]
     get = lambda c, v: j["cells"].get(f"{c}-{v}", 0)
@@ -630,7 +719,7 @@ def fig_runs_per_cert(_s):
 FIGURES = {
     "prompt-words": fig_prompt_words,
     "funnel": fig_funnel,
-    "first-pass": fig_first_pass,
+    "information-gradient": fig_gradient,
     "curves": fig_curves,
     "joint-grades": fig_joint,
     "agreement-by-length": fig_length,

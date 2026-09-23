@@ -33,7 +33,7 @@ factory built on the ladder and what its first 591 Go tasks show.
 
 - **The prompt sets the difficulty.** Composer fails `gin-clientip` from a 96-word bug report and
   passes it three runs in three from a 596-word description of the same behavior. Across the
-  dataset, 197 of 242 certified tasks pass once the full description arrives.
+  dataset, 41% of graded tasks fall to the bug report and 89% once the full description arrives.
 - **Information replaces search.** On the same task, the passing run makes a quarter to a third
   fewer reads and searches than the failed run just below it, and runs the tests just as often.
 - **Two prompts separate a hard task from a broken one.** The factory certifies a task only when
@@ -45,7 +45,7 @@ factory built on the ladder and what its first 591 Go tasks show.
 - **The same ladder grades models.** Composer and Devin both fail `archive` from the bug report,
   and the ladder puts them two steps apart. On the 76 tasks both graded, they land on the same level
   for 41, and they part ways most often where the description runs long.
-- **Money sets the limit.** Stage 1 graded 415 tasks with 7.9 billion tokens, worth $1.4k at API
+- **Money sets the limit.** Stage 1 graded 412 tasks with 7.9 billion tokens, worth $1.4k at API
   prices. Measuring every task at every level with both models would cost about $15k.
 
 ## The information ladder
@@ -102,15 +102,18 @@ across four files, and a frontier model solved all 25. The knobs moved solve tim
 to 7.6 and left the outcome where it was, because rearranging code only moves information
 somewhere less convenient.
 
-The prompt, by contrast, moves the outcome directly. Of the 415 graded tasks, models solved 172
+The prompt, by contrast, moves the outcome directly. Of the 412 graded tasks, models solved 169
 from the bug report. The other 242 failed it and passed higher up, and 197 of those passed as soon
 as the full description arrived, with the code, the tests, and the model unchanged. Another 11
 needed the test names and 34 the test file. One task, `exprhash`, has beaten two models at every
-level.
+level. Read as a gradient, the share of tasks solved climbs from 41% at the bug report to 89% at
+the full description, then to 92% and nearly all. Both models trace the same curve. Each solves
+about 38% of its tasks from the bug report, and the full description lifts Composer to 85% and
+Devin to 91%. Nearly the whole gradient sits in that one step.
 
 <figure class="fig-inline">
-{% include "figures/information-gap/first-pass.svg" %}
-<figcaption>The lowest level at which the model that graded each task passed it. L4 and L6 merge into the step below, since on most tasks they are the same task.</figcaption>
+{% include "figures/information-gap/information-gradient.svg" %}
+<figcaption>The information gradient: the share of graded tasks solved by each ladder step, counting a task as solved from its first passing level up. The solid line is every task at the level its grading model first passed it, and the dashed lines are each model's own grades. Each model climbs only after failing lower down, so the curve shows how much information each task needed.</figcaption>
 </figure>
 
 ### What the information does
@@ -276,7 +279,7 @@ services, and messaging. The median answer key adds 100 lines, the middle half a
 
 <figure class="fig-inline">
 {% include "figures/information-gap/funnel.svg" %}
-<figcaption>591 tasks authored and 415 graded on the ladder. The rest never ran, or ran without reaching a verdict.</figcaption>
+<figcaption>591 tasks authored and 412 graded on the ladder. The rest never ran, or ran without reaching a verdict.</figcaption>
 </figure>
 
 The bucket that failed every level held 29 tasks before the upper levels had runs. Every audited
@@ -295,15 +298,15 @@ pay for the runs, and the budget shaped the dataset more than any design choice 
 | Composer 2.5, grading | 1,439 runs | 3.0B | $678 |
 | Devin SWE-2, grading | 295 sessions | 1.7B | $276 |
 | Devin SWE-2, authoring | 213 sessions | 3.0B | $378 |
-| Grok 4.7 and 4.6, top-of-ladder probe and authoring | 48 runs, 24 sessions | 0.2B | $57 |
+| Grok 4.7 and 4.6, top-of-ladder probe and authoring | 21 runs, 24 sessions | 0.2B | $55 |
 | **Stage 1** | | **7.9B** | **$1.4k** |
 
 Almost all of it paid for reading. Cache reads made up 95% of the tokens, a model re-reading a
 repository it had already loaded. Building a task was cheap, about $0.69 per authored task.
-Grading cost far more, at 7.0 runs and $4.05 per certificate, and a run above L2 cost twice an L2
+Grading cost far more, at 7.0 runs and $4.04 per certificate, and a run above L2 cost twice an L2
 run, $0.78 against $0.38, because only harder tasks reach those levels and the solver has a test
-file to read. The factory made tasks faster than the budget could grade them, so 155 of the 591
-authored tasks never ran and 21 more ran without reaching a verdict.
+file to read. The factory made tasks faster than the budget could grade them, so 159 of the 591
+authored tasks never ran and 20 more ran without reaching a verdict.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/runs-per-level.svg" %}
@@ -341,15 +344,14 @@ pipeline, about $45 of Grok among them, since not every tool logged that work.
   much that matters. The same model gave the same verdict at L3 and L4 on 53 of 58 tasks, but at
   L5 and L6 on only 10 of 16, where Grok's one pass in two on `httpmux` falls. Noise grows near the
   top of the ladder, and part of the disagreement between models may be noise too.
-- **Selection shapes the model comparison.** Composer screened 374 of the 436 tasks that ran, and
+- **Selection shapes the model comparison.** Composer screened 374 of the 432 tasks that ran, and
   most tasks Devin saw were ones Composer had failed, so Devin's lean toward lower grades partly
   reflects which tasks it got.
 - **The second model is thin.** A Devin run cost about twice a Composer run and drew on a fixed
   allowance of compute units, so only 136 tasks have its L1 screen and 40 have two independent
-  climbs. Composer and Devin carried the dataset, and Grok ran as a probe on the three tasks at the
-  top, plus a five-task pilot at the bug report from wiring up its harness. The 172 tasks solved
-  from the bug report carry one model's grade: Composer's on 132, Devin's on 36, and the Grok
-  pilot's on 3.
+  climbs. Composer and Devin carried the dataset, and Grok ran only as a probe on the three tasks
+  at the top. Of the 169 tasks solved from the bug report, Composer graded 132 and Devin 36, and
+  both solved one.
 - **Tasks cluster.** The levels of a family nest by design, and tasks from one repository share its
   code and conventions. A training or evaluation split should keep each family, and where it can
   each repository, on one side.
