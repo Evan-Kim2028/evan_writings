@@ -489,6 +489,29 @@
   "unresolved": 1
  },
  "joint": {
+  "by_length": [
+   {
+    "composer_lower": 1,
+    "devin_lower": 7,
+    "from": 220,
+    "same": 17,
+    "to": 487
+   },
+   {
+    "composer_lower": 1,
+    "devin_lower": 6,
+    "from": 490,
+    "same": 18,
+    "to": 690
+   },
+   {
+    "composer_lower": 4,
+    "devin_lower": 16,
+    "from": 704,
+    "same": 5,
+    "to": 1403
+   }
+  ],
   "cells": {
    "0-0": 1,
    "1-0": 13,

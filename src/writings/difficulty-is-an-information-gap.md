@@ -47,7 +47,7 @@ factory scales with compute instead of reviewers. This post describes a factory 
   each in one of two runs.
 - **Every task gets a grade.** Of 415 graded tasks, 172 are solved from the bug report, 242 are
   certified higher up, and one has beaten two models at every level.
-- **Money is the limit, not method.** Stage 1 used 7.9 billion tokens and cost $1.4k. Authoring a
+- **Money is the limit, not method.** Stage 1 used 7.9 billion tokens, worth $1.4k at API prices. Authoring a
   task cost about $0.69 and grading cost about $4.05 per certified task, and measuring every task at every level with
   both models would cost about $15k.
 
@@ -169,6 +169,18 @@ The two grades also rank the tasks differently. Kendall's tau-b between them is 
 is hard for one model is only loosely hard for the other, and a difficulty grade means little
 without the model that earned it.
 
+What predicts the disagreement is how much the description says, not how much code the task
+removes. A larger answer key makes a task harder for both models but does not separate them. A
+longer full description does. On the tasks the models disagree about, the median description runs
+716 words, against 526 where they agree, and the gap holds with answer-key size held fixed and on
+the tasks both failed from the bug report. Which model comes out ahead on a long description is
+not settled by these tasks.
+
+<figure class="fig-inline">
+{% include "figures/information-gap/agreement-by-length.svg" %}
+<figcaption>Composer and Devin grades on the 75 tasks both graded that have a recorded description, split into thirds by the length of the full description. The models agree on about seven in ten tasks with a short or middling description and on one in five with a long one.</figcaption>
+</figure>
+
 ## The factory
 
 The factory is built to run without a person in the loop. Agents cut, test, and describe each
@@ -263,9 +275,11 @@ what is left, and it is the next check.
 
 ### Cost and what it limited
 
-Stage 1 processed 7.9 billion tokens and cost about $1.4k, paid by one researcher. The factory
-could author tasks and the harness could run them faster than that budget could pay for the runs,
-and the budget shaped the dataset more than any design choice did.
+Stage 1 processed 7.9 billion tokens, worth about $1.4k at API prices. One researcher drew them
+from subscriptions and promotional plans, so the dollar figures here value the tokens rather than
+record spending. The factory could author tasks and the harness could run them faster than
+those allowances could pay for the runs, and the budget shaped the dataset more than any design
+choice did.
 
 | Work | Runs or sessions | Tokens | Cost |
 |---|---:|---:|---:|

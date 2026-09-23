@@ -63,12 +63,13 @@ def grade(rungs):
 
 def joint_grades(bys):
     """Composer's grade against Devin's on every task both models graded, and Kendall's tau-b."""
-    pairs = []
-    for d in bys.values():
+    pairs, bases = [], []
+    for base, d in bys.items():
         if "composer" in d and "devin" in d:
             c, v = grade(d["composer"]), grade(d["devin"])
             if c is not None and v is not None:
                 pairs.append((c, v))
+                bases.append(base)
     cells = collections.Counter(f"{c}-{v}" for c, v in pairs)
     conc = disc = tie_c = tie_v = 0
     for i, (a, b) in enumerate(pairs):
@@ -80,7 +81,28 @@ def joint_grades(bys):
             tie_v += b == v
     n0 = len(pairs) * (len(pairs) - 1) / 2
     tau = (conc - disc) / ((n0 - tie_c) * (n0 - tie_v)) ** 0.5 if pairs else 0.0
-    return {"cells": dict(cells), "n": len(pairs), "tau_b": round(tau, 2)}
+    return {"cells": dict(cells), "n": len(pairs), "tau_b": round(tau, 2),
+            "by_length": by_description_length(bases, pairs)}
+
+
+def by_description_length(bases, pairs):
+    """Agreement by full-description (L2) length, in thirds of the jointly graded tasks.
+
+    Lengths come from the features the pipeline recorded when it staged each unit."""
+    words = {}
+    for line in open(os.path.join(RESEARCH, "outputs/unit_features.jsonl")):
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        if r.get("rung") == "2" and r.get("instr_words"):
+            words[r["base"]] = r["instr_words"]
+    have = sorted((words[b], c, v) for b, (c, v) in zip(bases, pairs) if b in words)
+    third = len(have) // 3
+    groups = [have[:third], have[third:2 * third], have[2 * third:]]
+    return [{"from": g[0][0], "to": g[-1][0], "same": sum(c == v for _, c, v in g),
+             "devin_lower": sum(v < c for _, c, v in g), "composer_lower": sum(c < v for _, c, v in g)}
+            for g in groups]
 
 
 def snapshot():
@@ -420,6 +442,39 @@ def fig_joint(s):
     return svg(y0 + n * cell + 8, label, body)
 
 
+def fig_length(s):
+    rows = s["joint"]["by_length"]
+    names = ["shortest third", "middle third", "longest third"]
+    x0, bar, gap, width = 230, 46, 30, 330
+    body = []
+    parts = (("same", "same level", "var(--chart-1)", ""),
+             ("devin_lower", "Devin lower", "var(--chart-2)", ""),
+             ("composer_lower", "Composer lower", "var(--chart-2)", ' fill-opacity="0.45"'))
+    for i, (r, name) in enumerate(zip(rows, names)):
+        y = 20 + i * (bar + gap)
+        total = r["same"] + r["devin_lower"] + r["composer_lower"]
+        body.append(text(x0 - 16, y + 20, name, 18, anchor="end", weight=600))
+        body.append(text(x0 - 16, y + 42, f"{r['from']}–{r['to']} words", 15, "var(--text-3)", "end"))
+        x = x0
+        for key, label, color, extra in parts:
+            w = width * r[key] / total
+            if w:
+                body.append(rect(x, y, w, bar, color, f"{name}: {label} {r[key]} of {total}", rx=0, extra=extra))
+            x += w
+        body.append(text(x0 + width + 12, y + 30, f"{round(100 * r['same'] / total)}% agree", 17,
+                         weight=700, mono=True))
+    ly = 20 + 3 * (bar + gap)
+    lx = x0
+    for key, label, color, extra in parts:
+        body.append(rect(lx, ly - 12, 14, 14, color, rx=2, extra=extra))
+        body.append(text(lx + 20, ly, label, 15, "var(--text-2)"))
+        lx += 150
+    label = ("Agreement between Composer and Devin by length of the full description, in thirds of the "
+             + ", ".join(f"{n}: {r['same']} of {r['same'] + r['devin_lower'] + r['composer_lower']} agree"
+                         for n, r in zip(names, rows)) + ".")
+    return svg(ly + 14, label, body)
+
+
 def fig_runs(s):
     runs = s["runs"]
     lv = sorted(r for r in runs if r in LEVELS)
@@ -477,6 +532,7 @@ FIGURES = {
     "curves": fig_curves,
     "bug-report-agreement": fig_l0_agreement,
     "joint-grades": fig_joint,
+    "agreement-by-length": fig_length,
     "runs-per-level": fig_runs,
     "runs-per-certificate": fig_runs_per_cert,
 }
