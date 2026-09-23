@@ -45,12 +45,11 @@ factory built on the ladder and what its first 591 Go tasks show.
 - **The same ladder grades models.** Composer and Devin both fail `archive` from the bug report,
   and the ladder puts them two steps apart. On the 73 tasks both graded, they land on the same level
   for 41, and they part ways most often where the description runs long.
-- **The ladder scales.** Agents authored all 591 tasks in three days with no person in the loop,
-  and nearly all passed validation on the first try. Their answer keys change a small slice of nine
-  repositories, so the same factory grows to thousands of tasks by adding repositories and compute,
-  not people.
-- **Money sets the limit.** Stage 1 graded 411 tasks with 7.9 billion tokens, worth $1.4k at API
-  prices. Measuring every task at every level with both models would cost about $15k.
+- **Money, not authoring, sets the limit.** Agents authored all 591 tasks in three days without a
+  person in the loop, 93% of them passed validation on the first try, and their answer keys change
+  only about one in seven source files in nine repositories. Grading 411 of them took 7.9 billion
+  tokens, worth $1.4k at API prices, and measuring every task at every level with both models would
+  cost about $15k.
 
 ## The information ladder
 
@@ -268,13 +267,12 @@ because a bad task once got through without it.
 
 ### Yield and headroom
 
-Authoring is the fast part of the factory. Agents authored the 591 tasks over three days, and
-validation passed 93% of them on the first try. Every level of the ladder comes from the same cut,
-so each authored task yields a family of graded prompts without further authoring. The source is
-far from used up: the answer keys change about one in seven of the source files in their nine
-repositories. Growth past that comes from new repositories, each needing only a base image and a
-validation pass, and the cut, the blind tests, and the description carry over to any language with
-a test runner.
+Agents authored the 591 tasks over three days, and validation passed 93% of them on the first
+try. Each authored task yields a family of graded prompts without further authoring, because every
+level of the ladder comes from the same cut. The nine repositories still have room to spare, since
+the answer keys change only about one in seven of their source files. Adding a repository takes a
+base image and a validation pass, and the cut, the blind tests, and the description carry over to
+any language with a test runner.
 
 ### Keeping the grade honest
 
