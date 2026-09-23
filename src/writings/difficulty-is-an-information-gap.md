@@ -278,7 +278,7 @@ them. That gap sets the dataset's limits.
 - **Most levels ran once per task per model.** One run cannot separate a model that needs the
   information from one that got lucky, and Grok's one pass in two on `httpmux` is that case.
 - **The 172 tasks solved from the bug report carry one model's grade.** Composer graded 132,
-  Devin 36, and Grok 3, and only one was solved from the bug report by two models.
+  Devin 36, and Grok 3, and two models both solved only one of them from the bug report.
 
 At Stage 1 prices, about $2.2k would buy the two measurements this budget could not. Three repeat
 runs on 50 tasks at L1 and L2, from both models, would show how often a grade changes on a rerun.
