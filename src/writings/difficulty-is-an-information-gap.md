@@ -46,7 +46,10 @@ factory scales with compute instead of reviewers. This post describes a factory 
   on 5. At the top, Composer fails two tasks with the hidden tests in front of it, and Grok solves
   each in one of two runs.
 - **Every task gets a grade.** Of 415 graded tasks, 172 are solved from the bug report, 242 are
-  certified higher up, and one has beaten two models at every level. Stage 1 cost $1.2k.
+  certified higher up, and one has beaten two models at every level.
+- **Money is the limit, not method.** Stage 1 used 7.8 billion tokens and cost $1.4k. Authoring a
+  task cost about $0.64 and grading cost about $4.05 per certified task, and measuring every task at every level with
+  both models would cost about $15k.
 
 ## The information ladder
 
@@ -246,45 +249,35 @@ what is left, and it is the next check.
 
 ### Cost and what it limited
 
-Stage 1 cost $1.2k, paid by one researcher, and the budget shaped the dataset more than any design
-choice did.
+Stage 1 processed 7.8 billion tokens and cost about $1.4k, paid by one researcher. The factory
+could author tasks and the harness could run them faster than that budget could pay for the runs,
+and the budget shaped the dataset more than any design choice did.
 
-| Model | Runs or sessions | Cost | Share | Per run |
-|---|---:|---:|---:|---:|
-| Composer 2.5 | 1.4k runs | $678 | 59% | $0.47 |
-| Devin swe-2-max | 151 sessions | $452 | 39% | $2.99 |
-| Grok 4.7 and 4.6 | 48 runs | $26 | 2% | $0.55 |
-
-Almost all of it paid for reading. Of 6.6 billion tokens, 6.3 billion were cache reads, a model re-reading a
-repository it had already loaded. Most of the bill went to the two runs every certificate needs.
-The levels above L2 cost $0.96 a run, more than three times an L2 run, because only harder tasks
-reach them and the solver has a test file to read.
-
-| Level | Runs | Cost | Per run |
+| Work | Runs or sessions | Tokens | Cost |
 |---|---:|---:|---:|
-| L1, the screen | 541 | $198 | $0.37 |
-| L2, the certificate | 834 | $225 | $0.27 |
-| Levels above L2 | 97 | $93 | $0.96 |
+| Composer 2.5, grading | 1,439 runs | 3.0B | $678 |
+| Devin SWE-2, grading | 295 sessions | 1.7B | $276 |
+| Devin SWE-2, authoring | 213 sessions | 3.0B | $378 |
+| Grok 4.7 and 4.6, grading | 48 runs | 0.1B | $26 |
+| **Stage 1** | | **7.8B** | **$1.4k** |
 
-Authoring was cheap, near $1.25 a task in an earlier, incomplete measurement. Grading was not, at
-7.0 runs and $4.80 per certificate, so the factory made tasks faster than the budget could grade
-them. That gap sets the dataset's limits.
+Almost all of it paid for reading. Cache reads were 95% of the tokens, a model re-reading a
+repository it had already loaded. Building a task was cheap, about $0.64 of Devin's time per
+authored task. Grading it was not, at 7.0 runs and $4.05 per certificate, and a run above L2 cost
+twice an L2 run, $0.78 against $0.38, because only harder tasks reach those levels and the solver
+has a test file to read. The factory made tasks faster than the budget could grade them, and that
+gap sets the dataset's limits.
 
 - **155 of the 591 authored tasks never ran**, and 21 more ran without reaching a verdict.
 - **Most grades are Composer's.** It was the cheapest per run, so it screened 374 of the 436 tasks that
   ran and carried most climbs above L2.
-- **The second model is thin.** Devin costs about six times as much per run, so only 136 tasks have
-  its L1 screen and 40 have two independent climbs. Grok ran only the three tasks at the top.
+- **The second model is thin.** A Devin run cost about twice a Composer run and drew on a fixed
+  allowance of compute units, so only 136 tasks have its L1 screen and 40 have two independent
+  climbs. Grok ran only the three tasks at the top.
 - **Most levels ran once per task per model.** One run cannot separate a model that needs the
   information from one that got lucky, and Grok's one pass in two on `httpmux` is that case.
 - **The 172 tasks solved from the bug report carry one model's grade.** Composer graded 132,
   Devin 36, and Grok 3, and two models both solved only one of them from the bug report.
-
-At Stage 1 prices, about $2.2k would buy the two measurements this budget could not. Three repeat
-runs on 50 tasks at L1 and L2, from both models, would show how often a grade changes on a rerun.
-Both models climbing the same random 100 tasks would remove the selection in the model comparison,
-since Devin now mostly sees tasks Composer failed. A second model climbing all 415 graded tasks
-would cost about $4.3k.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/runs-per-level.svg" %}
@@ -299,10 +292,21 @@ per certificate about fourfold.
 <figcaption>Runs spent per certificate under three schedules. Gating is worth about 4×. Running trials in sequence, on its own, is worth almost nothing.</figcaption>
 </figure>
 
+The limit is money, not method. At Stage 1's prices, $0.47 a Composer run and $0.94 a Devin run,
+the measurements this budget could not buy are easy to price. Three repeat runs on 50 tasks at L1
+and L2 from both models, about $420, would show how often a grade changes on a rerun. Both models
+climbing the same 100 tasks, about $570, would remove the selection in the model comparison, since
+Devin now mostly sees tasks Composer failed. Measuring everything, every authored task at every
+level three times by both models, is about 21k runs and 83 billion tokens. That is $15k at these
+prices, eleven times Stage 1, and about $45k with Devin at its list rate. The factory already
+authors the tasks and the harness already runs every cell, so what stands between Stage 1 and a
+fully measured dataset is compute bought at scale, a bill beyond one researcher.
+
 Two caveats on the tokens. Composer and Grok count cached tokens inside their input and Devin
-counts them on top, so each total follows its vendor's convention. Devin also bills in Agent
-Compute Units, and its tokens at the SWE-2 promotional rate ($452) and its 185.5 ACUs at the $2.25
-list rate ($417) agree within 8%. The Devin figures come from an earlier export.
+counts them on top, so each total follows its vendor's convention. Devin bills in Agent Compute
+Units, not tokens. Its counts here are exact, read request by request from its own session logs,
+and priced at the SWE-2 promotional rate, which matched the compute-unit bill within 8% when both
+were available. At the list rate Devin's rows would come to about $2.6k.
 
 ## Conclusion and future work
 
