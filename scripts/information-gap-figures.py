@@ -32,12 +32,15 @@ MODEL = {"composer": "Composer", "devin": "Devin", "grok": "Grok"}
 MODEL_COLOR = {"composer": "var(--chart-1)", "devin": "var(--chart-2)", "grok": "var(--chart-3)"}
 
 CURVE_GROUPS = [
-    ("Composer and Devin: Devin needs less", ("composer", "devin"),
-     ["gin-clientip", "client-go-memdbstaging", "ipqueue", "archive", "defval", "rootval"]),
+    ("Composer and Devin: Devin needs less", ("composer", "devin"), ["archive", "defval", "ipqueue"]),
+    ("Composer and Devin: Composer needs less", ("composer", "devin"), ["advrefs"]),
     ("Composer and Devin: same level", ("composer", "devin"), ["httperrexpr"]),
-    ("Composer and Grok: the top of the ladder", ("composer", "grok"),
-     ["httpmux", "httpencoding", "exprhash"]),
+    ("The top of the ladder: the test file", ("composer", "grok"), ["httpmux", "exprhash"]),
 ]
+# The tasks Grok ran on as a top-of-ladder probe; its pilot elsewhere is left out.
+GROK_PROBE = {"httpmux", "httpencoding", "exprhash"}
+# A lane beyond the group's models, where the text relies on it.
+CURVE_EXTRA = {"exprhash": ("devin",)}
 # The cut keeps exported signatures, and nearly every task has one hidden test file, so on
 # most tasks L4 is the L3 task and L6 is the L5 task. Charts read them as one step.
 STEPS = [("L1", ("0",), "bug report"), ("L2", ("2",), "full description"),
@@ -47,10 +50,166 @@ DISPLAY = {"client-go-memdbstaging": "memdbstaging"}
 
 # ---------------------------------------------------------------- snapshot
 
+GRADE_STEPS = ["L1", "L2", "L3–4", "L5–6", "none"]
+GRADE_OF = {"0": 0, "2": 1, "3": 2, "4": 2, "5": 3, "6": 3}
+
+
+def grade(rungs):
+    """The first step a model passed, 4 when it failed through the test file, None if unfinished."""
+    passed = sorted(GRADE_OF[r] for r, v in rungs.items() if r in GRADE_OF and v and max(v) > 0)
+    if passed:
+        return passed[0]
+    return 4 if rungs.get("5") or rungs.get("6") else None
+
+
+def information_gradient(bys, first_pass, graded):
+    """Share of graded tasks solved by each ladder step, cumulative: all tasks at the level
+    their grading model first passed, and each model's own grades. A task passed at one
+    level counts as solved at every level above it, the ladder's nesting."""
+    def cumulative(counts, n):
+        out, run = [], 0
+        for step in range(4):
+            run += counts.get(step, 0)
+            out.append(round(100 * run / n, 1))
+        return out
+
+    pooled = collections.Counter()
+    for rung, n in first_pass.items():
+        if rung in GRADE_OF:
+            pooled[GRADE_OF[rung]] += n
+    out = {"all": {"n": graded, "share": cumulative(pooled, graded)}}
+    for m in ("composer", "devin"):
+        grades = [grade(d[m]) for d in bys.values() if m in d]
+        grades = [g for g in grades if g is not None]
+        out[m] = {"n": len(grades), "share": cumulative(collections.Counter(grades), len(grades))}
+    return out
+
+
+def joint_grades(bys):
+    """Composer's grade against Devin's on every task both models graded, and Kendall's tau-b."""
+    pairs, bases = [], []
+    for base, d in bys.items():
+        if "composer" in d and "devin" in d:
+            c, v = grade(d["composer"]), grade(d["devin"])
+            if c is not None and v is not None:
+                pairs.append((c, v))
+                bases.append(base)
+    cells = collections.Counter(f"{c}-{v}" for c, v in pairs)
+    conc = disc = tie_c = tie_v = 0
+    for i, (a, b) in enumerate(pairs):
+        for c, v in pairs[i + 1:]:
+            s = (a - c) * (b - v)
+            conc += s > 0
+            disc += s < 0
+            tie_c += a == c
+            tie_v += b == v
+    n0 = len(pairs) * (len(pairs) - 1) / 2
+    tau = (conc - disc) / ((n0 - tie_c) * (n0 - tie_v)) ** 0.5 if pairs else 0.0
+    return {"cells": dict(cells), "n": len(pairs), "tau_b": round(tau, 2),
+            "by_length": by_description_length(bases, pairs)}
+
+
+def trace_lengths():
+    """Tool calls per graded trial, quartiles by model and verdict, from the research repo's
+    trace reader (openswe_traces.analysis.traces --rows). It runs in its own process because
+    the ledger import above has already bound openswe_traces to the research checkout's src;
+    RESEARCH_SRC points it at another copy of the package."""
+    import subprocess
+    src = os.environ.get("RESEARCH_SRC", os.path.join(RESEARCH, "src"))
+    out = subprocess.run([sys.executable, "-m", "openswe_traces.analysis.traces", "--rows"],
+                         cwd=RESEARCH, env={**os.environ, "PYTHONPATH": src},
+                         capture_output=True, text=True, check=True).stdout
+
+    rows = [json.loads(line) for line in out.splitlines() if line.strip()]
+    groups = collections.defaultdict(list)
+    minutes = collections.defaultdict(list)
+    for r in rows:
+        key = f"{r['model']}-{'pass' if r['passed'] else 'fail'}"
+        groups[key].append(r["calls"])
+        if r["minutes"] is not None:
+            minutes[r["model"]].append(r["minutes"])
+    out = {}
+    for key, xs in groups.items():
+        q = statistics.quantiles(xs, n=4)
+        out[key] = {"n": len(xs), "q1": q[0], "median": statistics.median(xs), "q3": q[2]}
+    out["minutes"] = {m: round(statistics.median(v), 1) for m, v in minutes.items()}
+    out["by_step"] = trace_steps(rows)
+    out["flips"] = trace_flips(rows)
+    return out
+
+
+TRACE_STEP = {"0": "L1", "2": "L2", "3": "L3–4", "4": "L3–4", "5": "L5–6", "6": "L5–6"}
+
+
+def trace_steps(rows):
+    """Median tool calls for passed and failed runs at each ladder step, per model."""
+    g = collections.defaultdict(list)
+    for r in rows:
+        g[(r["model"], TRACE_STEP[r["rung"]], "pass" if r["passed"] else "fail")].append(r["calls"])
+    return {f"{m}|{s}|{v}": {"n": len(xs), "median": statistics.median(xs)} for (m, s, v), xs in g.items()}
+
+
+def trace_flips(rows):
+    """Same model and task: the failed run just below the first pass, against that pass."""
+    fam = collections.defaultdict(list)
+    for r in rows:
+        fam[(r["model"], r["base"])].append(r)
+    pairs = collections.defaultdict(list)
+    for (m, _), g in fam.items():
+        passes = [r for r in g if r["passed"]]
+        if not passes:
+            continue
+        p = min(passes, key=lambda r: int(r["rung"]))
+        lower = [r for r in g if not r["passed"] and int(r["rung"]) < int(p["rung"])]
+        if lower:
+            pairs[m].append((max(lower, key=lambda r: int(r["rung"])), p))
+    explore = lambda r: (r["read"] + r["search"]) / r["calls"]
+    return {m: {"tasks": len(ps),
+                "calls": [statistics.median(f["calls"] for f, _ in ps), statistics.median(p["calls"] for _, p in ps)],
+                "explore_calls": [statistics.median(f["read"] + f["search"] for f, _ in ps),
+                                  statistics.median(p["read"] + p["search"] for _, p in ps)],
+                "explore": [round(statistics.median(explore(f) for f, _ in ps), 3),
+                            round(statistics.median(explore(p) for _, p in ps), 3)]}
+            for m, ps in pairs.items()}
+
+
+def by_description_length(bases, pairs):
+    """Agreement by full-description (L2) length, in thirds of the jointly graded tasks.
+
+    Lengths come from the features the pipeline recorded when it staged each unit."""
+    words = {}
+    for line in open(os.path.join(RESEARCH, "outputs/unit_features.jsonl")):
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        if r.get("rung") == "2" and r.get("instr_words"):
+            words[r["base"]] = r["instr_words"]
+    have = sorted((words[b], c, v) for b, (c, v) in zip(bases, pairs) if b in words)
+    third = len(have) // 3
+    groups = [have[:third], have[third:2 * third], have[2 * third:]]
+    return [{"from": g[0][0], "to": g[-1][0], "same": sum(c == v for _, c, v in g),
+             "devin_lower": sum(v < c for _, c, v in g), "composer_lower": sum(c < v for _, c, v in g)}
+            for g in groups]
+
+
 def snapshot():
     sys.path.insert(0, os.path.join(RESEARCH, "scripts/ops"))
     os.chdir(RESEARCH)
     import trial_ledger as T
+
+    # Grok is in the post only as the top-of-ladder probe. Its other trials were a pilot
+    # from wiring up its harness, so every count here leaves them out. The ledger's own
+    # functions all read trials(), so scoping that one function scopes them all.
+    all_trials = T.trials
+
+    def probe_scoped(jobs_dir=T.JOBS):
+        for t in all_trials(jobs_dir):
+            if T.solver_of(t["model"]) == "grok" and t["base"] not in GROK_PROBE:
+                continue
+            yield t
+
+    T.trials = probe_scoped
 
     s = T.summary()
     certs = T.certificates()
@@ -71,11 +230,15 @@ def snapshot():
         if c and v:
             agree[f"{'pass' if max(c) > 0 else 'fail'}-{'pass' if max(v) > 0 else 'fail'}"] += 1
 
+    joint = joint_grades(bys)
+    gradient = information_gradient(bys, first_pass, len(certs) + len(s["too_easy"]) + len(s["nonflip"]))
+    traces = trace_lengths()
+
     curves = {}
     for _, models, bases in CURVE_GROUPS:
         for b in bases:
             curves[b] = {m: {r: [sum(1 for x in v if x > 0), len(v)] for r, v in rr.items() if v}
-                         for m, rr in bys[b].items() if m in models}
+                         for m, rr in bys[b].items() if m in models + CURVE_EXTRA.get(b, ())}
 
     snap = {
         "date": datetime.date.today().isoformat(),
@@ -88,6 +251,9 @@ def snapshot():
         "runs": {r: dict(c) for r, c in sorted(runs.items())},
         "l0_agreement": dict(agree),
         "curves": curves,
+        "joint": joint,
+        "gradient": gradient,
+        "traces": traces,
         "words": prompt_words(),
     }
     os.makedirs(os.path.dirname(SNAPSHOT), exist_ok=True)
@@ -204,8 +370,8 @@ def fig_prompt_words(s):
 def fig_funnel(s):
     f = s["funnel"]
     rows = [("authored", f["authored"], None),
-            ("trialled", f["trialled"], f"{num(f['authored'] - f['trialled'])} not yet run"),
-            ("graded", f["decided"], f"{num(f['trialled'] - f['decided'])} still without a verdict")]
+            ("trialled", f["trialled"], f"{num(f['authored'] - f['trialled'])} never ran"),
+            ("graded", f["decided"], f"{num(f['trialled'] - f['decided'])} no verdict")]
     x0, scale, row, bh = 130, 380 / f["authored"], 56, 34
     body = []
     for i, (name, n, note) in enumerate(rows):
@@ -226,7 +392,7 @@ def fig_first_pass(s):
     """Where each graded task first passed, for the model that graded it."""
     fp = s["first_pass"]
     rows = [(name, lvls, desc, sum(fp.get(r, 0) for r in lvls)) for name, lvls, desc in STEPS]
-    rows.append(("none", (), "no level yet", len(s["unresolved"])))
+    rows.append(("none", (), "failed every level", len(s["unresolved"])))
     peak = max(r[3] for r in rows)
     x0, scale, row, bh = 250, 300 / peak, 42, 24
     body = []
@@ -272,7 +438,7 @@ def fig_curves(s):
         body.append(line(0, y + 30, 720, y + 30))
         y += head
         for b in bases:
-            present = [m for m in models if m in s["curves"][b]]
+            present = [m for m in models + CURVE_EXTRA.get(b, ()) if m in s["curves"][b]]
             for li, m in enumerate(present):
                 cy = y + li * lane + lane / 2
                 d = s["curves"][b][m]
@@ -299,57 +465,214 @@ def fig_curves(s):
                 if not first:
                     body.append(text(end_x + 20, cy + 5, "none", 15, "var(--text-3)"))
             y += len(present) * lane + gap
-    label = ("Ladder results for ten tasks run by two models. On six, Devin passes at a lower level "
-             "than Composer. On httperrexpr both pass at L2. With the test file in the tree, Grok "
-             "passes httpmux and httpencoding in one run of two and Composer in none. Nobody passes exprhash.")
+    label = ("Ladder results for eight tasks. On archive, defval and ipqueue Devin passes at a lower "
+             "level than Composer, and on advrefs Composer passes lower. On httperrexpr both pass "
+             "at L2. On httpmux and exprhash Composer fails through the test names and passes once "
+             "the test file is in the tree. Grok passes httpmux with the test file, and Devin, "
+             "given one run with the test file, passes exprhash.")
     return svg(y + 2, label, body)
 
 
-def fig_l0_agreement(s):
-    a = s["l0_agreement"]
-    get = lambda c, d: a.get(f"{c}-{d}", 0)
-    total = sum(a.values())
-    x0, y0, cell = 250, 64, 150
-    peak = max(a.values())
-    body = [text(x0 + cell / 2, 26, "Devin passed", 17, "var(--chart-2)", "middle", 600),
-            text(x0 + cell * 1.5, 26, "Devin failed", 17, "var(--chart-2)", "middle", 600),
-            text(x0 + cell, 48, "on the bug report", 15, "var(--text-3)", "middle")]
-    for ri, c in enumerate(("pass", "fail")):
-        cy = y0 + ri * cell + cell / 2
-        body.append(text(x0 - 18, cy - 2, f"Composer {'passed' if c == 'pass' else 'failed'}", 17,
-                         "var(--chart-1)", "end", 600))
-        body.append(text(x0 - 18, cy + 18, "on the bug report", 15, "var(--text-3)", "end"))
-        for ci, d in enumerate(("pass", "fail")):
-            n = get(c, d)
-            cx = x0 + ci * cell + cell / 2
-            body.append(rect(x0 + ci * cell, y0 + ri * cell, cell, cell, "none", rx=0,
+def fig_gradient(s):
+    g = s["gradient"]
+    words = s["words"]
+    steps = [("L1", "bug report", f"{words['L0']:.0f} words"),
+             ("L2", "full description", f"+{words['d2']:.0f} words"),
+             ("L3–4", "test names", f"+{words['d3']:.0f} words"),
+             ("L5–6", "the test file", "+ a test file")]
+    x0, x1, y0, h = 110, 560, 36, 280
+    xs = [x0 + i * (x1 - x0) / 3 for i in range(4)]
+    sy = lambda v: y0 + h - h * v / 100
+    body = []
+    for tick in range(0, 101, 25):
+        body.append(line(x0 - 10, sy(tick), x1 + 10, sy(tick), "var(--line)", 1))
+        body.append(text(x0 - 18, sy(tick) + 5, f"{tick}%", 14, "var(--text-3)", "end", mono=True))
+    for x, (lv, name, add) in zip(xs, steps):
+        body.append(text(x, y0 + h + 28, lv, 17, "var(--text)", "middle", 700, True))
+        body.append(text(x, y0 + h + 48, name, 14, "var(--text-2)", "middle"))
+        body.append(text(x, y0 + h + 66, add, 13, "var(--text-3)", "middle", mono=True))
+    lines = (("all", "all tasks", "var(--text)", 3.5, ""),
+             ("composer", "Composer", MODEL_COLOR["composer"], 2.5, ' stroke-dasharray="6 5"'),
+             ("devin", "Devin", MODEL_COLOR["devin"], 2.5, ' stroke-dasharray="6 5"'))
+    for key, name, color, width, dash in lines:
+        pts = [(x, sy(v)) for x, v in zip(xs, g[key]["share"])]
+        body.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pts)}" fill="none" '
+                    f'stroke="{color}" stroke-width="{width}"{dash}/>')
+        for (x, y), v in zip(pts, g[key]["share"]):
+            body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{5 if key == "all" else 4}" fill="{color}">'
+                        f'<title>{esc(name)}: {v}% solved</title></circle>')
+    a = g["all"]["share"]
+    for x, v in zip(xs, a):
+        shown = f"{v:.1f}%" if 99.5 <= v < 100 else f"{v:.0f}%"
+        body.append(text(x, sy(v) - 14, shown, 16, weight=700, anchor="middle", mono=True))
+    # The step that carries the gradient.
+    jump = a[1] - a[0]
+    body.append(text((xs[0] + xs[1]) / 2 + 30, sy((a[0] + a[1]) / 2) + 30, f"+{jump:.0f} points", 16,
+                     "var(--text-2)", weight=700))
+    ly = sy(a[0]) + 44
+    for i, (key, name, color, _, dash) in enumerate(lines):
+        yy = ly + i * 22
+        body.append(f'<line x1="{x1 - 150}" y1="{yy - 5}" x2="{x1 - 124}" y2="{yy - 5}" stroke="{color}" '
+                    f'stroke-width="3"{dash}/>')
+        body.append(text(x1 - 116, yy, f"{name} ({g[key]['n']})", 15, "var(--text-2)"))
+    label = ("Share of graded tasks solved by each ladder step. All tasks: "
+             + ", ".join(f"{lv} {v}%" for (lv, _, _), v in zip(steps, a))
+             + f". Composer: {', '.join(f'{v}%' for v in g['composer']['share'])}. "
+             + f"Devin: {', '.join(f'{v}%' for v in g['devin']['share'])}.")
+    return svg(y0 + h + 76, label, body)
+
+
+def fig_joint(s):
+    j = s["joint"]
+    get = lambda c, v: j["cells"].get(f"{c}-{v}", 0)
+    n = len(GRADE_STEPS)
+    x0, y0, cell = 170, 70, 100
+    peak = max(j["cells"].values())
+    body = [text(x0 + n * cell / 2, 22, "Devin's first pass", 17, "var(--chart-2)", "middle", 600)]
+    for i, name in enumerate(GRADE_STEPS):
+        body.append(text(x0 + i * cell + cell / 2, 52, name, 16, "var(--text-2)", "middle", 600, True))
+        body.append(text(x0 - 16, y0 + i * cell + cell / 2 + 6, name, 16, "var(--text-2)", "end", 600, True))
+    body.append(text(20, y0 + n * cell / 2 - 10, "Composer's", 17, "var(--chart-1)", weight=600))
+    body.append(text(20, y0 + n * cell / 2 + 12, "first pass", 17, "var(--chart-1)", weight=600))
+    for ci in range(n):
+        for vi in range(n):
+            k = get(ci, vi)
+            x, y = x0 + vi * cell, y0 + ci * cell
+            same = ci == vi
+            body.append(rect(x, y, cell, cell, "var(--bg-2)" if same else "none", rx=0,
                              extra=' stroke="var(--line)" stroke-width="1.5"'))
-            side = (cell - 62) * (n / peak) ** 0.5
-            agree = c == d
-            fill = "var(--chart-1)" if agree else "var(--chart-2)"
-            if n:
-                body.append(rect(cx - side / 2, cy - side / 2 - 16, side, side, fill,
-                                 f"Composer {c}, Devin {d}: {n}", rx=2))
-            body.append(text(cx, y0 + (ri + 1) * cell - 12, num(n), 20,
-                             "var(--text)" if n else "var(--text-3)", "middle", 700, True))
-    nx = x0 + 2 * cell + 26
-    body.append(text(nx, y0 + 22, f"{num(total)} tasks", 20, weight=700))
-    body.append(text(nx, y0 + 46, "screened by both", 16, "var(--text-2)"))
-    body.append(text(nx, y0 + cell + 52, f"{num(get('fail', 'pass'))} disagreements,", 16, "var(--text-2)"))
-    body.append(text(nx, y0 + cell + 74, f"Devin passed all {num(get('fail', 'pass'))}", 16, "var(--text-2)"))
-    label = (f"{total} tasks screened at the bug report by Composer and Devin. Both failed "
-             f"{get('fail', 'fail')}, both passed {get('pass', 'pass')}, only Devin passed "
-             f"{get('fail', 'pass')}, only Composer passed {get('pass', 'fail')}.")
-    return svg(y0 + 2 * cell + 8, label, body)
+            if k:
+                side = (cell - 34) * (k / peak) ** 0.5
+                who = "same level" if same else ("Devin needs less" if vi < ci else "Composer needs less")
+                body.append(rect(x + cell / 2 - side / 2, y + cell / 2 - side / 2 - 8, side, side,
+                                 "var(--chart-1)" if same else "var(--chart-2)",
+                                 f"Composer {GRADE_STEPS[ci]}, Devin {GRADE_STEPS[vi]}: {k} ({who})", rx=2,
+                                 extra="" if same or vi < ci else ' fill-opacity="0.45"'))
+            body.append(text(x + cell / 2, y + cell - 10, num(k), 17,
+                             "var(--text)" if k else "var(--text-3)", "middle", 700, True))
+    same = sum(get(i, i) for i in range(n))
+    lower_d = sum(get(c, v) for c in range(n) for v in range(n) if v < c)
+    lower_c = sum(get(c, v) for c in range(n) for v in range(n) if c < v)
+    label = (f"Where Composer and Devin first pass, on the {j['n']} tasks both graded. The same level "
+             f"on {same}. Devin passes lower on {lower_d} and Composer lower on {lower_c}. "
+             f"Kendall's tau-b between the two grades is {j['tau_b']}.")
+    return svg(y0 + n * cell + 8, label, body)
+
+
+def fig_length(s):
+    rows = s["joint"]["by_length"]
+    names = ["shortest third", "middle third", "longest third"]
+    x0, bar, gap, width = 230, 46, 30, 330
+    body = []
+    parts = (("same", "same level", "var(--chart-1)", ""),
+             ("devin_lower", "Devin lower", "var(--chart-2)", ""),
+             ("composer_lower", "Composer lower", "var(--chart-2)", ' fill-opacity="0.45"'))
+    for i, (r, name) in enumerate(zip(rows, names)):
+        y = 20 + i * (bar + gap)
+        total = r["same"] + r["devin_lower"] + r["composer_lower"]
+        body.append(text(x0 - 16, y + 20, name, 18, anchor="end", weight=600))
+        body.append(text(x0 - 16, y + 42, f"{r['from']}–{r['to']} words", 15, "var(--text-3)", "end"))
+        x = x0
+        for key, label, color, extra in parts:
+            w = width * r[key] / total
+            if w:
+                body.append(rect(x, y, w, bar, color, f"{name}: {label} {r[key]} of {total}", rx=0, extra=extra))
+            x += w
+        body.append(text(x0 + width + 12, y + 30, f"{round(100 * r['same'] / total)}% agree", 17,
+                         weight=700, mono=True))
+    ly = 20 + 3 * (bar + gap)
+    lx = x0
+    for key, label, color, extra in parts:
+        body.append(rect(lx, ly - 12, 14, 14, color, rx=2, extra=extra))
+        body.append(text(lx + 20, ly, label, 15, "var(--text-2)"))
+        lx += 150
+    label = ("Agreement between Composer and Devin by length of the full description, in thirds of the "
+             + ", ".join(f"{n}: {r['same']} of {r['same'] + r['devin_lower'] + r['composer_lower']} agree"
+                         for n, r in zip(names, rows)) + ".")
+    return svg(ly + 14, label, body)
+
+
+def fig_trace_steps(s):
+    d = s["traces"]["by_step"]
+    steps = ["L1", "L2", "L3–4", "L5–6"]
+    x0, x1, y0, h, top = 110, 530, 30, 250, 100
+    xs = {st: x0 + i * (x1 - x0) / (len(steps) - 1) for i, st in enumerate(steps)}
+    sy = lambda v: y0 + h - h * v / top
+    body = []
+    for tick in range(0, top + 1, 25):
+        body.append(line(x0 - 10, sy(tick), x1 + 10, sy(tick), "var(--line)", 1))
+        body.append(text(x0 - 18, sy(tick) + 5, str(tick), 14, "var(--text-3)", "end", mono=True))
+    for st in steps:
+        body.append(text(xs[st], y0 + h + 28, st, 16, "var(--text-2)", "middle", 600, True))
+    for m in ("composer", "devin"):
+        for v in ("pass", "fail"):
+            pts = [(xs[st], sy(d[f"{m}|{st}|{v}"]["median"]), d[f"{m}|{st}|{v}"]["n"]) for st in steps
+                   if f"{m}|{st}|{v}" in d]
+            dash = "" if v == "pass" else ' stroke-dasharray="6 5"'
+            body.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y, _ in pts)}" fill="none" '
+                        f'stroke="{MODEL_COLOR[m]}" stroke-width="3"{dash}/>')
+            for x, y, n in pts:
+                body.append(glyph(x, y, MODEL_COLOR[m], v == "pass", f"{MODEL[m]} {v}, {n} runs"))
+            x, y, _ = pts[-1]
+            body.append(text(x + 16, y + 5, f"{MODEL[m]} {'passed' if v == 'pass' else 'failed'}", 15,
+                             MODEL_COLOR[m], weight=600))
+    body.append(text(x0 - 60, y0 - 10, "tool calls, median", 15, "var(--text-2)"))
+    label = ("Median tool calls per run at each ladder step, for passed and failed runs of each model. "
+             "At the bug report and the full description Composer's failures run longest. Higher up "
+             "the order flips, and failures are the short runs for both models.")
+    return svg(y0 + h + 44, label, body)
+
+
+def fig_trace_flips(s):
+    f = s["traces"]["flips"]
+    rows = [("composer", "calls", "tool calls"), ("devin", "calls", "tool calls"),
+            ("composer", "explore_calls", "read and search calls"),
+            ("devin", "explore_calls", "read and search calls")]
+    x0, width, row = 250, 380, 50
+    body = []
+    for i, (m, k, name) in enumerate(rows):
+        y = 26 + i * row + (14 if i >= 2 else 0)
+        lo, hi = (30, 90) if k == "calls" else (20, 60)
+        sx = lambda v: x0 + width * (v - lo) / (hi - lo)
+        a, b = f[m][k]
+        fmt = lambda v: f"{v:.0f}"
+        body.append(text(x0 - 16, y + 6, f"{MODEL[m]}, {name}", 16, MODEL_COLOR[m], "end", 600))
+        body.append(line(x0, y, x0 + width, y, "var(--line)", 1))
+        body.append(line(sx(a), y, sx(b), y, MODEL_COLOR[m], 4))
+        body.append(glyph(sx(a), y, MODEL_COLOR[m], False, f"failed run: {fmt(a)}"))
+        body.append(glyph(sx(b), y, MODEL_COLOR[m], True, f"passing run: {fmt(b)}"))
+        # Points closer than a label's width: the failed run's value goes under the line.
+        below = abs(sx(a) - sx(b)) < 44
+        body.append(text(sx(a), y + (28 if below else -16), fmt(a), 15, "var(--text-2)", "middle", mono=True))
+        body.append(text(sx(b), y - 16, fmt(b), 15, weight=700, anchor="middle", mono=True))
+        body.append(text(max(sx(a), sx(b)) + 26, y + 5, f"{100 * (b - a) / a:+.0f}%".replace("-", "−"),
+                         16, MODEL_COLOR[m], weight=700, mono=True))
+    ly = 26 + 4 * row + 20
+    body.append(glyph(x0, ly, "var(--text-2)", False, "failed"))
+    body.append(text(x0 + 14, ly + 5, "failed run just below the first pass", 15, "var(--text-2)"))
+    body.append(glyph(x0, ly + 26, "var(--text-2)", True, "passed"))
+    body.append(text(x0 + 14, ly + 31, "the first passing run, same task", 15, "var(--text-2)"))
+    label = (f"Same task, same model. Composer ({f['composer']['tasks']} tasks) goes from "
+             f"{f['composer']['calls'][0]:.0f} calls on its failed run to {f['composer']['calls'][1]:.0f} on its pass, "
+             f"and Devin ({f['devin']['tasks']} tasks) from {f['devin']['calls'][0]:.0f} to {f['devin']['calls'][1]:.0f}. "
+             f"Read and search calls fall from {f['composer']['explore_calls'][0]:.0f} to "
+             f"{f['composer']['explore_calls'][1]:.0f} for Composer and from {f['devin']['explore_calls'][0]:.0f} "
+             f"to {f['devin']['explore_calls'][1]:.0f} for Devin.")
+    return svg(ly + 44, label, body)
 
 
 def fig_runs(s):
-    runs = s["runs"]
-    lv = sorted(r for r in runs if r in LEVELS)
+    raw = s["runs"]
+    runs = {}
+    for name, rungs, _ in STEPS:
+        runs[name] = collections.Counter()
+        for r in rungs:
+            runs[name].update(raw.get(r, {}))
+    lv = [name for name, _, _ in STEPS]
     totals = {r: sum(runs[r].values()) for r in lv}
     base, top = 250, 40
     scale = (base - top) / max(totals.values())
-    bw, step, x0 = 64, 104, 84
+    bw, step, x0 = 88, 150, 90
     body = [line(40, base, 700, base, "var(--line)", 1.5)]
     for i, r in enumerate(lv):
         x = x0 + i * step
@@ -359,18 +682,17 @@ def fig_runs(s):
             if not n:
                 continue
             h = n * scale
-            body.append(rect(x, y - h, bw, h, MODEL_COLOR[m], f"L{post_level(r)}, {MODEL[m]}: {n} runs", rx=0))
+            body.append(rect(x, y - h, bw, h, MODEL_COLOR[m], f"{r}, {MODEL[m]}: {n} runs", rx=0))
             y -= h
         body.append(text(x + bw / 2, y - 10, num(totals[r]), 19, anchor="middle", weight=700, mono=True))
-        key = r in ("0", "2")
-        body.append(text(x + bw / 2, base + 30, f"L{post_level(r)}", 20, "var(--text)" if key else "var(--text-2)",
+        key = r in ("L1", "L2")
+        body.append(text(x + bw / 2, base + 30, r, 20, "var(--text)" if key else "var(--text-2)",
                          "middle", 700, True))
     for lx, m in ((450, "composer"), (560, "devin"), (640, "grok")):
         body.append(rect(lx, 10, 14, 14, MODEL_COLOR[m], rx=2))
         body.append(text(lx + 20, 22, MODEL[m], 16, "var(--text-2)"))
-    above = sum(totals[r] for r in lv if r not in ("0", "2"))
-    label = (f"Runs with a verdict per level, stacked by model. L1 {totals.get('0', 0)}, "
-             f"L2 {totals.get('2', 0)}, L3 to L6 {above} together.")
+    label = ("Runs with a verdict per ladder step, stacked by model. "
+             + ", ".join(f"{r} {totals[r]}" for r in lv) + ".")
     return svg(base + 44, label, body, "y")
 
 
@@ -396,9 +718,12 @@ def fig_runs_per_cert(_s):
 FIGURES = {
     "prompt-words": fig_prompt_words,
     "funnel": fig_funnel,
-    "first-pass": fig_first_pass,
+    "information-gradient": fig_gradient,
     "curves": fig_curves,
-    "bug-report-agreement": fig_l0_agreement,
+    "joint-grades": fig_joint,
+    "agreement-by-length": fig_length,
+    "trace-steps": fig_trace_steps,
+    "trace-flips": fig_trace_flips,
     "runs-per-level": fig_runs,
     "runs-per-certificate": fig_runs_per_cert,
 }

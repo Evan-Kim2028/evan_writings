@@ -1,0 +1,40 @@
+<svg viewBox="0 0 720 324" role="img" aria-label="Median tool calls per run at each ladder step, for passed and failed runs of each model. At the bug report and the full description Composer's failures run longest. Higher up the order flips, and failures are the short runs for both models.">
+<line x1="100.0" y1="280.0" x2="540.0" y2="280.0" stroke="var(--line)" stroke-width="1"/>
+<text x="92.0" y="285.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="100.0" y1="217.5" x2="540.0" y2="217.5" stroke="var(--line)" stroke-width="1"/>
+<text x="92.0" y="222.5" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">25</text>
+<line x1="100.0" y1="155.0" x2="540.0" y2="155.0" stroke="var(--line)" stroke-width="1"/>
+<text x="92.0" y="160.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">50</text>
+<line x1="100.0" y1="92.5" x2="540.0" y2="92.5" stroke="var(--line)" stroke-width="1"/>
+<text x="92.0" y="97.5" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">75</text>
+<line x1="100.0" y1="30.0" x2="540.0" y2="30.0" stroke="var(--line)" stroke-width="1"/>
+<text x="92.0" y="35.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">100</text>
+<text x="110.0" y="308.0" text-anchor="middle" fill="var(--text-2)" font-size="16" font-weight="600" font-family="var(--font-mono)">L1</text>
+<text x="250.0" y="308.0" text-anchor="middle" fill="var(--text-2)" font-size="16" font-weight="600" font-family="var(--font-mono)">L2</text>
+<text x="390.0" y="308.0" text-anchor="middle" fill="var(--text-2)" font-size="16" font-weight="600" font-family="var(--font-mono)">L3–4</text>
+<text x="530.0" y="308.0" text-anchor="middle" fill="var(--text-2)" font-size="16" font-weight="600" font-family="var(--font-mono)">L5–6</text>
+<polyline points="110.0,150.0 250.0,152.5 390.0,96.2 530.0,102.5" fill="none" stroke="var(--chart-1)" stroke-width="3"/>
+<circle cx="110.0" cy="150.0" r="8.5" fill="var(--chart-1)"><title>Composer pass, 173 runs</title></circle>
+<circle cx="250.0" cy="152.5" r="8.5" fill="var(--chart-1)"><title>Composer pass, 355 runs</title></circle>
+<circle cx="390.0" cy="96.25" r="8.5" fill="var(--chart-1)"><title>Composer pass, 14 runs</title></circle>
+<circle cx="530.0" cy="102.5" r="8.5" fill="var(--chart-1)"><title>Composer pass, 109 runs</title></circle>
+<text x="546.0" y="107.5" fill="var(--chart-1)" font-size="15" font-weight="600" font-family="var(--font-sans)">Composer passed</text>
+<polyline points="110.0,107.5 250.0,105.0 390.0,70.0 530.0,-428.8" fill="none" stroke="var(--chart-1)" stroke-width="3" stroke-dasharray="6 5"/>
+<circle cx="110.0" cy="107.5" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer fail, 286 runs</title></circle>
+<circle cx="250.0" cy="105.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer fail, 282 runs</title></circle>
+<circle cx="390.0" cy="70.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer fail, 121 runs</title></circle>
+<circle cx="530.0" cy="-428.75" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer fail, 4 runs</title></circle>
+<text x="546.0" y="-423.8" fill="var(--chart-1)" font-size="15" font-weight="600" font-family="var(--font-sans)">Composer failed</text>
+<polyline points="110.0,120.0 250.0,132.5 390.0,65.0 530.0,57.5" fill="none" stroke="var(--chart-2)" stroke-width="3"/>
+<circle cx="110.0" cy="120.0" r="8.5" fill="var(--chart-2)"><title>Devin pass, 57 runs</title></circle>
+<circle cx="250.0" cy="132.5" r="8.5" fill="var(--chart-2)"><title>Devin pass, 83 runs</title></circle>
+<circle cx="390.0" cy="65.0" r="8.5" fill="var(--chart-2)"><title>Devin pass, 7 runs</title></circle>
+<circle cx="530.0" cy="57.5" r="8.5" fill="var(--chart-2)"><title>Devin pass, 9 runs</title></circle>
+<text x="546.0" y="62.5" fill="var(--chart-2)" font-size="15" font-weight="600" font-family="var(--font-sans)">Devin passed</text>
+<polyline points="110.0,90.0 250.0,127.5 390.0,91.2" fill="none" stroke="var(--chart-2)" stroke-width="3" stroke-dasharray="6 5"/>
+<circle cx="110.0" cy="90.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin fail, 77 runs</title></circle>
+<circle cx="250.0" cy="127.5" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin fail, 17 runs</title></circle>
+<circle cx="390.0" cy="91.25" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin fail, 14 runs</title></circle>
+<text x="406.0" y="96.2" fill="var(--chart-2)" font-size="15" font-weight="600" font-family="var(--font-sans)">Devin failed</text>
+<text x="50.0" y="20.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">tool calls, median</text>
+</svg>

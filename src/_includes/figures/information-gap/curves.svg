@@ -1,4 +1,4 @@
-<svg viewBox="0 0 720 880" role="img" aria-label="Ladder results for ten tasks run by two models. On six, Devin passes at a lower level than Composer. On httperrexpr both pass at L2. With the test file in the tree, Grok passes httpmux and httpencoding in one run of two and Composer in none. Nobody passes exprhash.">
+<svg viewBox="0 0 720 718" role="img" aria-label="Ladder results for eight tasks. On archive, defval and ipqueue Devin passes at a lower level than Composer, and on advrefs Composer passes lower. On httperrexpr both pass at L2. On httpmux and exprhash Composer fails through the test names and passes once the test file is in the tree. Grok passes httpmux with the test file, and Devin, given one run with the test file, passes exprhash.">
 <text x="310.0" y="22.0" text-anchor="middle" fill="var(--text-2)" font-size="17" font-weight="700" font-family="var(--font-mono)">L1</text>
 <text x="422.0" y="22.0" text-anchor="middle" fill="var(--text-2)" font-size="17" font-weight="700" font-family="var(--font-mono)">L2</text>
 <text x="534.0" y="22.0" text-anchor="middle" fill="var(--text-2)" font-size="17" font-weight="700" font-family="var(--font-mono)">L3–4</text>
@@ -9,32 +9,34 @@
 <text x="110.0" y="21.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">failed</text>
 <text x="0.0" y="64.0" fill="var(--text-3)" font-size="13" font-weight="600" font-family="var(--font-sans)" letter-spacing="0.08em">COMPOSER AND DEVIN: DEVIN NEEDS LESS</text>
 <line x1="0.0" y1="74.0" x2="720.0" y2="74.0" stroke="var(--line)" stroke-width="1"/>
-<text x="0.0" y="102.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">gin-clientip</text>
+<text x="0.0" y="102.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">archive</text>
 <text x="262.0" y="102.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
 <line x1="310.0" y1="96.0" x2="646.0" y2="96.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="96.0" x2="422.0" y2="96.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="96.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on gin-clientip, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="96.0" r="8.5" fill="var(--chart-1)"><title>Composer on gin-clientip, L2: 3 of 3 passed</title></circle>
-<circle cx="534" cy="96.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<circle cx="646" cy="96.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<line x1="310.0" y1="96.0" x2="646.0" y2="96.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="96.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on archive, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="96.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on archive, L2: 0 of 3 passed</title></circle>
+<circle cx="534" cy="96.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on archive, L3–4: 0 of 2 passed</title></circle>
+<circle cx="646" cy="96.0" r="8.5" fill="var(--chart-1)"><title>Composer on archive, L5–6: 1 of 1 passed</title></circle>
 <text x="262.0" y="130.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
 <line x1="310.0" y1="124.0" x2="646.0" y2="124.0" stroke="var(--line)" stroke-width="2"/>
-<circle cx="310" cy="124.0" r="8.5" fill="var(--chart-2)"><title>Devin on gin-clientip, L1: 1 of 1 passed</title></circle>
-<circle cx="422" cy="124.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<line x1="310.0" y1="124.0" x2="422.0" y2="124.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="124.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on archive, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="124.0" r="8.5" fill="var(--chart-2)"><title>Devin on archive, L2: 1 of 1 passed</title></circle>
 <circle cx="534" cy="124.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
 <circle cx="646" cy="124.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<text x="0.0" y="172.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">memdbstaging</text>
+<text x="0.0" y="172.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">defval</text>
 <text x="262.0" y="172.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
 <line x1="310.0" y1="166.0" x2="646.0" y2="166.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="166.0" x2="534.0" y2="166.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="166.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on client-go-memdbstaging, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="166.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on client-go-memdbstaging, L2: 0 of 3 passed</title></circle>
-<circle cx="534" cy="166.0" r="8.5" fill="var(--chart-1)"><title>Composer on client-go-memdbstaging, L3–4: 2 of 2 passed</title></circle>
-<circle cx="646" cy="166.0" r="8.5" fill="var(--chart-1)"><title>Composer on client-go-memdbstaging, L5–6: 2 of 2 passed</title></circle>
+<line x1="310.0" y1="166.0" x2="646.0" y2="166.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="166.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on defval, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="166.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on defval, L2: 0 of 1 passed</title></circle>
+<circle cx="534" cy="166.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on defval, L3–4: 0 of 3 passed</title></circle>
+<circle cx="646" cy="166.0" r="8.5" fill="var(--chart-1)"><title>Composer on defval, L5–6: 1 of 1 passed</title></circle>
 <text x="262.0" y="200.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
 <line x1="310.0" y1="194.0" x2="646.0" y2="194.0" stroke="var(--line)" stroke-width="2"/>
-<circle cx="310" cy="194.0" r="8.5" fill="var(--chart-2)"><title>Devin on client-go-memdbstaging, L1: 1 of 1 passed</title></circle>
-<circle cx="422" cy="194.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<line x1="310.0" y1="194.0" x2="422.0" y2="194.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="194.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on defval, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="194.0" r="8.5" fill="var(--chart-2)"><title>Devin on defval, L2: 1 of 1 passed</title></circle>
 <circle cx="534" cy="194.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
 <circle cx="646" cy="194.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
 <text x="0.0" y="242.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">ipqueue</text>
@@ -51,117 +53,70 @@
 <circle cx="422" cy="264.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
 <circle cx="534" cy="264.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
 <circle cx="646" cy="264.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<text x="0.0" y="312.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">archive</text>
-<text x="262.0" y="312.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
-<line x1="310.0" y1="306.0" x2="646.0" y2="306.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="306.0" x2="646.0" y2="306.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="306.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on archive, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="306.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on archive, L2: 0 of 3 passed</title></circle>
-<circle cx="534" cy="306.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on archive, L3–4: 0 of 2 passed</title></circle>
-<circle cx="646" cy="306.0" r="8.5" fill="var(--chart-1)"><title>Composer on archive, L5–6: 1 of 1 passed</title></circle>
-<text x="262.0" y="340.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
-<line x1="310.0" y1="334.0" x2="646.0" y2="334.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="334.0" x2="422.0" y2="334.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="334.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on archive, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="334.0" r="8.5" fill="var(--chart-2)"><title>Devin on archive, L2: 1 of 1 passed</title></circle>
-<circle cx="534" cy="334.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<circle cx="646" cy="334.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<text x="0.0" y="382.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">defval</text>
-<text x="262.0" y="382.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
-<line x1="310.0" y1="376.0" x2="646.0" y2="376.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="376.0" x2="646.0" y2="376.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="376.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on defval, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="376.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on defval, L2: 0 of 1 passed</title></circle>
-<circle cx="534" cy="376.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on defval, L3–4: 0 of 3 passed</title></circle>
-<circle cx="646" cy="376.0" r="8.5" fill="var(--chart-1)"><title>Composer on defval, L5–6: 1 of 1 passed</title></circle>
-<text x="262.0" y="410.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
-<line x1="310.0" y1="404.0" x2="646.0" y2="404.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="404.0" x2="422.0" y2="404.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="404.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on defval, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="404.0" r="8.5" fill="var(--chart-2)"><title>Devin on defval, L2: 1 of 1 passed</title></circle>
-<circle cx="534" cy="404.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<circle cx="646" cy="404.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<text x="0.0" y="452.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">rootval</text>
-<text x="262.0" y="452.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
-<line x1="310.0" y1="446.0" x2="646.0" y2="446.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="446.0" x2="646.0" y2="446.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="446.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on rootval, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="446.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on rootval, L2: 0 of 1 passed</title></circle>
-<circle cx="534" cy="446.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on rootval, L3–4: 0 of 3 passed</title></circle>
-<circle cx="646" cy="446.0" r="8.5" fill="var(--chart-1)"><title>Composer on rootval, L5–6: 2 of 2 passed</title></circle>
-<text x="262.0" y="480.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
-<line x1="310.0" y1="474.0" x2="646.0" y2="474.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="474.0" x2="422.0" y2="474.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="474.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<circle cx="422" cy="474.0" r="8.5" fill="var(--chart-2)"><title>Devin on rootval, L2: 1 of 1 passed</title></circle>
-<circle cx="534" cy="474.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<circle cx="646" cy="474.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<text x="0.0" y="532.0" fill="var(--text-3)" font-size="13" font-weight="600" font-family="var(--font-sans)" letter-spacing="0.08em">COMPOSER AND DEVIN: SAME LEVEL</text>
-<line x1="0.0" y1="542.0" x2="720.0" y2="542.0" stroke="var(--line)" stroke-width="1"/>
-<text x="0.0" y="570.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">httperrexpr</text>
-<text x="262.0" y="570.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
-<line x1="310.0" y1="564.0" x2="646.0" y2="564.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="564.0" x2="422.0" y2="564.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="564.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httperrexpr, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="564.0" r="8.5" fill="var(--chart-1)"><title>Composer on httperrexpr, L2: 1 of 1 passed</title></circle>
-<circle cx="534" cy="564.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<circle cx="646" cy="564.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<text x="262.0" y="598.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
-<line x1="310.0" y1="592.0" x2="646.0" y2="592.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="592.0" x2="422.0" y2="592.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="592.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on httperrexpr, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="592.0" r="8.5" fill="var(--chart-2)"><title>Devin on httperrexpr, L2: 1 of 1 passed</title></circle>
-<circle cx="534" cy="592.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<circle cx="646" cy="592.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
-<text x="0.0" y="650.0" fill="var(--text-3)" font-size="13" font-weight="600" font-family="var(--font-sans)" letter-spacing="0.08em">COMPOSER AND GROK: THE TOP OF THE LADDER</text>
-<line x1="0.0" y1="660.0" x2="720.0" y2="660.0" stroke="var(--line)" stroke-width="1"/>
-<text x="0.0" y="688.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">httpmux</text>
-<text x="262.0" y="688.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
-<line x1="310.0" y1="682.0" x2="646.0" y2="682.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="682.0" x2="646.0" y2="682.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="682.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpmux, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="682.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpmux, L2: 0 of 3 passed</title></circle>
-<circle cx="534" cy="682.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpmux, L3–4: 0 of 2 passed</title></circle>
-<circle cx="646" cy="682.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpmux, L5–6: 0 of 2 passed</title></circle>
-<text x="666.0" y="687.0" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">none</text>
-<text x="262.0" y="716.0" text-anchor="end" fill="var(--chart-3)" font-size="16" font-weight="600" font-family="var(--font-sans)">Grok</text>
-<line x1="310.0" y1="710.0" x2="646.0" y2="710.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="710.0" x2="646.0" y2="710.0" stroke="var(--chart-3)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="710.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on httpmux, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="710.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on httpmux, L2: 0 of 1 passed</title></circle>
-<circle cx="534" cy="710.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on httpmux, L3–4: 0 of 2 passed</title></circle>
-<circle cx="646" cy="710.0" r="8.5" fill="var(--chart-3)"><title>Grok on httpmux, L5–6: 1 of 2 passed</title></circle>
-<text x="0.0" y="758.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">httpencoding</text>
-<text x="262.0" y="758.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
-<line x1="310.0" y1="752.0" x2="646.0" y2="752.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="752.0" x2="646.0" y2="752.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="752.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpencoding, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="752.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpencoding, L2: 0 of 3 passed</title></circle>
-<circle cx="534" cy="752.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpencoding, L3–4: 0 of 2 passed</title></circle>
-<circle cx="646" cy="752.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpencoding, L5–6: 0 of 2 passed</title></circle>
-<text x="666.0" y="757.0" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">none</text>
-<text x="262.0" y="786.0" text-anchor="end" fill="var(--chart-3)" font-size="16" font-weight="600" font-family="var(--font-sans)">Grok</text>
-<line x1="310.0" y1="780.0" x2="646.0" y2="780.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="780.0" x2="646.0" y2="780.0" stroke="var(--chart-3)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="780.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on httpencoding, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="780.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on httpencoding, L2: 0 of 1 passed</title></circle>
-<circle cx="534" cy="780.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on httpencoding, L3–4: 0 of 2 passed</title></circle>
-<circle cx="646" cy="780.0" r="8.5" fill="var(--chart-3)"><title>Grok on httpencoding, L5–6: 1 of 2 passed</title></circle>
-<text x="0.0" y="828.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">exprhash</text>
-<text x="262.0" y="828.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
-<line x1="310.0" y1="822.0" x2="646.0" y2="822.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="822.0" x2="646.0" y2="822.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="822.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on exprhash, L1: 0 of 1 passed</title></circle>
-<circle cx="422" cy="822.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on exprhash, L2: 0 of 13 passed</title></circle>
-<circle cx="534" cy="822.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on exprhash, L3–4: 0 of 2 passed</title></circle>
-<circle cx="646" cy="822.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on exprhash, L5–6: 0 of 3 passed</title></circle>
-<text x="666.0" y="827.0" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">none</text>
-<text x="262.0" y="856.0" text-anchor="end" fill="var(--chart-3)" font-size="16" font-weight="600" font-family="var(--font-sans)">Grok</text>
-<line x1="310.0" y1="850.0" x2="646.0" y2="850.0" stroke="var(--line)" stroke-width="2"/>
-<line x1="310.0" y1="850.0" x2="646.0" y2="850.0" stroke="var(--chart-3)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
-<circle cx="310" cy="850.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on exprhash, L1: 0 of 2 passed</title></circle>
-<circle cx="422" cy="850.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on exprhash, L2: 0 of 1 passed</title></circle>
-<circle cx="534" cy="850.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on exprhash, L3–4: 0 of 4 passed</title></circle>
-<circle cx="646" cy="850.0" r="7.5" fill="var(--bg)" stroke="var(--chart-3)" stroke-width="2"><title>Grok on exprhash, L5–6: 0 of 2 passed</title></circle>
-<text x="666.0" y="855.0" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">none</text>
+<text x="0.0" y="322.0" fill="var(--text-3)" font-size="13" font-weight="600" font-family="var(--font-sans)" letter-spacing="0.08em">COMPOSER AND DEVIN: COMPOSER NEEDS LESS</text>
+<line x1="0.0" y1="332.0" x2="720.0" y2="332.0" stroke="var(--line)" stroke-width="1"/>
+<text x="0.0" y="360.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">advrefs</text>
+<text x="262.0" y="360.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
+<line x1="310.0" y1="354.0" x2="646.0" y2="354.0" stroke="var(--line)" stroke-width="2"/>
+<line x1="310.0" y1="354.0" x2="422.0" y2="354.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="354.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on advrefs, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="354.0" r="8.5" fill="var(--chart-1)"><title>Composer on advrefs, L2: 2 of 3 passed</title></circle>
+<circle cx="534" cy="354.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="646" cy="354.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<text x="262.0" y="388.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
+<line x1="310.0" y1="382.0" x2="646.0" y2="382.0" stroke="var(--line)" stroke-width="2"/>
+<line x1="310.0" y1="382.0" x2="646.0" y2="382.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="382.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on advrefs, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="382.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on advrefs, L2: 0 of 3 passed</title></circle>
+<circle cx="534" cy="382.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on advrefs, L3–4: 0 of 2 passed</title></circle>
+<circle cx="646" cy="382.0" r="8.5" fill="var(--chart-2)"><title>Devin on advrefs, L5–6: 2 of 2 passed</title></circle>
+<text x="0.0" y="440.0" fill="var(--text-3)" font-size="13" font-weight="600" font-family="var(--font-sans)" letter-spacing="0.08em">COMPOSER AND DEVIN: SAME LEVEL</text>
+<line x1="0.0" y1="450.0" x2="720.0" y2="450.0" stroke="var(--line)" stroke-width="1"/>
+<text x="0.0" y="478.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">httperrexpr</text>
+<text x="262.0" y="478.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
+<line x1="310.0" y1="472.0" x2="646.0" y2="472.0" stroke="var(--line)" stroke-width="2"/>
+<line x1="310.0" y1="472.0" x2="422.0" y2="472.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="472.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httperrexpr, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="472.0" r="8.5" fill="var(--chart-1)"><title>Composer on httperrexpr, L2: 1 of 1 passed</title></circle>
+<circle cx="534" cy="472.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="646" cy="472.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<text x="262.0" y="506.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
+<line x1="310.0" y1="500.0" x2="646.0" y2="500.0" stroke="var(--line)" stroke-width="2"/>
+<line x1="310.0" y1="500.0" x2="422.0" y2="500.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="500.0" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin on httperrexpr, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="500.0" r="8.5" fill="var(--chart-2)"><title>Devin on httperrexpr, L2: 1 of 1 passed</title></circle>
+<circle cx="534" cy="500.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="646" cy="500.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<text x="0.0" y="558.0" fill="var(--text-3)" font-size="13" font-weight="600" font-family="var(--font-sans)" letter-spacing="0.08em">THE TOP OF THE LADDER: THE TEST FILE</text>
+<line x1="0.0" y1="568.0" x2="720.0" y2="568.0" stroke="var(--line)" stroke-width="1"/>
+<text x="0.0" y="596.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">httpmux</text>
+<text x="262.0" y="596.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
+<line x1="310.0" y1="590.0" x2="646.0" y2="590.0" stroke="var(--line)" stroke-width="2"/>
+<line x1="310.0" y1="590.0" x2="646.0" y2="590.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="590.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpmux, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="590.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpmux, L2: 0 of 3 passed</title></circle>
+<circle cx="534" cy="590.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on httpmux, L3–4: 0 of 2 passed</title></circle>
+<circle cx="646" cy="590.0" r="8.5" fill="var(--chart-1)"><title>Composer on httpmux, L5–6: 2 of 2 passed</title></circle>
+<text x="262.0" y="624.0" text-anchor="end" fill="var(--chart-3)" font-size="16" font-weight="600" font-family="var(--font-sans)">Grok</text>
+<line x1="310.0" y1="618.0" x2="646.0" y2="618.0" stroke="var(--line)" stroke-width="2"/>
+<line x1="310.0" y1="618.0" x2="646.0" y2="618.0" stroke="var(--chart-3)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="618.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="422" cy="618.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="534" cy="618.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="646" cy="618.0" r="8.5" fill="var(--chart-3)"><title>Grok on httpmux, L5–6: 1 of 1 passed</title></circle>
+<text x="0.0" y="666.0" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-mono)">exprhash</text>
+<text x="262.0" y="666.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer</text>
+<line x1="310.0" y1="660.0" x2="646.0" y2="660.0" stroke="var(--line)" stroke-width="2"/>
+<line x1="310.0" y1="660.0" x2="646.0" y2="660.0" stroke="var(--chart-1)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="660.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on exprhash, L1: 0 of 1 passed</title></circle>
+<circle cx="422" cy="660.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on exprhash, L2: 0 of 13 passed</title></circle>
+<circle cx="534" cy="660.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer on exprhash, L3–4: 0 of 2 passed</title></circle>
+<circle cx="646" cy="660.0" r="8.5" fill="var(--chart-1)"><title>Composer on exprhash, L5–6: 2 of 2 passed</title></circle>
+<text x="262.0" y="694.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin</text>
+<line x1="310.0" y1="688.0" x2="646.0" y2="688.0" stroke="var(--line)" stroke-width="2"/>
+<line x1="310.0" y1="688.0" x2="646.0" y2="688.0" stroke="var(--chart-2)" stroke-width="8" stroke-opacity="0.22" stroke-linecap="round"/>
+<circle cx="310" cy="688.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="422" cy="688.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="534" cy="688.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
+<circle cx="646" cy="688.0" r="8.5" fill="var(--chart-2)"><title>Devin on exprhash, L5–6: 1 of 1 passed</title></circle>
 </svg>
