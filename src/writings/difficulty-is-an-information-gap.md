@@ -41,9 +41,11 @@ factory scales with compute instead of reviewers. This post describes a factory 
   functions deleted across four files. Callers or tests left in the repository gave the answer away almost
   every time.
 - **The same ladder grades models.** Composer and Devin both fail `archive` from the bug report, so
-  a solve rate calls them equal, and the ladder puts them two steps apart. At the top, Composer
-  fails two tasks with the hidden tests in front of it, and Grok solves each in one of two runs.
-- **Every task gets a grade.** Of 414 graded tasks, 172 are solved from the bug report, 241 are
+  a solve rate calls them equal, and the ladder puts them two steps apart. Across 39 tasks both
+  models climbed, they need the same level on 23, Devin needs less on 11, and Composer needs less
+  on 5. At the top, Composer fails two tasks with the hidden tests in front of it, and Grok solves
+  each in one of two runs.
+- **Every task gets a grade.** Of 415 graded tasks, 172 are solved from the bug report, 242 are
   certified higher up, and one has beaten two models at every level. Stage 1 cost $1.2k.
 
 ## The information ladder
@@ -111,40 +113,44 @@ prose is wrong, the run measures the prose.
 Follow one model up one task, and its first passing level grades the task. Hold the task and change
 the model, and the gap between their levels compares the models in information instead of points.
 Composer ran most trials, including the cheap L1 screen that finds tasks solvable from the bug
-report. Devin is climbing tasks Composer already graded, and Grok ran the three tasks where
+report. Devin climbed tasks Composer had already graded, and Grok ran the three tasks where
 Composer ran out of ladder. The Devin climbs test the first thing any difficulty scale owes a
 reader, that it separates models the way existing benchmarks do. The budget allowed about one run
 per level, so each gap below is a single observation, not an estimate.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/curves.svg" %}
-<figcaption>Each lane is one model on one task. The tint runs from the bug report to the first pass, so its length is how much information that model needed. A filled dot is a pass at that step and a ring is a fail. Devin's climbs are still running.</figcaption>
+<figcaption>Each lane is one model on one task. The tint runs from the bug report to the first pass, so its length is how much information that model needed. A filled dot is a pass at that step and a ring is a fail.</figcaption>
 </figure>
 
 On `archive` and `defval`, Composer and Devin both fail the bug report, which a solve rate scores
 as a tie. Devin then passes from the full description, and Composer needs the test file. On
-`ipqueue` Devin needs only the bug report. On `httperrexpr` both pass at L2, a difficulty that
-belongs to the task.
+`ipqueue` Devin needs only the bug report. The gap runs the other way too. On `advrefs` Composer
+passes from the full description and Devin needs the test file, and on `helm-dlmanager` Composer
+passes at L2 in three runs of three while Devin fails every level. On `httperrexpr` both pass at
+L2, a difficulty that belongs to the task.
 
 At the top, Composer failed `httpmux`, `httpencoding`, and `exprhash` at every level, test file
 included. With no wider prompt left, only a second model can show those tasks are solvable. Grok
 passed `httpmux` and `httpencoding` with the test file in one run of two, which certifies both as
-solvable. `exprhash` is solvable by construction, since its answer key passes the suite, yet 28 runs from two
+solvable, and Devin passed `httpencoding` once every hidden test was in the tree. `exprhash` is solvable by construction, since its answer key passes the suite, yet 28 runs from two
 models have not solved it.
 
-The bug report alone separates models too. Composer and Devin both screened 74 tasks at L1.
+The bug report alone separates models too. Composer and Devin both screened 78 tasks at L1.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/bug-report-agreement.svg" %}
 <figcaption>Tasks both models screened at the bug report. Composer screened first on most of them, and tasks it passed rarely went on to Devin, which is why the top row is nearly empty.</figcaption>
 </figure>
 
-They agree on 55. On the other 19, Devin passed where Composer failed, a one-sided split because
+They agree on 59. On the other 19, Devin passed where Composer failed, a one-sided split because
 these tasks reached Devin after Composer failed them. "Hard at L1" is a statement about a model, so
 every certificate names its model. An earlier version took the lowest passing level across all
 models, which let the stronger model erase the weaker one's difficulty and put two certificates
-three levels too low. Three tasks now carry independent certificates from two models, and those
-are the tasks that can separate a task's difficulty from a model's.
+three levels too low. Forty tasks now carry independent certificates from two models, and those
+are the tasks that can separate a task's difficulty from a model's. Composer and Devin share 39 of
+them. Both need the same level on 23, so there the difficulty belongs to the task. Devin needs
+less on 11 and Composer on 5.
 
 ## The factory
 
@@ -216,7 +222,7 @@ quarter touch two or more files.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/funnel.svg" %}
-<figcaption>591 tasks authored. 414 have been graded on the ladder, and the rest are queued or still running.</figcaption>
+<figcaption>591 tasks authored. 415 have been graded on the ladder. The rest never ran, or ran without reaching a verdict.</figcaption>
 </figure>
 
 <figure class="fig-inline">
@@ -225,8 +231,8 @@ quarter touch two or more files.
 </figure>
 
 The 172 tasks solved from the bug report sit at the easy end, a gap of zero for the model that
-tried them and possibly more for a weaker one. The 241 certified tasks sit higher, 192 at the full
-description, 9 at the test names, and 40 at the test file. The bucket that failed every level held
+tried them and possibly more for a weaker one. The 242 certified tasks sit higher, 197 at the full
+description, 11 at the test names, and 34 at the test file. The bucket that failed every level held
 29 tasks before the upper levels were measured. Every audited one had a defective description, the
 rest certified once a higher level supplied what the prose left out, and only `exprhash` remains.
 
@@ -264,19 +270,20 @@ Authoring was cheap, near $1.25 a task in an earlier, incomplete measurement. Gr
 7.0 runs and $4.80 per certificate, so the factory made tasks faster than the budget could grade
 them. That gap sets the dataset's limits.
 
-- **155 of the 591 authored tasks never ran**, and 22 more are waiting for a verdict.
-- **Most grades are Composer's.** It was the cheapest per run, so it screened almost every task and
-  carried almost every climb above L2.
-- **The second model is thin.** Devin costs about six times as much per run, so only 74 tasks have
-  its L1 screen and three have two independent climbs. Grok ran only the three tasks at the top.
+- **155 of the 591 authored tasks never ran**, and 21 more ran without reaching a verdict.
+- **Most grades are Composer's.** It was the cheapest per run, so it screened 374 of the 436 tasks that
+  ran and carried most climbs above L2.
+- **The second model is thin.** Devin costs about six times as much per run, so only 136 tasks have
+  its L1 screen and 40 have two independent climbs. Grok ran only the three tasks at the top.
 - **Most levels ran once per task per model.** One run cannot separate a model that needs the
   information from one that got lucky, and Grok's one pass in two on `httpmux` is that case.
-- **The 172 tasks solved from the bug report carry Composer's grade alone.**
+- **The 172 tasks solved from the bug report carry one model's grade.** Composer graded 132,
+  Devin 36, and Grok 3, and only one was solved from the bug report by two models.
 
 At Stage 1 prices, about $2.2k would buy the two measurements this budget could not. Three repeat
 runs on 50 tasks at L1 and L2, from both models, would show how often a grade changes on a rerun.
 Both models climbing the same random 100 tasks would remove the selection in the model comparison,
-since Devin now mostly sees tasks Composer failed. A second model climbing all 414 graded tasks
+since Devin now mostly sees tasks Composer failed. A second model climbing all 415 graded tasks
 would cost about $4.3k.
 
 <figure class="fig-inline">
@@ -308,17 +315,18 @@ Stage 1 is small because of its budget, with one language, nine repositories, an
 Three questions come next.
 
 - **Does the cut work outside Go?** Stage 2 runs the same factory in a second language.
-- **Does a certificate transfer?** A second model has screened 68 certified tasks at L1, and so far
+- **Does a certificate transfer?** A second model has screened 75 certified tasks at L1, and so far
   the answer depends on the repository. It solved eight of ten `go-github` tasks from the bug
-  report, whose issues name the fields the code turns on, and nine of sixty everywhere else.
-- **What does the curve above L2 look like?** 80% of certificates bind at the full description and
-  17% only once the test file is in the tree. Devin's climbs will add a second model to that curve.
+  report, whose issues name the fields the code turns on, and nine of 65 everywhere else.
+- **What does the curve above L2 look like?** 81% of certificates bind at the full description and
+  14% only once the test file is in the tree. With both models on the ladder, Composer's
+  certificates bind at the full description 76% of the time and Devin's 84%.
 
 ---
 
 *Code and trial ledger:
 [open_swe_traces_research](https://github.com/Evan-Kim2028/open_swe_traces_research). Counts are a
-2026-09-22 snapshot of a run still in progress, derived from `trial_ledger.py` and `roots.py`.
+2026-09-23 snapshot of the finished Stage 1 run, derived from `trial_ledger.py` and `roots.py`.
 Figures regenerate from the ledger with `scripts/information-gap-figures.py`. Earlier in this
 series: [Terminal-Bench Task: Lakehouse Schema Contract
 Drift](/writings/terminal-bench-task-lakehouse-schema-contract-drift/) and [Four Verifiable

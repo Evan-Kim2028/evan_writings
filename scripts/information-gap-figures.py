@@ -34,6 +34,8 @@ MODEL_COLOR = {"composer": "var(--chart-1)", "devin": "var(--chart-2)", "grok": 
 CURVE_GROUPS = [
     ("Composer and Devin: Devin needs less", ("composer", "devin"),
      ["gin-clientip", "client-go-memdbstaging", "ipqueue", "archive", "defval", "rootval"]),
+    ("Composer and Devin: Composer needs less", ("composer", "devin"),
+     ["advrefs", "helm-searchindex", "namescope"]),
     ("Composer and Devin: same level", ("composer", "devin"), ["httperrexpr"]),
     ("Composer and Grok: the top of the ladder", ("composer", "grok"),
      ["httpmux", "httpencoding", "exprhash"]),
@@ -299,9 +301,10 @@ def fig_curves(s):
                 if not first:
                     body.append(text(end_x + 20, cy + 5, "none", 15, "var(--text-3)"))
             y += len(present) * lane + gap
-    label = ("Ladder results for ten tasks run by two models. On six, Devin passes at a lower level "
-             "than Composer. On httperrexpr both pass at L2. With the test file in the tree, Grok "
-             "passes httpmux and httpencoding in one run of two and Composer in none. Nobody passes exprhash.")
+    label = ("Ladder results for thirteen tasks run by two models. On six, Devin passes at a lower "
+             "level than Composer, and on three Composer passes lower than Devin. On httperrexpr both "
+             "pass at L2. With the test file in the tree, Grok passes httpmux and httpencoding in one "
+             "run of two and Composer in none. Nobody passes exprhash.")
     return svg(y + 2, label, body)
 
 
