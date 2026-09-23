@@ -255,6 +255,7 @@ def snapshot():
         "gradient": gradient,
         "traces": traces,
         "words": prompt_words(),
+        "repo_lines": repo_lines(),
     }
     os.makedirs(os.path.dirname(SNAPSHOT), exist_ok=True)
     with open(SNAPSHOT, "w") as f:
@@ -293,6 +294,32 @@ def prompt_words():
         out[f"d{hi}"] = statistics.median(w[hi][b] - w[lo][b] for b in both)
         out[f"n{hi}"] = len(both)
     out["gin-clientip"] = [w["0"]["gin-clientip"], w["2"]["gin-clientip"]]
+    return out
+
+
+def repo_lines():
+    """Median lines of hidden test code sitting in the repository at each level: none through
+    L4 (the stubs were already there), one hidden test file at L5, every hidden test at L6.
+    Counted from the staged task's own tree, newest copy per task."""
+    latest = collections.defaultdict(dict)
+    for d in glob.glob(os.path.join(RESEARCH, "experiments/dose_response/*/*-L[56]/")):
+        m = re.match(r"(.+)-L([56])$", os.path.basename(d.rstrip("/")))
+        hid = os.path.join(d, "tests/hidden")
+        if not m or not os.path.isdir(hid):
+            continue
+        base, rung = m.groups()
+        n = 0
+        for f in glob.glob(os.path.join(hid, "**/*_test.go"), recursive=True):
+            shown = os.path.join(d, "environment/src", os.path.relpath(f, hid))
+            if os.path.exists(shown):
+                n += sum(1 for _ in open(shown, errors="replace"))
+        t = os.path.getmtime(d)
+        if n and (base not in latest[rung] or latest[rung][base][1] < t):
+            latest[rung][base] = (n, t)
+    out = {r: 0 for r in ("0", "2", "3", "4")}
+    for r in ("5", "6"):
+        out[r] = statistics.median(v[0] for v in latest[r].values())
+        out["n" + r] = len(latest[r])
     return out
 
 
@@ -340,31 +367,67 @@ def level_label(x, y, r, size=20, name=True):
 
 # ---------------------------------------------------------------- figures
 
+def rotated(x, y, s, size=15, fill="var(--text-2)"):
+    """A y-axis title, reading bottom to top."""
+    return text(x, y, s, size, fill, "middle", extra=f' transform="rotate(-90 {x:.1f} {y:.1f})"')
+
+
+def x_axis(x0, x1, y, ticks, sx, fmt, title, tick_size=14):
+    """Baseline, tick labels under it, and a title centred below."""
+    out = [line(x0, y, x1, y, "var(--text-3)", 1.5)]
+    for t in ticks:
+        out.append(line(sx(t), y, sx(t), y + 5, "var(--text-3)", 1.5))
+        out.append(text(sx(t), y + 22, fmt(t), tick_size, "var(--text-3)", "middle", mono=True))
+    out.append(text((x0 + x1) / 2, y + 46, title, 15, "var(--text-2)", "middle"))
+    return out
+
+
+def y_axis(x, y0, y1, title, title_x=None):
+    """Vertical axis line from y0 (top) to y1 (bottom) and a rotated title."""
+    return [line(x, y0, x, y1, "var(--text-3)", 1.5),
+            rotated(title_x if title_x is not None else x - 56, (y0 + y1) / 2, title)]
+
+
 def fig_prompt_words(s):
-    """Typical prompt length at each level. The prompt stops growing after L3."""
-    w = s["words"]
-    x0, scale, row, bh = 230, 300 / 600, 46, 22
+    """What each level adds: words to the prompt through L3, test code to the repository above."""
+    w, lines = s["words"], s["repo_lines"]
+    row, bh, top = 44, 20, 20
+    y_end = top + row * 6
+    # left panel: words in the prompt
+    ax0, aw, wmax = 200, 200, 600
+    sxw = lambda v: ax0 + aw * v / wmax
+    # right panel: lines of hidden test code in the repository
+    bx0, bw, lmax = 470, 200, 500
+    sxl = lambda v: bx0 + bw * v / lmax
     body = []
     for t in (0, 200, 400, 600):
-        x = x0 + t * scale
-        body.append(line(x, 18, x, 18 + row * 6, "var(--line)"))
-        body.append(text(x, 18 + row * 6 + 26, num(t), 16, "var(--text-3)", "middle", mono=True))
+        body.append(line(sxw(t), top - 6, sxw(t), y_end, "var(--line)"))
+    for t in (0, 250, 500):
+        body.append(line(sxl(t), top - 6, sxl(t), y_end, "var(--line)"))
     total = 0
-    notes = {"4": "+ stubs, already in place", "5": "+ the test file", "6": "+ any other test files"}
     for i, r in enumerate(LEVELS):
-        y = 24 + i * row
+        y = top + i * row
         total += w["L0"] if r == "0" else w[f"d{r}"]
-        body += level_label(0, y + bh - 5, r)
-        body.append(rect(x0, y, total * scale, bh, "var(--chart-1)", f"L{post_level(r)}: about {num(total)} words"))
-        end = x0 + total * scale + 10
-        body.append(text(end, y + bh - 4, num(total), 19, weight=700, mono=True))
-        if r in notes:
-            body.append(text(end + 50, y + bh - 5, notes[r], 16, "var(--chart-2)"))
-    body.append(text(x0 + 150, 18 + row * 6 + 54, "words in the prompt", 17, "var(--text-2)", "middle"))
-    label = (f"Prompt length by level. The bug report is about {num(w['L0'])} words, the full "
-             f"description about {num(w['L0'] + w['d2'])}, and test names add {num(w['d3'])}. "
-             f"Above L3 the prompt stays the same and the levels add files to the repository.")
-    return svg(18 + row * 6 + 66, label, body, "x")
+        body += level_label(0, y + bh - 4, r, 17)
+        body.append(rect(ax0, y, sxw(total) - ax0, bh, "var(--chart-1)",
+                         f"L{post_level(r)}: about {num(total)} words in the prompt"))
+        body.append(text(sxw(total) + 8, y + bh - 4, num(round(total)), 15, weight=700, mono=True))
+        n = lines[r]
+        if n:
+            body.append(rect(bx0, y, sxl(n) - bx0, bh, "var(--chart-2)",
+                             f"L{post_level(r)}: about {num(round(n))} lines of test code in the repository"))
+            body.append(text(sxl(n) + 8, y + bh - 4, num(round(n)), 15, weight=700, mono=True))
+        else:
+            body.append(text(bx0 + 8, y + bh - 4, "none", 14, "var(--text-3)"))
+    body += x_axis(ax0, ax0 + aw, y_end, (0, 200, 400, 600), sxw, num, "words in the prompt")
+    body += x_axis(bx0, bx0 + bw, y_end, (0, 250, 500), sxl, num, "lines of test code in the repository")
+    body += [line(ax0, top - 6, ax0, y_end, "var(--text-3)", 1.5),
+             line(bx0, top - 6, bx0, y_end, "var(--text-3)", 1.5)]
+    label = (f"What each level adds. The prompt grows from about {num(round(w['L0']))} words at the bug report "
+             f"to about {num(round(w['L0'] + w['d2'] + w['d3']))} with the test names and stops there. "
+             f"From L5 the level adds test code to the repository instead: about {num(round(lines['5']))} "
+             f"lines with one hidden test file and {num(round(lines['6']))} with all of them.")
+    return svg(y_end + 56, label, body, "x")
 
 
 def fig_funnel(s):
@@ -372,45 +435,24 @@ def fig_funnel(s):
     rows = [("authored", f["authored"], None),
             ("trialled", f["trialled"], f"{num(f['authored'] - f['trialled'])} never ran"),
             ("graded", f["decided"], f"{num(f['trialled'] - f['decided'])} no verdict")]
-    x0, scale, row, bh = 130, 380 / f["authored"], 56, 34
+    x0, width, row, bh, top = 130, 380, 50, 30, 12
+    sx = lambda v: x0 + width * v / 600
     body = []
     for i, (name, n, note) in enumerate(rows):
-        y = 16 + i * row
-        body.append(text(x0 - 16, y + bh - 10, name, 20, anchor="end"))
-        body.append(rect(x0, y, n * scale, bh, "var(--chart-1)", f"{name}: {num(n)}",
+        y = top + i * row
+        body.append(text(x0 - 14, y + bh - 9, name, 18, anchor="end"))
+        body.append(rect(x0, y, sx(n) - x0, bh, "var(--chart-1)", f"{name}: {num(n)}",
                          extra=f' fill-opacity="{(0.3, 0.6, 1)[i]}"'))
-        end = x0 + n * scale + 10
-        body.append(text(end, y + bh - 9, num(n), 21, weight=700, mono=True))
+        end = sx(n) + 10
+        body.append(text(end, y + bh - 8, num(n), 19, weight=700, mono=True))
         if note:
-            body.append(text(end + 12 + 11.5 * len(num(n)), y + bh - 10, note, 16, "var(--text-3)"))
+            body.append(text(end + 12 + 10.5 * len(num(n)), y + bh - 9, note, 15, "var(--text-3)"))
+    y_end = top + row * len(rows) - 8
+    body.append(line(x0, top - 4, x0, y_end, "var(--text-3)", 1.5))
+    body += x_axis(x0, x0 + width, y_end, (0, 200, 400, 600), sx, num, "tasks")
     label = (f"{num(f['authored'])} tasks authored, {num(f['trialled'])} trialled, "
              f"{num(f['decided'])} graded on the ladder.")
-    return svg(16 + row * len(rows) - 6, label, body, "x")
-
-
-def fig_first_pass(s):
-    """Where each graded task first passed, for the model that graded it."""
-    fp = s["first_pass"]
-    rows = [(name, lvls, desc, sum(fp.get(r, 0) for r in lvls)) for name, lvls, desc in STEPS]
-    rows.append(("none", (), "failed every level", len(s["unresolved"])))
-    peak = max(r[3] for r in rows)
-    x0, scale, row, bh = 250, 300 / peak, 42, 24
-    body = []
-    for i, (name, lvls, desc, n) in enumerate(rows):
-        y = 12 + i * row
-        body.append(text(0, y + bh - 5, name, 20, "var(--text)" if lvls else "var(--text-2)", weight=700, mono=True))
-        body.append(text(76, y + bh - 5, desc, 18, "var(--text-2)"))
-        fill = f"var(--lvl-{post_level(lvls[-1])})" if lvls else "var(--text-3)"
-        body.append(rect(x0, y, max(n * scale, 2), bh, fill, f"{name}: {n}"))
-        body.append(text(x0 + max(n * scale, 2) + 10, y + bh - 4, num(n), 19, weight=700, mono=True))
-    cert = sum(r[3] for r in rows[1:4])
-    bx, top, bot = 640, 12 + row + 2, 12 + row * 3 + bh - 2
-    body.append(f'<path d="M{bx - 8} {top} H{bx} V{bot} H{bx - 8}" fill="none" '
-                f'stroke="var(--text-2)" stroke-width="1.5"/>')
-    body.append(text(bx + 10, (top + bot) / 2 + 2, num(cert), 20, weight=700, mono=True))
-    body.append(text(bx + 10, (top + bot) / 2 + 22, "certified", 15, "var(--text-2)"))
-    label = "Lowest level each graded task passed at. " + ", ".join(f"{r[0]} {r[3]}" for r in rows) + "."
-    return svg(12 + row * len(rows) - 4, label, body, "x")
+    return svg(y_end + 56, label, body, "x")
 
 
 def glyph(x, y, color, passed, tip):
@@ -427,10 +469,12 @@ def fig_curves(s):
     cols = [310 + i * 112 for i in range(len(STEPS))]
     end_x = cols[-1]
     lane, gap, head = 28, 14, 38
-    body = [text(x, 22, name, 17, "var(--text-2)", "middle", 700, True) for x, (name, _, _) in zip(cols, STEPS)]
-    body += [glyph(8, 16, "var(--text-2)", True, "passed"), text(22, 21, "passed", 15, "var(--text-2)"),
-             glyph(96, 16, "var(--text-2)", False, "failed"), text(110, 21, "failed", 15, "var(--text-2)")]
-    y = 44
+    body = [text((cols[0] + cols[-1]) / 2, 16, "ladder step", 15, "var(--text-2)", "middle")]
+    body += [text(x, 40, name, 17, "var(--text-2)", "middle", 700, True) for x, (name, _, _) in zip(cols, STEPS)]
+    body += [glyph(8, 34, "var(--text-2)", True, "passed"), text(22, 39, "passed", 15, "var(--text-2)"),
+             glyph(96, 34, "var(--text-2)", False, "failed"), text(110, 39, "failed", 15, "var(--text-2)")]
+    body.append(line(cols[0] - 30, 50, end_x + 30, 50, "var(--text-3)", 1.5))
+    y = 62
     for gi, (group, models, bases) in enumerate(CURVE_GROUPS):
         y += 10 if gi else 0
         body.append(text(0, y + 20, group.upper(), 13, "var(--text-3)", weight=600,
@@ -465,11 +509,12 @@ def fig_curves(s):
                 if not first:
                     body.append(text(end_x + 20, cy + 5, "none", 15, "var(--text-3)"))
             y += len(present) * lane + gap
-    label = ("Ladder results for eight tasks. On archive, defval and ipqueue Devin passes at a lower "
-             "level than Composer, and on advrefs Composer passes lower. On httperrexpr both pass "
-             "at L2. On httpmux and exprhash Composer fails through the test names and passes once "
-             "the test file is in the tree. Grok passes httpmux with the test file, and Devin, "
-             "given one run with the test file, passes exprhash.")
+    body.append(line(cols[0] - 30, 50, cols[0] - 30, y - gap, "var(--text-3)", 1.5))
+    label = ("Ladder results for eight tasks, one lane per model, by ladder step. On archive, defval and "
+             "ipqueue Devin passes at a lower level than Composer, and on advrefs Composer passes lower. "
+             "On httperrexpr both pass at L2. On httpmux and exprhash Composer fails through the test "
+             "names and passes once the test file is in the tree. Grok passes httpmux with the test "
+             "file, and Devin, given one run with the test file, passes exprhash.")
     return svg(y + 2, label, body)
 
 
@@ -480,17 +525,20 @@ def fig_gradient(s):
              ("L2", "full description", f"+{words['d2']:.0f} words"),
              ("L3–4", "test names", f"+{words['d3']:.0f} words"),
              ("L5–6", "the test file", "+ a test file")]
-    x0, x1, y0, h = 110, 560, 36, 280
-    xs = [x0 + i * (x1 - x0) / 3 for i in range(4)]
+    x0, x1, y0, h = 120, 570, 36, 280
+    xs = [x0 + 30 + i * (x1 - x0 - 60) / 3 for i in range(4)]
     sy = lambda v: y0 + h - h * v / 100
     body = []
     for tick in range(0, 101, 25):
-        body.append(line(x0 - 10, sy(tick), x1 + 10, sy(tick), "var(--line)", 1))
-        body.append(text(x0 - 18, sy(tick) + 5, f"{tick}%", 14, "var(--text-3)", "end", mono=True))
+        body.append(line(x0, sy(tick), x1, sy(tick), "var(--line)", 1))
+        body.append(text(x0 - 10, sy(tick) + 5, f"{tick}%", 14, "var(--text-3)", "end", mono=True))
+    body += [line(x0, y0 - 8, x0, y0 + h, "var(--text-3)", 1.5), line(x0, y0 + h, x1, y0 + h, "var(--text-3)", 1.5),
+             rotated(34, y0 + h / 2, "share of graded tasks solved")]
     for x, (lv, name, add) in zip(xs, steps):
-        body.append(text(x, y0 + h + 28, lv, 17, "var(--text)", "middle", 700, True))
-        body.append(text(x, y0 + h + 48, name, 14, "var(--text-2)", "middle"))
-        body.append(text(x, y0 + h + 66, add, 13, "var(--text-3)", "middle", mono=True))
+        body.append(text(x, y0 + h + 26, lv, 17, "var(--text)", "middle", 700, True))
+        body.append(text(x, y0 + h + 46, name, 14, "var(--text-2)", "middle"))
+        body.append(text(x, y0 + h + 64, add, 13, "var(--text-3)", "middle", mono=True))
+    body.append(text((x0 + x1) / 2, y0 + h + 92, "ladder step", 15, "var(--text-2)", "middle"))
     lines = (("all", "all tasks", "var(--text)", 3.5, ""),
              ("composer", "Composer", MODEL_COLOR["composer"], 2.5, ' stroke-dasharray="6 5"'),
              ("devin", "Devin", MODEL_COLOR["devin"], 2.5, ' stroke-dasharray="6 5"'))
@@ -505,7 +553,6 @@ def fig_gradient(s):
     for x, v in zip(xs, a):
         shown = f"{v:.1f}%" if 99.5 <= v < 100 else f"{v:.0f}%"
         body.append(text(x, sy(v) - 14, shown, 16, weight=700, anchor="middle", mono=True))
-    # The step that carries the gradient.
     jump = a[1] - a[0]
     body.append(text((xs[0] + xs[1]) / 2 + 30, sy((a[0] + a[1]) / 2) + 30, f"+{jump:.0f} points", 16,
                      "var(--text-2)", weight=700))
@@ -519,68 +566,36 @@ def fig_gradient(s):
              + ", ".join(f"{lv} {v}%" for (lv, _, _), v in zip(steps, a))
              + f". Composer: {', '.join(f'{v}%' for v in g['composer']['share'])}. "
              + f"Devin: {', '.join(f'{v}%' for v in g['devin']['share'])}.")
-    return svg(y0 + h + 76, label, body)
-
-
-def fig_joint(s):
-    j = s["joint"]
-    get = lambda c, v: j["cells"].get(f"{c}-{v}", 0)
-    n = len(GRADE_STEPS)
-    x0, y0, cell = 170, 70, 100
-    peak = max(j["cells"].values())
-    body = [text(x0 + n * cell / 2, 22, "Devin's first pass", 17, "var(--chart-2)", "middle", 600)]
-    for i, name in enumerate(GRADE_STEPS):
-        body.append(text(x0 + i * cell + cell / 2, 52, name, 16, "var(--text-2)", "middle", 600, True))
-        body.append(text(x0 - 16, y0 + i * cell + cell / 2 + 6, name, 16, "var(--text-2)", "end", 600, True))
-    body.append(text(20, y0 + n * cell / 2 - 10, "Composer's", 17, "var(--chart-1)", weight=600))
-    body.append(text(20, y0 + n * cell / 2 + 12, "first pass", 17, "var(--chart-1)", weight=600))
-    for ci in range(n):
-        for vi in range(n):
-            k = get(ci, vi)
-            x, y = x0 + vi * cell, y0 + ci * cell
-            same = ci == vi
-            body.append(rect(x, y, cell, cell, "var(--bg-2)" if same else "none", rx=0,
-                             extra=' stroke="var(--line)" stroke-width="1.5"'))
-            if k:
-                side = (cell - 34) * (k / peak) ** 0.5
-                who = "same level" if same else ("Devin needs less" if vi < ci else "Composer needs less")
-                body.append(rect(x + cell / 2 - side / 2, y + cell / 2 - side / 2 - 8, side, side,
-                                 "var(--chart-1)" if same else "var(--chart-2)",
-                                 f"Composer {GRADE_STEPS[ci]}, Devin {GRADE_STEPS[vi]}: {k} ({who})", rx=2,
-                                 extra="" if same or vi < ci else ' fill-opacity="0.45"'))
-            body.append(text(x + cell / 2, y + cell - 10, num(k), 17,
-                             "var(--text)" if k else "var(--text-3)", "middle", 700, True))
-    same = sum(get(i, i) for i in range(n))
-    lower_d = sum(get(c, v) for c in range(n) for v in range(n) if v < c)
-    lower_c = sum(get(c, v) for c in range(n) for v in range(n) if c < v)
-    label = (f"Where Composer and Devin first pass, on the {j['n']} tasks both graded. The same level "
-             f"on {same}. Devin passes lower on {lower_d} and Composer lower on {lower_c}. "
-             f"Kendall's tau-b between the two grades is {j['tau_b']}.")
-    return svg(y0 + n * cell + 8, label, body)
+    return svg(y0 + h + 104, label, body)
 
 
 def fig_length(s):
     rows = s["joint"]["by_length"]
     names = ["shortest third", "middle third", "longest third"]
-    x0, bar, gap, width = 230, 46, 30, 330
+    x0, bar, gap, width, top = 230, 40, 22, 330, 14
+    sx = lambda v: x0 + width * v / 100
     body = []
     parts = (("same", "same level", "var(--chart-1)", ""),
              ("devin_lower", "Devin lower", "var(--chart-2)", ""),
              ("composer_lower", "Composer lower", "var(--chart-2)", ' fill-opacity="0.45"'))
     for i, (r, name) in enumerate(zip(rows, names)):
-        y = 20 + i * (bar + gap)
+        y = top + i * (bar + gap)
         total = r["same"] + r["devin_lower"] + r["composer_lower"]
-        body.append(text(x0 - 16, y + 20, name, 18, anchor="end", weight=600))
-        body.append(text(x0 - 16, y + 42, f"{r['from']}–{r['to']} words", 15, "var(--text-3)", "end"))
+        body.append(text(x0 - 16, y + 18, name, 17, anchor="end", weight=600))
+        body.append(text(x0 - 16, y + 37, f"{r['from']}–{r['to']} words", 14, "var(--text-3)", "end"))
         x = x0
         for key, label, color, extra in parts:
             w = width * r[key] / total
             if w:
                 body.append(rect(x, y, w, bar, color, f"{name}: {label} {r[key]} of {total}", rx=0, extra=extra))
             x += w
-        body.append(text(x0 + width + 12, y + 30, f"{round(100 * r['same'] / total)}% agree", 17,
+        body.append(text(x0 + width + 12, y + 27, f"{round(100 * r['same'] / total)}% agree", 16,
                          weight=700, mono=True))
-    ly = 20 + 3 * (bar + gap)
+    y_end = top + 3 * (bar + gap) - gap + 6
+    body.append(line(x0, top - 4, x0, y_end, "var(--text-3)", 1.5))
+    body.append(rotated(24, (top + y_end) / 2, "full description length"))
+    body += x_axis(x0, x0 + width, y_end, (0, 50, 100), sx, lambda v: f"{v}%", "share of tasks both models graded")
+    ly = y_end + 78
     lx = x0
     for key, label, color, extra in parts:
         body.append(rect(lx, ly - 12, 14, 14, color, rx=2, extra=extra))
@@ -592,35 +607,46 @@ def fig_length(s):
     return svg(ly + 14, label, body)
 
 
+MIN_RUNS = 5
+
+
 def fig_trace_steps(s):
+    """Median tool calls at each step; a point needs MIN_RUNS runs behind it."""
     d = s["traces"]["by_step"]
     steps = ["L1", "L2", "L3–4", "L5–6"]
-    x0, x1, y0, h, top = 110, 530, 30, 250, 100
-    xs = {st: x0 + i * (x1 - x0) / (len(steps) - 1) for i, st in enumerate(steps)}
+    x0, x1, y0, h, top = 120, 560, 60, 240, 100
+    xs = {st: x0 + 40 + i * (x1 - x0 - 80) / (len(steps) - 1) for i, st in enumerate(steps)}
     sy = lambda v: y0 + h - h * v / top
     body = []
     for tick in range(0, top + 1, 25):
-        body.append(line(x0 - 10, sy(tick), x1 + 10, sy(tick), "var(--line)", 1))
-        body.append(text(x0 - 18, sy(tick) + 5, str(tick), 14, "var(--text-3)", "end", mono=True))
+        body.append(line(x0, sy(tick), x1, sy(tick), "var(--line)", 1))
+        body.append(text(x0 - 10, sy(tick) + 5, str(tick), 14, "var(--text-3)", "end", mono=True))
+    body += [line(x0, y0 - 8, x0, y0 + h, "var(--text-3)", 1.5), line(x0, y0 + h, x1, y0 + h, "var(--text-3)", 1.5),
+             rotated(40, y0 + h / 2, "tool calls per run, median")]
     for st in steps:
-        body.append(text(xs[st], y0 + h + 28, st, 16, "var(--text-2)", "middle", 600, True))
-    for m in ("composer", "devin"):
-        for v in ("pass", "fail"):
-            pts = [(xs[st], sy(d[f"{m}|{st}|{v}"]["median"]), d[f"{m}|{st}|{v}"]["n"]) for st in steps
-                   if f"{m}|{st}|{v}" in d]
-            dash = "" if v == "pass" else ' stroke-dasharray="6 5"'
-            body.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y, _ in pts)}" fill="none" '
-                        f'stroke="{MODEL_COLOR[m]}" stroke-width="3"{dash}/>')
-            for x, y, n in pts:
-                body.append(glyph(x, y, MODEL_COLOR[m], v == "pass", f"{MODEL[m]} {v}, {n} runs"))
-            x, y, _ = pts[-1]
-            body.append(text(x + 16, y + 5, f"{MODEL[m]} {'passed' if v == 'pass' else 'failed'}", 15,
-                             MODEL_COLOR[m], weight=600))
-    body.append(text(x0 - 60, y0 - 10, "tool calls, median", 15, "var(--text-2)"))
-    label = ("Median tool calls per run at each ladder step, for passed and failed runs of each model. "
-             "At the bug report and the full description Composer's failures run longest. Higher up "
-             "the order flips, and failures are the short runs for both models.")
-    return svg(y0 + h + 44, label, body)
+        body.append(text(xs[st], y0 + h + 26, st, 16, "var(--text-2)", "middle", 600, True))
+    body.append(text((x0 + x1) / 2, y0 + h + 52, "ladder step", 15, "var(--text-2)", "middle"))
+    series = (("composer", "pass"), ("composer", "fail"), ("devin", "pass"), ("devin", "fail"))
+    for m, v in series:
+        pts = [(xs[st], sy(d[k]["median"]), d[k]["n"]) for st in steps
+               for k in [f"{m}|{st}|{v}"] if k in d and d[k]["n"] >= MIN_RUNS]
+        dash = "" if v == "pass" else ' stroke-dasharray="6 5"'
+        body.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y, _ in pts)}" fill="none" '
+                    f'stroke="{MODEL_COLOR[m]}" stroke-width="3"{dash}/>')
+        for x, y, n in pts:
+            body.append(glyph(x, y, MODEL_COLOR[m], v == "pass", f"{MODEL[m]} {v}ed, {n} runs"))
+    # legend across the top
+    lx = 60
+    for m, v in series:
+        dash = "" if v == "pass" else ' stroke-dasharray="6 5"'
+        body.append(f'<line x1="{lx}" y1="18" x2="{lx + 30}" y2="18" stroke="{MODEL_COLOR[m]}" stroke-width="3"{dash}/>')
+        body.append(glyph(lx + 15, 18, MODEL_COLOR[m], v == "pass", ""))
+        body.append(text(lx + 40, 23, f"{MODEL[m]} {'passed' if v == 'pass' else 'failed'}", 14, "var(--text-2)"))
+        lx += 165
+    label = ("Median tool calls per run at each ladder step, for passed and failed runs of each model, "
+             f"leaving out any point with fewer than {MIN_RUNS} runs. Failed runs take more calls than "
+             "passed runs at the bug report and the full description for both models.")
+    return svg(y0 + h + 64, label, body)
 
 
 def fig_trace_flips(s):
@@ -628,12 +654,14 @@ def fig_trace_flips(s):
     rows = [("composer", "calls", "tool calls"), ("devin", "calls", "tool calls"),
             ("composer", "explore_calls", "read and search calls"),
             ("devin", "explore_calls", "read and search calls")]
-    x0, width, row = 250, 380, 50
+    x0, width, row, top = 250, 400, 52, 46
+    lo, hi = 20, 80
+    sx = lambda v: x0 + width * (v - lo) / (hi - lo)
     body = []
+    ys = []
     for i, (m, k, name) in enumerate(rows):
-        y = 26 + i * row + (14 if i >= 2 else 0)
-        lo, hi = (30, 90) if k == "calls" else (20, 60)
-        sx = lambda v: x0 + width * (v - lo) / (hi - lo)
+        y = top + i * row + (14 if i >= 2 else 0)
+        ys.append(y)
         a, b = f[m][k]
         fmt = lambda v: f"{v:.0f}"
         body.append(text(x0 - 16, y + 6, f"{MODEL[m]}, {name}", 16, MODEL_COLOR[m], "end", 600))
@@ -641,13 +669,15 @@ def fig_trace_flips(s):
         body.append(line(sx(a), y, sx(b), y, MODEL_COLOR[m], 4))
         body.append(glyph(sx(a), y, MODEL_COLOR[m], False, f"failed run: {fmt(a)}"))
         body.append(glyph(sx(b), y, MODEL_COLOR[m], True, f"passing run: {fmt(b)}"))
-        # Points closer than a label's width: the failed run's value goes under the line.
         below = abs(sx(a) - sx(b)) < 44
         body.append(text(sx(a), y + (28 if below else -16), fmt(a), 15, "var(--text-2)", "middle", mono=True))
         body.append(text(sx(b), y - 16, fmt(b), 15, weight=700, anchor="middle", mono=True))
         body.append(text(max(sx(a), sx(b)) + 26, y + 5, f"{100 * (b - a) / a:+.0f}%".replace("-", "−"),
                          16, MODEL_COLOR[m], weight=700, mono=True))
-    ly = 26 + 4 * row + 20
+    y_end = ys[-1] + 26
+    body.append(line(x0, top - 30, x0, y_end, "var(--text-3)", 1.5))
+    body += x_axis(x0, x0 + width, y_end, (20, 40, 60, 80), sx, lambda v: str(v), "calls per run, median")
+    ly = y_end + 76
     body.append(glyph(x0, ly, "var(--text-2)", False, "failed"))
     body.append(text(x0 + 14, ly + 5, "failed run just below the first pass", 15, "var(--text-2)"))
     body.append(glyph(x0, ly + 26, "var(--text-2)", True, "passed"))
@@ -670,10 +700,16 @@ def fig_runs(s):
             runs[name].update(raw.get(r, {}))
     lv = [name for name, _, _ in STEPS]
     totals = {r: sum(runs[r].values()) for r in lv}
-    base, top = 250, 40
-    scale = (base - top) / max(totals.values())
-    bw, step, x0 = 88, 150, 90
-    body = [line(40, base, 700, base, "var(--line)", 1.5)]
+    base, top = 270, 50
+    ymax = 800
+    sy = lambda v: base - (base - top) * v / ymax
+    bw, step, x0 = 88, 140, 150
+    body = []
+    for t in range(0, ymax + 1, 200):
+        body.append(line(110, sy(t), 700, sy(t), "var(--line)", 1))
+        body.append(text(100, sy(t) + 5, num(t), 14, "var(--text-3)", "end", mono=True))
+    body += [line(110, top - 8, 110, base, "var(--text-3)", 1.5), line(110, base, 700, base, "var(--text-3)", 1.5),
+             rotated(30, (top + base) / 2, "runs with a verdict")]
     for i, r in enumerate(lv):
         x = x0 + i * step
         y = base
@@ -681,38 +717,41 @@ def fig_runs(s):
             n = runs[r].get(m, 0)
             if not n:
                 continue
-            h = n * scale
+            h = base - sy(n)
             body.append(rect(x, y - h, bw, h, MODEL_COLOR[m], f"{r}, {MODEL[m]}: {n} runs", rx=0))
             y -= h
-        body.append(text(x + bw / 2, y - 10, num(totals[r]), 19, anchor="middle", weight=700, mono=True))
-        key = r in ("L1", "L2")
-        body.append(text(x + bw / 2, base + 30, r, 20, "var(--text)" if key else "var(--text-2)",
-                         "middle", 700, True))
+        body.append(text(x + bw / 2, y - 10, num(totals[r]), 18, anchor="middle", weight=700, mono=True))
+        body.append(text(x + bw / 2, base + 26, r, 18, "var(--text)", "middle", 700, True))
+    body.append(text((110 + 700) / 2, base + 52, "ladder step", 15, "var(--text-2)", "middle"))
     for lx, m in ((450, "composer"), (560, "devin"), (640, "grok")):
         body.append(rect(lx, 10, 14, 14, MODEL_COLOR[m], rx=2))
         body.append(text(lx + 20, 22, MODEL[m], 16, "var(--text-2)"))
     label = ("Runs with a verdict per ladder step, stacked by model. "
              + ", ".join(f"{r} {totals[r]}" for r in lv) + ".")
-    return svg(base + 44, label, body, "y")
+    return svg(base + 64, label, body, "y")
 
 
 def fig_runs_per_cert(_s):
     rows = [("parallel, no gate", 9.0, False), ("sequential, no gate", 7.7, False),
             ("sequential, gated", 3.2, True)]
-    x0, scale, row, bh = 230, 400 / 9.0, 54, 32
+    x0, width, row, bh, top = 230, 400, 50, 30, 14
+    sx = lambda v: x0 + width * v / 10
     body = []
     for i, (name, v, key) in enumerate(rows):
-        y = 16 + i * row
-        body.append(text(x0 - 16, y + bh - 9, name, 20, anchor="end"))
-        body.append(rect(x0, y, v * scale, bh, "var(--chart-1)", f"{name}: {v}",
+        y = top + i * row
+        body.append(text(x0 - 16, y + bh - 9, name, 18, anchor="end"))
+        body.append(rect(x0, y, sx(v) - x0, bh, "var(--chart-1)", f"{name}: {v}",
                          extra="" if key else ' fill-opacity="0.35"'))
-        body.append(text(x0 + v * scale + 10, y + bh - 8, f"{v:.1f}", 21, weight=700, mono=True))
-    fx = x0 + 2 * scale
-    body.append(line(fx, 6, fx, 16 + row * 3 - 8, "var(--chart-2)", 2, ' stroke-dasharray="4 4"'))
-    body.append(text(fx + 8, 16 + row * 3 + 12, "floor of 2", 16, "var(--chart-2)"))
-    body.append(text(x0 + 200, 16 + row * 3 + 40, "runs per certificate", 17, "var(--text-2)", "middle"))
+        body.append(text(sx(v) + 10, y + bh - 8, f"{v:.1f}", 19, weight=700, mono=True))
+    y_end = top + row * 3 - 8
+    fx = sx(2)
+    body.append(line(fx, top - 6, fx, y_end, "var(--chart-2)", 2, ' stroke-dasharray="4 4"'))
+    body.append(text(fx + 6, top - 10 + 4, "floor of 2", 14, "var(--chart-2)"))
+    body.append(line(x0, top - 6, x0, y_end, "var(--text-3)", 1.5))
+    body.append(rotated(26, (top + y_end) / 2, "schedule"))
+    body += x_axis(x0, x0 + width, y_end, (0, 2, 4, 6, 8, 10), sx, lambda v: str(v), "runs per certificate")
     label = "Runs needed per certificate: parallel with no gate 9.0, sequential with no gate 7.7, sequential with a gate 3.2, against a floor of 2."
-    return svg(16 + row * 3 + 50, label, body, "x")
+    return svg(y_end + 56, label, body, "x")
 
 
 FIGURES = {
@@ -720,12 +759,10 @@ FIGURES = {
     "funnel": fig_funnel,
     "information-gradient": fig_gradient,
     "curves": fig_curves,
-    "joint-grades": fig_joint,
     "agreement-by-length": fig_length,
     "trace-steps": fig_trace_steps,
     "trace-flips": fig_trace_flips,
     "runs-per-level": fig_runs,
-    "runs-per-certificate": fig_runs_per_cert,
 }
 
 
