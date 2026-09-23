@@ -142,6 +142,8 @@ def trace_flips(rows):
     explore = lambda r: (r["read"] + r["search"]) / r["calls"]
     return {m: {"tasks": len(ps),
                 "calls": [statistics.median(f["calls"] for f, _ in ps), statistics.median(p["calls"] for _, p in ps)],
+                "explore_calls": [statistics.median(f["read"] + f["search"] for f, _ in ps),
+                                  statistics.median(p["read"] + p["search"] for _, p in ps)],
                 "explore": [round(statistics.median(explore(f) for f, _ in ps), 3),
                             round(statistics.median(explore(p) for _, p in ps), 3)]}
             for m, ps in pairs.items()}
@@ -602,15 +604,16 @@ def fig_trace_steps(s):
 def fig_trace_flips(s):
     f = s["traces"]["flips"]
     rows = [("composer", "calls", "tool calls"), ("devin", "calls", "tool calls"),
-            ("composer", "explore", "share exploring"), ("devin", "explore", "share exploring")]
+            ("composer", "explore_calls", "read and search calls"),
+            ("devin", "explore_calls", "read and search calls")]
     x0, width, row = 250, 380, 50
     body = []
     for i, (m, k, name) in enumerate(rows):
         y = 26 + i * row + (14 if i >= 2 else 0)
-        lo, hi = (30, 90) if k == "calls" else (0.4, 0.8)
+        lo, hi = (30, 90) if k == "calls" else (20, 60)
         sx = lambda v: x0 + width * (v - lo) / (hi - lo)
         a, b = f[m][k]
-        fmt = (lambda v: f"{v:.0f}") if k == "calls" else (lambda v: f"{100 * v:.0f}%")
+        fmt = lambda v: f"{v:.0f}"
         body.append(text(x0 - 16, y + 6, f"{MODEL[m]}, {name}", 16, MODEL_COLOR[m], "end", 600))
         body.append(line(x0, y, x0 + width, y, "var(--line)", 1))
         body.append(line(sx(a), y, sx(b), y, MODEL_COLOR[m], 4))
@@ -628,9 +631,9 @@ def fig_trace_flips(s):
     label = (f"Same task, same model. Composer ({f['composer']['tasks']} tasks) goes from "
              f"{f['composer']['calls'][0]:.0f} calls on its failed run to {f['composer']['calls'][1]:.0f} on its pass, "
              f"and Devin ({f['devin']['tasks']} tasks) from {f['devin']['calls'][0]:.0f} to {f['devin']['calls'][1]:.0f}. "
-             f"Devin's share of calls spent exploring drops from {100 * f['devin']['explore'][0]:.0f}% to "
-             f"{100 * f['devin']['explore'][1]:.0f}%, Composer's from {100 * f['composer']['explore'][0]:.0f}% to "
-             f"{100 * f['composer']['explore'][1]:.0f}%.")
+             f"Read and search calls fall from {f['composer']['explore_calls'][0]:.0f} to "
+             f"{f['composer']['explore_calls'][1]:.0f} for Composer and from {f['devin']['explore_calls'][0]:.0f} "
+             f"to {f['devin']['explore_calls'][1]:.0f} for Devin.")
     return svg(ly + 44, label, body)
 
 

@@ -1,4 +1,4 @@
-<svg viewBox="0 0 720 290" role="img" aria-label="Same task, same model. Composer (207 tasks) goes from 68 calls on its failed run to 58 on its pass, and Devin (73 tasks) from 68 to 57. Devin's share of calls spent exploring drops from 64% to 56%, Composer's from 72% to 70%.">
+<svg viewBox="0 0 720 290" role="img" aria-label="Same task, same model. Composer (207 tasks) goes from 68 calls on its failed run to 58 on its pass, and Devin (73 tasks) from 68 to 57. Read and search calls fall from 50 to 38 for Composer and from 43 to 30 for Devin.">
 <text x="234.0" y="32.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer, tool calls</text>
 <line x1="250.0" y1="26.0" x2="630.0" y2="26.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="490.7" y1="26.0" x2="427.3" y2="26.0" stroke="var(--chart-1)" stroke-width="4"/>
@@ -13,20 +13,20 @@
 <circle cx="421.0" cy="76" r="8.5" fill="var(--chart-2)"><title>passing run: 57</title></circle>
 <text x="490.7" y="60.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">68</text>
 <text x="421.0" y="60.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">57</text>
-<text x="234.0" y="146.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer, share exploring</text>
+<text x="234.0" y="146.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer, read and search calls</text>
 <line x1="250.0" y1="140.0" x2="630.0" y2="140.0" stroke="var(--line)" stroke-width="1"/>
-<line x1="556.8" y1="140.0" x2="538.8" y2="140.0" stroke="var(--chart-1)" stroke-width="4"/>
-<circle cx="556.8499999999999" cy="140" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>failed run: 72%</title></circle>
-<circle cx="538.8" cy="140" r="8.5" fill="var(--chart-1)"><title>passing run: 70%</title></circle>
-<text x="556.8" y="168.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">72%</text>
-<text x="538.8" y="124.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">70%</text>
-<text x="234.0" y="196.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin, share exploring</text>
+<line x1="535.0" y1="140.0" x2="421.0" y2="140.0" stroke="var(--chart-1)" stroke-width="4"/>
+<circle cx="535.0" cy="140" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>failed run: 50</title></circle>
+<circle cx="421.0" cy="140" r="8.5" fill="var(--chart-1)"><title>passing run: 38</title></circle>
+<text x="535.0" y="124.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">50</text>
+<text x="421.0" y="124.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">38</text>
+<text x="234.0" y="196.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin, read and search calls</text>
 <line x1="250.0" y1="190.0" x2="630.0" y2="190.0" stroke="var(--line)" stroke-width="1"/>
-<line x1="480.9" y1="190.0" x2="398.2" y2="190.0" stroke="var(--chart-2)" stroke-width="4"/>
-<circle cx="480.85" cy="190" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>failed run: 64%</title></circle>
-<circle cx="398.20000000000005" cy="190" r="8.5" fill="var(--chart-2)"><title>passing run: 56%</title></circle>
-<text x="480.9" y="174.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">64%</text>
-<text x="398.2" y="174.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">56%</text>
+<line x1="468.5" y1="190.0" x2="345.0" y2="190.0" stroke="var(--chart-2)" stroke-width="4"/>
+<circle cx="468.5" cy="190" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>failed run: 43</title></circle>
+<circle cx="345.0" cy="190" r="8.5" fill="var(--chart-2)"><title>passing run: 30</title></circle>
+<text x="468.5" y="174.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">43</text>
+<text x="345.0" y="174.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">30</text>
 <circle cx="250" cy="246" r="7.5" fill="var(--bg)" stroke="var(--text-2)" stroke-width="2"><title>failed</title></circle>
 <text x="264.0" y="251.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">failed run just below the first pass</text>
 <circle cx="250" cy="272" r="8.5" fill="var(--text-2)"><title>passed</title></circle>

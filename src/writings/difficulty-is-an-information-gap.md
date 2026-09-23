@@ -215,14 +215,14 @@ runs, so read those points as a direction, not a measurement.
 Each step also holds different tasks, since only a task that fails lower down climbs, so the
 cleaner comparison holds the task fixed. On the 207 tasks Composer failed and then passed one
 level up, and Devin's 73, the passing run takes fewer calls than the failed run just below it, 58
-against 68 for Composer and 57 against 68 for Devin. What the extra information replaces differs
-by model. Devin spends a smaller share of its calls reading and searching the repository, 56%
-against 64%, while Composer's mix barely moves. The information does searching the model would
-otherwise have done.
+against 68 for Composer and 57 against 68 for Devin. Nearly the whole saving is exploration.
+Composer's read and search calls fall from 50 to 38 and Devin's from 43 to 30, a quarter to a third
+fewer, while test runs stay level at 8 and 9. For Devin the exploring share of its calls drops too,
+from 64% to 56%. The information does searching the model would otherwise have done.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/trace-flips.svg" %}
-<figcaption>Same task, same model: the failed run just below the first passing level, and that passing run. Both models pass with fewer calls, and Devin spends less of them exploring.</figcaption>
+<figcaption>Same task, same model: the failed run just below the first passing level, and that passing run. Both models pass with fewer calls, and the calls they drop are reads and searches.</figcaption>
 </figure>
 
 ## The factory
