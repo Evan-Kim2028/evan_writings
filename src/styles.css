@@ -318,6 +318,14 @@ table.sortable th .dir { opacity: .4; margin-left: .25rem; font-size: .7em; }
 table.sortable th.sorted .dir { opacity: 1; color: var(--accent); }
 tbody tr:hover { background: color-mix(in srgb, var(--accent) 5%, transparent); }
 tbody tr:last-child td { border-bottom: 0; }
+/* Stronger rules so rows read as rows: a heavy line under the header, a visible
+   line between rows, and light banding. Posts that set table_highlight also tint
+   any row that leads with bold text (an own-work or total row). */
+.writing-body thead th { white-space: normal; font-size: .95rem; font-weight: 700; text-transform: none; letter-spacing: 0; color: var(--text); background: color-mix(in srgb, var(--accent) 9%, transparent); border-bottom: 2px solid color-mix(in srgb, var(--text) 45%, transparent); }
+.writing-body tbody td { border-bottom: 1px solid color-mix(in srgb, var(--text) 16%, transparent); }
+.writing-body tbody tr:nth-child(even) { background: color-mix(in srgb, var(--text) 3%, transparent); }
+.writing-body.table-highlight tbody tr:has(> td:first-child > strong) { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.writing-body.table-highlight tbody tr:has(> td:first-child > strong) td { border-top: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); border-bottom: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); }
 td.best { background: var(--hi); font-weight: 600; }
 .writing-body table { margin: 0; }
 
