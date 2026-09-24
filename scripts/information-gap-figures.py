@@ -389,45 +389,52 @@ def y_axis(x, y0, y1, title, title_x=None):
 
 
 def fig_prompt_words(s):
-    """What each level adds: words to the prompt through L3, test code to the repository above."""
+    """What each level adds, as one grouped bar chart with two x axes: words in the prompt
+    (bottom axis, blue) and lines of hidden test code in the repository (top axis, orange)."""
     w, lines = s["words"], s["repo_lines"]
-    row, bh, top = 44, 20, 20
+    x0, width = 200, 400
+    top, row, bh = 78, 50, 16
     y_end = top + row * 6
-    # left panel: words in the prompt
-    ax0, aw, wmax = 200, 200, 600
-    sxw = lambda v: ax0 + aw * v / wmax
-    # right panel: lines of hidden test code in the repository
-    bx0, bw, lmax = 470, 200, 500
-    sxl = lambda v: bx0 + bw * v / lmax
+    wmax, lmax = 600, 500
+    sxw = lambda v: x0 + width * v / wmax
+    sxl = lambda v: x0 + width * v / lmax
     body = []
-    for t in (0, 200, 400, 600):
-        body.append(line(sxw(t), top - 6, sxw(t), y_end, "var(--line)"))
-    for t in (0, 250, 500):
-        body.append(line(sxl(t), top - 6, sxl(t), y_end, "var(--line)"))
+    for t in (0, 150, 300, 450, 600):
+        body.append(line(sxw(t), top - 8, sxw(t), y_end, "var(--line)"))
+    # top axis: lines of test code
+    body.append(line(x0, top - 8, x0 + width, top - 8, "var(--chart-2)", 1.5))
+    for t in (0, 125, 250, 375, 500):
+        body.append(line(sxl(t), top - 13, sxl(t), top - 8, "var(--chart-2)", 1.5))
+        body.append(text(sxl(t), top - 20, num(t), 14, "var(--chart-2)", "middle", mono=True))
+    body.append(text(x0 + width / 2, top - 44, "lines of test code in the repository", 15, "var(--chart-2)", "middle", 600))
     total = 0
     for i, r in enumerate(LEVELS):
-        y = top + i * row
+        y = top + i * row + 6
         total += w["L0"] if r == "0" else w[f"d{r}"]
-        body += level_label(0, y + bh - 4, r, 17)
-        body.append(rect(ax0, y, sxw(total) - ax0, bh, "var(--chart-1)",
-                         f"L{post_level(r)}: about {num(total)} words in the prompt"))
-        body.append(text(sxw(total) + 8, y + bh - 4, num(round(total)), 15, weight=700, mono=True))
+        body += level_label(0, y + bh + 4, r, 17)
+        body.append(rect(x0, y, sxw(total) - x0, bh, "var(--chart-1)",
+                         f"L{post_level(r)}: about {num(round(total))} words in the prompt"))
+        body.append(text(sxw(total) + 8, y + bh - 3, num(round(total)), 14, "var(--chart-1)", weight=700, mono=True))
         n = lines[r]
+        y2 = y + bh + 2
         if n:
-            body.append(rect(bx0, y, sxl(n) - bx0, bh, "var(--chart-2)",
+            body.append(rect(x0, y2, sxl(n) - x0, bh, "var(--chart-2)",
                              f"L{post_level(r)}: about {num(round(n))} lines of test code in the repository"))
-            body.append(text(sxl(n) + 8, y + bh - 4, num(round(n)), 15, weight=700, mono=True))
+            body.append(text(sxl(n) + 8, y2 + bh - 3, num(round(n)), 14, "var(--chart-2)", weight=700, mono=True))
         else:
-            body.append(text(bx0 + 8, y + bh - 4, "none", 14, "var(--text-3)"))
-    body += x_axis(ax0, ax0 + aw, y_end, (0, 200, 400, 600), sxw, num, "words in the prompt")
-    body += x_axis(bx0, bx0 + bw, y_end, (0, 250, 500), sxl, num, "lines of test code in the repository")
-    body += [line(ax0, top - 6, ax0, y_end, "var(--text-3)", 1.5),
-             line(bx0, top - 6, bx0, y_end, "var(--text-3)", 1.5)]
-    label = (f"What each level adds. The prompt grows from about {num(round(w['L0']))} words at the bug report "
-             f"to about {num(round(w['L0'] + w['d2'] + w['d3']))} with the test names and stops there. "
-             f"From L5 the level adds test code to the repository instead: about {num(round(lines['5']))} "
-             f"lines with one hidden test file and {num(round(lines['6']))} with all of them.")
-    return svg(y_end + 56, label, body, "x")
+            body.append(text(x0 + 8, y2 + bh - 3, "0", 13, "var(--text-3)", mono=True))
+    # bottom axis: words in the prompt; y axis: ladder level
+    body.append(line(x0, top - 8, x0, y_end, "var(--text-3)", 1.5))
+    body.append(line(x0, y_end, x0 + width, y_end, "var(--chart-1)", 1.5))
+    for t in (0, 150, 300, 450, 600):
+        body.append(line(sxw(t), y_end, sxw(t), y_end + 5, "var(--chart-1)", 1.5))
+        body.append(text(sxw(t), y_end + 22, num(t), 14, "var(--chart-1)", "middle", mono=True))
+    body.append(text(x0 + width / 2, y_end + 46, "words in the prompt", 15, "var(--chart-1)", "middle", 600))
+    label = (f"What each level adds, one pair of bars per level. Words in the prompt grow from about "
+             f"{num(round(w['L0']))} at the bug report to about {num(round(w['L0'] + w['d2'] + w['d3']))} with "
+             f"the test names and then hold steady. Lines of hidden test code in the repository are zero "
+             f"through L4, about {num(round(lines['5']))} at L5, and about {num(round(lines['6']))} at L6.")
+    return svg(y_end + 58, label, body, "x")
 
 
 def fig_funnel(s):
