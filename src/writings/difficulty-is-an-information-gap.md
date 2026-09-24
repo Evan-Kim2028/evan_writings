@@ -26,20 +26,23 @@ hero_dark: /assets/images/information-gap-hero.dark.png
 
 What makes a coding task difficult? One answer is how much information the solver has. If an agent
 can look the answer up, the task is trivial. We build on that idea with an information ladder, creating six
-prompts for one task that gradually reveal more information to the solver. The ladder gives each
+prompts for one task that gradually reveal more information to the solver: from a bug report
+that names only the symptom (L1), to a full description of every behavior the tests check (L2),
+up to the hidden tests themselves. The ladder gives each
 task a second dimension, so we can mark the point where it goes from unsolvable to solvable and
-certify a model's capability there. We test the approach on 591 Go tasks, with 1,610 graded runs and
-242 certified tasks.
+certify a model's capability there. We test the approach on 591 Go tasks, grading 411 of them over
+1,610 runs and certifying 242.
 
-- **Three in five tasks are hard enough to keep.** Of the 411 graded tasks, 169 (41%) fell to the
-  bug report and are too easy. The other 242 failed it and became solvable higher up the ladder,
-  81% of them from the full description alone.
+- **59% hit rate: hard at L1, solvable higher up.** Of the 411 graded tasks, 242 are hits, and we
+  certified 81% of them at L2, once the solver had the full description. The remaining 169 (41%)
+  passed the bug report and are too easy.
 - **Information replaces search.** A passing run makes a quarter to a third fewer reads and searches
   than the failed run one level below it.
-- **Models disagree on what is hard.** Composer and Devin land on the same level for 41 of the 73
-  tasks both graded, and they agree least where the full description runs long.
-- **The factory runs without people.** Agents authored 591 tasks in three days, 93% passed
-  validation on the first try, and Stage 1 cost $1.4k.
+- **Models differ in capabilities.** Composer and Devin need different amounts of information on 32
+  of the 73 tasks both graded, and differ most where the full description runs long.
+- **Grading drives the cost.** Agents authored all 591 tasks for $409 (3.1B tokens), and 93% passed
+  validation on the first try. Grading took $990 (4.9B tokens), for about $1.4k in total at API
+  token prices.
 
 ## The information ladder
 
