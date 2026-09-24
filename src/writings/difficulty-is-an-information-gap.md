@@ -1,5 +1,5 @@
 ---
-title: "Building a Synthetic SWE Factory: The Information Ladder"
+title: "The Information Ladder: Difficulty as an Information Gap"
 date: "2026-09-23"
 collection: data
 lede: true
@@ -13,38 +13,33 @@ tags:
 source_url: https://github.com/Evan-Kim2028/open_swe_traces_research
 source_platform: github
 slug: difficulty-is-an-information-gap
-description: "A coding task is hard because of what its prompt leaves out. The information ladder sets that one level at a time and grades tasks and models on one scale. Stage 1: Go, nine repositories, 591 tasks."
+description: "A synthetic coding-task factory that sets difficulty by what the prompt withholds, certifies each task with two runs, and grades tasks and models on one scale. Stage 1: 591 Go tasks from nine repositories."
 series: Evals
 series_index: 3
 hero: /assets/images/information-gap-hero.png
 hero_dark: /assets/images/information-gap-hero.dark.png
 ---
 
-## Summary
+<!-- vale House.FirstPerson = NO -->
 
-Most task generators make a coding task harder by working on the code, adding files, call depth,
-and removed behavior, which only moves the answer somewhere less convenient. A task is hard because
-of what its prompt leaves out, and a factory can set that directly. Hold the code, the tests, and
-the model fixed, change only how much the prompt says, and the same model goes from failing to
-passing. The information ladder is that dial: six prompts for one task, each telling the solver
-more. This post describes a factory built on the ladder and what its first 591 Go tasks show.
+## Intro
 
-- **The prompt sets the difficulty.** Composer fails `gin-clientip` from a 96-word bug report and
-  passes it three runs in three from a 596-word description. Across the dataset, 41% of graded
-  tasks fall to the bug report and 89% once the full description arrives.
-- **Information replaces search.** On the same task, the passing run makes a quarter to a third
-  fewer reads and searches than the failed run just below it.
-- **Two prompts separate a hard task from a broken one.** The factory certifies a task only when
-  one model fails the bug report and passes the full description.
-- **Structure leaks the answer.** A frontier model solved all 25 tasks built with up to seven
-  functions deleted across four files, because callers and tests left in the repository gave the
-  answer away.
-- **The same ladder grades models.** Composer and Devin both fail `archive` from the bug report,
-  and the ladder puts them two steps apart. On the 73 tasks both graded, they land on the same level
-  for 41 and part ways most often where the description runs long.
-- **Money, not authoring, sets the limit.** Agents authored all 591 tasks in three days without a
-  person in the loop, and their answer keys change only about one in seven source files in nine
-  repositories. Grading was the expensive part.
+What makes a coding task difficult? One answer is how much information the solver has. If an agent
+can look the answer up, the task is trivial. We build on that idea with an information ladder, creating six
+prompts for one task that gradually reveal more information to the solver. The ladder gives each
+task a second dimension, so we can mark the point where it goes from unsolvable to solvable and
+certify a model's capability there. We test the approach on 591 Go tasks, with 1,610 graded runs and
+242 certified tasks.
+
+- **Three in five tasks are hard enough to keep.** Of the 411 graded tasks, 169 (41%) fell to the
+  bug report and are too easy. The other 242 failed it and became solvable higher up the ladder,
+  81% of them from the full description alone.
+- **Information replaces search.** A passing run makes a quarter to a third fewer reads and searches
+  than the failed run one level below it.
+- **Models disagree on what is hard.** Composer and Devin land on the same level for 41 of the 73
+  tasks both graded, and they agree least where the full description runs long.
+- **The factory runs without people.** Agents authored 591 tasks in three days, 93% passed
+  validation on the first try, and Stage 1 cost $1.4k.
 
 ## The information ladder
 
@@ -54,7 +49,9 @@ A task starts from a working Go repository. An agent cuts out one behavior, keep
 key, and leaves the exported functions behind as stubs that panic. The solver passes when a hidden
 test suite passes, and the ladder changes only what the solver sees. Take `httpmux`, from goa's
 HTTP package, whose cut removes the router: its answer key is 109 lines of `http/mux.go`, checked
-by ten hidden tests in one file.
+by ten hidden tests in one file. The agent that makes the cut also writes the bug report, the way a
+user files an issue. A separate agent writes the full description after reading the answer key and
+the hidden tests, so it spells out every behavior they check.
 
 | Level | The solver gets | For `httpmux` |
 |---|---|---|
@@ -68,8 +65,8 @@ by ten hidden tests in one file.
 Each level contains the one below, so a task passed at one level is solvable at every level above
 it. Up to L3 the ladder adds words to the prompt, and from L5 on it adds test code to the
 repository. L4 and L6 rarely add anything, and the same model gave the same verdict at L3 and L4 on
-42 of the 47 tasks run at both, so the charts use four steps. One cut yields every level, and this
-post counts each such family as one task.
+42 of the 47 tasks run at both, so the charts use four steps. One cut yields every level, and we
+count each such family as one task.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/prompt-words.svg" %}
@@ -78,7 +75,8 @@ post counts each such family as one task.
 
 ### Where the difficulty lives
 
-If the prompt sets the difficulty, anything left in the repository counts as prompt. Of 23 tasks cut
+Anything the solver can read counts as information, including what the cut leaves in the
+repository. Of 23 tasks cut
 with their callers in place, models solved 19 from the bug report, and models solved every task that
 kept its in-tree tests, 36 of 36 for one model and 26 of 26 for another. A generator with eight structural knobs, including call hops, decoys, and
 interface removal, made 25 tasks with up to seven functions deleted across four files, and a
@@ -88,20 +86,21 @@ outcome unchanged, because rearranging code only moves information somewhere les
 The prompt, by contrast, moves the outcome directly. Of the 411 graded tasks, models solved 169
 from the bug report. The other 242 failed it and passed higher up, and 197 of those passed as soon
 as the full description arrived, with the code, the tests, and the model unchanged. Another 10
-needed the test names and 35 the test file. Read as a gradient, the share of tasks solved climbs
-from 41% at the bug report to 89% at the full description, then to 92% and all of them. Both models
-trace the same curve, solving about two in five of their tasks from the bug report and 85% and 93%
-once the full description arrives.
+needed the test names and 35 the test file. The graded set holds only tasks that passed somewhere
+on the ladder, so the curve below reaches 100% by construction. What it shows is where tasks
+become solvable: 41% at the bug report, 89% by the full description, and 92% by the test names.
+Both models trace the same curve, solving about two in five of their tasks from the bug report and
+85% and 93% by the full description.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/information-gradient.svg" %}
-<figcaption>The information gradient: the share of graded tasks solved by each ladder step, counting a task as solved from its first passing level up. The solid line is every task, and the dashed lines are each model's own grades.</figcaption>
+<figcaption>The information gradient: the share of graded tasks solved by each ladder step, counting a task as solved from its first passing level up. Graded tasks are ones that passed at some level, so every line ends at 100%. The solid line is every task, and the dashed lines are each model's own grades.</figcaption>
 </figure>
 
 ### What the information does
 
-For every task a model failed and later passed higher up, 209 for Composer and 69 for Devin, compare
-its first passing run with the failed run just below it. The passing run takes fewer tool calls, 58
+For every task a model failed and later passed higher up, 209 for Composer and 69 for Devin, we
+compare its first passing run with the failed run just below it. The passing run takes fewer tool calls, 58
 against 68 for Composer and 57 against 69 for Devin, and nearly the whole saving is exploration:
 read and search calls fall by a quarter to a third, while test runs hold level. The information does
 searching the model would otherwise have done.
@@ -111,7 +110,7 @@ searching the model would otherwise have done.
 <figcaption>Same task, same model: the failed run just below the first passing level, and that passing run. The calls both models drop are reads and searches.</figcaption>
 </figure>
 
-Across 1,607 graded runs the two models work much alike, with a median of 62 to 65 tool calls, two
+Across 1,608 graded runs the two models work much alike, with a median of 62 to 65 tool calls, two
 thirds of them reading and searching, although Devin takes 19 minutes a run to Composer's 3. Failed runs take more calls than passed ones, 73 against 54
 for Composer and 76 against 63 for Devin, so a long run signals a likely miss that a budget could
 cut short. With the test file in the tree almost nothing fails, and Composer passed 109 of its 113
@@ -132,16 +131,17 @@ certificate records the first level it passes. Every certificate names its model
 stronger model would otherwise erase a weaker one's difficulty.
 
 The certificate depends on each description saying what it claims. On eight tasks a model had
-passed at L2, an audit flipped one line of the description to state the opposite of the removed
-code, and seven of the eight then failed on the flipped property. The same audit found that 40% of
+passed at L2, we flipped one line of the description to state the opposite of the removed code,
+and seven of the eight then failed on the flipped property. The same audit found that 40% of
 the first batch described the removed code wrongly, and every investigated task that failed at both
 L1 and L2 had a defective description.
 
 ## Grading models
 
-Follow one model up one task, and its first passing level grades the task. Hold the task and change
-the model, and the gap between their levels compares the models in information instead of points.
-Composer ran most trials, Devin climbed tasks Composer had graded, and Grok ran only as a third
+When we follow one model up one task, its first passing level grades the task. When we hold the
+task and change the model, the gap between their levels compares the models in information instead
+of points.
+Composer ran most trials, Devin climbed tasks Composer had screened, and Grok ran only as a third
 model at the top. Each gap below rests on about one run per level.
 
 <figure class="fig-inline">
@@ -157,8 +157,9 @@ one of them there too.
 
 Thirty-six tasks carry independent certificates from both models. Both need the same level on 23,
 Devin needs less on 10, and Composer on 3, partly because tasks reached Devin after Composer failed
-them. Across all 73 tasks both graded, Kendall's tau-b between their grades is 0.29, so a task that
-is hard for one model is only loosely hard for the other.
+them. Across all 73 tasks both graded, the models land on the same level for 41, and Kendall's
+tau-b between their grades is 0.29, so a task that is hard for one model is only loosely hard for
+the other.
 
 The length of the full description predicts where they disagree. On the tasks the models disagree
 about, the median description runs 716 words, against 532 where they agree, and the gap holds with
@@ -166,7 +167,7 @@ answer-key size held fixed and on the tasks both failed from the bug report.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/agreement-by-length.svg" %}
-<figcaption>Composer and Devin grades on 72 tasks, split into thirds by the length of the full description. The models agree on about seven in ten tasks with a short or middling description and on one in four with a long one.</figcaption>
+<figcaption>Composer and Devin grades on the 72 of those 73 tasks with a recorded description length, split into thirds by the length of the full description. The models agree on about seven in ten tasks with a short or middling description and on one in four with a long one.</figcaption>
 </figure>
 
 The repository matters as much as the model. Of the 33 tasks Composer had certified, Devin solved 18
@@ -198,7 +199,7 @@ out, like the value of an internal constant.
 ### Yield and headroom
 
 Agents authored the 591 tasks over three days, and validation passed 93% of them on the first
-try. Each authored task yields a family of graded prompts without further authoring, because every
+try. Each authored task yields a family of prompts without further authoring, because every
 level of the ladder comes from the same cut. The nine repositories still have room to spare, since
 the answer keys change only about one in seven of their source files, and adding a repository takes
 a base image and a validation pass.
@@ -208,7 +209,7 @@ a base image and a validation pass.
 A pass should mean the model fixed the code. During a run the container reaches only the model
 vendor's API, the grader runs with no network, and the repository ships without its git history.
 Below L5 the hidden tests stay outside the container, and at L5 and L6 the grader checks the test
-file's sha256, so an edited copy scores zero. An audit of 123k tool calls found one web fetch of the
+file's sha256, so an edited copy scores zero. We audited 123k tool calls and found one web fetch of the
 file under test, and that pass counts as no verdict. Another 55 passing runs also edited a test
 file, and none of those edits can change what the hidden tests check. A zero counts only if the tests ran and
 failed, and a separate check caught 69 verdicts on 13 tasks whose tests never compiled. Those ran
@@ -229,7 +230,7 @@ and nats-server. The median answer key adds 100 lines, and one in eight touches 
 ### Cost and what it limited
 
 Stage 1 used 7.9 billion tokens, worth about $1.4k at API prices, drawn from one researcher's
-subscriptions.
+subscriptions. The Devin rows use its SWE-2 promotional rate, 75% off list.
 
 | Work | Runs or sessions | Tokens | Cost |
 |---|---:|---:|---:|
@@ -255,7 +256,7 @@ information from one that got lucky, and part of the disagreement between models
 Selection shapes the comparison, since Composer screened 374 of the 432 tasks that ran and most
 tasks Devin saw were ones Composer had failed. The levels of a family nest by design, so a training or
 evaluation split should keep each family on one side. The answer keys are upstream code from
-widely used repositories, and a probe for memorized functions is the next check.
+widely used repositories, and our next check is a probe for memorized functions.
 
 ## Related work and conclusion
 
@@ -268,7 +269,7 @@ widely used repositories, and a probe for memorized functions is the next check.
 | CodeMidas | screening model drops always-pass and always-fail | the screening model failed it | not reported |
 | This work | what the prompt withholds, L1 against L2 | one model failed the bug report | the same model passed the full description |
 
-Only this work reports a second prompt that separates a hard task from an underspecified one. The
+Only our work reports a second prompt that separates a hard task from an underspecified one. The
 closest relative, CodeMidas (Ye et al., [arXiv:2609.22068](https://arxiv.org/abs/2609.22068)),
 also starts from source code alone but builds its tests by running the original code, so its tests
 come from the answer, where these come from a written specification of it.
@@ -280,7 +281,7 @@ the prompt, run two prompts, keep the test writer away from the answer key, and 
 before the generator.
 
 Stage 1 is small because of its budget, and three questions come next. Does the cut work outside
-Go, which Stage 2 tests in a second language? Does the disagreement between models survive three
+Go, which we test in Stage 2 with a second language? Does the disagreement between models survive three
 repeat runs per level? And does a second model climbing the same tasks change where certificates
 bind, now 81% at the full description and 14% at the test file?
 
@@ -288,7 +289,7 @@ bind, now 81% at the full description and 14% at the test file?
 
 *Code and trial ledger:
 [open_swe_traces_research](https://github.com/Evan-Kim2028/open_swe_traces_research). Counts are a
-2026-09-23 snapshot of the finished Stage 1 run, derived from `trial_ledger.py` and `roots.py`.
+2026-09-23 snapshot of the finished Stage 1 run, derived from `openswe_traces.reports.paper_numbers`.
 Figures regenerate from the ledger with `scripts/information-gap-figures.py`. Earlier in this
 series: [Terminal-Bench Task: Lakehouse Schema Contract
 Drift](/writings/terminal-bench-task-lakehouse-schema-contract-drift/) and [Four Verifiable
