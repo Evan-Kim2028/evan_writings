@@ -1,31 +1,39 @@
-<svg viewBox="0 0 720 362" role="img" aria-label="Same task, same model. Composer (209 tasks) goes from 68 calls on its failed run to 58 on its pass, and Devin (69 tasks) from 69 to 57. Read and search calls fall from 50 to 38 for Composer and from 44 to 30 for Devin.">
-<text x="234.0" y="52.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer, tool calls</text>
+<svg viewBox="0 0 720 362" role="img" aria-label="Same task, same model. Composer (209 tasks) goes from 68 calls on its failed run to 58 on its pass, and SWE-2 (69 tasks) from 69 to 57. Read and search calls fall from 50 to 38 for Composer and from 44 to 30 for SWE-2.">
+<text x="234.0" y="43.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Tool Calls</text>
+<text x="234.0" y="62.0" text-anchor="end" fill="var(--chart-1)" font-size="15" font-family="var(--font-sans)">(Composer 2.5)</text>
 <line x1="250.0" y1="46.0" x2="650.0" y2="46.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="570.0" y1="46.0" x2="503.3" y2="46.0" stroke="var(--chart-1)" stroke-width="4"/>
+<polygon points="530.7,46 542.7,39 542.7,53" fill="var(--chart-1)"/>
 <circle cx="570.0" cy="46" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>failed run: 68</title></circle>
 <circle cx="503.33333333333337" cy="46" r="8.5" fill="var(--chart-1)"><title>passing run: 58</title></circle>
 <text x="570.0" y="30.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">68</text>
 <text x="503.3" y="30.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">58</text>
 <text x="596.0" y="51.0" fill="var(--chart-1)" font-size="16" font-weight="700" font-family="var(--font-mono)">−15%</text>
-<text x="234.0" y="104.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin, tool calls</text>
+<text x="234.0" y="95.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Tool Calls</text>
+<text x="234.0" y="114.0" text-anchor="end" fill="var(--chart-2)" font-size="15" font-family="var(--font-sans)">(SWE-2)</text>
 <line x1="250.0" y1="98.0" x2="650.0" y2="98.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="576.7" y1="98.0" x2="496.7" y2="98.0" stroke="var(--chart-2)" stroke-width="4"/>
+<polygon points="530.7,98 542.7,91 542.7,105" fill="var(--chart-2)"/>
 <circle cx="576.6666666666667" cy="98" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>failed run: 69</title></circle>
 <circle cx="496.66666666666663" cy="98" r="8.5" fill="var(--chart-2)"><title>passing run: 57</title></circle>
 <text x="576.7" y="82.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">69</text>
 <text x="496.7" y="82.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">57</text>
 <text x="602.7" y="103.0" fill="var(--chart-2)" font-size="16" font-weight="700" font-family="var(--font-mono)">−17%</text>
-<text x="234.0" y="170.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Composer, read and search calls</text>
+<text x="234.0" y="161.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Read and Search Calls</text>
+<text x="234.0" y="180.0" text-anchor="end" fill="var(--chart-1)" font-size="15" font-family="var(--font-sans)">(Composer 2.5)</text>
 <line x1="250.0" y1="164.0" x2="650.0" y2="164.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="450.0" y1="164.0" x2="370.0" y2="164.0" stroke="var(--chart-1)" stroke-width="4"/>
+<polygon points="404.0,164 416.0,157 416.0,171" fill="var(--chart-1)"/>
 <circle cx="450.0" cy="164" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>failed run: 50</title></circle>
 <circle cx="370.0" cy="164" r="8.5" fill="var(--chart-1)"><title>passing run: 38</title></circle>
 <text x="450.0" y="148.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">50</text>
 <text x="370.0" y="148.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-mono)">38</text>
 <text x="476.0" y="169.0" fill="var(--chart-1)" font-size="16" font-weight="700" font-family="var(--font-mono)">−24%</text>
-<text x="234.0" y="222.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Devin, read and search calls</text>
+<text x="234.0" y="213.0" text-anchor="end" fill="var(--chart-2)" font-size="16" font-weight="600" font-family="var(--font-sans)">Read and Search Calls</text>
+<text x="234.0" y="232.0" text-anchor="end" fill="var(--chart-2)" font-size="15" font-family="var(--font-sans)">(SWE-2)</text>
 <line x1="250.0" y1="216.0" x2="650.0" y2="216.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="410.0" y1="216.0" x2="316.7" y2="216.0" stroke="var(--chart-2)" stroke-width="4"/>
+<polygon points="357.3,216 369.3,209 369.3,223" fill="var(--chart-2)"/>
 <circle cx="410.0" cy="216" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>failed run: 44</title></circle>
 <circle cx="316.6666666666667" cy="216" r="8.5" fill="var(--chart-2)"><title>passing run: 30</title></circle>
 <text x="410.0" y="200.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">44</text>
@@ -41,9 +49,9 @@
 <text x="516.7" y="264.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">60</text>
 <line x1="650.0" y1="242.0" x2="650.0" y2="247.0" stroke="var(--text-3)" stroke-width="1.5"/>
 <text x="650.0" y="264.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">80</text>
-<text x="450.0" y="288.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">calls per run, median</text>
+<text x="450.0" y="288.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Median Calls per Run</text>
 <circle cx="250" cy="318" r="7.5" fill="var(--bg)" stroke="var(--text-2)" stroke-width="2"><title>failed</title></circle>
-<text x="264.0" y="323.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">failed run just below the first pass</text>
+<text x="264.0" y="323.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Failed run below first pass</text>
 <circle cx="250" cy="344" r="8.5" fill="var(--text-2)"><title>passed</title></circle>
-<text x="264.0" y="349.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">the first passing run, same task</text>
+<text x="264.0" y="349.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">First passing run</text>
 </svg>

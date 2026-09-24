@@ -15,35 +15,35 @@
 <text x="500.0" y="58.0" text-anchor="middle" fill="var(--chart-2)" font-size="14" font-family="var(--font-mono)">375</text>
 <line x1="600.0" y1="65.0" x2="600.0" y2="70.0" stroke="var(--chart-2)" stroke-width="1.5"/>
 <text x="600.0" y="58.0" text-anchor="middle" fill="var(--chart-2)" font-size="14" font-family="var(--font-mono)">500</text>
-<text x="400.0" y="34.0" text-anchor="middle" fill="var(--chart-2)" font-size="15" font-weight="600" font-family="var(--font-sans)">lines of test code in the repository</text>
+<text x="400.0" y="34.0" text-anchor="middle" fill="var(--chart-2)" font-size="15" font-weight="600" font-family="var(--font-sans)">Lines of Test Code in the Repository</text>
 <text x="0.0" y="104.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L1</text>
-<text x="38.0" y="104.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">bug report</text>
+<text x="38.0" y="104.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Bug report</text>
 <rect x="200.0" y="84.0" width="65.3" height="16.0" rx="3.0" fill="var(--chart-1)"><title>L1: about 98 words in the prompt</title></rect>
 <text x="273.3" y="97.0" fill="var(--chart-1)" font-size="14" font-weight="700" font-family="var(--font-mono)">98</text>
 <text x="208.0" y="115.0" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">0</text>
 <text x="0.0" y="154.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L2</text>
-<text x="38.0" y="154.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">full description</text>
+<text x="38.0" y="154.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Full description</text>
 <rect x="200.0" y="134.0" width="294.0" height="16.0" rx="3.0" fill="var(--chart-1)"><title>L2: about 441 words in the prompt</title></rect>
 <text x="502.0" y="147.0" fill="var(--chart-1)" font-size="14" font-weight="700" font-family="var(--font-mono)">441</text>
 <text x="208.0" y="165.0" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">0</text>
 <text x="0.0" y="204.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L3</text>
-<text x="38.0" y="204.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">test names</text>
+<text x="38.0" y="204.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Test names</text>
 <rect x="200.0" y="184.0" width="316.7" height="16.0" rx="3.0" fill="var(--chart-1)"><title>L3: about 475 words in the prompt</title></rect>
 <text x="524.7" y="197.0" fill="var(--chart-1)" font-size="14" font-weight="700" font-family="var(--font-mono)">475</text>
 <text x="208.0" y="215.0" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">0</text>
 <text x="0.0" y="254.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L4</text>
-<text x="38.0" y="254.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">signatures</text>
+<text x="38.0" y="254.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Signatures</text>
 <rect x="200.0" y="234.0" width="316.7" height="16.0" rx="3.0" fill="var(--chart-1)"><title>L4: about 475 words in the prompt</title></rect>
 <text x="524.7" y="247.0" fill="var(--chart-1)" font-size="14" font-weight="700" font-family="var(--font-mono)">475</text>
 <text x="208.0" y="265.0" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">0</text>
 <text x="0.0" y="304.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L5</text>
-<text x="38.0" y="304.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">one test</text>
+<text x="38.0" y="304.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">One test</text>
 <rect x="200.0" y="284.0" width="316.7" height="16.0" rx="3.0" fill="var(--chart-1)"><title>L5: about 475 words in the prompt</title></rect>
 <text x="524.7" y="297.0" fill="var(--chart-1)" font-size="14" font-weight="700" font-family="var(--font-mono)">475</text>
 <rect x="200.0" y="302.0" width="295.6" height="16.0" rx="3.0" fill="var(--chart-2)"><title>L5: about 370 lines of test code in the repository</title></rect>
 <text x="503.6" y="315.0" fill="var(--chart-2)" font-size="14" font-weight="700" font-family="var(--font-mono)">370</text>
 <text x="0.0" y="354.0" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">L6</text>
-<text x="38.0" y="354.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">all tests</text>
+<text x="38.0" y="354.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">All tests</text>
 <rect x="200.0" y="334.0" width="316.7" height="16.0" rx="3.0" fill="var(--chart-1)"><title>L6: about 475 words in the prompt</title></rect>
 <text x="524.7" y="347.0" fill="var(--chart-1)" font-size="14" font-weight="700" font-family="var(--font-mono)">475</text>
 <rect x="200.0" y="352.0" width="319.2" height="16.0" rx="3.0" fill="var(--chart-2)"><title>L6: about 399 lines of test code in the repository</title></rect>
@@ -60,5 +60,5 @@
 <text x="500.0" y="400.0" text-anchor="middle" fill="var(--chart-1)" font-size="14" font-family="var(--font-mono)">450</text>
 <line x1="600.0" y1="378.0" x2="600.0" y2="383.0" stroke="var(--chart-1)" stroke-width="1.5"/>
 <text x="600.0" y="400.0" text-anchor="middle" fill="var(--chart-1)" font-size="14" font-family="var(--font-mono)">600</text>
-<text x="400.0" y="424.0" text-anchor="middle" fill="var(--chart-1)" font-size="15" font-weight="600" font-family="var(--font-sans)">words in the prompt</text>
+<text x="400.0" y="424.0" text-anchor="middle" fill="var(--chart-1)" font-size="15" font-weight="600" font-family="var(--font-sans)">Words in the Prompt</text>
 </svg>

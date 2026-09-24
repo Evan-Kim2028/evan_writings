@@ -22,25 +22,24 @@ AUTHORED = 591
 # The ledger numbers the bug report rung 0 and keeps an unused partial-description rung 1.
 # The post numbers the bug report L1, so every label goes through post_level.
 LEVELS = ["0", "2", "3", "4", "5", "6"]
-LEVEL_NAME = {"0": "bug report", "2": "full description",
-              "3": "test names", "4": "signatures", "5": "one test", "6": "all tests"}
+LEVEL_NAME = {"0": "Bug report", "2": "Full description",
+              "3": "Test names", "4": "Signatures", "5": "One test", "6": "All tests"}
 
 
 def post_level(rung):
     return "1" if rung == "0" else rung
-MODEL = {"composer": "Composer", "devin": "Devin", "grok": "Grok"}
+MODEL = {"composer": "Composer", "devin": "SWE-2", "grok": "Grok"}
 MODEL_COLOR = {"composer": "var(--chart-1)", "devin": "var(--chart-2)", "grok": "var(--chart-3)"}
 
 CURVE_GROUPS = [
-    ("Composer and Devin: Devin needs less", ("composer", "devin"), ["archive", "defval", "ipqueue"]),
-    ("Composer and Devin: Composer needs less", ("composer", "devin"), ["advrefs"]),
-    ("Composer and Devin: same level", ("composer", "devin"), ["httperrexpr"]),
-    ("The top of the ladder: the test file", ("composer", "grok"), ["httpmux", "exprhash"]),
+    ("go-git", ("composer", "devin"), ["archive", "advrefs"]),
+    ("goa", ("composer", "devin"), ["defval", "httperrexpr", "httpmux"]),
+    ("nats-server", ("composer", "devin"), ["ipqueue"]),
 ]
 # The tasks Grok ran on as a top-of-ladder probe; its pilot elsewhere is left out.
 GROK_PROBE = {"httpmux", "httpencoding", "exprhash"}
 # A lane beyond the group's models, where the text relies on it.
-CURVE_EXTRA = {"exprhash": ("devin",)}
+CURVE_EXTRA = {}
 # The cut keeps exported signatures, and nearly every task has one hidden test file, so on
 # most tasks L4 is the L3 task and L6 is the L5 task. Charts read them as one step.
 STEPS = [("L1", ("0",), "bug report"), ("L2", ("2",), "full description"),
@@ -86,7 +85,7 @@ def information_gradient(bys, first_pass, graded):
 
 
 def joint_grades(bys):
-    """Composer's grade against Devin's on every task both models graded, and Kendall's tau-b."""
+    """Composer's grade against SWE-2's on every task both models graded, and Kendall's tau-b."""
     pairs, bases = [], []
     for base, d in bys.items():
         if "composer" in d and "devin" in d:
@@ -406,7 +405,7 @@ def fig_prompt_words(s):
     for t in (0, 125, 250, 375, 500):
         body.append(line(sxl(t), top - 13, sxl(t), top - 8, "var(--chart-2)", 1.5))
         body.append(text(sxl(t), top - 20, num(t), 14, "var(--chart-2)", "middle", mono=True))
-    body.append(text(x0 + width / 2, top - 44, "lines of test code in the repository", 15, "var(--chart-2)", "middle", 600))
+    body.append(text(x0 + width / 2, top - 44, "Lines of Test Code in the Repository", 15, "var(--chart-2)", "middle", 600))
     total = 0
     for i, r in enumerate(LEVELS):
         y = top + i * row + 6
@@ -429,7 +428,7 @@ def fig_prompt_words(s):
     for t in (0, 150, 300, 450, 600):
         body.append(line(sxw(t), y_end, sxw(t), y_end + 5, "var(--chart-1)", 1.5))
         body.append(text(sxw(t), y_end + 22, num(t), 14, "var(--chart-1)", "middle", mono=True))
-    body.append(text(x0 + width / 2, y_end + 46, "words in the prompt", 15, "var(--chart-1)", "middle", 600))
+    body.append(text(x0 + width / 2, y_end + 46, "Words in the Prompt", 15, "var(--chart-1)", "middle", 600))
     label = (f"What each level adds, one pair of bars per level. Words in the prompt grow from about "
              f"{num(round(w['L0']))} at the bug report to about {num(round(w['L0'] + w['d2'] + w['d3']))} with "
              f"the test names and then hold steady. Lines of hidden test code in the repository are zero "
@@ -439,9 +438,9 @@ def fig_prompt_words(s):
 
 def fig_funnel(s):
     f = s["funnel"]
-    rows = [("authored", f["authored"], None),
-            ("trialled", f["trialled"], f"{num(f['authored'] - f['trialled'])} never ran"),
-            ("graded", f["decided"], f"{num(f['trialled'] - f['decided'])} no verdict")]
+    rows = [("Authored", f["authored"], None),
+            ("Trialled", f["trialled"], f"{num(f['authored'] - f['trialled'])} never ran"),
+            ("Graded", f["decided"], f"{num(f['trialled'] - f['decided'])} no verdict")]
     x0, width, row, bh, top = 130, 380, 50, 30, 12
     sx = lambda v: x0 + width * v / 600
     body = []
@@ -476,10 +475,10 @@ def fig_curves(s):
     cols = [310 + i * 112 for i in range(len(STEPS))]
     end_x = cols[-1]
     lane, gap, head = 28, 14, 38
-    body = [text((cols[0] + cols[-1]) / 2, 16, "ladder step", 15, "var(--text-2)", "middle")]
+    body = [text((cols[0] + cols[-1]) / 2, 16, "Ladder Step", 15, "var(--text-2)", "middle")]
     body += [text(x, 40, name, 17, "var(--text-2)", "middle", 700, True) for x, (name, _, _) in zip(cols, STEPS)]
-    body += [glyph(8, 34, "var(--text-2)", True, "passed"), text(22, 39, "passed", 15, "var(--text-2)"),
-             glyph(96, 34, "var(--text-2)", False, "failed"), text(110, 39, "failed", 15, "var(--text-2)")]
+    body += [glyph(8, 34, "var(--text-2)", True, "passed"), text(22, 39, "Passed", 15, "var(--text-2)"),
+             glyph(96, 34, "var(--text-2)", False, "failed"), text(110, 39, "Failed", 15, "var(--text-2)")]
     body.append(line(cols[0] - 30, 50, end_x + 30, 50, "var(--text-3)", 1.5))
     y = 62
     for gi, (group, models, bases) in enumerate(CURVE_GROUPS):
@@ -517,21 +516,20 @@ def fig_curves(s):
                     body.append(text(end_x + 20, cy + 5, "none", 15, "var(--text-3)"))
             y += len(present) * lane + gap
     body.append(line(cols[0] - 30, 50, cols[0] - 30, y - gap, "var(--text-3)", 1.5))
-    label = ("Ladder results for eight tasks, one lane per model, by ladder step. On archive, defval and "
-             "ipqueue Devin passes at a lower level than Composer, and on advrefs Composer passes lower. "
-             "On httperrexpr both pass at L2. On httpmux and exprhash Composer fails through the test "
-             "names and passes once the test file is in the tree. Grok passes httpmux with the test "
-             "file, and Devin, given one run with the test file, passes exprhash.")
+    label = ("Ladder results for six tasks, one lane per model, by ladder step. On archive, defval and "
+             "ipqueue SWE-2 passes at a lower level than Composer, and on advrefs Composer passes lower. "
+             "On httperrexpr both pass at L2. On httpmux Composer fails through the test "
+             "names and passes once the test file is in the tree.")
     return svg(y + 2, label, body)
 
 
 def fig_gradient(s):
     g = s["gradient"]
     words = s["words"]
-    steps = [("L1", "bug report", f"{words['L0']:.0f} words"),
-             ("L2", "full description", f"+{words['d2']:.0f} words"),
-             ("L3–4", "test names", f"+{words['d3']:.0f} words"),
-             ("L5–6", "the test file", "+ a test file")]
+    steps = [("L1", "Bug report", f"{words['L0']:.0f} words"),
+             ("L2", "Full description", f"+{words['d2']:.0f} words"),
+             ("L3–4", "Test names", f"+{words['d3']:.0f} words"),
+             ("L5–6", "Test file", "+ a test file")]
     x0, x1, y0, h = 120, 570, 36, 280
     xs = [x0 + 30 + i * (x1 - x0 - 60) / 3 for i in range(4)]
     sy = lambda v: y0 + h - h * v / 100
@@ -540,15 +538,15 @@ def fig_gradient(s):
         body.append(line(x0, sy(tick), x1, sy(tick), "var(--line)", 1))
         body.append(text(x0 - 10, sy(tick) + 5, f"{tick}%", 14, "var(--text-3)", "end", mono=True))
     body += [line(x0, y0 - 8, x0, y0 + h, "var(--text-3)", 1.5), line(x0, y0 + h, x1, y0 + h, "var(--text-3)", 1.5),
-             rotated(34, y0 + h / 2, "share of graded tasks solved")]
+             rotated(34, y0 + h / 2, "Share of Graded Tasks Solved")]
     for x, (lv, name, add) in zip(xs, steps):
         body.append(text(x, y0 + h + 26, lv, 17, "var(--text)", "middle", 700, True))
         body.append(text(x, y0 + h + 46, name, 14, "var(--text-2)", "middle"))
         body.append(text(x, y0 + h + 64, add, 13, "var(--text-3)", "middle", mono=True))
-    body.append(text((x0 + x1) / 2, y0 + h + 92, "ladder step", 15, "var(--text-2)", "middle"))
-    lines = (("all", "all tasks", "var(--text)", 3.5, ""),
+    body.append(text((x0 + x1) / 2, y0 + h + 92, "Ladder Step", 15, "var(--text-2)", "middle"))
+    lines = (("all", "All tasks", "var(--text)", 3.5, ""),
              ("composer", "Composer", MODEL_COLOR["composer"], 2.5, ' stroke-dasharray="6 5"'),
-             ("devin", "Devin", MODEL_COLOR["devin"], 2.5, ' stroke-dasharray="6 5"'))
+             ("devin", "SWE-2", MODEL_COLOR["devin"], 2.5, ' stroke-dasharray="6 5"'))
     for key, name, color, width, dash in lines:
         pts = [(x, sy(v)) for x, v in zip(xs, g[key]["share"])]
         body.append(f'<polyline points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pts)}" fill="none" '
@@ -572,18 +570,18 @@ def fig_gradient(s):
     label = ("Share of graded tasks solved by each ladder step. All tasks: "
              + ", ".join(f"{lv} {v}%" for (lv, _, _), v in zip(steps, a))
              + f". Composer: {', '.join(f'{v}%' for v in g['composer']['share'])}. "
-             + f"Devin: {', '.join(f'{v}%' for v in g['devin']['share'])}.")
+             + f"SWE-2: {', '.join(f'{v}%' for v in g['devin']['share'])}.")
     return svg(y0 + h + 104, label, body)
 
 
 def fig_length(s):
     rows = s["joint"]["by_length"]
-    names = ["shortest third", "middle third", "longest third"]
+    names = ["Shortest third", "Middle third", "Longest third"]
     x0, bar, gap, width, top = 230, 40, 22, 330, 14
     sx = lambda v: x0 + width * v / 100
     body = []
     parts = (("same", "same level", "var(--chart-1)", ""),
-             ("devin_lower", "Devin lower", "var(--chart-2)", ""),
+             ("devin_lower", "SWE-2 lower", "var(--chart-2)", ""),
              ("composer_lower", "Composer lower", "var(--chart-2)", ' fill-opacity="0.45"'))
     for i, (r, name) in enumerate(zip(rows, names)):
         y = top + i * (bar + gap)
@@ -600,15 +598,15 @@ def fig_length(s):
                          weight=700, mono=True))
     y_end = top + 3 * (bar + gap) - gap + 6
     body.append(line(x0, top - 4, x0, y_end, "var(--text-3)", 1.5))
-    body.append(rotated(24, (top + y_end) / 2, "full description length"))
-    body += x_axis(x0, x0 + width, y_end, (0, 50, 100), sx, lambda v: f"{v}%", "share of tasks both models graded")
+    body.append(rotated(24, (top + y_end) / 2, "Full Description Length"))
+    body += x_axis(x0, x0 + width, y_end, (0, 50, 100), sx, lambda v: f"{v}%", "Share of Tasks Both Models Graded")
     ly = y_end + 78
     lx = x0
     for key, label, color, extra in parts:
         body.append(rect(lx, ly - 12, 14, 14, color, rx=2, extra=extra))
         body.append(text(lx + 20, ly, label, 15, "var(--text-2)"))
         lx += 150
-    label = ("Agreement between Composer and Devin by length of the full description, in thirds of the "
+    label = ("Agreement between Composer and SWE-2 by length of the full description, in thirds of the "
              + ", ".join(f"{n}: {r['same']} of {r['same'] + r['devin_lower'] + r['composer_lower']} agree"
                          for n, r in zip(names, rows)) + ".")
     return svg(ly + 14, label, body)
@@ -629,10 +627,10 @@ def fig_trace_steps(s):
         body.append(line(x0, sy(tick), x1, sy(tick), "var(--line)", 1))
         body.append(text(x0 - 10, sy(tick) + 5, str(tick), 14, "var(--text-3)", "end", mono=True))
     body += [line(x0, y0 - 8, x0, y0 + h, "var(--text-3)", 1.5), line(x0, y0 + h, x1, y0 + h, "var(--text-3)", 1.5),
-             rotated(40, y0 + h / 2, "tool calls per run, median")]
+             rotated(40, y0 + h / 2, "Median Tool Calls per Run")]
     for st in steps:
         body.append(text(xs[st], y0 + h + 26, st, 16, "var(--text-2)", "middle", 600, True))
-    body.append(text((x0 + x1) / 2, y0 + h + 52, "ladder step", 15, "var(--text-2)", "middle"))
+    body.append(text((x0 + x1) / 2, y0 + h + 52, "Ladder Step", 15, "var(--text-2)", "middle"))
     series = (("composer", "pass"), ("composer", "fail"), ("devin", "pass"), ("devin", "fail"))
     for m, v in series:
         pts = [(xs[st], sy(d[k]["median"]), d[k]["n"]) for st in steps
@@ -658,9 +656,10 @@ def fig_trace_steps(s):
 
 def fig_trace_flips(s):
     f = s["traces"]["flips"]
-    rows = [("composer", "calls", "tool calls"), ("devin", "calls", "tool calls"),
-            ("composer", "explore_calls", "read and search calls"),
-            ("devin", "explore_calls", "read and search calls")]
+    rows = [("composer", "calls", "Tool Calls"), ("devin", "calls", "Tool Calls"),
+            ("composer", "explore_calls", "Read and Search Calls"),
+            ("devin", "explore_calls", "Read and Search Calls")]
+    full = {"composer": "Composer 2.5", "devin": "SWE-2"}
     x0, width, row, top = 250, 400, 52, 46
     lo, hi = 20, 80
     sx = lambda v: x0 + width * (v - lo) / (hi - lo)
@@ -671,9 +670,15 @@ def fig_trace_flips(s):
         ys.append(y)
         a, b = f[m][k]
         fmt = lambda v: f"{v:.0f}"
-        body.append(text(x0 - 16, y + 6, f"{MODEL[m]}, {name}", 16, MODEL_COLOR[m], "end", 600))
+        body.append(text(x0 - 16, y - 3, name, 16, MODEL_COLOR[m], "end", 600))
+        body.append(text(x0 - 16, y + 16, f"({full[m]})", 15, MODEL_COLOR[m], "end"))
         body.append(line(x0, y, x0 + width, y, "var(--line)", 1))
         body.append(line(sx(a), y, sx(b), y, MODEL_COLOR[m], 4))
+        # Arrowhead at the midpoint, pointing from the failed run toward the pass.
+        mid, d = (sx(a) + sx(b)) / 2, (1 if b > a else -1)
+        tip = mid + 6 * d
+        body.append(f'<polygon points="{tip:.1f},{y} {tip - 12 * d:.1f},{y - 7} {tip - 12 * d:.1f},{y + 7}" '
+                    f'fill="{MODEL_COLOR[m]}"/>')
         body.append(glyph(sx(a), y, MODEL_COLOR[m], False, f"failed run: {fmt(a)}"))
         body.append(glyph(sx(b), y, MODEL_COLOR[m], True, f"passing run: {fmt(b)}"))
         below = abs(sx(a) - sx(b)) < 44
@@ -683,18 +688,18 @@ def fig_trace_flips(s):
                          16, MODEL_COLOR[m], weight=700, mono=True))
     y_end = ys[-1] + 26
     body.append(line(x0, top - 30, x0, y_end, "var(--text-3)", 1.5))
-    body += x_axis(x0, x0 + width, y_end, (20, 40, 60, 80), sx, lambda v: str(v), "calls per run, median")
+    body += x_axis(x0, x0 + width, y_end, (20, 40, 60, 80), sx, lambda v: str(v), "Median Calls per Run")
     ly = y_end + 76
     body.append(glyph(x0, ly, "var(--text-2)", False, "failed"))
-    body.append(text(x0 + 14, ly + 5, "failed run just below the first pass", 15, "var(--text-2)"))
+    body.append(text(x0 + 14, ly + 5, "Failed run below first pass", 15, "var(--text-2)"))
     body.append(glyph(x0, ly + 26, "var(--text-2)", True, "passed"))
-    body.append(text(x0 + 14, ly + 31, "the first passing run, same task", 15, "var(--text-2)"))
+    body.append(text(x0 + 14, ly + 31, "First passing run", 15, "var(--text-2)"))
     label = (f"Same task, same model. Composer ({f['composer']['tasks']} tasks) goes from "
              f"{f['composer']['calls'][0]:.0f} calls on its failed run to {f['composer']['calls'][1]:.0f} on its pass, "
-             f"and Devin ({f['devin']['tasks']} tasks) from {f['devin']['calls'][0]:.0f} to {f['devin']['calls'][1]:.0f}. "
+             f"and SWE-2 ({f['devin']['tasks']} tasks) from {f['devin']['calls'][0]:.0f} to {f['devin']['calls'][1]:.0f}. "
              f"Read and search calls fall from {f['composer']['explore_calls'][0]:.0f} to "
              f"{f['composer']['explore_calls'][1]:.0f} for Composer and from {f['devin']['explore_calls'][0]:.0f} "
-             f"to {f['devin']['explore_calls'][1]:.0f} for Devin.")
+             f"to {f['devin']['explore_calls'][1]:.0f} for SWE-2.")
     return svg(ly + 44, label, body)
 
 
@@ -716,11 +721,11 @@ def fig_runs(s):
         body.append(line(110, sy(t), 700, sy(t), "var(--line)", 1))
         body.append(text(100, sy(t) + 5, num(t), 14, "var(--text-3)", "end", mono=True))
     body += [line(110, top - 8, 110, base, "var(--text-3)", 1.5), line(110, base, 700, base, "var(--text-3)", 1.5),
-             rotated(30, (top + base) / 2, "runs with a verdict")]
+             rotated(30, (top + base) / 2, "Runs with a Verdict")]
     for i, r in enumerate(lv):
         x = x0 + i * step
         y = base
-        for m in ("composer", "devin", "grok"):
+        for m in ("composer", "devin"):
             n = runs[r].get(m, 0)
             if not n:
                 continue
@@ -729,8 +734,8 @@ def fig_runs(s):
             y -= h
         body.append(text(x + bw / 2, y - 10, num(totals[r]), 18, anchor="middle", weight=700, mono=True))
         body.append(text(x + bw / 2, base + 26, r, 18, "var(--text)", "middle", 700, True))
-    body.append(text((110 + 700) / 2, base + 52, "ladder step", 15, "var(--text-2)", "middle"))
-    for lx, m in ((450, "composer"), (560, "devin"), (640, "grok")):
+    body.append(text((110 + 700) / 2, base + 52, "Ladder Step", 15, "var(--text-2)", "middle"))
+    for lx, m in ((450, "composer"), (560, "devin")):
         body.append(rect(lx, 10, 14, 14, MODEL_COLOR[m], rx=2))
         body.append(text(lx + 20, 22, MODEL[m], 16, "var(--text-2)"))
     label = ("Runs with a verdict per ladder step, stacked by model. "

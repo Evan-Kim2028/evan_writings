@@ -1,13 +1,13 @@
 <svg viewBox="0 0 720 210" role="img" data-anim="x" aria-label="591 tasks authored, 432 trialled, 411 graded on the ladder.">
-<text x="116.0" y="33.0" text-anchor="end" fill="var(--text)" font-size="18" font-family="var(--font-sans)">authored</text>
-<rect x="130.0" y="12.0" width="374.3" height="30.0" rx="3.0" fill="var(--chart-1)" fill-opacity="0.3"><title>authored: 591</title></rect>
+<text x="116.0" y="33.0" text-anchor="end" fill="var(--text)" font-size="18" font-family="var(--font-sans)">Authored</text>
+<rect x="130.0" y="12.0" width="374.3" height="30.0" rx="3.0" fill="var(--chart-1)" fill-opacity="0.3"><title>Authored: 591</title></rect>
 <text x="514.3" y="34.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">591</text>
-<text x="116.0" y="83.0" text-anchor="end" fill="var(--text)" font-size="18" font-family="var(--font-sans)">trialled</text>
-<rect x="130.0" y="62.0" width="273.6" height="30.0" rx="3.0" fill="var(--chart-1)" fill-opacity="0.6"><title>trialled: 432</title></rect>
+<text x="116.0" y="83.0" text-anchor="end" fill="var(--text)" font-size="18" font-family="var(--font-sans)">Trialled</text>
+<rect x="130.0" y="62.0" width="273.6" height="30.0" rx="3.0" fill="var(--chart-1)" fill-opacity="0.6"><title>Trialled: 432</title></rect>
 <text x="413.6" y="84.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">432</text>
 <text x="457.1" y="83.0" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">159 never ran</text>
-<text x="116.0" y="133.0" text-anchor="end" fill="var(--text)" font-size="18" font-family="var(--font-sans)">graded</text>
-<rect x="130.0" y="112.0" width="260.3" height="30.0" rx="3.0" fill="var(--chart-1)" fill-opacity="1"><title>graded: 411</title></rect>
+<text x="116.0" y="133.0" text-anchor="end" fill="var(--text)" font-size="18" font-family="var(--font-sans)">Graded</text>
+<rect x="130.0" y="112.0" width="260.3" height="30.0" rx="3.0" fill="var(--chart-1)" fill-opacity="1"><title>Graded: 411</title></rect>
 <text x="400.3" y="134.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">411</text>
 <text x="443.8" y="133.0" fill="var(--text-3)" font-size="15" font-family="var(--font-sans)">21 no verdict</text>
 <line x1="130.0" y1="8.0" x2="130.0" y2="154.0" stroke="var(--text-3)" stroke-width="1.5"/>
