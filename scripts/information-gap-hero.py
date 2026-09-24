@@ -74,8 +74,13 @@ def hero(t):
                    f'font-size="26" font-weight="500">{words[0]}</text>')
         out.append(f'<text x="{ax + 26}" y="{y + 34:.1f}" fill="{c["text3"]}" font-family="Fira Sans" '
                    f'font-size="24">{words[1]}</text>')
+    # Shrink the drawing to make room for the title across the top.
+    bg, body = out[0], "".join(out[1:])
+    title = (f'<text x="{W / 2}" y="68" text-anchor="middle" fill="{c["text"]}" font-family="Fira Sans" '
+             f'font-size="50" font-weight="700">The Information Ladder</text>')
     return (f'<!DOCTYPE html><html><body style="margin:0"><svg xmlns="http://www.w3.org/2000/svg" '
-            f'width="{W}" height="{H}" viewBox="0 0 {W} {H}">' + "".join(out) + "</svg></body></html>")
+            f'width="{W}" height="{H}" viewBox="0 0 {W} {H}">' + bg + title
+            + f'<g transform="translate(88 96) scale(0.89)">{body}</g></svg></body></html>')
 
 
 if __name__ == "__main__":
