@@ -15,7 +15,7 @@ tags:
 source_url: https://github.com/Evan-Kim2028/open_swe_traces_research
 source_platform: github
 slug: difficulty-is-an-information-gap
-description: "We build LadderBench, 591 synthetic Go tasks from 9 repositories, and use the information ladder to certify 242 of them and compare Composer 2.5 and SWE-2. Each level reveals more to the solver, so the first level a model passes shows how much information it needed."
+description: "We build LadderBench, 591 synthetic Go tasks from 9 repositories, and use the information ladder to certify 242 of them and compare Composer 2.5 and SWE-2. Each level reveals more to the solver, so the first level a model passes shows how much information is needed."
 series: Evals
 series_index: 3
 hero: /assets/images/information-gap-hero.png
