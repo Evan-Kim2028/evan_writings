@@ -20,6 +20,7 @@ series: Evals
 series_index: 3
 hero: /assets/images/information-gap-hero.png
 hero_dark: /assets/images/information-gap-hero.dark.png
+og_image: /assets/images/information-gap-hero.dark.png
 ---
 
 <!-- vale House.FirstPerson = NO -->
