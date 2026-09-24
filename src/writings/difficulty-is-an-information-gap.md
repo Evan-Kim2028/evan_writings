@@ -73,7 +73,7 @@ post counts each such family as one task.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/prompt-words.svg" %}
-<figcaption>What each level adds. Left, the median words in the prompt, which grow through the test names and then hold steady. Right, the median lines of hidden test code in the repository, which appear only at L5 and L6.</figcaption>
+<figcaption>What each level adds, in medians over the staged tasks. Blue bars read against the bottom axis: words in the prompt grow through the test names and then hold steady. Orange bars read against the top axis: lines of hidden test code in the repository appear only at L5 and L6.</figcaption>
 </figure>
 
 ### Where the difficulty lives
