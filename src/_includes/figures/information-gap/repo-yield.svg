@@ -1,0 +1,68 @@
+<svg viewBox="0 0 720 496" role="img" data-anim="x" aria-label="Certified and too-easy tasks per repository: kops 56/70, go-git 50/68, goa 26/35, nats-server 21/29, client-go 14/21, bbolt 29/52, helm 13/26, gin 16/40, go-github 17/66.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Certified Tasks by Repository</text>
+<g transform="translate(0 44)">
+<rect x="150.0" y="6.0" width="16.0" height="16.0" rx="3.0" fill="var(--chart-1)"></rect>
+<text x="174.0" y="20.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Certified</text>
+<rect x="270.0" y="6.0" width="16.0" height="16.0" rx="3.0" fill="var(--chart-1)" fill-opacity="0.3"></rect>
+<text x="294.0" y="20.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Too easy (passed the bug report)</text>
+<text x="136.0" y="61.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">kops</text>
+<rect x="150.0" y="44.0" width="252.0" height="24.0" rx="0.0" fill="var(--chart-1)"><title>kops: 56 certified</title></rect>
+<rect x="402.0" y="44.0" width="63.0" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>kops: 14 too easy</title></rect>
+<text x="475.0" y="61.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">56/70</text>
+<text x="660.0" y="61.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">80%</text>
+<text x="136.0" y="101.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">go-git</text>
+<rect x="150.0" y="84.0" width="225.0" height="24.0" rx="0.0" fill="var(--chart-1)"><title>go-git: 50 certified</title></rect>
+<rect x="375.0" y="84.0" width="81.0" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>go-git: 18 too easy</title></rect>
+<text x="466.0" y="101.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">50/68</text>
+<text x="660.0" y="101.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">74%</text>
+<text x="136.0" y="141.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">goa</text>
+<rect x="150.0" y="124.0" width="117.0" height="24.0" rx="0.0" fill="var(--chart-1)"><title>goa: 26 certified</title></rect>
+<rect x="267.0" y="124.0" width="40.5" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>goa: 9 too easy</title></rect>
+<text x="317.5" y="141.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">26/35</text>
+<text x="660.0" y="141.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">74%</text>
+<text x="136.0" y="181.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">nats-server</text>
+<rect x="150.0" y="164.0" width="94.5" height="24.0" rx="0.0" fill="var(--chart-1)"><title>nats-server: 21 certified</title></rect>
+<rect x="244.5" y="164.0" width="36.0" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>nats-server: 8 too easy</title></rect>
+<text x="290.5" y="181.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">21/29</text>
+<text x="660.0" y="181.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">72%</text>
+<text x="136.0" y="221.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">client-go</text>
+<rect x="150.0" y="204.0" width="63.0" height="24.0" rx="0.0" fill="var(--chart-1)"><title>client-go: 14 certified</title></rect>
+<rect x="213.0" y="204.0" width="31.5" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>client-go: 7 too easy</title></rect>
+<text x="254.5" y="221.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">14/21</text>
+<text x="660.0" y="221.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">67%</text>
+<text x="136.0" y="261.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">bbolt</text>
+<rect x="150.0" y="244.0" width="130.5" height="24.0" rx="0.0" fill="var(--chart-1)"><title>bbolt: 29 certified</title></rect>
+<rect x="280.5" y="244.0" width="103.5" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>bbolt: 23 too easy</title></rect>
+<text x="394.0" y="261.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">29/52</text>
+<text x="660.0" y="261.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">56%</text>
+<text x="136.0" y="301.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">helm</text>
+<rect x="150.0" y="284.0" width="58.5" height="24.0" rx="0.0" fill="var(--chart-1)"><title>helm: 13 certified</title></rect>
+<rect x="208.5" y="284.0" width="58.5" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>helm: 13 too easy</title></rect>
+<text x="277.0" y="301.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">13/26</text>
+<text x="660.0" y="301.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">50%</text>
+<text x="136.0" y="341.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">gin</text>
+<rect x="150.0" y="324.0" width="72.0" height="24.0" rx="0.0" fill="var(--chart-1)"><title>gin: 16 certified</title></rect>
+<rect x="222.0" y="324.0" width="108.0" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>gin: 24 too easy</title></rect>
+<text x="340.0" y="341.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">16/40</text>
+<text x="660.0" y="341.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">40%</text>
+<text x="136.0" y="381.0" text-anchor="end" fill="var(--text)" font-size="16" font-weight="600" font-family="var(--font-mono)">go-github</text>
+<rect x="150.0" y="364.0" width="76.5" height="24.0" rx="0.0" fill="var(--chart-1)"><title>go-github: 17 certified</title></rect>
+<rect x="226.5" y="364.0" width="220.5" height="24.0" rx="0.0" fill="var(--chart-1)" fill-opacity="0.3"><title>go-github: 49 too easy</title></rect>
+<text x="457.0" y="381.0" fill="var(--text-2)" font-size="15" font-family="var(--font-mono)">17/66</text>
+<text x="660.0" y="381.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="700" font-family="var(--font-mono)">26%</text>
+<text x="660.0" y="34.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">% Certified</text>
+<line x1="150.0" y1="40.0" x2="150.0" y2="396.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="150.0" y1="396.0" x2="510.0" y2="396.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="150.0" y1="396.0" x2="150.0" y2="401.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="150.0" y="418.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="240.0" y1="396.0" x2="240.0" y2="401.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="240.0" y="418.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">20</text>
+<line x1="330.0" y1="396.0" x2="330.0" y2="401.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="330.0" y="418.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">40</text>
+<line x1="420.0" y1="396.0" x2="420.0" y2="401.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="420.0" y="418.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">60</text>
+<line x1="510.0" y1="396.0" x2="510.0" y2="401.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="510.0" y="418.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">80</text>
+<text x="330.0" y="442.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Graded Tasks</text>
+</g>
+</svg>

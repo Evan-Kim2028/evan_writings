@@ -2,18 +2,20 @@
 title: "The Information Ladder: Measuring Model Capabilities"
 date: "2026-09-23"
 collection: data
-lede: true
+lede: false
+table_highlight: true
 tags:
   - writing
   - data
   - evals
   - benchmarks
   - agents
-  - coding-agents
+  - harbor
+  - synthetic-tasks
 source_url: https://github.com/Evan-Kim2028/open_swe_traces_research
 source_platform: github
 slug: difficulty-is-an-information-gap
-description: "Each coding task gets six prompts, from a bug report to the hidden tests, and a model is certified at the first one it passes. We use the ladder to certify 242 synthetic Go tasks across nine repositories and compare Composer 2.5 and SWE-2."
+description: "We build LadderBench, 591 synthetic Go tasks from 9 repositories, and use the information ladder to certify 242 of them and compare Composer 2.5 and SWE-2. Each level reveals more to the solver, so the first level a model passes shows how much information it needed."
 series: Evals
 series_index: 3
 hero: /assets/images/information-gap-hero.png
@@ -22,49 +24,83 @@ hero_dark: /assets/images/information-gap-hero.dark.png
 
 <!-- vale House.FirstPerson = NO -->
 <!-- vale Google.Headings = NO -->
+<!-- vale Google.Slang = NO -->
+
+## TL;DR
+
+- **The prompt decides whether a task is solvable.** 59% of graded tasks fail from a bug report and
+  become solvable with more information, 81% of them once the model gets the full description.
+- **Solve rates hide real differences between models.** On 32 of 73 shared tasks, Composer 2.5 and
+  SWE-2 need different amounts of information, and on tasks with long descriptions they agree only
+  25% of the time.
+- **Information replaces search.** When extra information turns a failure into a pass, the model
+  makes 24–32% fewer reads and searches.
 
 ## Intro
 
 What makes a coding task difficult? One answer is how much information the solver has. If an agent
-can look the answer up, the task is trivial. We build on that idea with an information ladder, creating 6
-prompts for one task that gradually reveal more information to the solver: from a bug report
-that names only the symptom (L1), to a full description of every behavior the tests check (L2),
-up to the hidden tests themselves. The ladder gives each
-task a second dimension, so we can mark the point where it goes from unsolvable to solvable and
-certify a model's capability there. We test the approach on 591 Go tasks from 9 open-source
-repositories, grading 411 of them over 1,608 runs and certifying 242.
+can look the answer up, the task is trivial. We build on that idea with an information ladder,
+creating 6 prompts for one task that gradually reveal more information to the solver: from a bug
+report that names only the symptom (L1), to a full description of every behavior the tests check
+(L2), up to the hidden tests themselves.
 
-- **59% hit rate: hard at L1, solvable higher up.** Of the 411 graded tasks, 242 are hits, and we
-  certified 81% of them at L2, once the solver had the full description. The remaining 169 (41%)
-  passed the bug report and are too easy.
-- **Information replaces search.** A passing run makes 24–32% fewer reads and searches
-  than the failed run one level below it.
-- **Models differ in capabilities.** Composer 2.5 and SWE-2, the models behind Cursor and Devin,
-  need different amounts of information on 32 of the 73 tasks both graded, and differ most where
-  the full description runs long.
-- **Grading drives the cost.** Agents authored all 591 tasks for $409 (3.1 billion tokens), and 93% passed
-  validation on the first try. Grading took $990 (4.9 billion tokens), for about $1.4k in total at API
-  token prices.
+The ladder gives each task a second dimension, so we can mark the point where it goes from
+unsolvable to solvable and certify a model's capability there. We generate LadderBench, a dataset of
+591 synthetic Go tasks from 9 open-source repositories, and grade 411 of them over 1,608 trials in
+[Harbor](https://github.com/harbor-framework/harbor), certifying 242.
+
+### Related Work
+
+Existing coding benchmarks and task generators treat difficulty as a property of the task. They
+inherit it from a real issue or commit, set it by the size of an injected bug or the number of
+features removed, or keep the tasks a screening model fails. Each gives the solver a single prompt,
+so a failed task could be hard or just underspecified, and the result cannot tell which.
+
+We treat difficulty as a relation between a task, a model, and an amount of information. The
+information ladder gives each task 6 prompts, each containing everything in the one below, which is
+the setting of [Blackwell's comparison of
+experiments](https://en.wikipedia.org/wiki/Blackwell%27s_informativeness_theorem) from decision
+theory. That ordering turns pass or fail into a measurement: the first level a model passes is how
+much information it needed, and a task that fails from the bug report (L1) but passes from the full
+description (L2) is shown to be both hard and solvable.
+
+The closest relative, CodeMidas, also builds tasks from source code alone. Its agents write
+behavioral specifications, ground the tests in running the original code, and filter tasks by how
+often repeated solution attempts pass. Our tests are written blind, without the original code, and
+instead of filtering tasks by pass rate, **the ladder measures how much information each model needs
+to solve the task successfully.**
+
+| Work | Source | Difficulty set by | Prompts | Hard vs. underspecified |
+|---|---|---|:-:|:-:|
+| **Information Ladder (ours)** | Source code | Prompt information | **6** | **Yes** |
+| [SWE-bench](https://arxiv.org/abs/2310.06770) | GitHub issues | The issue | 1 | No |
+| [SWE-Gym](https://arxiv.org/abs/2412.21139) | GitHub issues | The issue | 1 | No |
+| [R2E-Gym](https://arxiv.org/abs/2504.07164) | Commits | The commit | 1 | No |
+| [SWE-smith](https://arxiv.org/abs/2504.21798) | Injected bugs | The bug | 1 | No |
+| [ProgramDistill](https://arxiv.org/abs/2609.18805) | Web app features | Features removed | 1 | No |
+| [CodeMidas](https://arxiv.org/abs/2609.22068) | Source code | Rollout filtering | 1 | No |
 
 ## The Information Ladder
 
 ### Six Levels of Information
 
-The ladder follows Blackwell's theorem from decision theory. By Blackwell's theorem, one source of
-information is more informative than another exactly when every decision maker does at least as well
-with it. Each level contains everything in the one below, so a solver that uses everything it reads
-can only gain by climbing.
+The ladder follows [Blackwell's
+theorem](https://en.wikipedia.org/wiki/Blackwell%27s_informativeness_theorem) from decision theory:
+one source of information is more informative than another exactly when every decision maker does at
+least as well with it. Each level contains everything in the one below, so a solver that uses
+everything it reads can only gain by climbing.
 
 The ladder holds the task fixed and changes only what the solver sees. The code, the hidden tests,
-and the answer key stay the same at every level, and each level adds information to the one below:
-words in the prompt up to L4, then test code in the repository at L5 and L6. A model's grade on a
-task is the first level it passes, and a task that fails at L1 and passes higher up is certified at
-that level.
+and the answer key (the code removed to make the task) stay the same at every level. Each level adds
+information to the one below: words in the prompt through L4, then test code in the repository at L5
+and L6. A model's grade on a task is the first level it passes, and a task that fails at L1 and
+passes higher up is certified at that level.
 
-Take `httpmux`, from [goa's HTTP package](https://github.com/goadesign/goa/tree/v3/http), whose
-task removes the router, 109 lines of `http/mux.go`. An agent writes the bug report the way a user
-files an issue. A separate agent writes the full description after reading the answer key and the
-hidden tests, so it spells out every behavior they check.
+Take `httpmux`, from [goa's HTTP package](https://github.com/goadesign/goa/tree/v3/http), where an
+agent cuts out the router, 109 lines of `http/mux.go`, and keeps it as the answer key. The same
+agent writes the bug report the way a user files an issue. A separate agent writes the full
+description after reading the answer key and the hidden tests, so it spells out every behavior they
+check.
 
 | Level | The solver gets | For `httpmux` |
 |---|---|---|
@@ -75,27 +111,13 @@ hidden tests, so it spells out every behavior they check.
 | L5 one test | L4 plus one hidden test file in the repository | `mux_hidden_test.go`, 431 lines |
 | L6 all tests | Every hidden test in the repository | Nothing new, because that was the only file |
 
-Figure 1 below shows that the full description carries most of the ladder's added words, which is
-also the step where most tasks become solvable, 89% of graded tasks by L2. From L5 the information changes kind,
-from prose to test code, so the charts group the levels into 4 steps: L1, L2, L3–4, and L5–6.
+Figure 1 below shows that the full description carries most of the ladder's added words, the same
+step where most tasks become solvable (89% of graded tasks by L2). From L5 the information changes
+kind, from prose to test code, so the charts group the levels into 4 steps: L1, L2, L3–4, and L5–6.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/prompt-words.svg" %}
 <figcaption><strong>Figure 1:</strong> What each level adds, in medians. Prompt words (blue) grow through the test names. Test code (orange) is zero until L5, because the hidden tests stay outside the solver's container until then.</figcaption>
-</figure>
-
-### Information Replaces Search
-
-For every task a model failed and later passed higher up, 209 for Composer and 69 for SWE-2, we
-compare its first passing run with the failed run just below it. The passing run takes 15% fewer
-tool calls for Composer and 17% fewer for SWE-2. Nearly the whole saving is exploration: read and
-search calls fall by 24% and 32%, while test runs hold level. The information does searching the
-model would otherwise have done. Failed runs also run longer, 73 calls against 54 for Composer and
-76 against 63 for SWE-2, so a call budget could stop a likely miss early.
-
-<figure class="fig-inline">
-{% include "figures/information-gap/trace-flips.svg" %}
-<figcaption><strong>Figure 2:</strong> Same task, same model: the failed run just below the first passing level, and that passing run. The calls both models drop are reads and searches.</figcaption>
 </figure>
 
 ### Task Certification
@@ -103,23 +125,109 @@ model would otherwise have done. Failed runs also run longer, 73 calls against 5
 When a model fails a benchmark task, the failure is ambiguous: the task may be hard, or its prompt
 may leave out something no solver could guess. The information ladder removes the ambiguity by
 bounding the model's capability between 2 levels, the highest one it fails and the first one it
-passes, and that bound certifies the task. Most certificates take 2 runs. Failing at L1 shows the
+passes, and that bound certifies the task. Most certificates take 2 trials. Failing at L1 shows the
 task is hard for that model from a bug report alone, and passing at L2 shows it is solvable from a
 description that names no file, line, or function to edit. If L2 fails too, the model keeps
 climbing, and the certificate records the first level it passes.
 
-How do we know a certificate is sound? A certificate at L2 claims the full description made the
-task solvable, which holds only if the hidden tests are fair and the description is true. 4
-checks guard that before any grading:
+How do we know a certificate is sound? A certificate at L2 claims the full description made the task
+solvable, which holds only if the hidden tests are fair and the description is true. The factory
+(Section 4.1) guards both before any grading. A model check drops behaviors no solver could derive,
+the tests are written blind from the public API, the description is derived from the tests, and
+Docker proves that the answer key passes while the cut repository and a hardcoded fake fix fail.
 
-1. **Blind tests.** The hidden tests come from a list of behaviors and the public API, never the
-   answer key, and check thousands of seeded random inputs, so any correct implementation passes.
-2. **Execution gates.** In the task's Docker image, the answer key must pass, the cut repository
-   must fail, and a fake fix that hardcodes the test inputs must fail.
-3. **A description drawn from the tests.** The full description is written from the hidden tests,
-   one line per assertion, and every line must hold for the answer key.
-4. **A derivability judge.** A separate judge agent reads each line using only what the solver can
-   see and drops any line no solver could work out, like the value of an internal constant.
+## The Factory
+
+### Agentic Task Generation
+
+Three agents build each task, with model checks between them and a Docker gate at the end. Every
+task ships as a [Harbor](https://github.com/harbor-framework/harbor) task: a Dockerfile, the hidden
+tests, and a config that lets the solver reach only its model vendor's API and runs the grader with
+no network. Harbor builds the container and runs every graded trial.
+
+1. **Cut.** The first agent removes one self-contained behavior from a Go repository, keeps it as
+   the answer key, and writes the bug report, a list of behaviors to restore, and a fake fix that
+   hardcodes the test inputs.
+2. **Screen.** A model check reads each behavior on the list using only what the solver can see
+   and drops any behavior no solver could work out, like the value of an internal constant.
+3. **Write blind tests.** The second agent writes one hidden test per behavior. It sees the behavior
+   list and the public API but never the removed code, and the tests check thousands of seeded
+   random inputs, so any correct implementation passes.
+4. **Describe.** The third agent reads the answer key and the tests and writes the full description,
+   one line per assertion. A second model check compares the description against the tests and flags
+   any line that is missing or contradicts them.
+5. **Validate.** The task's Docker image must reject any task a correct solver could fail or a wrong
+   one could pass. The answer key must pass, the cut repository must fail, and the fake fix must
+   fail. The answer key may never edit a test file.
+
+Our initial research with the factory covers Go only. Agents authored the 591 tasks in LadderBench,
+and 93% passed validation on the first try. Of the 591, 432 ran and 411 reached a verdict. The
+median answer key adds 100 lines, and about 12% touch 2 or more files.
+
+Each cut can yield 6 prompts, one per level, with no further authoring, so the 591 cuts support up
+to 3,546 prompts. Figure 2 shows the yield of the 407 graded tasks with a recorded repository. Every
+repository produced certified tasks, and the answer keys change only about 14% of the repositories'
+source files, so the budget (Section 4.3) set the limit rather than the repositories.
+
+<figure class="fig-inline">
+{% include "figures/information-gap/repo-yield.svg" %}
+<figcaption><strong>Figure 2:</strong> Graded tasks per repository. Solid bars are certified tasks, which failed the bug report and passed higher up. Faded bars are too easy, having passed the bug report. The right column is the share of each repository's graded tasks that certified.</figcaption>
+</figure>
+
+### Trial Integrity
+
+A pass should mean the model fixed the code. Harbor enforces most of that, and audits of the traces
+check the rest.
+
+1. **Isolation.** During a trial the container reaches only the model vendor's API, the grader runs
+   with no network, and the repository ships without its git history.
+2. **Protected tests.** Below L5 the hidden tests stay outside the container. At L5 and L6 the
+   grader checks the test file's sha256, so an edited copy scores zero.
+3. **Trace audit.** We audited 123k tool calls and found 1 web fetch of the file under test, and
+   that pass counts as no verdict. Another 55 passing trials edited a test file, and none of those
+   edits can change what the hidden tests check.
+4. **Real zeros.** A zero counts only if the tests ran and failed. A separate check caught 69
+   verdicts on 13 tasks whose tests never compiled. Those tasks ran again once they passed
+   validation, and 5 left LadderBench.
+
+### Cost Limitations
+
+All of this work drew on one researcher's subscriptions rather than metered API billing and used up
+most of that allowance, so the budget was exhausted all the same. The table prices the same usage at
+API rates to show its scale: 7.9 billion tokens, about $1.4k, with SWE-2 at its promotional rate of
+75% off list.
+
+| Work | Trials or sessions | Tokens | Cost at API prices |
+|---|---:|---:|---:|
+| Composer 2.5, grading | 1,447 trials | 3.0B | $682 |
+| SWE-2 (Devin), grading | 304 sessions | 1.8B | $284 |
+| SWE-2 (Devin), authoring | 213 sessions | 3.0B | $378 |
+| Grok, authoring and a pilot | 21 trials, 24 sessions | 0.2B | $55 |
+| **Total** | | **7.9B** | **$1.4k** |
+
+The factory made tasks faster than the subscriptions could grade them, so 159 of the 591 authored
+tasks never ran. Measuring every task at every level 3 times with both models would take about 12
+times the trials made here, so the limit is compute, not method.
+
+## Results
+
+The results come from the 411 graded tasks. The first subsection shows what the added information
+does inside a trial, and the second uses the ladder to compare the two models.
+
+### Information Replaces Search
+
+For every task a model failed and later passed higher up, 209 for Composer and 69 for SWE-2, we
+compare its first passing trial with the failed trial just below it. The passing trial takes 15%
+fewer tool calls for Composer and 17% fewer for SWE-2. Nearly the whole saving is exploration: read
+and search calls fall by 24% and 32%, while the number of test runs stays flat. The added
+information does the searching the model would otherwise have done. Failed trials are also longer,
+73 calls against 54 for Composer and 76 against 63 for SWE-2, so a call budget could stop a likely
+miss early.
+
+<figure class="fig-inline">
+{% include "figures/information-gap/trace-flips.svg" %}
+<figcaption><strong>Figure 3:</strong> Same task, same model: the failed trial just below the first passing level, and that passing trial. The calls both models drop are reads and searches.</figcaption>
+</figure>
 
 ### Comparing Model Capabilities
 
@@ -136,10 +244,10 @@ other.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/curves.svg" %}
-<figcaption><strong>Figure 3:</strong> Each lane is one model on one task. The tint runs from the bug report to the first pass, so its length is how much information that model needed. A filled dot is a pass and a ring is a fail.</figcaption>
+<figcaption><strong>Figure 4:</strong> Each lane is one model on one task. The tint runs from the bug report to the first pass, so its length is how much information that model needed. A filled dot is a pass and a ring is a fail.</figcaption>
 </figure>
 
-Figure 3 shows what that looks like on single tasks. On `archive` and `defval`, both models fail the
+Figure 4 shows what that looks like on single tasks. On `archive` and `defval`, both models fail the
 bug report, which a solve rate scores as a tie, yet SWE-2 passes from the full description while
 Composer needs the test file. The widest gap is `ipqueue`, where SWE-2 passes straight from the bug
 report and Composer needs the test file. The gap also runs the other way: on `advrefs` Composer
@@ -147,131 +255,42 @@ passes at L2 while SWE-2 needs the test file. On `httperrexpr` the models tie at
 falls to Composer only once the test file is in the tree.
 
 Description length appears to predict where the models disagree. They agree on 67% of tasks with a
-short full description, 75% with a middling one, and only 25% with a long one (Figure 4). Where they
+short full description, 75% with a middling one, and only 25% with a long one (Figure 5). Where they
 disagree, the median description runs 716 words, and where they agree, 532. A longer description
 gives a model more to use but also more to miss, and the two models handle that differently.
 
 <figure class="fig-inline">
 {% include "figures/information-gap/agreement-by-length.svg" %}
-<figcaption><strong>Figure 4:</strong> Composer and SWE-2 grades on the 72 of those 73 tasks with a recorded description length, split into thirds by the length of the full description. The models agree on 67% of tasks with a short description, 75% with a middling one, and 25% with a long one.</figcaption>
+<figcaption><strong>Figure 5:</strong> Composer and SWE-2 grades on the 72 of the 73 tasks both models graded that have a recorded description length, split into thirds by the length of the full description. The models agree on 67% of tasks with a short description, 75% with a middling one, and 25% with a long one.</figcaption>
 </figure>
 
-## The Factory
-
-### Building a Task
-
-Agents build each task and Docker checks it by execution, with no person in the loop.
-
-1. **Cut.** An agent removes one self-contained behavior from a Go repository, keeps it as the
-   answer key, and writes the bug report and a list of behaviors to restore.
-2. **Write blind tests.** A second agent writes one hidden test per behavior from the list and the
-   public API, never the removed code, so the tests check what a caller can see.
-3. **Validate.** Docker builds the task and rejects any task a correct solver could fail or a
-   wrong one could pass. The answer key must pass and the cut repository fail, a fake fix that
-   hardcodes the test inputs must fail, and the answer key may never change a test file.
-4. **Describe.** A third agent reads the answer key and the tests and writes the full description,
-   one line per assertion. A judge then drops any line no solver could work out.
-5. **Grade.** The task runs at L1, then at L2, and climbs the ladder only if L2 fails.
-
-### Yield and Headroom
-
-Agents authored the 591 tasks over 3 days, and validation passed 93% of them on the first try. Each
-authored task yields a family of prompts without further authoring, because every level of the
-ladder comes from the same cut. The 9 repositories still have room to spare, since the answer keys
-change only about 14% of their source files, and adding a repository takes a base image and a
-validation pass.
-
-### Keeping the Grade Honest
-
-A pass should mean the model fixed the code. During a run the container reaches only the model
-vendor's API, the grader runs with no network, and the repository ships without its git history.
-Below L5 the hidden tests stay outside the container, and at L5 and L6 the grader checks the test
-file's sha256, so an edited copy scores zero. We audited 123k tool calls and found 1 web fetch of the
-file under test, and that pass counts as no verdict. Another 55 passing runs also edited a test
-file, and none of those edits can change what the hidden tests check. A zero counts only if the tests ran and
-failed, and a separate check caught 69 verdicts on 13 tasks whose tests never compiled. Those ran
-again once their tasks passed validation, and 5 tasks left the dataset.
-
-## The Synthetic Dataset
-
-### The Graded Tasks
-
-The tasks come from 9 Go repositories: client-go, kops, helm, go-git, go-github, goa, gin, bbolt,
-and nats-server. The median answer key adds 100 lines, and about 12% touch 2 or more files.
-
-<figure class="fig-inline">
-{% include "figures/information-gap/funnel.svg" %}
-<figcaption><strong>Figure 5:</strong> 591 tasks authored and 411 graded on the ladder. The rest never ran, or ran without reaching a verdict.</figcaption>
-</figure>
-
-### Cost and What It Limited
-
-Stage 1 used 7.9 billion tokens, worth about $1.4k at API prices, drawn from one researcher's
-subscriptions. The Devin rows use its SWE-2 promotional rate, 75% off list.
-
-| Work | Runs or sessions | Tokens | Cost |
-|---|---:|---:|---:|
-| Composer 2.5, grading | 1,447 runs | 3.0B | $682 |
-| Devin SWE-2, grading | 304 sessions | 1.8B | $284 |
-| Devin SWE-2, authoring | 213 sessions | 3.0B | $378 |
-| Grok, top-of-ladder probe and authoring | 21 runs, 24 sessions | 0.2B | $55 |
-| **Stage 1** | | **7.9B** | **$1.4k** |
-
-The factory made tasks faster than the budget could grade them, so 159 of the 591 authored tasks
-never ran. Measuring every task at every level 3 times by both models would take about 12
-times the runs of Stage 1, and that gap is compute, not method.
-
-<figure class="fig-inline">
-{% include "figures/information-gap/runs-per-level.svg" %}
-<figcaption><strong>Figure 6:</strong> Runs with a verdict at each ladder step, stacked by model. The upper steps and the second model are where the budget ran out.</figcaption>
-</figure>
-
-### What These Data Can and Cannot Show
-
-Most levels ran once per task per model, so one run cannot separate a model that needs the
-information from one that got lucky, and part of the disagreement between models may be noise.
-Selection shapes the comparison, since Composer screened 374 of the 432 tasks that ran and most
-tasks SWE-2 saw were ones Composer had failed. The levels of a family nest by design, so a training or
-evaluation split should keep each family on one side. The answer keys are upstream code from
-widely used repositories, and our next check is a probe for memorized functions. The ladder also
-assumes a model uses everything it reads, and a model can miss a line or get lost in a longer
-prompt. On 26 tasks where a model passed a level and also ran higher up, it failed a higher level on
-5. 4 of those rest on a single passing run, but `helm-repindex` passed 6 of 31 runs from the full
-description and none of 21 once the test names were added.
-
-## Related Work and Conclusion
-
-| Method | How difficulty is set | Evidence it is hard | Evidence the prompt suffices |
-|---|---|---|---|
-| SWE-bench, SWE-Gym | inherited from the issue | reviewer judgment | not reported |
-| SWE-smith | follows the injected bug | not reported | not reported |
-| R2E-Gym | inherited from the commit | not reported | not reported |
-| ProgramDistill | how many behaviors a solver restores together | authored depth | not reported |
-| CodeMidas | screening model drops always-pass and always-fail | the screening model failed it | not reported |
-| This work | what the prompt withholds, L1 against L2 | one model failed the bug report | the same model passed the full description |
-
-Only our work reports a second prompt that separates a hard task from an underspecified one. The
-closest relative, CodeMidas (Ye et al., [arXiv:2609.22068](https://arxiv.org/abs/2609.22068)),
-also starts from source code alone but builds its tests by running the original code, so its tests
-come from the answer, where these come from a written specification of it.
+## Conclusion
 
 Difficulty is a relation between a task, a model, and an amount of information. The ladder sets the
 information and reads off the other two, and the traces show the information standing in for the
-search a model would otherwise do. 4 lessons carry to any task factory: put the difficulty in
-the prompt, run 2 prompts, keep the test writer away from the answer key, and build the guards
-before the generator.
+search a model would otherwise do. 4 lessons carry to any task factory: put the difficulty in the
+prompt, run 2 prompts, keep the test writer away from the answer key, and build the validation
+checks before the generator.
 
-Stage 1 is small because of its budget, and 3 questions come next. Does the cut work outside
-Go, which we test in Stage 2 with a second language? Does the disagreement between models survive 3
-repeat runs per level? And does a second model climbing the same tasks change where certificates
-bind, now 81% at the full description and 14% at the test file?
+These results have 3 main limitations. Most levels ran once per task per model, so a single trial
+cannot separate a model that needs the information from one that got lucky, and part of the
+disagreement between models may be noise. The two models also did not climb the same tasks: Composer
+screened 374 of the 432 tasks that ran, and SWE-2 mostly received tasks Composer had already failed
+at L1, so part of the gap between them may come from which tasks each one saw. Finally, the levels
+of a task nest by design, so a training or evaluation split should keep all of a task's levels on
+one side.
+
+The information ladder also opens several research directions. The framework is not specific to Go
+and should generalize to any language with a test suite, starting with a second language next.
+Repeat trials at each level would show how stable a certificate is, and having several models climb
+the same random tasks would place their capabilities on one scale. Every level comes from one task,
+so the ladder can also test whether a pass comes from reasoning or from memorized upstream code, and
+it could serve as a training curriculum that withholds more information as a model improves.
 
 ---
 
-*Code and trial ledger:
-[open_swe_traces_research](https://github.com/Evan-Kim2028/open_swe_traces_research). Counts are a
-2026-09-23 snapshot of the finished Stage 1 run, derived from `openswe_traces.reports.paper_numbers`.
-Figures regenerate from the ledger with `scripts/information-gap-figures.py`. Earlier in this
+*Code, trial data, and figure scripts:
+[open_swe_traces_research](https://github.com/Evan-Kim2028/open_swe_traces_research). Earlier in this
 series: [Terminal-Bench Task: Lakehouse Schema Contract
 Drift](/writings/terminal-bench-task-lakehouse-schema-contract-drift/) and [Four Verifiable
 Properties of a Useful Agent Task](/writings/four-verifiable-properties-of-a-useful-agent-task/).*

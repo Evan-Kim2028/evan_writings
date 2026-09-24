@@ -1,19 +1,21 @@
-<svg viewBox="0 0 720 276" role="img" aria-label="Agreement between Composer and SWE-2 by length of the full description, in thirds of the Shortest third: 16 of 24 agree, Middle third: 18 of 24 agree, Longest third: 6 of 24 agree.">
+<svg viewBox="0 0 720 320" role="img" data-anim="x" aria-label="Agreement between Composer and SWE-2 by length of the full description, in thirds of the Shortest third: 16 of 24 agree, Middle third: 18 of 24 agree, Longest third: 6 of 24 agree.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Model Agreement by Description Length</text>
+<g transform="translate(0 44)">
 <text x="214.0" y="32.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-sans)">Shortest third</text>
 <text x="214.0" y="51.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">220–487 words</text>
-<rect x="230.0" y="14.0" width="220.0" height="40.0" rx="0.0" fill="var(--chart-1)"><title>Shortest third: same level 16 of 24</title></rect>
-<rect x="450.0" y="14.0" width="110.0" height="40.0" rx="0.0" fill="var(--chart-2)"><title>Shortest third: SWE-2 lower 8 of 24</title></rect>
+<rect x="230.0" y="14.0" width="220.0" height="40.0" rx="0.0" fill="var(--chart-1)"><title>Shortest third: Same level 16 of 24</title></rect>
+<rect x="450.0" y="14.0" width="110.0" height="40.0" rx="0.0" fill="var(--chart-2)"><title>Shortest third: SWE-2 needs less 8 of 24</title></rect>
 <text x="572.0" y="41.0" fill="var(--text)" font-size="16" font-weight="700" font-family="var(--font-mono)">67% agree</text>
 <text x="214.0" y="94.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-sans)">Middle third</text>
 <text x="214.0" y="113.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">490–690 words</text>
-<rect x="230.0" y="76.0" width="247.5" height="40.0" rx="0.0" fill="var(--chart-1)"><title>Middle third: same level 18 of 24</title></rect>
-<rect x="477.5" y="76.0" width="82.5" height="40.0" rx="0.0" fill="var(--chart-2)"><title>Middle third: SWE-2 lower 6 of 24</title></rect>
+<rect x="230.0" y="76.0" width="247.5" height="40.0" rx="0.0" fill="var(--chart-1)"><title>Middle third: Same level 18 of 24</title></rect>
+<rect x="477.5" y="76.0" width="82.5" height="40.0" rx="0.0" fill="var(--chart-2)"><title>Middle third: SWE-2 needs less 6 of 24</title></rect>
 <text x="572.0" y="103.0" fill="var(--text)" font-size="16" font-weight="700" font-family="var(--font-mono)">75% agree</text>
 <text x="214.0" y="156.0" text-anchor="end" fill="var(--text)" font-size="17" font-weight="600" font-family="var(--font-sans)">Longest third</text>
 <text x="214.0" y="175.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">704–1403 words</text>
-<rect x="230.0" y="138.0" width="82.5" height="40.0" rx="0.0" fill="var(--chart-1)"><title>Longest third: same level 6 of 24</title></rect>
-<rect x="312.5" y="138.0" width="206.2" height="40.0" rx="0.0" fill="var(--chart-2)"><title>Longest third: SWE-2 lower 15 of 24</title></rect>
-<rect x="518.8" y="138.0" width="41.2" height="40.0" rx="0.0" fill="var(--chart-2)" fill-opacity="0.45"><title>Longest third: Composer lower 3 of 24</title></rect>
+<rect x="230.0" y="138.0" width="82.5" height="40.0" rx="0.0" fill="var(--chart-1)"><title>Longest third: Same level 6 of 24</title></rect>
+<rect x="312.5" y="138.0" width="206.2" height="40.0" rx="0.0" fill="var(--chart-2)"><title>Longest third: SWE-2 needs less 15 of 24</title></rect>
+<rect x="518.8" y="138.0" width="41.2" height="40.0" rx="0.0" fill="var(--chart-2)" fill-opacity="0.45"><title>Longest third: Composer needs less 3 of 24</title></rect>
 <text x="572.0" y="165.0" fill="var(--text)" font-size="16" font-weight="700" font-family="var(--font-mono)">25% agree</text>
 <line x1="230.0" y1="10.0" x2="230.0" y2="184.0" stroke="var(--text-3)" stroke-width="1.5"/>
 <text x="24.0" y="99.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 24.0 99.0)">Full Description Length</text>
@@ -26,9 +28,10 @@
 <text x="560.0" y="206.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">100%</text>
 <text x="395.0" y="230.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Share of Tasks Both Models Graded</text>
 <rect x="230.0" y="250.0" width="14.0" height="14.0" rx="2.0" fill="var(--chart-1)"></rect>
-<text x="250.0" y="262.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">same level</text>
+<text x="250.0" y="262.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Same level</text>
 <rect x="380.0" y="250.0" width="14.0" height="14.0" rx="2.0" fill="var(--chart-2)"></rect>
-<text x="400.0" y="262.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">SWE-2 lower</text>
+<text x="400.0" y="262.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">SWE-2 needs less</text>
 <rect x="530.0" y="250.0" width="14.0" height="14.0" rx="2.0" fill="var(--chart-2)" fill-opacity="0.45"></rect>
-<text x="550.0" y="262.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Composer lower</text>
+<text x="550.0" y="262.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Composer needs less</text>
+</g>
 </svg>

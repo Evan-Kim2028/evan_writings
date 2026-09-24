@@ -1,4 +1,6 @@
-<svg viewBox="0 0 720 590" role="img" aria-label="Ladder results for six tasks, one lane per model, by ladder step. On archive, defval and ipqueue SWE-2 passes at a lower level than Composer, and on advrefs Composer passes lower. On httperrexpr both pass at L2. On httpmux Composer fails through the test names and passes once the test file is in the tree.">
+<svg viewBox="0 0 720 634" role="img" data-anim="r" aria-label="Ladder results for six tasks, one lane per model, by ladder step. On archive, defval and ipqueue SWE-2 passes at a lower level than Composer, and on advrefs Composer passes lower. On httperrexpr both pass at L2. On httpmux Composer fails through the test names and passes once the test file is in the tree.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">First Passing Level by Task and Model</text>
+<g transform="translate(0 44)">
 <text x="478.0" y="16.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Ladder Step</text>
 <text x="310.0" y="40.0" text-anchor="middle" fill="var(--text-2)" font-size="17" font-weight="700" font-family="var(--font-mono)">L1</text>
 <text x="422.0" y="40.0" text-anchor="middle" fill="var(--text-2)" font-size="17" font-weight="700" font-family="var(--font-mono)">L2</text>
@@ -98,4 +100,5 @@
 <circle cx="534" cy="560.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
 <circle cx="646" cy="560.0" r="2" fill="var(--text-3)" fill-opacity="0.6"/>
 <line x1="280.0" y1="50.0" x2="280.0" y2="574.0" stroke="var(--text-3)" stroke-width="1.5"/>
+</g>
 </svg>

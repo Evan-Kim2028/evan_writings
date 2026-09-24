@@ -1,4 +1,6 @@
-<svg viewBox="0 0 720 210" role="img" data-anim="x" aria-label="591 tasks authored, 432 trialled, 411 graded on the ladder.">
+<svg viewBox="0 0 720 254" role="img" data-anim="x" aria-label="591 tasks authored, 432 trialled, 411 graded on the ladder.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">From Authored to Graded Tasks</text>
+<g transform="translate(0 44)">
 <text x="116.0" y="33.0" text-anchor="end" fill="var(--text)" font-size="18" font-family="var(--font-sans)">Authored</text>
 <rect x="130.0" y="12.0" width="374.3" height="30.0" rx="3.0" fill="var(--chart-1)" fill-opacity="0.3"><title>Authored: 591</title></rect>
 <text x="514.3" y="34.0" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-mono)">591</text>
@@ -21,4 +23,5 @@
 <line x1="510.0" y1="154.0" x2="510.0" y2="159.0" stroke="var(--text-3)" stroke-width="1.5"/>
 <text x="510.0" y="176.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">600</text>
 <text x="320.0" y="200.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">tasks</text>
+</g>
 </svg>

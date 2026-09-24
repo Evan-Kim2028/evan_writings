@@ -1,4 +1,6 @@
-<svg viewBox="0 0 720 436" role="img" data-anim="x" aria-label="What each level adds, one pair of bars per level. Words in the prompt grow from about 98 at the bug report to about 475 with the test names and then hold steady. Lines of hidden test code in the repository are zero through L4, about 370 at L5, and about 399 at L6.">
+<svg viewBox="0 0 720 480" role="img" data-anim="x" aria-label="What each level adds, one pair of bars per level. Words in the prompt grow from about 98 at the bug report to about 475 with the test names and then hold steady. Lines of hidden test code in the repository are zero through L4, about 370 at L5, and about 399 at L6.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">What Each Level Adds</text>
+<g transform="translate(0 44)">
 <line x1="200.0" y1="70.0" x2="200.0" y2="378.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="300.0" y1="70.0" x2="300.0" y2="378.0" stroke="var(--line)" stroke-width="1"/>
 <line x1="400.0" y1="70.0" x2="400.0" y2="378.0" stroke="var(--line)" stroke-width="1"/>
@@ -61,4 +63,5 @@
 <line x1="600.0" y1="378.0" x2="600.0" y2="383.0" stroke="var(--chart-1)" stroke-width="1.5"/>
 <text x="600.0" y="400.0" text-anchor="middle" fill="var(--chart-1)" font-size="14" font-family="var(--font-mono)">600</text>
 <text x="400.0" y="424.0" text-anchor="middle" fill="var(--chart-1)" font-size="15" font-weight="600" font-family="var(--font-sans)">Words in the Prompt</text>
+</g>
 </svg>

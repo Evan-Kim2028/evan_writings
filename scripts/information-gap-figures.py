@@ -461,6 +461,38 @@ def fig_funnel(s):
     return svg(y_end + 56, label, body, "x")
 
 
+# Graded and certified tasks per source repository, from the ledger joined to each task's
+# Harbor base image (ladder-base:<repo>). Four graded tasks with no recorded image, all too
+# easy, are left out, so the rows sum to 407 graded rather than 411.
+REPO_YIELD = [("kops", 70, 56), ("go-git", 68, 50), ("goa", 35, 26), ("nats-server", 29, 21),
+              ("client-go", 21, 14), ("bbolt", 52, 29), ("helm", 26, 13), ("gin", 40, 16),
+              ("go-github", 66, 17)]
+
+
+def fig_repos(s):
+    x0, width, row, bh, top = 150, 360, 40, 24, 44
+    sx = lambda v: x0 + width * v / 80
+    body = [rect(x0, 6, 16, 16, "var(--chart-1)"), text(x0 + 24, 20, "Certified", 15, "var(--text-2)"),
+            rect(x0 + 120, 6, 16, 16, "var(--chart-1)", extra=' fill-opacity="0.3"'),
+            text(x0 + 144, 20, "Too easy (passed the bug report)", 15, "var(--text-2)")]
+    for i, (repo, graded, cert) in enumerate(REPO_YIELD):
+        y = top + i * row
+        body.append(text(x0 - 14, y + bh - 7, repo, 16, anchor="end", weight=600, mono=True))
+        body.append(rect(x0, y, sx(cert) - x0, bh, "var(--chart-1)", f"{repo}: {cert} certified", rx=0))
+        body.append(rect(sx(cert), y, sx(graded) - sx(cert), bh, "var(--chart-1)",
+                         f"{repo}: {graded - cert} too easy", rx=0, extra=' fill-opacity="0.3"'))
+        body.append(text(sx(graded) + 10, y + bh - 7, f"{cert}/{graded}", 15, "var(--text-2)", mono=True))
+        body.append(text(x0 + width + 150, y + bh - 7, f"{round(100 * cert / graded)}%", 17,
+                         weight=700, anchor="end", mono=True))
+    y_end = top + row * len(REPO_YIELD) - 8
+    body.append(text(x0 + width + 150, top - 10, "% Certified", 14, "var(--text-3)", "end"))
+    body.append(line(x0, top - 4, x0, y_end, "var(--text-3)", 1.5))
+    body += x_axis(x0, x0 + width, y_end, (0, 20, 40, 60, 80), sx, num, "Graded Tasks")
+    label = ("Certified and too-easy tasks per repository: "
+             + ", ".join(f"{r} {c}/{g}" for r, g, c in REPO_YIELD) + ".")
+    return svg(y_end + 56, label, body, "x")
+
+
 def glyph(x, y, color, passed, tip):
     t = f"<title>{esc(tip)}</title>"
     if passed:
@@ -520,7 +552,7 @@ def fig_curves(s):
              "ipqueue SWE-2 passes at a lower level than Composer, and on advrefs Composer passes lower. "
              "On httperrexpr both pass at L2. On httpmux Composer fails through the test "
              "names and passes once the test file is in the tree.")
-    return svg(y + 2, label, body)
+    return svg(y + 2, label, body, "r")
 
 
 def fig_gradient(s):
@@ -580,9 +612,9 @@ def fig_length(s):
     x0, bar, gap, width, top = 230, 40, 22, 330, 14
     sx = lambda v: x0 + width * v / 100
     body = []
-    parts = (("same", "same level", "var(--chart-1)", ""),
-             ("devin_lower", "SWE-2 lower", "var(--chart-2)", ""),
-             ("composer_lower", "Composer lower", "var(--chart-2)", ' fill-opacity="0.45"'))
+    parts = (("same", "Same level", "var(--chart-1)", ""),
+             ("devin_lower", "SWE-2 needs less", "var(--chart-2)", ""),
+             ("composer_lower", "Composer needs less", "var(--chart-2)", ' fill-opacity="0.45"'))
     for i, (r, name) in enumerate(zip(rows, names)):
         y = top + i * (bar + gap)
         total = r["same"] + r["devin_lower"] + r["composer_lower"]
@@ -609,7 +641,7 @@ def fig_length(s):
     label = ("Agreement between Composer and SWE-2 by length of the full description, in thirds of the "
              + ", ".join(f"{n}: {r['same']} of {r['same'] + r['devin_lower'] + r['composer_lower']} agree"
                          for n, r in zip(names, rows)) + ".")
-    return svg(ly + 14, label, body)
+    return svg(ly + 14, label, body, "x")
 
 
 MIN_RUNS = 5
@@ -691,16 +723,16 @@ def fig_trace_flips(s):
     body += x_axis(x0, x0 + width, y_end, (20, 40, 60, 80), sx, lambda v: str(v), "Median Calls per Run")
     ly = y_end + 76
     body.append(glyph(x0, ly, "var(--text-2)", False, "failed"))
-    body.append(text(x0 + 14, ly + 5, "Failed run below first pass", 15, "var(--text-2)"))
+    body.append(text(x0 + 14, ly + 5, "Failed trial below first pass", 15, "var(--text-2)"))
     body.append(glyph(x0, ly + 26, "var(--text-2)", True, "passed"))
-    body.append(text(x0 + 14, ly + 31, "First passing run", 15, "var(--text-2)"))
+    body.append(text(x0 + 14, ly + 31, "First passing trial", 15, "var(--text-2)"))
     label = (f"Same task, same model. Composer ({f['composer']['tasks']} tasks) goes from "
              f"{f['composer']['calls'][0]:.0f} calls on its failed run to {f['composer']['calls'][1]:.0f} on its pass, "
              f"and SWE-2 ({f['devin']['tasks']} tasks) from {f['devin']['calls'][0]:.0f} to {f['devin']['calls'][1]:.0f}. "
              f"Read and search calls fall from {f['composer']['explore_calls'][0]:.0f} to "
              f"{f['composer']['explore_calls'][1]:.0f} for Composer and from {f['devin']['explore_calls'][0]:.0f} "
              f"to {f['devin']['explore_calls'][1]:.0f} for SWE-2.")
-    return svg(ly + 44, label, body)
+    return svg(ly + 44, label, body, "r")
 
 
 def fig_runs(s):
@@ -769,6 +801,7 @@ def fig_runs_per_cert(_s):
 FIGURES = {
     "prompt-words": fig_prompt_words,
     "funnel": fig_funnel,
+    "repo-yield": fig_repos,
     "information-gradient": fig_gradient,
     "curves": fig_curves,
     "agreement-by-length": fig_length,
@@ -778,11 +811,35 @@ FIGURES = {
 }
 
 
+TITLES = {
+    "prompt-words": "What Each Level Adds",
+    "funnel": "From Authored to Graded Tasks",
+    "repo-yield": "Certified Tasks by Repository",
+    "information-gradient": "Share of Tasks Solved by Level",
+    "curves": "First Passing Level by Task and Model",
+    "agreement-by-length": "Model Agreement by Description Length",
+    "trace-steps": "Tool Calls per Run by Level",
+    "trace-flips": "Tool Calls Before and After the First Pass",
+    "runs-per-level": "Graded Runs per Level",
+}
+TITLE_H = 44
+
+
+def with_title(markup, title):
+    """Put a chart title above the drawing: grow the viewBox and shift the body down."""
+    head, rest = markup.split(">", 1)
+    h = float(re.search(r'viewBox="0 0 720 ([\d.]+)"', head).group(1))
+    head = head.replace(f'viewBox="0 0 720 {h:.0f}"', f'viewBox="0 0 720 {h + TITLE_H:.0f}"')
+    body, tail = rest.rsplit("</svg>", 1)
+    return (f'{head}>\n{text(360, 24, title, 19, anchor="middle", weight=700)}\n'
+            f'<g transform="translate(0 {TITLE_H})">{body}</g>\n</svg>{tail}')
+
+
 def render(s):
     os.makedirs(OUT, exist_ok=True)
     for name, fn in FIGURES.items():
         with open(os.path.join(OUT, name + ".svg"), "w") as f:
-            f.write(fn(s))
+            f.write(with_title(fn(s), TITLES[name]))
     print(f"rendered {len(FIGURES)} figures from the {s['date']} snapshot into {os.path.relpath(OUT, SITE)}")
 
 

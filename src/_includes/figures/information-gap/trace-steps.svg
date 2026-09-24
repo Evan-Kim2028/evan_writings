@@ -1,4 +1,6 @@
-<svg viewBox="0 0 720 364" role="img" aria-label="Median tool calls per run at each ladder step, for passed and failed runs of each model, leaving out any point with fewer than 5 runs. Failed runs take more calls than passed runs at the bug report and the full description for both models.">
+<svg viewBox="0 0 720 408" role="img" aria-label="Median tool calls per run at each ladder step, for passed and failed runs of each model, leaving out any point with fewer than 5 runs. Failed runs take more calls than passed runs at the bug report and the full description for both models.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Tool Calls per Run by Level</text>
+<g transform="translate(0 44)">
 <line x1="120.0" y1="300.0" x2="560.0" y2="300.0" stroke="var(--line)" stroke-width="1"/>
 <text x="110.0" y="305.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
 <line x1="120.0" y1="240.0" x2="560.0" y2="240.0" stroke="var(--line)" stroke-width="1"/>
@@ -47,4 +49,5 @@
 <line x1="555" y1="18" x2="585" y2="18" stroke="var(--chart-2)" stroke-width="3" stroke-dasharray="6 5"/>
 <circle cx="570" cy="18" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title></title></circle>
 <text x="595.0" y="23.0" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">SWE-2 failed</text>
+</g>
 </svg>

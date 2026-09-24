@@ -1,4 +1,6 @@
-<svg viewBox="0 0 720 420" role="img" aria-label="Share of graded tasks solved by each ladder step. All tasks: L1 41.1%, L2 89.1%, L3–4 91.5%, L5–6 100.0%. Composer: 38.9%, 84.8%, 87.4%, 100.0%. SWE-2: 39.6%, 93.1%, 96.5%, 100.0%.">
+<svg viewBox="0 0 720 464" role="img" aria-label="Share of graded tasks solved by each ladder step. All tasks: L1 41.1%, L2 89.1%, L3–4 91.5%, L5–6 100.0%. Composer: 38.9%, 84.8%, 87.4%, 100.0%. SWE-2: 39.6%, 93.1%, 96.5%, 100.0%.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Share of Tasks Solved by Level</text>
+<g transform="translate(0 44)">
 <line x1="120.0" y1="316.0" x2="570.0" y2="316.0" stroke="var(--line)" stroke-width="1"/>
 <text x="110.0" y="321.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0%</text>
 <line x1="120.0" y1="246.0" x2="570.0" y2="246.0" stroke="var(--line)" stroke-width="1"/>
@@ -51,4 +53,5 @@
 <text x="454.0" y="266.9" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Composer (342)</text>
 <line x1="420" y1="283.92" x2="446" y2="283.92" stroke="var(--chart-2)" stroke-width="3" stroke-dasharray="6 5"/>
 <text x="454.0" y="288.9" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">SWE-2 (144)</text>
+</g>
 </svg>

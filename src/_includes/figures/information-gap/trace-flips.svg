@@ -1,4 +1,6 @@
-<svg viewBox="0 0 720 362" role="img" aria-label="Same task, same model. Composer (209 tasks) goes from 68 calls on its failed run to 58 on its pass, and SWE-2 (69 tasks) from 69 to 57. Read and search calls fall from 50 to 38 for Composer and from 44 to 30 for SWE-2.">
+<svg viewBox="0 0 720 406" role="img" data-anim="r" aria-label="Same task, same model. Composer (209 tasks) goes from 68 calls on its failed run to 58 on its pass, and SWE-2 (69 tasks) from 69 to 57. Read and search calls fall from 50 to 38 for Composer and from 44 to 30 for SWE-2.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Tool Calls Before and After the First Pass</text>
+<g transform="translate(0 44)">
 <text x="234.0" y="43.0" text-anchor="end" fill="var(--chart-1)" font-size="16" font-weight="600" font-family="var(--font-sans)">Tool Calls</text>
 <text x="234.0" y="62.0" text-anchor="end" fill="var(--chart-1)" font-size="15" font-family="var(--font-sans)">(Composer 2.5)</text>
 <line x1="250.0" y1="46.0" x2="650.0" y2="46.0" stroke="var(--line)" stroke-width="1"/>
@@ -51,7 +53,8 @@
 <text x="650.0" y="264.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">80</text>
 <text x="450.0" y="288.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Median Calls per Run</text>
 <circle cx="250" cy="318" r="7.5" fill="var(--bg)" stroke="var(--text-2)" stroke-width="2"><title>failed</title></circle>
-<text x="264.0" y="323.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Failed run below first pass</text>
+<text x="264.0" y="323.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Failed trial below first pass</text>
 <circle cx="250" cy="344" r="8.5" fill="var(--text-2)"><title>passed</title></circle>
-<text x="264.0" y="349.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">First passing run</text>
+<text x="264.0" y="349.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">First passing trial</text>
+</g>
 </svg>
