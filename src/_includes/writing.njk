@@ -13,8 +13,8 @@ layout: base.njk
 
   <article class="article">
     {%- if hero -%}
-    {%- set _hl = "url('" + (hero | url) + "?v=10')" -%}
-    {%- set _hd = "url('" + ((hero_dark or hero) | url) + "?v=10')" -%}
+    {%- set _hl = "url('" + (hero | url) + "?v=11')" -%}
+    {%- set _hd = "url('" + ((hero_dark or hero) | url) + "?v=11')" -%}
     {%- else -%}
     {%- set _hl = slug | heroPattern('light') -%}
     {%- set _hd = slug | heroPattern('dark') -%}
