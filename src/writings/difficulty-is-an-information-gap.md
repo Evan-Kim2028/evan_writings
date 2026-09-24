@@ -289,8 +289,7 @@ it could serve as a training curriculum that withholds more information as a mod
 
 ---
 
-*Code, trial data, and figure scripts:
-[open_swe_traces_research](https://github.com/Evan-Kim2028/open_swe_traces_research). Earlier in this
+*Code: [open_swe_traces_research](https://github.com/Evan-Kim2028/open_swe_traces_research). Earlier in this
 series: [Terminal-Bench Task: Lakehouse Schema Contract
 Drift](/writings/terminal-bench-task-lakehouse-schema-contract-drift/) and [Four Verifiable
 Properties of a Useful Agent Task](/writings/four-verifiable-properties-of-a-useful-agent-task/).*
