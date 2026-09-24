@@ -1,4 +1,6 @@
-<svg viewBox="0 0 720 364" role="img" aria-label="Median tool calls per run at each ladder step, for passed and failed runs of each model, leaving out any point with fewer than 5 runs. Failed runs take more calls than passed runs at the bug report and the full description for both models.">
+<svg viewBox="0 0 720 408" role="img" aria-label="Median tool calls per run at each ladder step, for passed and failed runs of each model, leaving out any point with fewer than 5 runs. Failed runs take more calls than passed runs at the bug report and the full description for both models.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Tool Calls per Run by Level</text>
+<g transform="translate(0 44)">
 <line x1="120.0" y1="300.0" x2="560.0" y2="300.0" stroke="var(--line)" stroke-width="1"/>
 <text x="110.0" y="305.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
 <line x1="120.0" y1="240.0" x2="560.0" y2="240.0" stroke="var(--line)" stroke-width="1"/>
@@ -11,12 +13,12 @@
 <text x="110.0" y="65.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">100</text>
 <line x1="120.0" y1="52.0" x2="120.0" y2="300.0" stroke="var(--text-3)" stroke-width="1.5"/>
 <line x1="120.0" y1="300.0" x2="560.0" y2="300.0" stroke="var(--text-3)" stroke-width="1.5"/>
-<text x="40.0" y="180.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 40.0 180.0)">tool calls per run, median</text>
+<text x="40.0" y="180.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 40.0 180.0)">Median Tool Calls per Run</text>
 <text x="160.0" y="326.0" text-anchor="middle" fill="var(--text-2)" font-size="16" font-weight="600" font-family="var(--font-mono)">L1</text>
 <text x="280.0" y="326.0" text-anchor="middle" fill="var(--text-2)" font-size="16" font-weight="600" font-family="var(--font-mono)">L2</text>
 <text x="400.0" y="326.0" text-anchor="middle" fill="var(--text-2)" font-size="16" font-weight="600" font-family="var(--font-mono)">L3–4</text>
 <text x="520.0" y="326.0" text-anchor="middle" fill="var(--text-2)" font-size="16" font-weight="600" font-family="var(--font-mono)">L5–6</text>
-<text x="340.0" y="352.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">ladder step</text>
+<text x="340.0" y="352.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Ladder Step</text>
 <polyline points="160.0,175.2 280.0,177.6 400.0,123.6 520.0,129.6" fill="none" stroke="var(--chart-1)" stroke-width="3"/>
 <circle cx="160.0" cy="175.2" r="8.5" fill="var(--chart-1)"><title>Composer passed, 173 runs</title></circle>
 <circle cx="280.0" cy="177.6" r="8.5" fill="var(--chart-1)"><title>Composer passed, 355 runs</title></circle>
@@ -27,14 +29,14 @@
 <circle cx="280.0" cy="132.0" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer failed, 282 runs</title></circle>
 <circle cx="400.0" cy="98.4" r="7.5" fill="var(--bg)" stroke="var(--chart-1)" stroke-width="2"><title>Composer failed, 121 runs</title></circle>
 <polyline points="160.0,146.4 280.0,158.4 400.0,93.6 520.0,86.4" fill="none" stroke="var(--chart-2)" stroke-width="3"/>
-<circle cx="160.0" cy="146.4" r="8.5" fill="var(--chart-2)"><title>Devin passed, 57 runs</title></circle>
-<circle cx="280.0" cy="158.4" r="8.5" fill="var(--chart-2)"><title>Devin passed, 83 runs</title></circle>
-<circle cx="400.0" cy="93.6" r="8.5" fill="var(--chart-2)"><title>Devin passed, 7 runs</title></circle>
-<circle cx="520.0" cy="86.4" r="8.5" fill="var(--chart-2)"><title>Devin passed, 9 runs</title></circle>
+<circle cx="160.0" cy="146.4" r="8.5" fill="var(--chart-2)"><title>SWE-2 passed, 57 runs</title></circle>
+<circle cx="280.0" cy="158.4" r="8.5" fill="var(--chart-2)"><title>SWE-2 passed, 83 runs</title></circle>
+<circle cx="400.0" cy="93.6" r="8.5" fill="var(--chart-2)"><title>SWE-2 passed, 7 runs</title></circle>
+<circle cx="520.0" cy="86.4" r="8.5" fill="var(--chart-2)"><title>SWE-2 passed, 9 runs</title></circle>
 <polyline points="160.0,117.6 280.0,153.6 400.0,118.8" fill="none" stroke="var(--chart-2)" stroke-width="3" stroke-dasharray="6 5"/>
-<circle cx="160.0" cy="117.6" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin failed, 77 runs</title></circle>
-<circle cx="280.0" cy="153.6" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin failed, 17 runs</title></circle>
-<circle cx="400.0" cy="118.80000000000001" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>Devin failed, 14 runs</title></circle>
+<circle cx="160.0" cy="117.6" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>SWE-2 failed, 77 runs</title></circle>
+<circle cx="280.0" cy="153.6" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>SWE-2 failed, 17 runs</title></circle>
+<circle cx="400.0" cy="118.80000000000001" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title>SWE-2 failed, 14 runs</title></circle>
 <line x1="60" y1="18" x2="90" y2="18" stroke="var(--chart-1)" stroke-width="3"/>
 <circle cx="75" cy="18" r="8.5" fill="var(--chart-1)"><title></title></circle>
 <text x="100.0" y="23.0" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Composer passed</text>
@@ -43,8 +45,9 @@
 <text x="265.0" y="23.0" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Composer failed</text>
 <line x1="390" y1="18" x2="420" y2="18" stroke="var(--chart-2)" stroke-width="3"/>
 <circle cx="405" cy="18" r="8.5" fill="var(--chart-2)"><title></title></circle>
-<text x="430.0" y="23.0" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Devin passed</text>
+<text x="430.0" y="23.0" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">SWE-2 passed</text>
 <line x1="555" y1="18" x2="585" y2="18" stroke="var(--chart-2)" stroke-width="3" stroke-dasharray="6 5"/>
 <circle cx="570" cy="18" r="7.5" fill="var(--bg)" stroke="var(--chart-2)" stroke-width="2"><title></title></circle>
-<text x="595.0" y="23.0" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Devin failed</text>
+<text x="595.0" y="23.0" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">SWE-2 failed</text>
+</g>
 </svg>

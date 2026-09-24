@@ -96,11 +96,15 @@
         }
       }
       var current = null;
+      var parent = null;
+      var section = null;
       links.forEach(function (l) {
+        if (l.classList.contains('toc-link-h2')) section = l;
         var on = id && l.getAttribute('href') === '#' + id;
         l.classList.toggle('active', on);
-        if (on) current = l;
+        if (on) { current = l; if (l.classList.contains('toc-link-h3')) parent = section; }
       });
+      links.forEach(function (l) { l.classList.toggle('active-parent', l === parent); });
       if (current) reveal(current);
     }
     function onScroll() { mark(); }

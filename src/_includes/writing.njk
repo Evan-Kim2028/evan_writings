@@ -45,7 +45,7 @@ layout: base.njk
       {% endif %}
     </div>
 
-    <div class="writing-body{% if lede %} has-lede{% endif %}">
+    <div class="writing-body{% if lede %} has-lede{% endif %}{% if table_highlight %} table-highlight{% endif %}">
       {{ content | safe }}
     </div>
 {%- if series -%}
