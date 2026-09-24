@@ -25,7 +25,7 @@
      We detect writing pages by the presence of a `collection` frontmatter field
      (set by every writing .md). Layouts/index pages don't have it. #}
   {%- set _is_article = collection and page.url and page.url.indexOf('/writings/') === 0 -%}
-  {%- set _first_img = (hero | url) if hero else (content | firstImage) -%}
+  {%- set _first_img = (og_image | url) if og_image else ((hero | url) if hero else (content | firstImage)) -%}
   {%- set _og_image = _first_img | absoluteImageUrl -%}
   {%- if not _og_image -%}
   {%- set _og_image = '/evan_writings/assets/og-default.png' | absoluteImageUrl -%}
