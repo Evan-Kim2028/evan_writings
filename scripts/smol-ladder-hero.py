@@ -5,7 +5,7 @@
 
 Needs google-chrome on PATH. Writes src/assets/images/smol-ladder-hero{,.dark}.png. The drawing is
 the post's finding in one glance: the same 2B model climbing from the question to the program, and
-the third of tasks it still fails with the program in hand.
+the last third, which is control.
 """
 import os, subprocess, tempfile
 
@@ -42,12 +42,12 @@ def hero(t):
         out.append(f'<rect x="{x0}" y="{y}" width="{w:.0f}" height="{bh}" rx="8" fill="{c["bar"]}"/>')
         out.append(f'<text x="{x0 + w + 22:.0f}" y="{y + bh / 2 + 14}" fill="{c["text"]}" font-family="Fira Mono" '
                    f'font-size="40" font-weight="500">{100 * v:.0f}%</text>')
-    # The third that fails with the program in hand.
+    # The last third: control, the part training can reach.
     y = top + 3 * row
     bx = x0 + (x1 - x0) * RUNGS[-1][2] + 150
     out.append(f'<path d="M{bx} {y - 10} V{y - 34} H{x1} V{y - 10}" fill="none" stroke="{c["fail"]}" stroke-width="4"/>')
     out.append(f'<text x="{(bx + x1) / 2:.0f}" y="{y - 50}" text-anchor="middle" fill="{c["fail"]}" '
-               f'font-family="Fira Sans" font-size="28" font-weight="600">fails with the code in hand</text>')
+               f'font-family="Fira Sans" font-size="28" font-weight="600">left for training: control</text>')
     out.append(f'<text x="{W / 2}" y="{H - 48}" text-anchor="middle" fill="{c["text3"]}" font-family="Fira Sans" '
                f'font-size="26">Qwen3.5-2B, SmolDataEnvs test split, temperature 0</text>')
     return (f'<!DOCTYPE html><html><body style="margin:0"><svg xmlns="http://www.w3.org/2000/svg" '
