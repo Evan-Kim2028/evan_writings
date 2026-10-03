@@ -243,3 +243,7 @@ xhigh
 xknxwledge
 Zelen
 zksync
+Qwen
+smol
+Smol
+GRPO

@@ -1,0 +1,55 @@
+<svg viewBox="0 0 720 358" role="img" aria-label="How the base model's episodes end at L1, L3 and L4. L1: correct 60, wrong kind of answer 28, wrong answer 30, repeat loop 85, wandered 16 turns 26, ran out of context 21; L3: correct 74, wrong kind of answer 14, wrong answer 16, repeat loop 49, wandered 16 turns 29, ran out of context 31; L4: correct 146, wrong kind of answer 25, wrong answer 7, repeat loop 16, wandered 16 turns 8, ran out of context 11">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">How the Base Model's Episodes End</text>
+<g transform="translate(0 44)">
+<text x="138.0" y="50.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L1 question</text>
+<rect x="150.0" y="30.0" width="129.6" height="30.0" rx="2.0" fill="var(--chart-1)"><title>L1: 60 of 250 episodes correct</title></rect>
+<text x="214.8" y="50.0" text-anchor="middle" fill="var(--bg)" font-size="13" font-family="var(--font-mono)">60</text>
+<rect x="279.6" y="30.0" width="60.5" height="30.0" rx="2.0" fill="var(--chart-2)"><title>L1: 28 of 250 episodes wrong kind of answer</title></rect>
+<text x="309.8" y="50.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">28</text>
+<rect x="340.1" y="30.0" width="64.8" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--chart-2) 55%, var(--bg))"><title>L1: 30 of 250 episodes wrong answer</title></rect>
+<text x="372.5" y="50.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">30</text>
+<rect x="404.9" y="30.0" width="183.6" height="30.0" rx="2.0" fill="var(--text-3)"><title>L1: 85 of 250 episodes repeat loop</title></rect>
+<text x="496.7" y="50.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">85</text>
+<rect x="588.5" y="30.0" width="56.2" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 60%, var(--bg))"><title>L1: 26 of 250 episodes wandered 16 turns</title></rect>
+<text x="616.6" y="50.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">26</text>
+<rect x="644.6" y="30.0" width="45.4" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 35%, var(--bg))"><title>L1: 21 of 250 episodes ran out of context</title></rect>
+<text x="667.3" y="50.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">21</text>
+<text x="138.0" y="114.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L3 + method</text>
+<rect x="150.0" y="94.0" width="187.6" height="30.0" rx="2.0" fill="var(--chart-1)"><title>L3: 74 of 213 episodes correct</title></rect>
+<text x="243.8" y="114.0" text-anchor="middle" fill="var(--bg)" font-size="13" font-family="var(--font-mono)">74</text>
+<rect x="337.6" y="94.0" width="35.5" height="30.0" rx="2.0" fill="var(--chart-2)"><title>L3: 14 of 213 episodes wrong kind of answer</title></rect>
+<text x="355.4" y="114.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">14</text>
+<rect x="373.1" y="94.0" width="40.6" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--chart-2) 55%, var(--bg))"><title>L3: 16 of 213 episodes wrong answer</title></rect>
+<text x="393.4" y="114.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">16</text>
+<rect x="413.7" y="94.0" width="124.2" height="30.0" rx="2.0" fill="var(--text-3)"><title>L3: 49 of 213 episodes repeat loop</title></rect>
+<text x="475.8" y="114.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">49</text>
+<rect x="537.9" y="94.0" width="73.5" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 60%, var(--bg))"><title>L3: 29 of 213 episodes wandered 16 turns</title></rect>
+<text x="574.6" y="114.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">29</text>
+<rect x="611.4" y="94.0" width="78.6" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 35%, var(--bg))"><title>L3: 31 of 213 episodes ran out of context</title></rect>
+<text x="650.7" y="114.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">31</text>
+<text x="138.0" y="178.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L4 + program</text>
+<rect x="150.0" y="158.0" width="370.1" height="30.0" rx="2.0" fill="var(--chart-1)"><title>L4: 146 of 213 episodes correct</title></rect>
+<text x="335.1" y="178.0" text-anchor="middle" fill="var(--bg)" font-size="13" font-family="var(--font-mono)">146</text>
+<rect x="520.1" y="158.0" width="63.4" height="30.0" rx="2.0" fill="var(--chart-2)"><title>L4: 25 of 213 episodes wrong kind of answer</title></rect>
+<text x="551.8" y="178.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">25</text>
+<rect x="583.5" y="158.0" width="17.7" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--chart-2) 55%, var(--bg))"><title>L4: 7 of 213 episodes wrong answer</title></rect>
+<rect x="601.3" y="158.0" width="40.6" height="30.0" rx="2.0" fill="var(--text-3)"><title>L4: 16 of 213 episodes repeat loop</title></rect>
+<text x="621.5" y="178.0" text-anchor="middle" fill="var(--text)" font-size="13" font-family="var(--font-mono)">16</text>
+<rect x="641.8" y="158.0" width="20.3" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 60%, var(--bg))"><title>L4: 8 of 213 episodes wandered 16 turns</title></rect>
+<rect x="662.1" y="158.0" width="27.9" height="30.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 35%, var(--bg))"><title>L4: 11 of 213 episodes ran out of context</title></rect>
+<rect x="150.0" y="226.0" width="12.0" height="12.0" rx="2.0" fill="var(--chart-1)"></rect>
+<text x="167.0" y="237.0" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">correct</text>
+<rect x="330.0" y="226.0" width="12.0" height="12.0" rx="2.0" fill="var(--chart-2)"></rect>
+<text x="347.0" y="237.0" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">wrong kind of answer</text>
+<rect x="510.0" y="226.0" width="12.0" height="12.0" rx="2.0" fill="color-mix(in srgb, var(--chart-2) 55%, var(--bg))"></rect>
+<text x="527.0" y="237.0" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">wrong answer</text>
+<rect x="150.0" y="246.0" width="12.0" height="12.0" rx="2.0" fill="var(--text-3)"></rect>
+<text x="167.0" y="257.0" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">repeat loop</text>
+<rect x="330.0" y="246.0" width="12.0" height="12.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 60%, var(--bg))"></rect>
+<text x="347.0" y="257.0" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">wandered 16 turns</text>
+<rect x="510.0" y="246.0" width="12.0" height="12.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 35%, var(--bg))"></rect>
+<text x="527.0" y="257.0" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">ran out of context</text>
+<text x="150.0" y="284.0" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">Of the unanswered episodes, the correct value had already been printed in</text>
+<text x="150.0" y="300.0" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">36 of 132 at L1, 39 of 109 at L3 and 13 of 35 at L4.</text>
+</g>
+</svg>
