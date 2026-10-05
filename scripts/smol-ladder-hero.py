@@ -5,7 +5,7 @@
 
 Needs google-chrome on PATH. Writes src/assets/images/smol-ladder-hero{,.dark}.png. The drawing is
 the post's finding in one glance: the same 2B model climbing from the question to the program, and
-the last third, which is control.
+the last third, which is execution.
 """
 import os, subprocess, tempfile
 
@@ -26,7 +26,7 @@ def hero(t):
     c = THEMES[t]
     out = [f'<rect width="{W}" height="{H}" fill="{c["bg"]}"/>']
     out.append(f'<text x="{W / 2}" y="92" text-anchor="middle" fill="{c["text"]}" font-family="Fira Sans" '
-               f'font-size="52" font-weight="700">What a 2B Data Agent Is Missing</text>')
+               f'font-size="52" font-weight="700">Knowledge vs Execution in a Qwen3.5-2B Data Agent</text>')
     out.append(f'<text x="{W / 2}" y="146" text-anchor="middle" fill="{c["text2"]}" font-family="Fira Sans" '
                f'font-size="30">the same model, the same 213 tasks, one more piece of the solution each rung</text>')
     x0, x1 = 300, 1340
@@ -42,14 +42,14 @@ def hero(t):
         out.append(f'<rect x="{x0}" y="{y}" width="{w:.0f}" height="{bh}" rx="8" fill="{c["bar"]}"/>')
         out.append(f'<text x="{x0 + w + 22:.0f}" y="{y + bh / 2 + 14}" fill="{c["text"]}" font-family="Fira Mono" '
                    f'font-size="40" font-weight="500">{100 * v:.0f}%</text>')
-    # The last third: control, the part training can reach.
+    # The last third: execution, the part training can reach.
     y = top + 3 * row
     bx = x0 + (x1 - x0) * RUNGS[-1][2] + 150
     out.append(f'<path d="M{bx} {y - 10} V{y - 34} H{x1} V{y - 10}" fill="none" stroke="{c["fail"]}" stroke-width="4"/>')
     out.append(f'<text x="{(bx + x1) / 2:.0f}" y="{y - 50}" text-anchor="middle" fill="{c["fail"]}" '
-               f'font-family="Fira Sans" font-size="28" font-weight="600">left for training: control</text>')
+               f'font-family="Fira Sans" font-size="28" font-weight="600">left for training: execution</text>')
     out.append(f'<text x="{W / 2}" y="{H - 48}" text-anchor="middle" fill="{c["text3"]}" font-family="Fira Sans" '
-               f'font-size="26">Qwen3.5-2B, SmolDataEnvs test split, temperature 0</text>')
+               f'font-size="26">SmolDataEnvs test split, temperature 0</text>')
     return (f'<!DOCTYPE html><html><body style="margin:0"><svg xmlns="http://www.w3.org/2000/svg" '
             f'width="{W}" height="{H}" viewBox="0 0 {W} {H}">' + "".join(out) + '</svg></body></html>')
 

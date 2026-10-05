@@ -1,33 +1,35 @@
-<svg viewBox="0 0 720 318" role="img" aria-label="Tasks gained and lost against L1 by the base model at each rung. L1+control: gained 11, lost 29, kept 31, p 0.006; L2: gained 19, lost 28, kept 31, p 0.243; L3: gained 34, lost 19, kept 40, p 0.053; L4: gained 95, lost 8, kept 51, p 0.000">
+<svg viewBox="0 0 720 318" role="img" aria-label="Tasks gained and lost against L1 by the base model at each rung. L1 + rules: gained 11, lost 29, kept 31, p 0.006; L2: gained 19, lost 28, kept 31, p 0.243; L3: gained 34, lost 19, kept 40, p 0.053; L4: gained 95, lost 8, kept 51, p 0.000">
 <text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Tasks Gained and Lost Against L1</text>
 <g transform="translate(0 44)">
-<text x="230.0" y="48.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L1+control + rules</text>
-<rect x="299.1" y="30.0" width="60.9" height="26.0" rx="2.0" fill="var(--chart-2)"><title>L1+control: 29 tasks solved at L1 and lost here</title></rect>
-<rect x="360.0" y="30.0" width="23.1" height="26.0" rx="2.0" fill="var(--chart-1)"><title>L1+control: 11 tasks failed at L1 and gained here</title></rect>
-<text x="291.1" y="48.0" text-anchor="end" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">−29</text>
-<text x="391.1" y="48.0" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">+11</text>
+<text x="230.0" y="48.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L1 + rules</text>
+<rect x="299.1" y="30.0" width="60.9" height="26.0" rx="2.0" fill="var(--chart-2)"><title>L1 + rules: 29 tasks solved at L1 and lost here</title></rect>
+<rect x="360.0" y="30.0" width="23.1" height="26.0" rx="2.0" fill="var(--chart-1)"><title>L1 + rules: 11 tasks failed at L1 and gained here</title></rect>
+<text x="291.1" y="48.0" text-anchor="end" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">29</text>
+<text x="391.1" y="48.0" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">11</text>
 <text x="690.0" y="48.0" text-anchor="end" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">p = 0.006</text>
 <text x="230.0" y="96.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L2 + columns</text>
 <rect x="301.2" y="78.0" width="58.8" height="26.0" rx="2.0" fill="var(--chart-2)"><title>L2: 28 tasks solved at L1 and lost here</title></rect>
 <rect x="360.0" y="78.0" width="39.9" height="26.0" rx="2.0" fill="var(--chart-1)"><title>L2: 19 tasks failed at L1 and gained here</title></rect>
-<text x="293.2" y="96.0" text-anchor="end" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">−28</text>
-<text x="407.9" y="96.0" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">+19</text>
+<text x="293.2" y="96.0" text-anchor="end" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">28</text>
+<text x="407.9" y="96.0" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">19</text>
 <text x="690.0" y="96.0" text-anchor="end" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">p = 0.243</text>
 <text x="230.0" y="144.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L3 + method</text>
 <rect x="320.1" y="126.0" width="39.9" height="26.0" rx="2.0" fill="var(--chart-2)"><title>L3: 19 tasks solved at L1 and lost here</title></rect>
 <rect x="360.0" y="126.0" width="71.4" height="26.0" rx="2.0" fill="var(--chart-1)"><title>L3: 34 tasks failed at L1 and gained here</title></rect>
-<text x="312.1" y="144.0" text-anchor="end" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">−19</text>
-<text x="439.4" y="144.0" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">+34</text>
+<text x="312.1" y="144.0" text-anchor="end" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">19</text>
+<text x="439.4" y="144.0" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">34</text>
 <text x="690.0" y="144.0" text-anchor="end" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">p = 0.053</text>
 <text x="230.0" y="192.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L4 + program</text>
 <rect x="343.2" y="174.0" width="16.8" height="26.0" rx="2.0" fill="var(--chart-2)"><title>L4: 8 tasks solved at L1 and lost here</title></rect>
 <rect x="360.0" y="174.0" width="199.5" height="26.0" rx="2.0" fill="var(--chart-1)"><title>L4: 95 tasks failed at L1 and gained here</title></rect>
-<text x="335.2" y="192.0" text-anchor="end" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">−8</text>
-<text x="567.5" y="192.0" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">+95</text>
+<text x="335.2" y="192.0" text-anchor="end" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">8</text>
+<text x="567.5" y="192.0" fill="var(--text-2)" font-size="14" font-family="var(--font-mono)">95</text>
 <text x="690.0" y="192.0" text-anchor="end" fill="var(--text-3)" font-size="13" font-family="var(--font-mono)">p &lt; 0.001</text>
 <line x1="360.0" y1="22.0" x2="360.0" y2="222.0" stroke="var(--text-3)" stroke-width="1.5"/>
 <text x="352.0" y="16.0" text-anchor="end" fill="var(--chart-2)" font-size="13" font-family="var(--font-sans)">lost</text>
 <text x="368.0" y="16.0" fill="var(--chart-1)" font-size="13" font-family="var(--font-sans)">gained</text>
+<text x="360.0" y="228.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">tasks</text>
+<text x="100.0" y="115.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 100.0 115.0)">rung</text>
 <text x="60.0" y="244.0" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">Tasks, paired against the same model at L1 (250 for the rules, 213 for L2 to L4).</text>
 <text x="60.0" y="260.0" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">The sign test asks whether gains outnumber losses beyond what a coin would give.</text>
 </g>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Figures for what-a-2b-agent-is-missing.md.
+"""Figures for knowledge-vs-execution-qwen3-5-2b-data-agent.md.
 
     uv run --project ../smol-ladder python3 scripts/smol-ladder-figures.py --snapshot
     python3 scripts/smol-ladder-figures.py --render
@@ -27,6 +27,10 @@ RUNGS = [("L1", "amd2-{m}", "L1"), ("L1+control", "amd3-{m}", "L1+control"),
          ("L2", "amd3-{m}", "L2"), ("L3", "amd3-{m}", "L3"), ("L4", "amd3-{m}", "L4")]
 RUNG_NAME = {"L1": "question", "L1+control": "+ rules", "L2": "+ columns",
              "L3": "+ method", "L4": "+ program"}
+TICK_MAIN = {"L1+control": "L1"}
+def disp(rung):
+    """Display name: the post calls the L1+control run the rules variant."""
+    return "L1 + rules" if rung == "L1+control" else rung
 MODELS = {"base": "amd2-base", "A": "amd2-a", "B1": "amd3-b4", "B2": "amd3-b5"}
 SAMPLED = {"base": "amd3s-base", "A": "amd3s-a", "B": "amd3s-b4"}
 
@@ -147,9 +151,9 @@ def helpers():
 
 H = None   # the borrowed helper module, set in render()
 MODEL_COLOR = {"base": "var(--text-3)", "A": "var(--chart-1)", "B": "var(--chart-2)", "B1": "var(--chart-2)",
-               "B2": "color-mix(in srgb, var(--chart-2) 60%, var(--bg))"}
-MODEL_NAME = {"base": "base", "A": "A (upstream trajectories)", "B": "B (our trajectories)",
-              "B1": "B, seed 1", "B2": "B, seed 2"}
+               "B2": "var(--chart-2)"}
+MODEL_NAME = {"base": "base", "A": "A (SmolDataEnvs-sft)", "B": "B (our trajectories)",
+              "B1": "B, seed 1", "B2": "B"}
 
 
 def pct(x):
@@ -180,25 +184,27 @@ def fig_ladder(s):
             v = d[m]["pass_rate"]
             lo, hi = d[m]["ci95"]
             body.append(H.rect(x, sy(v), bw, bottom - sy(v), MODEL_COLOR[m],
-                               f"{MODEL_NAME[m]} at {rung}: {pct(v)} [{pct(lo)}, {pct(hi)}]"))
+                               f"{MODEL_NAME[m]} at {disp(rung)}: {pct(v)} [{pct(lo)}, {pct(hi)}]"))
             body += whisker(x + bw / 2, sy(hi), sy(lo), "var(--text)")
             body.append(H.text(x + bw / 2, sy(hi) - 7, pct(v), 13, "var(--text-2)", "middle", mono=True))
-            label.append(f"{MODEL_NAME[m]} {rung} {pct(v)}")
-        body.append(H.text(cx, bottom + 22, rung, 15, "var(--text)", "middle", 700, mono=True))
+            label.append(f"{MODEL_NAME[m]} {disp(rung)} {pct(v)}")
+        body.append(H.text(cx, bottom + 22, TICK_MAIN.get(rung, rung), 15, "var(--text)", "middle", 700, mono=True))
         body.append(H.text(cx, bottom + 40, RUNG_NAME[rung], 13, "var(--text-2)", "middle"))
     body.append(H.line(x0, bottom, x1, bottom, "var(--text-3)", 1.5))
+    body.extend(H.y_axis(x0, top, bottom, "pass rate"))
+    body.append(H.text((x0 + x1) / 2, bottom + 60, "rung", 15, "var(--text-2)", "middle"))
     lx = x0 + 10
     for m in ("base", "A"):
         body.append(H.rect(lx, 8, 14, 14, MODEL_COLOR[m]))
         body.append(H.text(lx + 20, 20, MODEL_NAME[m], 14, "var(--text-2)"))
         lx += 60 + 9 * len(MODEL_NAME[m])
-    body.append(H.text(x0, bottom + 70, "Whiskers are 95% bootstrap intervals over tasks; L1 on 250 tasks, the rest on the 213 with a verified reference.", 12, "var(--text-3)"))
-    return H.svg(bottom + 84, "Pass rate by rung for the base model and A. " + "; ".join(label), body)
+    body.append(H.text(x0, bottom + 80, "Whiskers are 95% bootstrap intervals over tasks; L1 on 250 tasks, the rest on the 213 with a verified reference.", 12, "var(--text-3)"))
+    return H.svg(bottom + 94, "Pass rate by rung for the base model and A. " + "; ".join(label), body)
 
 
 def fig_sft(s):
     """L1 at temperature 0 (four models) and sampled (three): pass rate with its interval."""
-    panels = [("Temperature 0, one attempt, 250 tasks", s["l1_greedy"]["models"], ["base", "A", "B1", "B2"]),
+    panels = [("Temperature 0, one attempt, 250 tasks", s["l1_greedy"]["models"], ["base", "A", "B2"]),
               ("Sampled, 4 attempts per task, 60 tasks", s["l1_sampled"]["models"], ["base", "A", "B"])]
     top, bottom = 48, 250
     sy = lambda v: bottom - (bottom - top) * v / 0.4
@@ -221,13 +227,17 @@ def fig_sft(s):
             body.append(H.text(x + 22, bottom + 20, MODEL_NAME[m].split(" (")[0], 14, "var(--text)", "middle", 700 if m == "base" else 400))
             label.append(f"{title}: {MODEL_NAME[m]} {pct(v)}")
         body.append(H.line(x0, bottom, x1, bottom, "var(--text-3)", 1.5))
-    body.append(H.text(70, bottom + 50, "A: upstream's 4,439 trajectories. B: our 1,897, collected in the same shell harness. Whiskers are 95% intervals.", 12, "var(--text-3)"))
-    return H.svg(bottom + 64, "L1 pass rate by model. " + "; ".join(label), body)
+        body.append(H.text(x0 + 150, bottom + 38, "model", 15, "var(--text-2)", "middle"))
+    body.extend(H.y_axis(70, top, bottom, "pass rate"))
+    body.append(H.text(70, bottom + 56, "A: 4,439 SmolDataEnvs-sft trajectories. B: our 1,897 from the same harness. Whiskers are 95% intervals.", 12, "var(--text-3)"))
+    return H.svg(bottom + 70, "L1 pass rate by model. " + "; ".join(label), body)
 
 
-ENDS = [("correct", "var(--chart-1)"), ("wrong kind of answer", "var(--chart-2)"), ("wrong answer", "color-mix(in srgb, var(--chart-2) 55%, var(--bg))"),
-        ("repeat loop", "var(--text-3)"), ("wandered 16 turns", "color-mix(in srgb, var(--text-3) 60%, var(--bg))"),
-        ("ran out of context", "color-mix(in srgb, var(--text-3) 35%, var(--bg))")]
+ENDS = [("correct", "correct", "var(--chart-1)"), ("wrong kind of answer", "wrong format", "var(--chart-2)"),
+        ("wrong answer", "wrong answer", "color-mix(in srgb, var(--chart-2) 55%, var(--bg))"),
+        ("repeat loop", "loops", "var(--text-3)"),
+        ("wandered 16 turns", "wandered 16 turns", "color-mix(in srgb, var(--text-3) 60%, var(--bg))"),
+        ("ran out of context", "ran out of context", "color-mix(in srgb, var(--text-3) 35%, var(--bg))")]
 
 
 def fig_failures(s):
@@ -241,21 +251,23 @@ def fig_failures(s):
         body.append(H.text(x0 - 12, y + bh / 2 + 5, f"{rung} {RUNG_NAME[rung]}", 14, "var(--text)", "end", 700))
         x = x0
         parts = []
-        for name, color in ENDS:
-            c = a["ends"].get(name, 0)
+        for key, label_, color in ENDS:
+            c = a["ends"].get(key, 0)
             w = (x1 - x0) * c / a["n"]
-            body.append(H.rect(x, y, w, bh, color, f"{rung}: {c} of {a['n']} episodes {name}", rx=2))
+            body.append(H.rect(x, y, w, bh, color, f"{rung}: {c} of {a['n']} episodes, {label_}", rx=2))
             if w > 34:
-                body.append(H.text(x + w / 2, y + bh / 2 + 5, str(c), 13, "var(--bg)" if name == "correct" else "var(--text)", "middle", mono=True))
-            parts.append(f"{name} {c}")
+                body.append(H.text(x + w / 2, y + bh / 2 + 5, str(c), 13, "var(--bg)" if key == "correct" else "var(--text)", "middle", mono=True))
+            parts.append(f"{label_} {c}")
             x += w
         label.append(f"{rung}: " + ", ".join(parts))
+    body.append(H.text((x0 + x1) / 2, top + 3 * rh - 10, "share of episodes", 15, "var(--text-2)", "middle"))
+    body.append(H.rotated(20, (top + top + 2 * rh + bh) / 2, "rung"))
     y = top + 3 * rh + 4
-    for k, (name, color) in enumerate(ENDS):
+    for k, (key, label_, color) in enumerate(ENDS):
         lx = x0 + (k % 3) * 180
         ly = y + (k // 3) * 20
         body.append(H.rect(lx, ly, 12, 12, color, rx=2))
-        body.append(H.text(lx + 17, ly + 11, name, 12, "var(--text-2)"))
+        body.append(H.text(lx + 17, ly + 11, label_, 12, "var(--text-2)"))
     a = s["anatomy"]
     body.append(H.text(x0, y + 58, "Of the unanswered episodes, the correct value had already been printed in", 12, "var(--text-3)"))
     body.append(H.text(x0, y + 74, f"{a['L1']['value_on_screen']} of {a['L1']['unanswered']} at L1, {a['L3']['value_on_screen']} of {a['L3']['unanswered']} at L3 and {a['L4']['value_on_screen']} of {a['L4']['unanswered']} at L4.", 12, "var(--text-3)"))
@@ -271,17 +283,19 @@ def fig_gained_lost(s):
     for i, rung in enumerate(rungs):
         d = s["rescue"][rung]
         y = top + i * rh
-        body.append(H.text(230, y + bh / 2 + 5, f"{rung} {RUNG_NAME[rung]}", 14, "var(--text)", "end", 700))
-        body.append(H.rect(mid - d["lost"] * scale, y, d["lost"] * scale, bh, "var(--chart-2)", f"{rung}: {d['lost']} tasks solved at L1 and lost here", rx=2))
-        body.append(H.rect(mid, y, d["gained"] * scale, bh, "var(--chart-1)", f"{rung}: {d['gained']} tasks failed at L1 and gained here", rx=2))
-        body.append(H.text(mid - d["lost"] * scale - 8, y + bh / 2 + 5, f"−{d['lost']}", 14, "var(--text-2)", "end", mono=True))
-        body.append(H.text(mid + d["gained"] * scale + 8, y + bh / 2 + 5, f"+{d['gained']}", 14, "var(--text-2)", mono=True))
+        body.append(H.text(230, y + bh / 2 + 5, f"{TICK_MAIN.get(rung, rung)} {RUNG_NAME[rung]}", 14, "var(--text)", "end", 700))
+        body.append(H.rect(mid - d["lost"] * scale, y, d["lost"] * scale, bh, "var(--chart-2)", f"{disp(rung)}: {d['lost']} tasks solved at L1 and lost here", rx=2))
+        body.append(H.rect(mid, y, d["gained"] * scale, bh, "var(--chart-1)", f"{disp(rung)}: {d['gained']} tasks failed at L1 and gained here", rx=2))
+        body.append(H.text(mid - d["lost"] * scale - 8, y + bh / 2 + 5, f"{d['lost']}", 14, "var(--text-2)", "end", mono=True))
+        body.append(H.text(mid + d["gained"] * scale + 8, y + bh / 2 + 5, f"{d['gained']}", 14, "var(--text-2)", mono=True))
         p = d["p"]
         body.append(H.text(690, y + bh / 2 + 5, f"p = {p:.3f}" if p >= 0.001 else "p < 0.001", 13, "var(--text-3)", "end", mono=True))
-        label.append(f"{rung}: gained {d['gained']}, lost {d['lost']}, kept {d['kept']}, p {p:.3f}")
+        label.append(f"{disp(rung)}: gained {d['gained']}, lost {d['lost']}, kept {d['kept']}, p {p:.3f}")
     body.append(H.line(mid, top - 8, mid, top + len(rungs) * rh, "var(--text-3)", 1.5))
     body.append(H.text(mid - 8, top - 14, "lost", 13, "var(--chart-2)", "end"))
     body.append(H.text(mid + 8, top - 14, "gained", 13, "var(--chart-1)"))
+    body.append(H.text(mid, top + len(rungs) * rh + 6, "tasks", 15, "var(--text-2)", "middle"))
+    body.append(H.rotated(100, (top + top + (len(rungs) - 1) * rh + bh) / 2, "rung"))
     body.append(H.text(60, top + len(rungs) * rh + 22, "Tasks, paired against the same model at L1 (250 for the rules, 213 for L2 to L4).", 12, "var(--text-3)"))
     body.append(H.text(60, top + len(rungs) * rh + 38, "The sign test asks whether gains outnumber losses beyond what a coin would give.", 12, "var(--text-3)"))
     return H.svg(top + len(rungs) * rh + 52, "Tasks gained and lost against L1 by the base model at each rung. " + "; ".join(label), body)
@@ -313,7 +327,9 @@ def fig_tiers(s):
         n = s["anatomy"]["L1"]["by_tier"][tier]["n"]
         body.append(H.text(cx, bottom + 40, f"{tier} ({n} tasks at L1)", 15, "var(--text)", "middle", 700))
     body.append(H.line(x0, bottom, x1, bottom, "var(--text-3)", 1.5))
-    return H.svg(bottom + 56, "Base model pass rate by difficulty tier at L1, L3 and L4. " + "; ".join(label), body)
+    body.extend(H.y_axis(x0, top, bottom, "pass rate"))
+    body.append(H.text((x0 + x1) / 2, bottom + 58, "difficulty tier", 15, "var(--text-2)", "middle"))
+    return H.svg(bottom + 72, "Base model pass rate by difficulty tier at L1, L3 and L4. " + "; ".join(label), body)
 
 
 FIGURES = {"ladder": fig_ladder, "sft-l1": fig_sft, "failures": fig_failures, "gained-lost": fig_gained_lost, "tiers": fig_tiers}

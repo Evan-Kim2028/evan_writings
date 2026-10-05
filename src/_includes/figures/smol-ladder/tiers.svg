@@ -1,4 +1,4 @@
-<svg viewBox="0 0 720 360" role="img" aria-label="Base model pass rate by difficulty tier at L1, L3 and L4. easy L1 64%; easy L3 67%; easy L4 73%; medium L1 29%; medium L3 32%; medium L4 69%; hard L1 5%; hard L3 25%; hard L4 65%">
+<svg viewBox="0 0 720 376" role="img" aria-label="Base model pass rate by difficulty tier at L1, L3 and L4. easy L1 64%; easy L3 67%; easy L4 73%; medium L1 29%; medium L3 32%; medium L4 69%; hard L1 5%; hard L3 25%; hard L4 65%">
 <text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Difficulty by Tier as Information Is Added</text>
 <g transform="translate(0 44)">
 <line x1="70.0" y1="260.0" x2="690.0" y2="260.0" stroke="var(--line)" stroke-width="1"/>
@@ -42,5 +42,8 @@
 <text x="638.7" y="278.0" text-anchor="middle" fill="var(--text-3)" font-size="12" font-family="var(--font-mono)">L4</text>
 <text x="586.7" y="300.0" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="700" font-family="var(--font-sans)">hard (99 tasks at L1)</text>
 <line x1="70.0" y1="260.0" x2="690.0" y2="260.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="70.0" y1="30.0" x2="70.0" y2="260.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="14.0" y="145.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 14.0 145.0)">pass rate</text>
+<text x="380.0" y="318.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">difficulty tier</text>
 </g>
 </svg>
