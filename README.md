@@ -18,6 +18,16 @@ npm run dev
 npm run build
 ```
 
+## Deploy
+
+The site publishes from the `gh-pages` branch, not CI (Actions runners are
+unavailable), so pushing to `main` alone does not update the live site.
+Publish with:
+
+```bash
+npm run deploy
+```
+
 ## MCP server
 
 The `mcp/` directory contains a local MCP server for searching the writings.
