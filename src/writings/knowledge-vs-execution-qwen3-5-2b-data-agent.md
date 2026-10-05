@@ -66,7 +66,7 @@ the solution revealed at each rung. Then its SFT version climbed the same ladder
 
 ## Ladder Setup
 
-Two pieces make the measurement: the ladder and the agent that climbs it. Each rung is a prefix of the next. The model still does all the work at every rung: run the
+The information ladder and the agent that climbs it allow us to measure knowledge and execution separately. Each rung is a prefix of the next. The model still does all the work at every rung: run the
 commands, read the output, and write the answer to a file.
 
 | Rung | The model gets |
@@ -123,19 +123,20 @@ With the program, difficulty flattens: 73% easy, 69% medium, and 65% hard at L4,
 <figcaption><strong>Figure 2:</strong> Base pass rates by tier at L1, L3, and L4, where the easy-hard spread falls from 59 points to 8.</figcaption>
 </figure>
 
-The last third is execution. At L4 the computation is right (2 wrong numbers in 213 tasks). Of the
-67 misses, 25 report the wrong format, 16 loop, and 11 print whole tables. Habits: read the
-format, print less, and stop once the value is on screen.
+The last third is execution. Of the 67 misses, 25 submit the wrong kind of value, 16 loop,
+and 11 print whole tables. That means unreadable as an answer: a label where a number belongs,
+or a number buried in a sentence.
 
 <figure class="fig-inline">
 {% include "figures/smol-ladder/failures.svg" %}
 <figcaption><strong>Figure 3:</strong> The chart splits base episodes at L1, L3, and L4 by ending. Blue is correct, orange is wrong answers, and gray never wrote one.</figcaption>
 </figure>
 
-L3 cuts wrong answers from 23% to 14%. L4 cuts repeat loops from 34% to 8% and lifts correct
-episodes to 69%. The gray left at each rung is what training can reach.
+L3 cuts submitted mistakes, the two orange segments, from 23% to 14%. L4 cuts repeat loops
+from 34% to 8% and lifts correct episodes to 69%. The gray left at each rung never submitted
+anything, and reaching it is training's job.
 
-### Execution Is Trainable
+### Training Should Focus on Execution
 
 The opportunity is the no-answer episodes: at L1 the base model scored 60 correct, 58 wrong answers, and 132 with no answer. In 36 of
 those 132, the model's own
@@ -162,7 +163,7 @@ against 84%. Its validation loss fell from 0.49 to 0.38, so undertraining does n
 Sampled, all three models agree: base 20%, A 23%, and B 19% on the 60-task set. B, trained on our own
 trajectories, loops least (14% vs 18% base, 39% A) but is fragile at temperature 0, scoring 14% as greedy decoding amplifies its `print`-heavy style into repeated commands.
 
-The SmolDataEnvs authors report no SFT-alone number. Their headline is the [GRPO endpoint](https://huggingface.co/AdithyaSK/smoldataenvs-grpo-2b-v0) on the 144-task eval split, so this fills a gap rather than disputing one. Across decodings, the result holds. SFT moves behavior, not accuracy.
+The SmolDataEnvs authors report no SFT-alone number. Their headline is the [GRPO endpoint](https://huggingface.co/AdithyaSK/smoldataenvs-grpo-2b-v0) on the 144-task eval split, so this fills a gap rather than disputing one.
 
 ## Results
 

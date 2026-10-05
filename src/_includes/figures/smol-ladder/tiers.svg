@@ -1,5 +1,5 @@
-<svg viewBox="0 0 720 376" role="img" aria-label="Base model pass rate by difficulty tier at L1, L3 and L4. easy L1 64%; easy L3 67%; easy L4 73%; medium L1 29%; medium L3 32%; medium L4 69%; hard L1 5%; hard L3 25%; hard L4 65%">
-<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Difficulty by Tier as Information Is Added</text>
+<svg viewBox="0 0 720 376" role="img" aria-label="Base model pass rate by difficulty tier at L1, L3, and L4. easy L1 64%; easy L3 67%; easy L4 73%; medium L1 29%; medium L3 32%; medium L4 69%; hard L1 5%; hard L3 25%; hard L4 65%">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Pass Rate by Difficulty Tier</text>
 <g transform="translate(0 44)">
 <line x1="70.0" y1="260.0" x2="690.0" y2="260.0" stroke="var(--line)" stroke-width="1"/>
 <text x="60.0" y="265.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0%</text>

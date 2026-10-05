@@ -1,4 +1,4 @@
-<svg viewBox="0 0 720 358" role="img" aria-label="How the base model's episodes end at L1, L3 and L4. L1: correct 60, wrong format 28, wrong answer 30, loops 85, wandered 16 turns 26, ran out of context 21; L3: correct 74, wrong format 14, wrong answer 16, loops 49, wandered 16 turns 29, ran out of context 31; L4: correct 146, wrong format 25, wrong answer 7, loops 16, wandered 16 turns 8, ran out of context 11">
+<svg viewBox="0 0 720 358" role="img" aria-label="How the base model's episodes end at L1, L3, and L4. L1: correct 60, wrong format 28, wrong answer 30, loops 85, wandered 16 turns 26, ran out of context 21; L3: correct 74, wrong format 14, wrong answer 16, loops 49, wandered 16 turns 29, ran out of context 31; L4: correct 146, wrong format 25, wrong answer 7, loops 16, wandered 16 turns 8, ran out of context 11">
 <text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">How the Base Model's Episodes End</text>
 <g transform="translate(0 44)">
 <text x="138.0" y="50.0" text-anchor="end" fill="var(--text)" font-size="14" font-weight="700" font-family="var(--font-sans)">L1 question</text>
@@ -52,6 +52,6 @@
 <rect x="510.0" y="246.0" width="12.0" height="12.0" rx="2.0" fill="color-mix(in srgb, var(--text-3) 35%, var(--bg))"></rect>
 <text x="527.0" y="257.0" fill="var(--text-2)" font-size="12" font-family="var(--font-sans)">ran out of context</text>
 <text x="150.0" y="284.0" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">Of the unanswered episodes, the correct value had already been printed in</text>
-<text x="150.0" y="300.0" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">36 of 132 at L1, 39 of 109 at L3 and 13 of 35 at L4.</text>
+<text x="150.0" y="300.0" fill="var(--text-3)" font-size="12" font-family="var(--font-sans)">36 of 132 at L1, 39 of 109 at L3, and 13 of 35 at L4.</text>
 </g>
 </svg>

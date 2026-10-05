@@ -1,5 +1,5 @@
 <svg viewBox="0 0 720 458" role="img" aria-label="Pass rate by rung for the base model and A. base L1 24%; A (SmolDataEnvs-sft) L1 26%; base L1 + rules 17%; A (SmolDataEnvs-sft) L1 + rules 25%; base L2 23%; A (SmolDataEnvs-sft) L2 31%; base L3 35%; A (SmolDataEnvs-sft) L3 36%; base L4 69%; A (SmolDataEnvs-sft) L4 73%">
-<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Pass Rate by Rung: Base Model and A</text>
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Pass Rate by Rung: Base and A</text>
 <g transform="translate(0 44)">
 <line x1="70.0" y1="320.0" x2="690.0" y2="320.0" stroke="var(--line)" stroke-width="1"/>
 <text x="60.0" y="325.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0%</text>

@@ -12,7 +12,7 @@ import os, subprocess, tempfile
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 W, H = 1600, 900
 
-RUNGS = [("L1", "question", 0.240), ("L2", "+ columns", 0.235), ("L3", "+ method", 0.347), ("L4", "+ program", 0.685)]
+RUNGS = [("L1", "question", 0.240), ("L2", "+ columns", 0.2347), ("L3", "+ method", 0.3474), ("L4", "+ program", 0.6854)]
 
 THEMES = {
     "light": {"bg": "#fbfbf9", "text": "#1a1a1a", "text2": "#4b4b4b", "text3": "#8a8a85", "line": "#d9d7d0",
@@ -28,7 +28,7 @@ def hero(t):
     out.append(f'<text x="{W / 2}" y="92" text-anchor="middle" fill="{c["text"]}" font-family="Fira Sans" '
                f'font-size="52" font-weight="700">Knowledge vs Execution in a Qwen3.5-2B Data Agent</text>')
     out.append(f'<text x="{W / 2}" y="146" text-anchor="middle" fill="{c["text2"]}" font-family="Fira Sans" '
-               f'font-size="30">the same model, the same 213 tasks, one more piece of the solution each rung</text>')
+               f'font-size="30">the same model, one more piece of the solution each rung</text>')
     x0, x1 = 300, 1340
     top, row, bh = 230, 150, 78
     for k, (rung, name, v) in enumerate(RUNGS):

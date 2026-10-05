@@ -1,7 +1,7 @@
-<svg viewBox="0 0 720 364" role="img" aria-label="L1 pass rate by model. Temperature 0, one attempt, 250 tasks: base 24%; Temperature 0, one attempt, 250 tasks: A (SmolDataEnvs-sft) 26%; Temperature 0, one attempt, 250 tasks: B 14%; Sampled, 4 attempts per task, 60 tasks: base 20%; Sampled, 4 attempts per task, 60 tasks: A (SmolDataEnvs-sft) 22%; Sampled, 4 attempts per task, 60 tasks: B (our trajectories) 19%">
-<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Fine-Tuning at L1</text>
+<svg viewBox="0 0 720 364" role="img" aria-label="L1 pass rate by model. Temperature 0, one episode, 250 tasks: base 24%; Temperature 0, one episode, 250 tasks: A (SmolDataEnvs-sft) 26%; Temperature 0, one episode, 250 tasks: B 14%; Sampled, 4 attempts per task, 60 tasks: base 20%; Sampled, 4 attempts per task, 60 tasks: A (SmolDataEnvs-sft) 22%; Sampled, 4 attempts per task, 60 tasks: B (our trajectories) 19%">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">SFT at L1</text>
 <g transform="translate(0 44)">
-<text x="70.0" y="22.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Temperature 0, one attempt, 250 tasks</text>
+<text x="70.0" y="22.0" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Temperature 0, one episode, 250 tasks</text>
 <line x1="70.0" y1="250.0" x2="370.0" y2="250.0" stroke="var(--line)" stroke-width="1"/>
 <text x="60.0" y="255.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0%</text>
 <line x1="70.0" y1="199.5" x2="370.0" y2="199.5" stroke="var(--line)" stroke-width="1"/>

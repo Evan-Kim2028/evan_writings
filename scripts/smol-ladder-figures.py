@@ -204,7 +204,7 @@ def fig_ladder(s):
 
 def fig_sft(s):
     """L1 at temperature 0 (four models) and sampled (three): pass rate with its interval."""
-    panels = [("Temperature 0, one attempt, 250 tasks", s["l1_greedy"]["models"], ["base", "A", "B2"]),
+    panels = [("Temperature 0, one episode, 250 tasks", s["l1_greedy"]["models"], ["base", "A", "B2"]),
               ("Sampled, 4 attempts per task, 60 tasks", s["l1_sampled"]["models"], ["base", "A", "B"])]
     top, bottom = 48, 250
     sy = lambda v: bottom - (bottom - top) * v / 0.4
@@ -270,8 +270,8 @@ def fig_failures(s):
         body.append(H.text(lx + 17, ly + 11, label_, 12, "var(--text-2)"))
     a = s["anatomy"]
     body.append(H.text(x0, y + 58, "Of the unanswered episodes, the correct value had already been printed in", 12, "var(--text-3)"))
-    body.append(H.text(x0, y + 74, f"{a['L1']['value_on_screen']} of {a['L1']['unanswered']} at L1, {a['L3']['value_on_screen']} of {a['L3']['unanswered']} at L3 and {a['L4']['value_on_screen']} of {a['L4']['unanswered']} at L4.", 12, "var(--text-3)"))
-    return H.svg(y + 88, "How the base model's episodes end at L1, L3 and L4. " + "; ".join(label), body)
+    body.append(H.text(x0, y + 74, f"{a['L1']['value_on_screen']} of {a['L1']['unanswered']} at L1, {a['L3']['value_on_screen']} of {a['L3']['unanswered']} at L3, and {a['L4']['value_on_screen']} of {a['L4']['unanswered']} at L4.", 12, "var(--text-3)"))
+    return H.svg(y + 88, "How the base model's episodes end at L1, L3, and L4. " + "; ".join(label), body)
 
 
 def fig_gained_lost(s):
@@ -329,13 +329,13 @@ def fig_tiers(s):
     body.append(H.line(x0, bottom, x1, bottom, "var(--text-3)", 1.5))
     body.extend(H.y_axis(x0, top, bottom, "pass rate"))
     body.append(H.text((x0 + x1) / 2, bottom + 58, "difficulty tier", 15, "var(--text-2)", "middle"))
-    return H.svg(bottom + 72, "Base model pass rate by difficulty tier at L1, L3 and L4. " + "; ".join(label), body)
+    return H.svg(bottom + 72, "Base model pass rate by difficulty tier at L1, L3, and L4. " + "; ".join(label), body)
 
 
 FIGURES = {"ladder": fig_ladder, "sft-l1": fig_sft, "failures": fig_failures, "gained-lost": fig_gained_lost, "tiers": fig_tiers}
-TITLES = {"ladder": "Pass Rate by Rung: Base Model and A", "sft-l1": "Fine-Tuning at L1",
+TITLES = {"ladder": "Pass Rate by Rung: Base and A", "sft-l1": "SFT at L1",
           "failures": "How the Base Model's Episodes End", "gained-lost": "Tasks Gained and Lost Against L1",
-          "tiers": "Difficulty by Tier as Information Is Added"}
+          "tiers": "Pass Rate by Difficulty Tier"}
 
 
 def render(s):
