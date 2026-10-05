@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Evan's Writings</title>
+  <meta name="description" content="Agents, evals, data. Writing by Evan Kim.">
+  <meta name="author" content="Evan Kim">
+  <meta name="theme-color" content="#fbfbf9">
+  <script>(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/evan_writings/vendor/katex.min.css"><link rel="canonical" href="https://Evan-Kim2028.github.io/evan_writings/">
+  <link rel="icon" href="/evan_writings/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/evan_writings/styles.css?v=30">
+  <link rel="stylesheet" href="/evan_writings/extras.css?v=1">
+  <link rel="alternate" type="application/rss+xml" title="Evan's Writings" href="https://Evan-Kim2028.github.io/evan_writings/feed.xml">
+
+  
+  <meta property="og:site_name" content="Evan's Writings">
+  <meta property="og:title" content="Home">
+  <meta property="og:description" content="Agents, evals, data. Writing by Evan Kim.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://Evan-Kim2028.github.io/evan_writings/">
+  <meta property="og:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Home">
+  <meta name="twitter:description" content="Agents, evals, data. Writing by Evan Kim.">
+  <meta name="twitter:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/og-default.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#website",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "name": "Evan's Writings",
+        "description": "Agents, evals, data. Writing by Evan Kim.",
+        "publisher": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://Evan-Kim2028.github.io/evan_writings/writings/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#person",
+        "name": "Evan Kim",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "sameAs": [
+          "https://github.com/Evan-Kim2028",
+          "https://x.com/evandekim",
+          "https://www.linkedin.com/in/evan-kim-30943591"
+        ]
+      }]
+  }
+  </script>
+</head>
+<body data-base="/evan_writings/">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="progress" aria-hidden="true"></div>
+  <header class="site">
+    <nav aria-label="Main">
+      <a href="/evan_writings/" class="brand" aria-label="Evan Kim home">Evan Kim</a>
+      <div class="nav-links">
+        <a href="/evan_writings/writings/">Writing</a>
+        <a href="/evan_writings/collections/">Collections</a>
+        <a href="/evan_writings/tags/">Tags</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
+          <svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    
+
+
+<div class="intro">
+  <div>
+    <h1>Measuring systems, then writing down what the numbers say.</h1>
+    <p>Agents, evals, data.</p>
+    <div class="links">
+      <a href="https://x.com/evandekim">X</a>
+      <a href="https://github.com/Evan-Kim2028">GitHub</a>
+      <a href="https://www.linkedin.com/in/evan-kim-30943591">LinkedIn</a>
+      <a href="/evan_writings/feed.xml">RSS</a>
+      <a href="/evan_writings/llms-full.txt">llms.txt</a>
+    </div>
+  </div>
+</div>
+
+<section class="home">
+  <div class="sec-head"><h2 id="latest"><a class="h-link" href="#latest">Latest</a></h2><a href="/evan_writings/writings/">All writing →</a></div>
+  <div class="latest">
+    
+    
+    <a class="post lead reveal" href="/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/">
+      
+      <div class="k"><span class="c">data</span><span>October 2026</span></div>
+      <h3 id="knowledge-vs-execution-in-a-qwen35-2b-data-agent"><a class="h-link" href="#knowledge-vs-execution-in-a-qwen35-2b-data-agent">Knowledge vs Execution in a Qwen3.5-2B Data Agent</a></h3>
+      <p>One SFT pass with LoRA on verified SmolDataEnvs trajectories doesn&#39;t move Qwen accuracy. The information ladder shows why.</p>
+    </a>
+    
+    
+    <a class="post reveal" href="/evan_writings/writings/difficulty-is-an-information-gap/">
+      
+      <div class="k"><span class="c">data</span><span>September 2026</span></div>
+      <h3 id="the-information-ladder-measuring-model-capabilities"><a class="h-link" href="#the-information-ladder-measuring-model-capabilities">The Information Ladder: Measuring Model Capabilities</a></h3>
+      <p>We build LadderBench, 591 synthetic Go tasks from 9 repositories, and use the information ladder to certify 242 of them and compare Composer 2.5 and SWE-2. Each level reveals more to the solver, so the first level a model passes shows how much information is needed.</p>
+    </a>
+    
+    
+    <a class="post reveal" href="/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/">
+      
+      <div class="k"><span class="c">data</span><span>September 2026</span></div>
+      <h3 id="four-verifiable-properties-of-a-useful-agent-task"><a class="h-link" href="#four-verifiable-properties-of-a-useful-agent-task">Four Verifiable Properties of a Useful Agent Task</a></h3>
+      <p>Soundness and difficulty settle by running an agent task. Durability and taste need data almost no benchmark publishes.</p>
+    </a>
+    
+  </div>
+</section>
+
+<section class="home" id="selected">
+  <div class="sec-head"><h2 id="selected"><a class="h-link" href="#selected">Selected</a></h2><a href="/evan_writings/collections/highlights/">All highlights →</a></div>
+  <div class="selected">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/sui-nft-analytics/">
+        <span class="y">2025</span>
+        <div>
+          <h3 id="sui-nft-analytics"><a class="h-link" href="#sui-nft-analytics">Sui NFT Analytics</a></h3>
+          <p>Sui NFT analytics pipeline built with Sentio processors and SQL Studio to track Rootlets NFT holder counts, ownership history, and thematic categorization.</p>
+        </div>
+      </a>
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/data-observability-with-sentio-pipelines/">
+        <span class="y">2024</span>
+        <div>
+          <h3 id="data-observability-with-sentio-pipelines"><a class="h-link" href="#data-observability-with-sentio-pipelines">Data Observability with Sentio Pipelines</a></h3>
+          <p>Sentio pipelines enable end-to-end web3 data observability with typed TypeScript processors, real-time streaming, and SQL/GraphQL endpoints, demoed via a Sui LST dashboard.</p>
+        </div>
+      </a>
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/economics-of-sui-shared-liquidity-pool-objects/">
+        <span class="y">2024</span>
+        <div>
+          <h3 id="economics-of-sui-shared-liquidity-pool-objects"><a class="h-link" href="#economics-of-sui-shared-liquidity-pool-objects">Economics of Sui Shared Liquidity Pool Objects</a></h3>
+          <p>Sui shared liquidity pool mutations saturate nearly every checkpoint, yet max gas fees don&#39;t guarantee top block position, informing SIP-45 prioritized transaction submission.</p>
+        </div>
+      </a>
+      
+    
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/tackling-blob-fee-slippage-with-preconfirmations/">
+        <span class="y">2024</span>
+        <div>
+          <h3 id="tackling-blob-fee-slippage-with-preconfirmations"><a class="h-link" href="#tackling-blob-fee-slippage-with-preconfirmations">Tackling Blob Fee Slippage with Preconfirmations</a></h3>
+          <p>Blob fee slippage during June 2024 Ethereum congestion cost rollups millions; preconfirmations on mev-commit cut inclusion times 1000x to ~75ms bid latency.</p>
+        </div>
+      </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/slot-inclusion-rates-and-blob-market-combinatorics/">
+        <span class="y">2024</span>
+        <div>
+          <h3 id="slot-inclusion-rates-and-blob-market-combinatorics"><a class="h-link" href="#slot-inclusion-rates-and-blob-market-combinatorics">Slot Inclusion Rates and Blob Market Combinatorics</a></h3>
+          <p>Blob market combinatorics: an integer packing problem in Ethereum where small block capacity drives higher slot inclusion rates via rollup competition rather than builder censorship.</p>
+        </div>
+      </a>
+      
+    
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/analyzing-blob-inclusion-rates-and-market-strategies/">
+        <span class="y">2024</span>
+        <div>
+          <h3 id="analyzing-blob-inclusion-rates-and-market-strategies"><a class="h-link" href="#analyzing-blob-inclusion-rates-and-market-strategies">Analyzing Blob Inclusion Rates and Market Strategies</a></h3>
+          <p>EIP-4844 blob market analysis measuring slot inclusion rates, Optimism and Base blob posting strategies, and priority fee correlation with inclusion speed.</p>
+        </div>
+      </a>
+      
+    
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/trading-in-the-dark-measuring-reordering-slippage-in-mev/">
+        <span class="y">2024</span>
+        <div>
+          <h3 id="trading-in-the-dark-measuring-reordering-slippage-in-mev"><a class="h-link" href="#trading-in-the-dark-measuring-reordering-slippage-in-mev">Trading in the Dark: Measuring Reordering Slippage in MEV</a></h3>
+          <p>Reordering slippage cost Uniswap users $9m in losses, negatively affecting 72% of swaps and 92% of large swaps over $250k from September to October 2023.</p>
+        </div>
+      </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/feedlot-trading-with-safe-low-latency-price-oracles/">
+        <span class="y">2023</span>
+        <div>
+          <h3 id="feedlot-trading-with-safe-low-latency-price-oracles"><a class="h-link" href="#feedlot-trading-with-safe-low-latency-price-oracles">Feedlot: trading with safe, low latency price oracles</a></h3>
+          <p>Feedlot implements safe, low-latency price oracles for MEV-resistant on-chain trading and arbitrage execution, mitigating front-running risk for decentralized exchange strategies.</p>
+        </div>
+      </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      <a class="sel reveal" href="/evan_writings/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior/">
+        <span class="y">2022</span>
+        <div>
+          <h3 id="using-topological-data-analysis-to-identify-distinct-mev-behavior"><a class="h-link" href="#using-topological-data-analysis-to-identify-distinct-mev-behavior">Using Topological Data Analysis to Identify Distinct MEV Behavior</a></h3>
+          <p>Research paper applying the Mapper topological data analysis algorithm to identify six distinct MEV behaviors in on-chain Olympus DAO trading data.</p>
+        </div>
+      </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</section>
+
+<section class="home" id="archive">
+  <div class="sec-head"><h2 id="archive"><a class="h-link" href="#archive">Archive</a></h2><span>45 pieces, 2020–2026</span></div>
+  <div class="filters" role="group" aria-label="Filter by collection">
+    <button class="on" data-f="all">All</button>
+    <button data-f="latest">Latest</button>
+    <button data-f="highlights">Highlights</button>
+    <button data-f="data">Data</button>
+    <button data-f="mev">MEV</button>
+    <button data-f="defi">DeFi</button>
+    <button data-f="math">Math</button>
+  </div>
+  
+  <div class="year">
+    <div class="y">2026</div>
+    <div class="rows">
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/">
+        <span class="t">Knowledge vs Execution in a Qwen3.5-2B Data Agent</span>
+        <span class="m">data · Oct</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/difficulty-is-an-information-gap/">
+        <span class="t">The Information Ladder: Measuring Model Capabilities</span>
+        <span class="m">data · Sep</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/">
+        <span class="t">Four Verifiable Properties of a Useful Agent Task</span>
+        <span class="m">data · Sep</span>
+      </a>
+      
+      <a class="row" data-c="latest" href="/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/">
+        <span class="t">Terminal-Bench Task: Lakehouse Schema Contract Drift</span>
+        <span class="m">latest · Sep</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/glm-53-flash-provider-cache-hit-variance/">
+        <span class="t">5.3-Flash Has Large Provider Cache Hit Variance</span>
+        <span class="m">data · Aug</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/iceberg-lakehouse-8gb-ram/">
+        <span class="t">3 Lessons from Building a 170GB Iceberg Lakehouse with 8GB RAM</span>
+        <span class="m">data · Jun</span>
+      </a>
+      
+    </div>
+  </div>
+  
+  <div class="year">
+    <div class="y">2025</div>
+    <div class="rows">
+      
+      <a class="row" data-c="math" href="/evan_writings/writings/on-chain-atomic-gaussian-math/">
+        <span class="t">On-chain Atomic Gaussian Math</span>
+        <span class="m">math · Dec</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/building-an-agentic-native-mcp-for-data-science/">
+        <span class="t">Building an Agentic Native MCP for Data Science</span>
+        <span class="m">data · Oct</span>
+      </a>
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/sui-nft-analytics/">
+        <span class="t">Sui NFT Analytics</span>
+        <span class="m">highlights · Feb</span>
+      </a>
+      
+    </div>
+  </div>
+  
+  <div class="year">
+    <div class="y">2024</div>
+    <div class="rows">
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/data-observability-with-sentio-pipelines/">
+        <span class="t">Data Observability with Sentio Pipelines</span>
+        <span class="m">highlights · Dec</span>
+      </a>
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/economics-of-sui-shared-liquidity-pool-objects/">
+        <span class="t">Economics of Sui Shared Liquidity Pool Objects</span>
+        <span class="m">highlights · Dec</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/economic-implications-of-a-competitive-blob-market/">
+        <span class="t">Economic Implications of a Competitive Blob Market</span>
+        <span class="m">data · Nov</span>
+      </a>
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/tackling-blob-fee-slippage-with-preconfirmations/">
+        <span class="t">Tackling Blob Fee Slippage with Preconfirmations</span>
+        <span class="m">highlights · Sep</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/clustering-analysis-on-zeta-pyth-transaction-logs/">
+        <span class="t">Clustering Analysis on Zeta &lt;&gt; Pyth Transaction Logs</span>
+        <span class="m">data · Aug</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/conquering-solana-data-analytics-part-1-tooling/">
+        <span class="t">Conquering Solana Data Analytics Part 1 - Tooling</span>
+        <span class="m">data · Aug</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/economic-costs-of-failed-transactions-on-solana/">
+        <span class="t">Economic Costs of Failed Transactions on Solana</span>
+        <span class="m">data · Aug</span>
+      </a>
+      
+      <a class="row" data-c="mev" href="/evan_writings/writings/calculate-jito-tips-in-solana/">
+        <span class="t">Calculate Jito Tips in Solana</span>
+        <span class="m">mev · Jul</span>
+      </a>
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/slot-inclusion-rates-and-blob-market-combinatorics/">
+        <span class="t">Slot Inclusion Rates and Blob Market Combinatorics</span>
+        <span class="m">highlights · Jun</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python/">
+        <span class="t">Streaming Embedded OLAP Data Pipeline with LanceDB + DuckDB in Python</span>
+        <span class="m">data · May</span>
+      </a>
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/analyzing-blob-inclusion-rates-and-market-strategies/">
+        <span class="t">Analyzing Blob Inclusion Rates and Market Strategies</span>
+        <span class="m">highlights · Apr</span>
+      </a>
+      
+      <a class="row" data-c="mev" href="/evan_writings/writings/censorship-latency-and-preconfirmations-in-the-blob-market/">
+        <span class="t">Censorship, Latency, and Preconfirmations in the Blob Market</span>
+        <span class="m">mev · Feb</span>
+      </a>
+      
+    </div>
+  </div>
+  
+  <div class="year">
+    <div class="y">2023</div>
+    <div class="rows">
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/trading-in-the-dark-measuring-reordering-slippage-in-mev/">
+        <span class="t">Trading in the Dark: Measuring Reordering Slippage in MEV</span>
+        <span class="m">highlights · Jan</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/fetching-uniswap-historical-swap-data-with-python-and-subgrounds/">
+        <span class="t">Fetching Uniswap Historical Swap Data With Python and Subgrounds</span>
+        <span class="m">data · Nov</span>
+      </a>
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/free-historical-blockchain-extraction-with-cryo-merkle-reth-nodes/">
+        <span class="t">Free Historical Blockchain Extraction with Cryo + Merkle Reth Nodes</span>
+        <span class="m">data · Nov</span>
+      </a>
+      
+      <a class="row" data-c="mev" href="/evan_writings/writings/cross-chain-nft-marketplace-mev-strategy-with-artemis-a-technical-commentary/">
+        <span class="t">Cross-Chain NFT Marketplace MEV Strategy with Artemis: A Technical Commentary</span>
+        <span class="m">mev · May</span>
+      </a>
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/feedlot-trading-with-safe-low-latency-price-oracles/">
+        <span class="t">Feedlot: trading with safe, low latency price oracles</span>
+        <span class="m">highlights · Apr</span>
+      </a>
+      
+    </div>
+  </div>
+  
+  <div class="year">
+    <div class="y">2022</div>
+    <div class="rows">
+      
+      <a class="row" data-c="data" href="/evan_writings/writings/streamline-subgraph-pipeline-creation-with-datastreams/">
+        <span class="t">Streamline Subgraph Pipeline Creation With DataStreams</span>
+        <span class="m">data · Jan</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/applying-balancers-managed-pool-controllers-to-manage-liquidity-in-bonding-curves/">
+        <span class="t">Applying Balancer’s Managed Pool Controllers to Manage Liquidity in Bonding Curves</span>
+        <span class="m">defi · Dec</span>
+      </a>
+      
+      <a class="row" data-c="mev" href="/evan_writings/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior-blog/">
+        <span class="t">Using Topological Data Analysis to Identify Distinct MEV Behavior (blog)</span>
+        <span class="m">mev · Nov</span>
+      </a>
+      
+      <a class="row" data-c="highlights" href="/evan_writings/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior/">
+        <span class="t">Using Topological Data Analysis to Identify Distinct MEV Behavior</span>
+        <span class="m">highlights · Nov</span>
+      </a>
+      
+      <a class="row" data-c="mev" href="/evan_writings/writings/mev-arbitrage-on-olympus/">
+        <span class="t">MEV Arbitrage on Olympus</span>
+        <span class="m">mev · Oct</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/pari-mutuel-market-design/">
+        <span class="t">Pari-Mutuel Market Design</span>
+        <span class="m">defi · Aug</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/the-amm-design-trilemma/">
+        <span class="t">The AMM Design Trilemma</span>
+        <span class="m">defi · Aug</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/rmm-01-concentrated-liquidity-analysis/">
+        <span class="t">RMM-01 Concentrated Liquidity Analysis</span>
+        <span class="m">defi · Jul</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/replicating-market-makers-and-super-hedging-portfolios/">
+        <span class="t">Replicating Market Makers and Super Hedging Portfolios</span>
+        <span class="m">defi · May</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/liquidity-management-and-supply-issuance-optimization-model/">
+        <span class="t">Liquidity Management and Supply Issuance Optimization Model</span>
+        <span class="m">defi · Apr</span>
+      </a>
+      
+    </div>
+  </div>
+  
+  <div class="year">
+    <div class="y">2021</div>
+    <div class="rows">
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/crypto-speculation-index-csi/">
+        <span class="t">Crypto Speculation Index (CSI)</span>
+        <span class="m">defi · Jan</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/quantitative-modeling-on-rebase-tokens-ohm/">
+        <span class="t">Quantitative Modeling on Rebase Tokens (Ohm)</span>
+        <span class="m">defi · Jan</span>
+      </a>
+      
+      <a class="row" data-c="math" href="/evan_writings/writings/quadratic-reciprocity-of-lucas-polynomials/">
+        <span class="t">Quadratic Reciprocity of Lucas Polynomials</span>
+        <span class="m">math · Dec</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/why-decentralized-algorithmic-stablecoins-win-the-stablecoin-wars-ust-bean/">
+        <span class="t">Why Decentralized Algorithmic Stablecoins Win the Stablecoin Wars (UST, BEAN)</span>
+        <span class="m">defi · Dec</span>
+      </a>
+      
+      <a class="row" data-c="defi" href="/evan_writings/writings/applications-of-graph-theory-on-the-structure-of-a-dao/">
+        <span class="t">Applications of Graph Theory on the Structure of a DAO</span>
+        <span class="m">defi · Nov</span>
+      </a>
+      
+      <a class="row" data-c="math" href="/evan_writings/writings/groebner-basis-and-automated-geometric-theorem-solver-mathematica/">
+        <span class="t">Groebner Basis and Automated Geometric Theorem Solver (Mathematica)</span>
+        <span class="m">math · Apr</span>
+      </a>
+      
+    </div>
+  </div>
+  
+  <div class="year">
+    <div class="y">2020</div>
+    <div class="rows">
+      
+      <a class="row" data-c="math" href="/evan_writings/writings/abstract-algebra-groups-kernels-normal-subgroups/">
+        <span class="t">Abstract Algebra - Groups, Kernels, Normal Subgroups</span>
+        <span class="m">math · Nov</span>
+      </a>
+      
+      <a class="row" data-c="math" href="/evan_writings/writings/measure-theory-lebesgue-integration/">
+        <span class="t">Measure Theory - Lebesgue Integration</span>
+        <span class="m">math · May</span>
+      </a>
+      
+      <a class="row" data-c="math" href="/evan_writings/writings/perceptron-neural-networks/">
+        <span class="t">Perceptron Neural Networks</span>
+        <span class="m">math · May</span>
+      </a>
+      
+    </div>
+  </div>
+  
+</section>
+
+<script>
+  document.querySelectorAll('.filters button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.filters button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      var f = b.dataset.f;
+      document.querySelectorAll('.row').forEach(function (r) { r.classList.toggle('off', f !== 'all' && r.dataset.c !== f); });
+      document.querySelectorAll('.year').forEach(function (y) {
+        var any = Array.prototype.some.call(y.querySelectorAll('.row'), function (r) { return !r.classList.contains('off'); });
+        y.classList.toggle('off', !any);
+      });
+    });
+  });
+</script>
+
+  </main>
+  <footer class="site">
+    <div class="inner">
+      <span>Evan Kim · <a href="https://github.com/Evan-Kim2028/evan_writings">Source</a> · <a href="/evan_writings/llms-full.txt">llms-full.txt</a></span>
+      <span class="links">
+        <a href="https://x.com/evandekim">X</a>
+        <a href="https://github.com/Evan-Kim2028">GitHub</a>
+        <a href="https://www.linkedin.com/in/evan-kim-30943591">LinkedIn</a>
+        <a href="/evan_writings/feed.xml">RSS</a>
+      </span>
+    </div>
+  </footer>
+  <script src="/evan_writings/site.js?v=5" defer></script>
+  <script src="/evan_writings/extras.js?v=1" defer></script>
+</body>
+</html>

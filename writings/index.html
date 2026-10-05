@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Writings | Evan's Writings</title>
+  <meta name="description" content="Agents, evals, data. Writing by Evan Kim.">
+  <meta name="author" content="Evan Kim">
+  <meta name="theme-color" content="#fbfbf9">
+  <script>(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/evan_writings/vendor/katex.min.css"><link rel="canonical" href="https://Evan-Kim2028.github.io/evan_writings/writings/">
+  <link rel="icon" href="/evan_writings/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/evan_writings/styles.css?v=30">
+  <link rel="stylesheet" href="/evan_writings/extras.css?v=1">
+  <link rel="alternate" type="application/rss+xml" title="Evan's Writings" href="https://Evan-Kim2028.github.io/evan_writings/feed.xml">
+
+  
+  <meta property="og:site_name" content="Evan's Writings">
+  <meta property="og:title" content="All Writings">
+  <meta property="og:description" content="Agents, evals, data. Writing by Evan Kim.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://Evan-Kim2028.github.io/evan_writings/writings/">
+  <meta property="og:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/og-default.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="All Writings">
+  <meta name="twitter:description" content="Agents, evals, data. Writing by Evan Kim.">
+  <meta name="twitter:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/og-default.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#website",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "name": "Evan's Writings",
+        "description": "Agents, evals, data. Writing by Evan Kim.",
+        "publisher": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://Evan-Kim2028.github.io/evan_writings/writings/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#person",
+        "name": "Evan Kim",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "sameAs": [
+          "https://github.com/Evan-Kim2028",
+          "https://x.com/evandekim",
+          "https://www.linkedin.com/in/evan-kim-30943591"
+        ]
+      }]
+  }
+  </script>
+</head>
+<body data-base="/evan_writings/">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="progress" aria-hidden="true"></div>
+  <header class="site">
+    <nav aria-label="Main">
+      <a href="/evan_writings/" class="brand" aria-label="Evan Kim home">Evan Kim</a>
+      <div class="nav-links">
+        <a href="/evan_writings/writings/" aria-current="page">Writing</a>
+        <a href="/evan_writings/collections/">Collections</a>
+        <a href="/evan_writings/tags/">Tags</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
+          <svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    
+<section class="page-header">
+  <h1>All Writings</h1>
+  <p class="page-description">Every article in the archive, sorted by date.</p>
+</section>
+
+<div class="search-box">
+  <input type="search" id="search-input" placeholder="Search writings..." aria-label="Search writings" autocomplete="off">
+  <span class="search-count" id="search-count" aria-live="polite"></span>
+</div>
+
+<section class="tag-cloud tag-cloud-compact">
+  
+  <a href="/evan_writings/tags/liquidity/" class="tag-cloud-item" data-count="8">
+    <span class="tag-cloud-name">liquidity</span>
+    <span class="tag-cloud-count">8</span>
+  </a>
+  
+  <a href="/evan_writings/tags/ethereum/" class="tag-cloud-item" data-count="7">
+    <span class="tag-cloud-name">ethereum</span>
+    <span class="tag-cloud-count">7</span>
+  </a>
+  
+  <a href="/evan_writings/tags/amm/" class="tag-cloud-item" data-count="6">
+    <span class="tag-cloud-name">amm</span>
+    <span class="tag-cloud-count">6</span>
+  </a>
+  
+  <a href="/evan_writings/tags/data-pipeline/" class="tag-cloud-item" data-count="6">
+    <span class="tag-cloud-name">data-pipeline</span>
+    <span class="tag-cloud-count">6</span>
+  </a>
+  
+  <a href="/evan_writings/tags/dune/" class="tag-cloud-item" data-count="6">
+    <span class="tag-cloud-name">dune</span>
+    <span class="tag-cloud-count">6</span>
+  </a>
+  
+  <a href="/evan_writings/tags/oracle/" class="tag-cloud-item" data-count="6">
+    <span class="tag-cloud-name">oracle</span>
+    <span class="tag-cloud-count">6</span>
+  </a>
+  
+  <a href="/evan_writings/tags/blob-market/" class="tag-cloud-item" data-count="5">
+    <span class="tag-cloud-name">blob-market</span>
+    <span class="tag-cloud-count">5</span>
+  </a>
+  
+  <a href="/evan_writings/tags/solana/" class="tag-cloud-item" data-count="5">
+    <span class="tag-cloud-name">solana</span>
+    <span class="tag-cloud-count">5</span>
+  </a>
+  
+  <a href="/evan_writings/tags/evals/" class="tag-cloud-item" data-count="4">
+    <span class="tag-cloud-name">evals</span>
+    <span class="tag-cloud-count">4</span>
+  </a>
+  
+  <a href="/evan_writings/tags/jito-tips/" class="tag-cloud-item" data-count="4">
+    <span class="tag-cloud-name">jito-tips</span>
+    <span class="tag-cloud-count">4</span>
+  </a>
+  
+  <a href="/evan_writings/tags/olympus/" class="tag-cloud-item" data-count="4">
+    <span class="tag-cloud-name">olympus</span>
+    <span class="tag-cloud-count">4</span>
+  </a>
+  
+  <a href="/evan_writings/tags/preconfirmations/" class="tag-cloud-item" data-count="4">
+    <span class="tag-cloud-name">preconfirmations</span>
+    <span class="tag-cloud-count">4</span>
+  </a>
+  
+  <a href="/evan_writings/tags/subgraph/" class="tag-cloud-item" data-count="4">
+    <span class="tag-cloud-name">subgraph</span>
+    <span class="tag-cloud-count">4</span>
+  </a>
+  
+  <a href="/evan_writings/tags/sui/" class="tag-cloud-item" data-count="4">
+    <span class="tag-cloud-name">sui</span>
+    <span class="tag-cloud-count">4</span>
+  </a>
+  
+  <a href="/evan_writings/tags/agents/" class="tag-cloud-item" data-count="3">
+    <span class="tag-cloud-name">agents</span>
+    <span class="tag-cloud-count">3</span>
+  </a>
+  
+  <a href="/evan_writings/tags/" class="tag-cloud-more">All tags →</a>
+</section>
+
+<section class="writing-list-section">
+  <ul class="writing-list writing-list-cards" id="writing-list">
+  
+    <li class="writing-list-item" data-title="knowledge vs execution in a qwen3.5-2b data agent" data-description="one sft pass with lora on verified smoldataenvs trajectories doesn&#39;t move qwen accuracy. the information ladder shows why." data-collection="data" data-tags="writing data evals agents fine-tuning information-ladder sft lora qwen3.5-2b">
+      <a href="/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/" class="writing-list-title">Knowledge vs Execution in a Qwen3.5-2B Data Agent</a>
+      <span class="writing-list-meta">October 2026 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="the information ladder: measuring model capabilities" data-description="we build ladderbench, 591 synthetic go tasks from 9 repositories, and use the information ladder to certify 242 of them and compare composer 2.5 and swe-2. each level reveals more to the solver, so the first level a model passes shows how much information is needed." data-collection="data" data-tags="writing data evals benchmarks agents harbor synthetic-tasks">
+      <a href="/evan_writings/writings/difficulty-is-an-information-gap/" class="writing-list-title">The Information Ladder: Measuring Model Capabilities</a>
+      <span class="writing-list-meta">September 2026 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="four verifiable properties of a useful agent task" data-description="soundness and difficulty settle by running an agent task. durability and taste need data almost no benchmark publishes." data-collection="data" data-tags="writing data evals benchmarks agents">
+      <a href="/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/" class="writing-list-title">Four Verifiable Properties of a Useful Agent Task</a>
+      <span class="writing-list-meta">September 2026 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="terminal-bench task: lakehouse schema contract drift" data-description="a terminal-bench task where the schema contract drifts between epochs, built as a counterexample for coding agents." data-collection="latest" data-tags="writing latest data evals coding-agents terminal-bench data-warehouse">
+      <a href="/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/" class="writing-list-title">Terminal-Bench Task: Lakehouse Schema Contract Drift</a>
+      <span class="writing-list-meta">September 2026 · latest</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="5.3-flash has large provider cache hit variance" data-description="glm-5.3-flash cache hit rates on openrouter ranged from 80% on z.ai to 0% on deepinfra and fireworks. quality clustered. cost did not follow cache, because output tokens dominate this workload." data-collection="data" data-tags="writing data llm-inference openrouter benchmarks">
+      <a href="/evan_writings/writings/glm-53-flash-provider-cache-hit-variance/" class="writing-list-title">5.3-Flash Has Large Provider Cache Hit Variance</a>
+      <span class="writing-list-meta">August 2026 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="3 lessons from building a 170gb iceberg lakehouse with 8gb ram" data-description="building a 170gb apache iceberg lakehouse on 8gb ram: lane registry and schema contracts for 9 pipelines, incremental gold with snapshot-consistent duckdb serving, and memory-bounded promotion." data-collection="data" data-tags="writing data iceberg duckdb data-pipeline solana">
+      <a href="/evan_writings/writings/iceberg-lakehouse-8gb-ram/" class="writing-list-title">3 Lessons from Building a 170GB Iceberg Lakehouse with 8GB RAM</a>
+      <span class="writing-list-meta">June 2026 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="on-chain atomic gaussian math" data-description="on-chain gaussian math on sui using the aaa algorithm for rational approximation of the normal cdf and inverse cdf, evaluated via horner&#39;s method with fixed-point arithmetic." data-collection="math" data-tags="writing paragraph gaussian-math sui amm oracle">
+      <a href="/evan_writings/writings/on-chain-atomic-gaussian-math/" class="writing-list-title">On-chain Atomic Gaussian Math</a>
+      <span class="writing-list-meta">December 2025 · math</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="building an agentic native mcp for data science" data-description="building igloo-mcp, an mcp server for snowflake data science with safe query execution, schema-first tools, catalog building, and dependency graph analysis." data-collection="data" data-tags="writing paragraph mcp">
+      <a href="/evan_writings/writings/building-an-agentic-native-mcp-for-data-science/" class="writing-list-title">Building an Agentic Native MCP for Data Science</a>
+      <span class="writing-list-meta">October 2025 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="sui nft analytics" data-description="sui nft analytics pipeline built with sentio processors and sql studio to track rootlets nft holder counts, ownership history, and thematic categorization." data-collection="highlights" data-tags="writing highlights paragraph sentio nft sui data-pipeline">
+      <a href="/evan_writings/writings/sui-nft-analytics/" class="writing-list-title">Sui NFT Analytics</a>
+      <span class="writing-list-meta">February 2025 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="data observability with sentio pipelines" data-description="sentio pipelines enable end-to-end web3 data observability with typed typescript processors, real-time streaming, and sql/graphql endpoints, demoed via a sui lst dashboard." data-collection="highlights" data-tags="writing highlights paragraph sentio dune data-observability sui data-pipeline">
+      <a href="/evan_writings/writings/data-observability-with-sentio-pipelines/" class="writing-list-title">Data Observability with Sentio Pipelines</a>
+      <span class="writing-list-meta">December 2024 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="economics of sui shared liquidity pool objects" data-description="sui shared liquidity pool mutations saturate nearly every checkpoint, yet max gas fees don&#39;t guarantee top block position, informing sip-45 prioritized transaction submission." data-collection="highlights" data-tags="writing highlights paragraph liquidity amm sui sentio dune">
+      <a href="/evan_writings/writings/economics-of-sui-shared-liquidity-pool-objects/" class="writing-list-title">Economics of Sui Shared Liquidity Pool Objects</a>
+      <span class="writing-list-meta">December 2024 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="economic implications of a competitive blob market" data-description="the competitive ethereum blob market pressures l2 profit margins (up to 99%) and projects fee revenue growth from $11m to $25m with expanded blob counts and higher priority fees." data-collection="data" data-tags="writing data ethresear.ch blob-market preconfirmations ethereum jito-tips">
+      <a href="/evan_writings/writings/economic-implications-of-a-competitive-blob-market/" class="writing-list-title">Economic Implications of a Competitive Blob Market</a>
+      <span class="writing-list-meta">November 2024 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="tackling blob fee slippage with preconfirmations" data-description="blob fee slippage during june 2024 ethereum congestion cost rollups millions; preconfirmations on mev-commit cut inclusion times 1000x to ~75ms bid latency." data-collection="highlights" data-tags="writing highlights mirror blob-market preconfirmations ethereum">
+      <a href="/evan_writings/writings/tackling-blob-fee-slippage-with-preconfirmations/" class="writing-list-title">Tackling Blob Fee Slippage with Preconfirmations</a>
+      <span class="writing-list-meta">September 2024 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="clustering analysis on zeta &lt;&gt; pyth transaction logs" data-description="agglomerative clustering analysis on zeta and pyth solana transaction logs using polars dataframes to identify failure rate patterns and log message groupings." data-collection="data" data-tags="writing data paragraph solana clustering topological-data-analysis jito-tips oracle">
+      <a href="/evan_writings/writings/clustering-analysis-on-zeta-pyth-transaction-logs/" class="writing-list-title">Clustering Analysis on Zeta &lt;&gt; Pyth Transaction Logs</a>
+      <span class="writing-list-meta">August 2024 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="conquering solana data analytics part 1 - tooling" data-description="solana data analytics tooling comparison: benchmarking cryptohouse, dune, and flipside on three sql queries against the transactions table for performance and features." data-collection="data" data-tags="writing data paragraph solana dune flipside oracle">
+      <a href="/evan_writings/writings/conquering-solana-data-analytics-part-1-tooling/" class="writing-list-title">Conquering Solana Data Analytics Part 1 - Tooling</a>
+      <span class="writing-list-meta">August 2024 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="economic costs of failed transactions on solana" data-description="solana&#39;s pyth receiver contract has a 26.5% transaction failure rate, 3.3x the network average, costing publishers ~10 sol monthly with no validator incentive to reduce failures." data-collection="data" data-tags="writing data paragraph solana oracle dune">
+      <a href="/evan_writings/writings/economic-costs-of-failed-transactions-on-solana/" class="writing-list-title">Economic Costs of Failed Transactions on Solana</a>
+      <span class="writing-list-meta">August 2024 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="calculate jito tips in solana" data-description="solana etl pipeline in python to calculate and analyze jito tips, comparing transaction fees against compute costs across a single block using solana-py." data-collection="mev" data-tags="writing mev paragraph solana jito-tips data-pipeline">
+      <a href="/evan_writings/writings/calculate-jito-tips-in-solana/" class="writing-list-title">Calculate Jito Tips in Solana</a>
+      <span class="writing-list-meta">July 2024 · mev</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="slot inclusion rates and blob market combinatorics" data-description="blob market combinatorics: an integer packing problem in ethereum where small block capacity drives higher slot inclusion rates via rollup competition rather than builder censorship." data-collection="highlights" data-tags="writing highlights ethresear.ch blob-market slot-inclusion preconfirmations">
+      <a href="/evan_writings/writings/slot-inclusion-rates-and-blob-market-combinatorics/" class="writing-list-title">Slot Inclusion Rates and Blob Market Combinatorics</a>
+      <span class="writing-list-meta">June 2024 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="streaming embedded olap data pipeline with lancedb + duckdb in python" data-description="embedded olap streaming data pipeline using lancedb, duckdb, and hypersync to query and analyze blockchain data with mutable columnar storage in python." data-collection="data" data-tags="writing data paragraph lancedb data-pipeline olap duckdb">
+      <a href="/evan_writings/writings/streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python/" class="writing-list-title">Streaming Embedded OLAP Data Pipeline with LanceDB + DuckDB in Python</a>
+      <span class="writing-list-meta">May 2024 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="analyzing blob inclusion rates and market strategies" data-description="eip-4844 blob market analysis measuring slot inclusion rates, optimism and base blob posting strategies, and priority fee correlation with inclusion speed." data-collection="highlights" data-tags="writing highlights mirror blob-market slot-inclusion dune optimism jito-tips ethereum">
+      <a href="/evan_writings/writings/analyzing-blob-inclusion-rates-and-market-strategies/" class="writing-list-title">Analyzing Blob Inclusion Rates and Market Strategies</a>
+      <span class="writing-list-meta">April 2024 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="censorship, latency, and preconfirmations in the blob market" data-description="eip-4844 blob market analysis: blob propagation delays incentivize builder censorship, with mev-commit blob preconfirmations proposed as a reliable inclusion solution." data-collection="mev" data-tags="writing mev mirror blob-market ethereum preconfirmations">
+      <a href="/evan_writings/writings/censorship-latency-and-preconfirmations-in-the-blob-market/" class="writing-list-title">Censorship, Latency, and Preconfirmations in the Blob Market</a>
+      <span class="writing-list-meta">February 2024 · mev</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="trading in the dark: measuring reordering slippage in mev" data-description="reordering slippage cost uniswap users $9m in losses, negatively affecting 72% of swaps and 92% of large swaps over $250k from september to october 2023." data-collection="highlights" data-tags="writing highlights frontier.tech uniswap slot-inclusion">
+      <a href="/evan_writings/writings/trading-in-the-dark-measuring-reordering-slippage-in-mev/" class="writing-list-title">Trading in the Dark: Measuring Reordering Slippage in MEV</a>
+      <span class="writing-list-meta">January 2024 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="fetching uniswap historical swap data with python and subgrounds" data-description="fetch uniswap v2 and v3 historical swap data from the graph decentralized network using python and subgrounds, with pre-defined schemas and polars-based data exploration." data-collection="data" data-tags="writing data mirror subgraph uniswap">
+      <a href="/evan_writings/writings/fetching-uniswap-historical-swap-data-with-python-and-subgrounds/" class="writing-list-title">Fetching Uniswap Historical Swap Data With Python and Subgrounds</a>
+      <span class="writing-list-meta">November 2023 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="free historical blockchain extraction with cryo + merkle reth nodes" data-description="extract free historical ethereum data with cryo&#39;s parallel rust-based extractor and merkle&#39;s free unlimited rpc archive node, outputting standardized parquet files for analysis." data-collection="data" data-tags="writing data mirror cryo ethereum polygon olap">
+      <a href="/evan_writings/writings/free-historical-blockchain-extraction-with-cryo-merkle-reth-nodes/" class="writing-list-title">Free Historical Blockchain Extraction with Cryo + Merkle Reth Nodes</a>
+      <span class="writing-list-meta">November 2023 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="cross-chain nft marketplace mev strategy with artemis: a technical commentary" data-description="artemis mev bot framework technical commentary on cross-market nft arbitrage between seaport and sudoswap, covering collectors, executors, and strategy.rs logic." data-collection="mev" data-tags="writing mev mirror sudo nft opensea">
+      <a href="/evan_writings/writings/cross-chain-nft-marketplace-mev-strategy-with-artemis-a-technical-commentary/" class="writing-list-title">Cross-Chain NFT Marketplace MEV Strategy with Artemis: A Technical Commentary</a>
+      <span class="writing-list-meta">May 2023 · mev</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="feedlot: trading with safe, low latency price oracles" data-description="feedlot implements safe, low-latency price oracles for mev-resistant on-chain trading and arbitrage execution, mitigating front-running risk for decentralized exchange strategies." data-collection="highlights" data-tags="writing highlights github oracle mev amm">
+      <a href="/evan_writings/writings/feedlot-trading-with-safe-low-latency-price-oracles/" class="writing-list-title">Feedlot: trading with safe, low latency price oracles</a>
+      <span class="writing-list-meta">April 2023 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="streamline subgraph pipeline creation with datastreams" data-description="datastreams is a python subgraph query utility built on subgrounds that streamlines subgraph data pipelines with parallelized queries and csv export." data-collection="data" data-tags="writing data mirror subgraph data-pipeline">
+      <a href="/evan_writings/writings/streamline-subgraph-pipeline-creation-with-datastreams/" class="writing-list-title">Streamline Subgraph Pipeline Creation With DataStreams</a>
+      <span class="writing-list-meta">January 2023 · data</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="applying balancer’s managed pool controllers to manage liquidity in bonding curves" data-description="balancer managed pool controllers applied to bonding curve liquidity management, covering circuit breakers, dynamic token weights, and controller designs." data-collection="defi" data-tags="writing defi mirror liquidity balancer bonding-curve">
+      <a href="/evan_writings/writings/applying-balancers-managed-pool-controllers-to-manage-liquidity-in-bonding-curves/" class="writing-list-title">Applying Balancer’s Managed Pool Controllers to Manage Liquidity in Bonding Curves</a>
+      <span class="writing-list-meta">December 2022 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="using topological data analysis to identify distinct mev behavior (blog)" data-description="topological data analysis via the mapper algorithm identifies six statistically distinct mev behaviors in olympus sushiswap protocol-owned liquidity data." data-collection="mev" data-tags="writing mev mirror topological-data-analysis olympus">
+      <a href="/evan_writings/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior-blog/" class="writing-list-title">Using Topological Data Analysis to Identify Distinct MEV Behavior (blog)</a>
+      <span class="writing-list-meta">November 2022 · mev</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="using topological data analysis to identify distinct mev behavior" data-description="research paper applying the mapper topological data analysis algorithm to identify six distinct mev behaviors in on-chain olympus dao trading data." data-collection="highlights" data-tags="writing highlights github topological-data-analysis">
+      <a href="/evan_writings/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior/" class="writing-list-title">Using Topological Data Analysis to Identify Distinct MEV Behavior</a>
+      <span class="writing-list-meta">November 2022 · highlights</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="mev arbitrage on olympus" data-description="mev arbitrage on olympus pol: data-driven analysis showing bots are under 1% of addresses yet drive the majority of trading volume and fees across ohm liquidity pools." data-collection="mev" data-tags="writing mev mirror olympus liquidity atomic-execution subgraph dune">
+      <a href="/evan_writings/writings/mev-arbitrage-on-olympus/" class="writing-list-title">MEV Arbitrage on Olympus</a>
+      <span class="writing-list-meta">October 2022 · mev</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="pari-mutuel market design" data-description="pari-mutuel market design takeaways covering hanson&#39;s lmsr, cost function equivalence, the sequential convex pari-mutuel mechanism, and market maker risk attitudes." data-collection="defi" data-tags="writing defi mirror pari-mutuel market-maker liquidity">
+      <a href="/evan_writings/writings/pari-mutuel-market-design/" class="writing-list-title">Pari-Mutuel Market Design</a>
+      <span class="writing-list-meta">August 2022 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="the amm design trilemma" data-description="the amm design trilemma: no pricing rule can be path independent, translation invariant, and liquidity sensitive simultaneously, per othman et al (2013)." data-collection="defi" data-tags="writing defi mirror liquidity amm pari-mutuel">
+      <a href="/evan_writings/writings/the-amm-design-trilemma/" class="writing-list-title">The AMM Design Trilemma</a>
+      <span class="writing-list-meta">August 2022 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="rmm-01 concentrated liquidity analysis" data-description="rmm-01 concentrated liquidity analysis of an eth/usdc pool using kernel density estimation to evaluate directional lping and dynamically concentrated liquidity distributions." data-collection="defi" data-tags="writing defi mirror liquidity amm market-maker ethereum kernel-density uniswap abstract-algebra">
+      <a href="/evan_writings/writings/rmm-01-concentrated-liquidity-analysis/" class="writing-list-title">RMM-01 Concentrated Liquidity Analysis</a>
+      <span class="writing-list-meta">July 2022 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="replicating market makers and super hedging portfolios" data-description="replicating market makers and super hedging portfolios: how rmms extend cfmms to create oracle-free permissionless derivatives through static and dynamic replicating portfolios." data-collection="defi" data-tags="writing defi mirror market-maker amm liquidity oracle">
+      <a href="/evan_writings/writings/replicating-market-makers-and-super-hedging-portfolios/" class="writing-list-title">Replicating Market Makers and Super Hedging Portfolios</a>
+      <span class="writing-list-meta">May 2022 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="liquidity management and supply issuance optimization model" data-description="defi liquidity management and supply issuance optimization extends control theory research, tuning bond durations and lock rates to minimize price volatility and boost capital efficiency." data-collection="defi" data-tags="writing defi mirror liquidity olympus control-theory">
+      <a href="/evan_writings/writings/liquidity-management-and-supply-issuance-optimization-model/" class="writing-list-title">Liquidity Management and Supply Issuance Optimization Model</a>
+      <span class="writing-list-meta">April 2022 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="crypto speculation index (csi)" data-description="crypto speculation index (csi) improves on the fear and greed index by using momentum and stablecoin dominance to quantify market speculation across 30 and 90 day signals." data-collection="defi" data-tags="writing defi mirror stablecoin ethereum">
+      <a href="/evan_writings/writings/crypto-speculation-index-csi/" class="writing-list-title">Crypto Speculation Index (CSI)</a>
+      <span class="writing-list-meta">January 2022 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="quantitative modeling on rebase tokens (ohm)" data-description="quantitative modeling of ohm rebase tokens: a csi crossover momentum strategy vs (3,3) hold over six months, finding aggressive ohm accumulation maximizes rebase yield." data-collection="defi" data-tags="writing defi mirror olympus quantitative-modeling">
+      <a href="/evan_writings/writings/quantitative-modeling-on-rebase-tokens-ohm/" class="writing-list-title">Quantitative Modeling on Rebase Tokens (Ohm)</a>
+      <span class="writing-list-meta">January 2022 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="quadratic reciprocity of lucas polynomials" data-description="quadratic reciprocity of lucas polynomials: an independent study extending classical quadratic reciprocity to lucas polynomial sequences with proofs and examples." data-collection="math" data-tags="writing math github quadratic-reciprocity">
+      <a href="/evan_writings/writings/quadratic-reciprocity-of-lucas-polynomials/" class="writing-list-title">Quadratic Reciprocity of Lucas Polynomials</a>
+      <span class="writing-list-meta">December 2021 · math</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="why decentralized algorithmic stablecoins win the stablecoin wars (ust, bean)" data-description="decentralized algorithmic stablecoins ust and bean use seigniorage shares and credit-based models to maintain peg without collateral, challenging usdc and usdt." data-collection="defi" data-tags="writing defi mirror stablecoin ust beanstalk">
+      <a href="/evan_writings/writings/why-decentralized-algorithmic-stablecoins-win-the-stablecoin-wars-ust-bean/" class="writing-list-title">Why Decentralized Algorithmic Stablecoins Win the Stablecoin Wars (UST, BEAN)</a>
+      <span class="writing-list-meta">December 2021 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="applications of graph theory on the structure of a dao" data-description="graph theory applied to dao organizational structure, using complete graphs to quantify decentralization and map department responsibilities and interdependencies." data-collection="defi" data-tags="writing defi mirror dao graph-theory subgraph">
+      <a href="/evan_writings/writings/applications-of-graph-theory-on-the-structure-of-a-dao/" class="writing-list-title">Applications of Graph Theory on the Structure of a DAO</a>
+      <span class="writing-list-meta">November 2021 · defi</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="groebner basis and automated geometric theorem solver (mathematica)" data-description="groebner basis computations in mathematica power an automated geometric theorem solver, translating geometric statements into polynomial ideals for mechanical proof verification." data-collection="math" data-tags="writing math github groebner-basis">
+      <a href="/evan_writings/writings/groebner-basis-and-automated-geometric-theorem-solver-mathematica/" class="writing-list-title">Groebner Basis and Automated Geometric Theorem Solver (Mathematica)</a>
+      <span class="writing-list-meta">April 2021 · math</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="abstract algebra - groups, kernels, normal subgroups" data-description="abstract algebra independent study notes covering groups, homomorphisms, kernels, normal subgroups, and quotient structures with worked proofs." data-collection="math" data-tags="writing math github abstract-algebra">
+      <a href="/evan_writings/writings/abstract-algebra-groups-kernels-normal-subgroups/" class="writing-list-title">Abstract Algebra - Groups, Kernels, Normal Subgroups</a>
+      <span class="writing-list-meta">November 2020 · math</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="measure theory - lebesgue integration" data-description="lebesgue integration study notes covering measure theory fundamentals including sigma-algebras, measurable functions, and construction of the lebesgue integral." data-collection="math" data-tags="writing math github measure-theory">
+      <a href="/evan_writings/writings/measure-theory-lebesgue-integration/" class="writing-list-title">Measure Theory - Lebesgue Integration</a>
+      <span class="writing-list-meta">May 2020 · math</span>
+    </li>
+  
+    <li class="writing-list-item" data-title="perceptron neural networks" data-description="perceptron neural network study notes covering the single-layer perceptron model, activation functions, learning rules, and the foundations of binary classification." data-collection="math" data-tags="writing math github neural-networks">
+      <a href="/evan_writings/writings/perceptron-neural-networks/" class="writing-list-title">Perceptron Neural Networks</a>
+      <span class="writing-list-meta">May 2020 · math</span>
+    </li>
+  
+  </ul>
+  <p class="search-no-results" id="search-no-results" style="display:none;">No writings found. Try a different search term.</p>
+</section>
+
+<script src="/evan_writings/search.js?v=1" defer></script>
+
+  </main>
+  <footer class="site">
+    <div class="inner">
+      <span>Evan Kim · <a href="https://github.com/Evan-Kim2028/evan_writings">Source</a> · <a href="/evan_writings/llms-full.txt">llms-full.txt</a></span>
+      <span class="links">
+        <a href="https://x.com/evandekim">X</a>
+        <a href="https://github.com/Evan-Kim2028">GitHub</a>
+        <a href="https://www.linkedin.com/in/evan-kim-30943591">LinkedIn</a>
+        <a href="/evan_writings/feed.xml">RSS</a>
+      </span>
+    </div>
+  </footer>
+  <script src="/evan_writings/site.js?v=5" defer></script>
+  <script src="/evan_writings/extras.js?v=1" defer></script>
+</body>
+</html>

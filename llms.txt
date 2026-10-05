@@ -1,0 +1,95 @@
+# Evan's Writings
+
+Collected writings on DeFi, data, MEV, and math.
+
+
+- Knowledge vs Execution in a Qwen3.5-2B Data Agent (October 2026): https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/
+
+- The Information Ladder: Measuring Model Capabilities (September 2026): https://Evan-Kim2028.github.io/evan_writings/writings/difficulty-is-an-information-gap/
+
+- Four Verifiable Properties of a Useful Agent Task (September 2026): https://Evan-Kim2028.github.io/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/
+
+- Terminal-Bench Task: Lakehouse Schema Contract Drift (September 2026): https://Evan-Kim2028.github.io/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/
+
+- 5.3-Flash Has Large Provider Cache Hit Variance (August 2026): https://Evan-Kim2028.github.io/evan_writings/writings/glm-53-flash-provider-cache-hit-variance/
+
+- 3 Lessons from Building a 170GB Iceberg Lakehouse with 8GB RAM (June 2026): https://Evan-Kim2028.github.io/evan_writings/writings/iceberg-lakehouse-8gb-ram/
+
+- On-chain Atomic Gaussian Math (December 2025): https://Evan-Kim2028.github.io/evan_writings/writings/on-chain-atomic-gaussian-math/
+
+- Building an Agentic Native MCP for Data Science (October 2025): https://Evan-Kim2028.github.io/evan_writings/writings/building-an-agentic-native-mcp-for-data-science/
+
+- Sui NFT Analytics (February 2025): https://Evan-Kim2028.github.io/evan_writings/writings/sui-nft-analytics/
+
+- Data Observability with Sentio Pipelines (December 2024): https://Evan-Kim2028.github.io/evan_writings/writings/data-observability-with-sentio-pipelines/
+
+- Economics of Sui Shared Liquidity Pool Objects (December 2024): https://Evan-Kim2028.github.io/evan_writings/writings/economics-of-sui-shared-liquidity-pool-objects/
+
+- Economic Implications of a Competitive Blob Market (November 2024): https://Evan-Kim2028.github.io/evan_writings/writings/economic-implications-of-a-competitive-blob-market/
+
+- Tackling Blob Fee Slippage with Preconfirmations (September 2024): https://Evan-Kim2028.github.io/evan_writings/writings/tackling-blob-fee-slippage-with-preconfirmations/
+
+- Clustering Analysis on Zeta &lt;&gt; Pyth Transaction Logs (August 2024): https://Evan-Kim2028.github.io/evan_writings/writings/clustering-analysis-on-zeta-pyth-transaction-logs/
+
+- Conquering Solana Data Analytics Part 1 - Tooling (August 2024): https://Evan-Kim2028.github.io/evan_writings/writings/conquering-solana-data-analytics-part-1-tooling/
+
+- Economic Costs of Failed Transactions on Solana (August 2024): https://Evan-Kim2028.github.io/evan_writings/writings/economic-costs-of-failed-transactions-on-solana/
+
+- Calculate Jito Tips in Solana (July 2024): https://Evan-Kim2028.github.io/evan_writings/writings/calculate-jito-tips-in-solana/
+
+- Slot Inclusion Rates and Blob Market Combinatorics (June 2024): https://Evan-Kim2028.github.io/evan_writings/writings/slot-inclusion-rates-and-blob-market-combinatorics/
+
+- Streaming Embedded OLAP Data Pipeline with LanceDB + DuckDB in Python (May 2024): https://Evan-Kim2028.github.io/evan_writings/writings/streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python/
+
+- Analyzing Blob Inclusion Rates and Market Strategies (April 2024): https://Evan-Kim2028.github.io/evan_writings/writings/analyzing-blob-inclusion-rates-and-market-strategies/
+
+- Censorship, Latency, and Preconfirmations in the Blob Market (February 2024): https://Evan-Kim2028.github.io/evan_writings/writings/censorship-latency-and-preconfirmations-in-the-blob-market/
+
+- Trading in the Dark: Measuring Reordering Slippage in MEV (January 2024): https://Evan-Kim2028.github.io/evan_writings/writings/trading-in-the-dark-measuring-reordering-slippage-in-mev/
+
+- Fetching Uniswap Historical Swap Data With Python and Subgrounds (November 2023): https://Evan-Kim2028.github.io/evan_writings/writings/fetching-uniswap-historical-swap-data-with-python-and-subgrounds/
+
+- Free Historical Blockchain Extraction with Cryo + Merkle Reth Nodes (November 2023): https://Evan-Kim2028.github.io/evan_writings/writings/free-historical-blockchain-extraction-with-cryo-merkle-reth-nodes/
+
+- Cross-Chain NFT Marketplace MEV Strategy with Artemis: A Technical Commentary (May 2023): https://Evan-Kim2028.github.io/evan_writings/writings/cross-chain-nft-marketplace-mev-strategy-with-artemis-a-technical-commentary/
+
+- Feedlot: trading with safe, low latency price oracles (April 2023): https://Evan-Kim2028.github.io/evan_writings/writings/feedlot-trading-with-safe-low-latency-price-oracles/
+
+- Streamline Subgraph Pipeline Creation With DataStreams (January 2023): https://Evan-Kim2028.github.io/evan_writings/writings/streamline-subgraph-pipeline-creation-with-datastreams/
+
+- Applying Balancer’s Managed Pool Controllers to Manage Liquidity in Bonding Curves (December 2022): https://Evan-Kim2028.github.io/evan_writings/writings/applying-balancers-managed-pool-controllers-to-manage-liquidity-in-bonding-curves/
+
+- Using Topological Data Analysis to Identify Distinct MEV Behavior (blog) (November 2022): https://Evan-Kim2028.github.io/evan_writings/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior-blog/
+
+- Using Topological Data Analysis to Identify Distinct MEV Behavior (November 2022): https://Evan-Kim2028.github.io/evan_writings/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior/
+
+- MEV Arbitrage on Olympus (October 2022): https://Evan-Kim2028.github.io/evan_writings/writings/mev-arbitrage-on-olympus/
+
+- Pari-Mutuel Market Design (August 2022): https://Evan-Kim2028.github.io/evan_writings/writings/pari-mutuel-market-design/
+
+- The AMM Design Trilemma (August 2022): https://Evan-Kim2028.github.io/evan_writings/writings/the-amm-design-trilemma/
+
+- RMM-01 Concentrated Liquidity Analysis (July 2022): https://Evan-Kim2028.github.io/evan_writings/writings/rmm-01-concentrated-liquidity-analysis/
+
+- Replicating Market Makers and Super Hedging Portfolios (May 2022): https://Evan-Kim2028.github.io/evan_writings/writings/replicating-market-makers-and-super-hedging-portfolios/
+
+- Liquidity Management and Supply Issuance Optimization Model (April 2022): https://Evan-Kim2028.github.io/evan_writings/writings/liquidity-management-and-supply-issuance-optimization-model/
+
+- Crypto Speculation Index (CSI) (January 2022): https://Evan-Kim2028.github.io/evan_writings/writings/crypto-speculation-index-csi/
+
+- Quantitative Modeling on Rebase Tokens (Ohm) (January 2022): https://Evan-Kim2028.github.io/evan_writings/writings/quantitative-modeling-on-rebase-tokens-ohm/
+
+- Quadratic Reciprocity of Lucas Polynomials (December 2021): https://Evan-Kim2028.github.io/evan_writings/writings/quadratic-reciprocity-of-lucas-polynomials/
+
+- Why Decentralized Algorithmic Stablecoins Win the Stablecoin Wars (UST, BEAN) (December 2021): https://Evan-Kim2028.github.io/evan_writings/writings/why-decentralized-algorithmic-stablecoins-win-the-stablecoin-wars-ust-bean/
+
+- Applications of Graph Theory on the Structure of a DAO (November 2021): https://Evan-Kim2028.github.io/evan_writings/writings/applications-of-graph-theory-on-the-structure-of-a-dao/
+
+- Groebner Basis and Automated Geometric Theorem Solver (Mathematica) (April 2021): https://Evan-Kim2028.github.io/evan_writings/writings/groebner-basis-and-automated-geometric-theorem-solver-mathematica/
+
+- Abstract Algebra - Groups, Kernels, Normal Subgroups (November 2020): https://Evan-Kim2028.github.io/evan_writings/writings/abstract-algebra-groups-kernels-normal-subgroups/
+
+- Measure Theory - Lebesgue Integration (May 2020): https://Evan-Kim2028.github.io/evan_writings/writings/measure-theory-lebesgue-integration/
+
+- Perceptron Neural Networks (May 2020): https://Evan-Kim2028.github.io/evan_writings/writings/perceptron-neural-networks/
+

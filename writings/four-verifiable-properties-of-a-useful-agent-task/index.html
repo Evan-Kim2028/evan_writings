@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Four Verifiable Properties of a Useful Agent Task | Evan's Writings</title>
+  <meta name="description" content="Soundness and difficulty settle by running an agent task. Durability and taste need data almost no benchmark publishes.">
+  <meta name="author" content="Evan Kim">
+  <meta name="theme-color" content="#fbfbf9">
+  <script>(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/evan_writings/vendor/katex.min.css"><link rel="canonical" href="https://Evan-Kim2028.github.io/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/">
+  <link rel="icon" href="/evan_writings/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/evan_writings/styles.css?v=30">
+  <link rel="stylesheet" href="/evan_writings/extras.css?v=1">
+  <link rel="alternate" type="application/rss+xml" title="Evan's Writings" href="https://Evan-Kim2028.github.io/evan_writings/feed.xml">
+
+  
+  <meta property="og:site_name" content="Evan's Writings">
+  <meta property="og:title" content="Four Verifiable Properties of a Useful Agent Task">
+  <meta property="og:description" content="Soundness and difficulty settle by running an agent task. Durability and taste need data almost no benchmark publishes.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://Evan-Kim2028.github.io/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/">
+  <meta property="og:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/images/agent-task-properties-hero.png"><meta property="article:published_time" content="2026-09-14"><meta property="article:author" content="Evan Kim"><meta property="article:section" content="data"><meta property="article:tag" content="evals"><meta property="article:tag" content="benchmarks"><meta property="article:tag" content="agents">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Four Verifiable Properties of a Useful Agent Task">
+  <meta name="twitter:description" content="Soundness and difficulty settle by running an agent task. Durability and taste need data almost no benchmark publishes.">
+  <meta name="twitter:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/images/agent-task-properties-hero.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#website",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "name": "Evan's Writings",
+        "description": "Agents, evals, data. Writing by Evan Kim.",
+        "publisher": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://Evan-Kim2028.github.io/evan_writings/writings/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#person",
+        "name": "Evan Kim",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "sameAs": [
+          "https://github.com/Evan-Kim2028",
+          "https://x.com/evandekim",
+          "https://www.linkedin.com/in/evan-kim-30943591"
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/#article",
+        "headline": "Four Verifiable Properties of a Useful Agent Task",
+        "description": "Soundness and difficulty settle by running an agent task. Durability and taste need data almost no benchmark publishes.",
+        "datePublished": "2026-09-14",
+        "dateModified": "2026-09-14",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/",
+        "image": "https://Evan-Kim2028.github.io/evan_writings/assets/images/agent-task-properties-hero.png",
+        "author": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "publisher": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://Evan-Kim2028.github.io/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/"
+        },
+        "isPartOf": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#website" },
+        "keywords": "evals, benchmarks, agents"}]
+  }
+  </script>
+</head>
+<body data-base="/evan_writings/">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="progress" aria-hidden="true"></div>
+  <header class="site">
+    <nav aria-label="Main">
+      <a href="/evan_writings/" class="brand" aria-label="Evan Kim home">Evan Kim</a>
+      <div class="nav-links">
+        <a href="/evan_writings/writings/">Writing</a>
+        <a href="/evan_writings/collections/">Collections</a>
+        <a href="/evan_writings/tags/">Tags</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
+          <svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    
+
+<div class="article-layout">
+  <aside class="rail">
+    
+    <nav class="toc" aria-label="Table of contents"><p class="toc-title">On this page</p><a href="#introduction" class="toc-link toc-link-h2"><span class="toc-num">1</span>Introduction</a>
+<a href="#four-properties-define-a-useful-task" class="toc-link toc-link-h2"><span class="toc-num">2</span>Four properties define a useful task</a>
+<a href="#strong-verification" class="toc-link toc-link-h2"><span class="toc-num">3</span>Strong verification</a>
+<a href="#soundness" class="toc-link toc-link-h3"><span class="toc-num">3.1</span>Soundness</a>
+<a href="#difficulty" class="toc-link toc-link-h3"><span class="toc-num">3.2</span>Difficulty</a>
+<a href="#weak-verification" class="toc-link toc-link-h2"><span class="toc-num">4</span>Weak verification</a>
+<a href="#durability" class="toc-link toc-link-h3"><span class="toc-num">4.1</span>Durability</a>
+<a href="#taste" class="toc-link toc-link-h3"><span class="toc-num">4.2</span>Taste</a>
+<a href="#conclusion-and-future-work" class="toc-link toc-link-h2"><span class="toc-num">5</span>Conclusion and future work</a></nav>
+    
+    <a href="/evan_writings/writings/" class="rail-back">← All writing</a>
+  </aside>
+
+  <article class="article"><figure class="hero-standalone" style="--hero-light:url('/evan_writings/assets/images/agent-task-properties-hero.png?v=11');--hero-dark:url('/evan_writings/assets/images/agent-task-properties-hero.dark.png?v=11')" aria-hidden="true"></figure>
+    <header class="article-head">
+      <div class="kicker">
+        <a href="/evan_writings/collections/data/">data</a>&nbsp;·&nbsp; September 2026
+      </div>
+      <p class="series-line">Evals · Part 2</p>
+      <h1 class="title">Four Verifiable Properties of a Useful Agent Task</h1>
+      
+      
+    </header>
+
+    <div class="meta meta-below">
+      <span>Evan Kim</span>
+      
+        
+          
+        
+          
+        
+          
+          <a href="/evan_writings/tags/evals/" class="tag tag-link">evals</a>
+          
+        
+          
+          <a href="/evan_writings/tags/benchmarks/" class="tag tag-link">benchmarks</a>
+          
+        
+          
+          <a href="/evan_writings/tags/agents/" class="tag tag-link">agents</a>
+          
+        
+      
+    </div>
+
+    <div class="writing-body has-lede">
+      <p>Soundness, difficulty, durability and taste decide whether an agent task is worth keeping. Soundness and difficulty settle by running the task. Durability and taste need data that almost no benchmark publishes.</p>
+<h2 id="introduction"><a class="h-link" href="#introduction">Introduction</a></h2>
+<p class="long">A benchmark for a coding agent is a pool of tasks, each packaging an instruction, an environment, a reference solution, and a grader. Every benchmark reports how many broken tasks its curation caught. None reports how many survived. Those answer different questions, and anyone buying task data needs the second.</p>
+<p class="long">These 7 task pools carry the figures below, all measured with one procedure. They span hand-curated benchmarks and machine-generated lots: <a href="https://openai.com/index/introducing-swe-bench-verified/">SWE-bench Verified</a>, the retired <a href="https://www.tbench.ai">Terminal-Bench</a> 2.0 and 2.1, <a href="https://harbor-index.org">Harbor-Index 1.0</a>, and the generated sets <a href="https://arxiv.org/abs/2608.05466">RST</a> and <a href="https://arxiv.org/abs/2607.10891">SETA-Env</a>, alongside a pilot of hand-written tasks. A <a href="https://huggingface.co/datasets/kendx/Harbor-Adapter">public dump</a> of 793,698 recorded agent trials feeds the durability work, covering 8,468 tasks across 60 benchmarks, 16 models, and 6 agent harnesses. Of those, 6,613 carry enough trials at both ends of the capability range to measure. Taste rests on two label sets: 1,699 SWE-bench tasks rated by humans, and <a href="https://arxiv.org/abs/2609.04298">Harbor-Index's funnel</a> from 6,627 candidates down to 82.</p>
+<p>Terminal-Bench 2.1 shipped in May 2026 after a pass that repaired 28 of its 89 tasks, and a census run against all 89 in September 2026 found 5 reference solutions still failing their own tests. The benchmark moved to a separately authored version 3 in July 2026 and to version 4 in August 2026, so the 2.x figures describe retired pools. Version 4 shares no tasks with 2.1, so figures drawn from each describe different pools rather than one pool measured twice.</p>
+<h2 id="four-properties-define-a-useful-task"><a class="h-link" href="#four-properties-define-a-useful-task">Four properties define a useful task</a></h2>
+<p>The 4 properties below decide whether a task in the pool is worth keeping, and they are not equally verifiable.</p>
+<ol>
+<li>
+<p class="long"><strong>Soundness.</strong> A task is sound when its own reference solution satisfies its own grader. Checking it needs no model and no judgment call. Run the packaged answer key, score it with the packaged verifier, and the task either passes or it does not.</p>
+</li>
+<li>
+<p><strong>Difficulty.</strong> A task has difficulty when its target model sometimes passes and sometimes fails. A task that always fails cannot tell two models apart, and neither can a task that always passes.</p>
+</li>
+<li>
+<p class="long"><strong>Durability.</strong> Difficulty measured a second time. Models improve, and a task that separates them today can stop separating them at the next model generation. A task is durable when it still fails sometimes for stronger models.</p>
+</li>
+<li>
+<p><strong>Taste.</strong> The loosest of the four. A task has taste when it matches what the benchmark's own reviewers choose to keep.</p>
+</li>
+</ol>
+<p>Each property earned its place only where an existing pool could answer for it. Other properties may matter, and this list does not claim to be complete. Every figure below comes from a pool this work measured directly.</p>
+<h2 id="strong-verification"><a class="h-link" href="#strong-verification">Strong verification</a></h2>
+<p class="long">Soundness and difficulty each reduce to a procedure whose answer needs no adjudication. Both also scale past the sample. A hypergeometric bound turns a count of flagged tasks into a 95% upper limit for the whole pool, and the tolerance sets the sample size rather than the size of the pool. Against a census whose true rate is already known, that bound covers it in at least 98.75% of 4,000 simulated draws at every sample size tested, comfortably above the 95% it promises.</p>
+<h3 id="soundness"><a class="h-link" href="#soundness">Soundness</a></h3>
+<p class="long">A sound task's own reference solution passes its own verifier in a fresh container, and an empty submission does not. A failure needs no interpretation because a task whose answer key cannot satisfy its grader has contradicted itself. A pass proves less. A verifier can still under-test the requirement, accept a wrong implementation, or lean on accidental environment state. It can also report one score and emit another, which a pass-fail probe cannot see at all.</p>
+<p class="long">Running the check finds what maintenance and review both miss. Terminal-Bench repaired 28 tasks between versions 2.0 and 2.1, and the check flags 9 of the 27 comparable pairs before the repair and clears 7 after. Harbor-Index shipped 82 tasks after a model screen, expert review and a fix pass, and 2 of its 53 executable references still fail every run. One fails half its own tests. The other scores its reference at 0.97 out of 1.0 in its own log, then writes a reward of zero to the file that counts. Any submission as good as that reference would score zero too, so doing the task correctly cannot pass it.</p>
+<p>Run on samples and bounded, the same check released a SWE-bench pool at 4.65% and a generated pool of 4,569 tasks at 2.32%, and rejected the Terminal-Bench 2.1 census at 5.6%.</p>
+<h3 id="difficulty"><a class="h-link" href="#difficulty">Difficulty</a></h3>
+<p>Naming a reference model makes difficulty verifiable. The measurement reduces to a solve rate, the share of scored attempts that succeed. A task pinned at either end cannot rank two models against each other.</p>
+<p>A low solve rate alone cannot tell a hard task from a broken one, so difficulty follows soundness rather than replacing it. Across the 1,699 SWE-bench tasks that 3 raters each annotated for OpenAI in 2024, the tasks every rater faulted sit at a median solve rate of 2% while the tasks none of them faulted sit at 33%. Those labels are a floor rather than a verdict, since OpenAI later found its own 2024 screen had passed tasks whose tests reject correct solutions.</p>
+<p class="long">Harbor-Index built a benchmark on this measurement. Between March and May 2026 it ran 3 trials of each candidate across 6 frontier pairings: Opus 4.6, GPT-5.4 and Gemini 3.1 Pro against two harnesses each. It kept the tasks those models solved at most a third of the time. That cut 6,627 candidates to a published 1,311, <a href="https://arxiv.org/abs/2609.04298">reported</a> in September 2026. Rebuilding the same rule from the trial data the authors released reproduces it at 1,331, within 1.5%. Every solve rate belongs to the models that produced it, and travels with them.</p>
+<h2 id="weak-verification"><a class="h-link" href="#weak-verification">Weak verification</a></h2>
+<p>Durability and taste are measurable, but neither reduces to a procedure, and both need data most benchmarks do not publish.</p>
+<h3 id="durability"><a class="h-link" href="#durability">Durability</a></h3>
+<p class="long">Durability is difficulty measured a second time against models of different strength on the same tasks. The Harbor-Index authors released every trial behind their benchmark as <a href="https://huggingface.co/datasets/kendx/Harbor-Adapter">Harbor-Adapter</a>, 768,956 scored trials from 16 models and 6 agent harnesses recorded between March and May 2026. Ordering those models by aggregate solve rate and splitting them into thirds gives each task a slope: its solve rate in the strongest third minus its rate in the weakest, measured in percentage points. Newer models have since passed that generation, so the slopes understate how far a current model climbs. Across the 6,613 tasks with enough trials in both outer tiers the median slope is 13 percentage points, so steep tasks are the exception. That ordering comes from the models' own aggregate rates, so the population median is descriptive and the per-task slopes are the measurement.</p>
+<p><a href="https://www.tbench.ai/news/terminal-bench-4-0">Terminal-Bench 4</a> shows what the exception costs from its leaderboard of current models. Of its 66 tasks, 27 gain more than 40 percentage points across the benchmark's own 13 submissions, which is 41% of a pool built to be hard for one model generation and already ordinary for the next.</p>
+<p class="long">Contamination closes a pool the same way saturation does. OpenAI <a href="https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/">stopped reporting</a> SWE-bench Verified on February 23, 2026, saying gains on it &quot;increasingly reflect how much the model was exposed to the benchmark at training time.&quot; It named <a href="https://github.com/scaleapi/SWE-bench_Pro-os">SWE-bench Pro</a> as the replacement. OpenAI <a href="https://openai.com/index/separating-signal-from-noise-coding-evaluations/">retracted that</a> on July 8, 2026 after flagging 200 of Pro's 731 tasks by pipeline and 249 by human review. Both audits attempt this article's measurement, and both searched where they suspected trouble, so each yields a count rather than a rate.</p>
+<p>Nothing cheaper than measuring recovers the slope. Guessing it from a task's features fails. A model fitted on how tasks look and how agents behaved on them, asked which of two tasks from the same benchmark holds up better, gets it right 51% of the time, which is chance.</p>
+<p class="long">Human review does not recover it either. The 80 Harbor-Index tasks the reviewers kept carry a median slope of 2.9 percentage points against 0.2 for the 1,262 they rejected, and that gap is not statistically significant. A slope near zero marks a durable task and an unsolvable one alike. Nobody solves 39% of the rejected tasks in either tier, against 30% of the kept, so the rejected set looks flatter mainly because more of it is dead. What the reviewers selected against was the floor, and durability came out incidental in both directions, since they kept 33 durable tasks and 20 still rising.</p>
+<p>The capability axis is itself confounded, since a submission in the dump is a model and a harness together and the tier ordering cannot pull them apart. <a href="https://arxiv.org/abs/2608.00355">CurveShift</a>, published in July 2026, measured the same construct first and named the same confound.</p>
+<h3 id="taste"><a class="h-link" href="#taste">Taste</a></h3>
+<p>Taste covers what the other three leave over. Among tasks that pass the soundness check, sit at a useful solve rate, and hold that rate as models improve, taste decides which one a reviewer keeps. Every pool measured here leans on it, and none of them defines it in a form anything can check.</p>
+<p class="long">Reviewers work from written criteria that stay qualitative. <a href="https://github.com/harbor-framework/terminal-bench/blob/main/docs/REVIEWING.md">Terminal-Bench</a> asks whether a task is difficult for a good reason and whether it resembles work someone is paid to do. <a href="https://arxiv.org/abs/2609.04298">Harbor-Index</a> had a senior panel weigh difficulty, diversity, and the insight a task gives into model behavior. Both lists need a human to apply them.</p>
+<p>Learning the judgment from examples takes both halves of a review, the tasks reviewers kept and the ones they turned down, and currently very few benchmarks publish both. <a href="https://openai.com/index/introducing-swe-bench-verified/">SWE-bench Verified</a> is the exception. OpenAI published it on August 13, 2024 along with the <a href="https://cdn.openai.com/introducing-swe-bench-verified/swe-bench-annotation-results.zip">raw annotations</a> behind it, where 3 raters scored each of 1,699 tasks and OpenAI kept 500.</p>
+<p class="long">How many sound tasks that selection passed over depends on where the bar sits. Counting a task sound only when no rater objected leaves 539, so the selection drops 39 and amounts to a validity filter. Allowing one objection leaves 935, so it drops 435, and those 435 are the half that goes missing everywhere else. A model fitted to that looser split picks the kept task out of a pair 59% of the time on tasks it has not seen, against 50% for a coin flip. The signal is real but nowhere near strong enough to accept or reject a task on, and it rests on a threshold nobody has justified.</p>
+<p>No other pool carries enough rejections to repeat the test. Terminal-Bench 2.1 kept 26 of its 84 valid tasks, and Harbor-Index keeps 82 drawn from 29 source benchmarks. Taste today has neither a definition a machine can check nor a labeled set big enough to learn one from.</p>
+<h2 id="conclusion-and-future-work"><a class="h-link" href="#conclusion-and-future-work">Conclusion and future work</a></h2>
+<p class="long">The four properties split on verifiability. Soundness reduces to a two-probe container run. Difficulty reduces to attempt counts against a named model. Durability needs a capability axis that separates the model from the harness that ran it, and today's trial data joins the two into a single submission.</p>
+<p>Taste needs benchmarks to publish the candidates their reviewers rejected, not only the tasks they kept. Nobody can fit a keep label where the rejects stay private. One reconstruction recovered labels for all 6,627 candidates, and only because the trial data survived outside the benchmark.</p>
+<p>One question sits underneath all four, and nobody has answered it. These properties may or may not predict a task's downstream value. Nothing measured here shows that data selected this way trains a better model, and that experiment would settle more than any of the measurements above.</p>
+<p>Datasource: <a href="https://github.com/Evan-Kim2028/evaltrials">evaltrials</a>.</p>
+
+    </div><nav class="series-nav" aria-label="Series navigation">
+  <div class="series-nav-head">Evals series · Part 2</div>
+  <div class="series-nav-links">
+    <a class="series-prev" href="/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/"><span class="k">← Previous · Part 1</span><span class="t">Terminal-Bench Task: Lakehouse Schema Contract Drift</span></a>
+    <a class="series-next" href="/evan_writings/writings/difficulty-is-an-information-gap/"><span class="k">Next · Part 3 →</span><span class="t">The Information Ladder: Measuring Model Capabilities</span></a>
+  </div>
+</nav><footer class="article-end">
+      
+      
+      <p class="archive-note">Originally published on github, September 2026. <a href="https://github.com/Evan-Kim2028/evaltrials" target="_blank" rel="noopener">View original ↗</a></p>
+      
+      
+      
+      
+    </footer>
+  </article>
+</div>
+
+  </main>
+  <footer class="site">
+    <div class="inner">
+      <span>Evan Kim · <a href="https://github.com/Evan-Kim2028/evan_writings">Source</a> · <a href="/evan_writings/llms-full.txt">llms-full.txt</a></span>
+      <span class="links">
+        <a href="https://x.com/evandekim">X</a>
+        <a href="https://github.com/Evan-Kim2028">GitHub</a>
+        <a href="https://www.linkedin.com/in/evan-kim-30943591">LinkedIn</a>
+        <a href="/evan_writings/feed.xml">RSS</a>
+      </span>
+    </div>
+  </footer>
+  <script src="/evan_writings/site.js?v=5" defer></script>
+  <script src="/evan_writings/extras.js?v=1" defer></script>
+</body>
+</html>

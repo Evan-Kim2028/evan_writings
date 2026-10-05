@@ -1,0 +1,453 @@
+[
+
+  {
+    "title": "Knowledge vs Execution in a Qwen3.5-2B Data Agent",
+    "description": "One SFT pass with LoRA on verified SmolDataEnvs trajectories doesn't move Qwen accuracy. The information ladder shows why.",
+    "url": "/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/",
+    "date": "2026-10-03",
+    "collection": "data",
+    "tags": ["writing","data","evals","agents","fine-tuning","information-ladder","sft","lora","qwen3.5-2b"],
+    "readingTime": "11 min read"
+  },
+
+  {
+    "title": "The Information Ladder: Measuring Model Capabilities",
+    "description": "We build LadderBench, 591 synthetic Go tasks from 9 repositories, and use the information ladder to certify 242 of them and compare Composer 2.5 and SWE-2. Each level reveals more to the solver, so the first level a model passes shows how much information is needed.",
+    "url": "/writings/difficulty-is-an-information-gap/",
+    "date": "2026-09-23",
+    "collection": "data",
+    "tags": ["writing","data","evals","benchmarks","agents","harbor","synthetic-tasks"],
+    "readingTime": "17 min read"
+  },
+
+  {
+    "title": "Four Verifiable Properties of a Useful Agent Task",
+    "description": "Soundness and difficulty settle by running an agent task. Durability and taste need data almost no benchmark publishes.",
+    "url": "/writings/four-verifiable-properties-of-a-useful-agent-task/",
+    "date": "2026-09-14",
+    "collection": "data",
+    "tags": ["writing","data","evals","benchmarks","agents"],
+    "readingTime": "10 min read"
+  },
+
+  {
+    "title": "Terminal-Bench Task: Lakehouse Schema Contract Drift",
+    "description": "A Terminal-Bench task where the schema contract drifts between epochs, built as a counterexample for coding agents.",
+    "url": "/writings/terminal-bench-task-lakehouse-schema-contract-drift/",
+    "date": "2026-09-10",
+    "collection": "latest",
+    "tags": ["writing","latest","data","evals","coding-agents","terminal-bench","data-warehouse"],
+    "readingTime": "6 min read"
+  },
+
+  {
+    "title": "5.3-Flash Has Large Provider Cache Hit Variance",
+    "description": "GLM-5.3-Flash cache hit rates on OpenRouter ranged from 80% on Z.AI to 0% on DeepInfra and Fireworks. Quality clustered. Cost did not follow cache, because output tokens dominate this workload.",
+    "url": "/writings/glm-53-flash-provider-cache-hit-variance/",
+    "date": "2026-08-30",
+    "collection": "data",
+    "tags": ["writing","data","llm-inference","openrouter","benchmarks"],
+    "readingTime": "5 min read"
+  },
+
+  {
+    "title": "3 Lessons from Building a 170GB Iceberg Lakehouse with 8GB RAM",
+    "description": "Building a 170GB Apache Iceberg lakehouse on 8GB RAM: lane registry and schema contracts for 9 pipelines, incremental gold with snapshot-consistent DuckDB serving, and memory-bounded promotion.",
+    "url": "/writings/iceberg-lakehouse-8gb-ram/",
+    "date": "2026-06-07",
+    "collection": "data",
+    "tags": ["writing","data","iceberg","duckdb","data-pipeline","solana"],
+    "readingTime": "10 min read"
+  },
+
+  {
+    "title": "On-chain Atomic Gaussian Math",
+    "description": "On-chain Gaussian math on Sui using the AAA algorithm for rational approximation of the normal CDF and inverse CDF, evaluated via Horner's method with fixed-point arithmetic.",
+    "url": "/writings/on-chain-atomic-gaussian-math/",
+    "date": "2025-12-01",
+    "collection": "math",
+    "tags": ["writing","paragraph","gaussian-math","sui","amm","oracle"],
+    "readingTime": "19 min read"
+  },
+
+  {
+    "title": "Building an Agentic Native MCP for Data Science",
+    "description": "Building igloo-mcp, an MCP server for Snowflake data science with safe query execution, schema-first tools, catalog building, and dependency graph analysis.",
+    "url": "/writings/building-an-agentic-native-mcp-for-data-science/",
+    "date": "2025-10-01",
+    "collection": "data",
+    "tags": ["writing","paragraph","mcp"],
+    "readingTime": "6 min read"
+  },
+
+  {
+    "title": "Sui NFT Analytics",
+    "description": "Sui NFT analytics pipeline built with Sentio processors and SQL Studio to track Rootlets NFT holder counts, ownership history, and thematic categorization.",
+    "url": "/writings/sui-nft-analytics/",
+    "date": "2025-02-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","paragraph","sentio","nft","sui","data-pipeline"],
+    "readingTime": "5 min read"
+  },
+
+  {
+    "title": "Data Observability with Sentio Pipelines",
+    "description": "Sentio pipelines enable end-to-end web3 data observability with typed TypeScript processors, real-time streaming, and SQL/GraphQL endpoints, demoed via a Sui LST dashboard.",
+    "url": "/writings/data-observability-with-sentio-pipelines/",
+    "date": "2024-12-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","paragraph","sentio","dune","data-observability","sui","data-pipeline"],
+    "readingTime": "7 min read"
+  },
+
+  {
+    "title": "Economics of Sui Shared Liquidity Pool Objects",
+    "description": "Sui shared liquidity pool mutations saturate nearly every checkpoint, yet max gas fees don't guarantee top block position, informing SIP-45 prioritized transaction submission.",
+    "url": "/writings/economics-of-sui-shared-liquidity-pool-objects/",
+    "date": "2024-12-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","paragraph","liquidity","amm","sui","sentio","dune"],
+    "readingTime": "8 min read"
+  },
+
+  {
+    "title": "Economic Implications of a Competitive Blob Market",
+    "description": "The competitive Ethereum blob market pressures L2 profit margins (up to 99%) and projects fee revenue growth from $11M to $25M with expanded blob counts and higher priority fees.",
+    "url": "/writings/economic-implications-of-a-competitive-blob-market/",
+    "date": "2024-11-01",
+    "collection": "data",
+    "tags": ["writing","data","ethresear.ch","blob-market","preconfirmations","ethereum","jito-tips"],
+    "readingTime": "4 min read"
+  },
+
+  {
+    "title": "Tackling Blob Fee Slippage with Preconfirmations",
+    "description": "Blob fee slippage during June 2024 Ethereum congestion cost rollups millions; preconfirmations on mev-commit cut inclusion times 1000x to ~75ms bid latency.",
+    "url": "/writings/tackling-blob-fee-slippage-with-preconfirmations/",
+    "date": "2024-09-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","mirror","blob-market","preconfirmations","ethereum"],
+    "readingTime": "10 min read"
+  },
+
+  {
+    "title": "Clustering Analysis on Zeta <> Pyth Transaction Logs",
+    "description": "Agglomerative clustering analysis on Zeta and Pyth Solana transaction logs using Polars DataFrames to identify failure rate patterns and log message groupings.",
+    "url": "/writings/clustering-analysis-on-zeta-pyth-transaction-logs/",
+    "date": "2024-08-01",
+    "collection": "data",
+    "tags": ["writing","data","paragraph","solana","clustering","topological-data-analysis","jito-tips","oracle"],
+    "readingTime": "2 min read"
+  },
+
+  {
+    "title": "Conquering Solana Data Analytics Part 1 - Tooling",
+    "description": "Solana data analytics tooling comparison: benchmarking Cryptohouse, Dune, and Flipside on three SQL queries against the transactions table for performance and features.",
+    "url": "/writings/conquering-solana-data-analytics-part-1-tooling/",
+    "date": "2024-08-01",
+    "collection": "data",
+    "tags": ["writing","data","paragraph","solana","dune","flipside","oracle"],
+    "readingTime": "7 min read"
+  },
+
+  {
+    "title": "Economic Costs of Failed Transactions on Solana",
+    "description": "Solana's Pyth receiver contract has a 26.5% transaction failure rate, 3.3x the network average, costing publishers ~10 SOL monthly with no validator incentive to reduce failures.",
+    "url": "/writings/economic-costs-of-failed-transactions-on-solana/",
+    "date": "2024-08-01",
+    "collection": "data",
+    "tags": ["writing","data","paragraph","solana","oracle","dune"],
+    "readingTime": "5 min read"
+  },
+
+  {
+    "title": "Calculate Jito Tips in Solana",
+    "description": "Solana ETL pipeline in Python to calculate and analyze Jito tips, comparing transaction fees against compute costs across a single block using Solana-py.",
+    "url": "/writings/calculate-jito-tips-in-solana/",
+    "date": "2024-07-01",
+    "collection": "mev",
+    "tags": ["writing","mev","paragraph","solana","jito-tips","data-pipeline"],
+    "readingTime": "4 min read"
+  },
+
+  {
+    "title": "Slot Inclusion Rates and Blob Market Combinatorics",
+    "description": "Blob market combinatorics: an integer packing problem in Ethereum where small block capacity drives higher slot inclusion rates via rollup competition rather than builder censorship.",
+    "url": "/writings/slot-inclusion-rates-and-blob-market-combinatorics/",
+    "date": "2024-06-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","ethresear.ch","blob-market","slot-inclusion","preconfirmations"],
+    "readingTime": "6 min read"
+  },
+
+  {
+    "title": "Streaming Embedded OLAP Data Pipeline with LanceDB + DuckDB in Python",
+    "description": "Embedded OLAP streaming data pipeline using LanceDB, DuckDB, and Hypersync to query and analyze blockchain data with mutable columnar storage in Python.",
+    "url": "/writings/streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python/",
+    "date": "2024-05-01",
+    "collection": "data",
+    "tags": ["writing","data","paragraph","lancedb","data-pipeline","olap","duckdb"],
+    "readingTime": "3 min read"
+  },
+
+  {
+    "title": "Analyzing Blob Inclusion Rates and Market Strategies",
+    "description": "EIP-4844 blob market analysis measuring slot inclusion rates, Optimism and Base blob posting strategies, and priority fee correlation with inclusion speed.",
+    "url": "/writings/analyzing-blob-inclusion-rates-and-market-strategies/",
+    "date": "2024-04-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","mirror","blob-market","slot-inclusion","dune","optimism","jito-tips","ethereum"],
+    "readingTime": "7 min read"
+  },
+
+  {
+    "title": "Censorship, Latency, and Preconfirmations in the Blob Market",
+    "description": "EIP-4844 blob market analysis: blob propagation delays incentivize builder censorship, with mev-commit blob preconfirmations proposed as a reliable inclusion solution.",
+    "url": "/writings/censorship-latency-and-preconfirmations-in-the-blob-market/",
+    "date": "2024-02-01",
+    "collection": "mev",
+    "tags": ["writing","mev","mirror","blob-market","ethereum","preconfirmations"],
+    "readingTime": "12 min read"
+  },
+
+  {
+    "title": "Trading in the Dark: Measuring Reordering Slippage in MEV",
+    "description": "Reordering slippage cost Uniswap users $9m in losses, negatively affecting 72% of swaps and 92% of large swaps over $250k from September to October 2023.",
+    "url": "/writings/trading-in-the-dark-measuring-reordering-slippage-in-mev/",
+    "date": "2024-01-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","frontier.tech","uniswap","slot-inclusion"],
+    "readingTime": "17 min read"
+  },
+
+  {
+    "title": "Fetching Uniswap Historical Swap Data With Python and Subgrounds",
+    "description": "Fetch Uniswap v2 and v3 historical swap data from The Graph decentralized network using Python and Subgrounds, with pre-defined schemas and Polars-based data exploration.",
+    "url": "/writings/fetching-uniswap-historical-swap-data-with-python-and-subgrounds/",
+    "date": "2023-11-01",
+    "collection": "data",
+    "tags": ["writing","data","mirror","subgraph","uniswap"],
+    "readingTime": "3 min read"
+  },
+
+  {
+    "title": "Free Historical Blockchain Extraction with Cryo + Merkle Reth Nodes",
+    "description": "Extract free historical Ethereum data with Cryo's parallel Rust-based extractor and Merkle's free unlimited RPC archive node, outputting standardized parquet files for analysis.",
+    "url": "/writings/free-historical-blockchain-extraction-with-cryo-merkle-reth-nodes/",
+    "date": "2023-11-01",
+    "collection": "data",
+    "tags": ["writing","data","mirror","cryo","ethereum","polygon","olap"],
+    "readingTime": "3 min read"
+  },
+
+  {
+    "title": "Cross-Chain NFT Marketplace MEV Strategy with Artemis: A Technical Commentary",
+    "description": "Artemis MEV bot framework technical commentary on cross-market NFT arbitrage between Seaport and Sudoswap, covering collectors, executors, and strategy.rs logic.",
+    "url": "/writings/cross-chain-nft-marketplace-mev-strategy-with-artemis-a-technical-commentary/",
+    "date": "2023-05-01",
+    "collection": "mev",
+    "tags": ["writing","mev","mirror","sudo","nft","opensea"],
+    "readingTime": "2 min read"
+  },
+
+  {
+    "title": "Feedlot: trading with safe, low latency price oracles",
+    "description": "Feedlot implements safe, low-latency price oracles for MEV-resistant on-chain trading and arbitrage execution, mitigating front-running risk for decentralized exchange strategies.",
+    "url": "/writings/feedlot-trading-with-safe-low-latency-price-oracles/",
+    "date": "2023-04-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","github","oracle","mev","amm"],
+    "readingTime": "1 min read"
+  },
+
+  {
+    "title": "Streamline Subgraph Pipeline Creation With DataStreams",
+    "description": "DataStreams is a Python Subgraph query utility built on Subgrounds that streamlines subgraph data pipelines with parallelized queries and CSV export.",
+    "url": "/writings/streamline-subgraph-pipeline-creation-with-datastreams/",
+    "date": "2023-01-01",
+    "collection": "data",
+    "tags": ["writing","data","mirror","subgraph","data-pipeline"],
+    "readingTime": "1 min read"
+  },
+
+  {
+    "title": "Applying Balancer’s Managed Pool Controllers to Manage Liquidity in Bonding Curves",
+    "description": "Balancer managed pool controllers applied to bonding curve liquidity management, covering circuit breakers, dynamic token weights, and controller designs.",
+    "url": "/writings/applying-balancers-managed-pool-controllers-to-manage-liquidity-in-bonding-curves/",
+    "date": "2022-12-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","liquidity","balancer","bonding-curve"],
+    "readingTime": "9 min read"
+  },
+
+  {
+    "title": "Using Topological Data Analysis to Identify Distinct MEV Behavior (blog)",
+    "description": "Topological data analysis via the Mapper algorithm identifies six statistically distinct MEV behaviors in Olympus Sushiswap protocol-owned liquidity data.",
+    "url": "/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior-blog/",
+    "date": "2022-11-01",
+    "collection": "mev",
+    "tags": ["writing","mev","mirror","topological-data-analysis","olympus"],
+    "readingTime": "3 min read"
+  },
+
+  {
+    "title": "Using Topological Data Analysis to Identify Distinct MEV Behavior",
+    "description": "Research paper applying the Mapper topological data analysis algorithm to identify six distinct MEV behaviors in on-chain Olympus DAO trading data.",
+    "url": "/writings/using-topological-data-analysis-to-identify-distinct-mev-behavior/",
+    "date": "2022-11-01",
+    "collection": "highlights",
+    "tags": ["writing","highlights","github","topological-data-analysis"],
+    "readingTime": "1 min read"
+  },
+
+  {
+    "title": "MEV Arbitrage on Olympus",
+    "description": "MEV arbitrage on Olympus POL: data-driven analysis showing bots are under 1% of addresses yet drive the majority of trading volume and fees across OHM liquidity pools.",
+    "url": "/writings/mev-arbitrage-on-olympus/",
+    "date": "2022-10-01",
+    "collection": "mev",
+    "tags": ["writing","mev","mirror","olympus","liquidity","atomic-execution","subgraph","dune"],
+    "readingTime": "8 min read"
+  },
+
+  {
+    "title": "Pari-Mutuel Market Design",
+    "description": "Pari-mutuel market design takeaways covering Hanson's LMSR, cost function equivalence, the Sequential Convex Pari-mutuel Mechanism, and market maker risk attitudes.",
+    "url": "/writings/pari-mutuel-market-design/",
+    "date": "2022-08-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","pari-mutuel","market-maker","liquidity"],
+    "readingTime": "3 min read"
+  },
+
+  {
+    "title": "The AMM Design Trilemma",
+    "description": "The AMM design trilemma: no pricing rule can be path independent, translation invariant, and liquidity sensitive simultaneously, per Othman et al (2013).",
+    "url": "/writings/the-amm-design-trilemma/",
+    "date": "2022-08-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","liquidity","amm","pari-mutuel"],
+    "readingTime": "4 min read"
+  },
+
+  {
+    "title": "RMM-01 Concentrated Liquidity Analysis",
+    "description": "RMM-01 concentrated liquidity analysis of an ETH/USDC pool using kernel density estimation to evaluate directional LPing and dynamically concentrated liquidity distributions.",
+    "url": "/writings/rmm-01-concentrated-liquidity-analysis/",
+    "date": "2022-07-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","liquidity","amm","market-maker","ethereum","kernel-density","uniswap","abstract-algebra"],
+    "readingTime": "5 min read"
+  },
+
+  {
+    "title": "Replicating Market Makers and Super Hedging Portfolios",
+    "description": "Replicating market makers and super hedging portfolios: how RMMs extend CFMMs to create oracle-free permissionless derivatives through static and dynamic replicating portfolios.",
+    "url": "/writings/replicating-market-makers-and-super-hedging-portfolios/",
+    "date": "2022-05-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","market-maker","amm","liquidity","oracle"],
+    "readingTime": "2 min read"
+  },
+
+  {
+    "title": "Liquidity Management and Supply Issuance Optimization Model",
+    "description": "DeFi liquidity management and supply issuance optimization extends control theory research, tuning bond durations and lock rates to minimize price volatility and boost capital efficiency.",
+    "url": "/writings/liquidity-management-and-supply-issuance-optimization-model/",
+    "date": "2022-04-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","liquidity","olympus","control-theory"],
+    "readingTime": "5 min read"
+  },
+
+  {
+    "title": "Crypto Speculation Index (CSI)",
+    "description": "Crypto Speculation Index (CSI) improves on the Fear and Greed Index by using momentum and stablecoin dominance to quantify market speculation across 30 and 90 day signals.",
+    "url": "/writings/crypto-speculation-index-csi/",
+    "date": "2022-01-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","stablecoin","ethereum"],
+    "readingTime": "3 min read"
+  },
+
+  {
+    "title": "Quantitative Modeling on Rebase Tokens (Ohm)",
+    "description": "Quantitative modeling of OHM rebase tokens: a CSI crossover momentum strategy vs (3,3) hold over six months, finding aggressive OHM accumulation maximizes rebase yield.",
+    "url": "/writings/quantitative-modeling-on-rebase-tokens-ohm/",
+    "date": "2022-01-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","olympus","quantitative-modeling"],
+    "readingTime": "4 min read"
+  },
+
+  {
+    "title": "Quadratic Reciprocity of Lucas Polynomials",
+    "description": "Quadratic reciprocity of Lucas polynomials: an independent study extending classical quadratic reciprocity to Lucas polynomial sequences with proofs and examples.",
+    "url": "/writings/quadratic-reciprocity-of-lucas-polynomials/",
+    "date": "2021-12-01",
+    "collection": "math",
+    "tags": ["writing","math","github","quadratic-reciprocity"],
+    "readingTime": "1 min read"
+  },
+
+  {
+    "title": "Why Decentralized Algorithmic Stablecoins Win the Stablecoin Wars (UST, BEAN)",
+    "description": "Decentralized algorithmic stablecoins UST and BEAN use seigniorage shares and credit-based models to maintain peg without collateral, challenging USDC and USDT.",
+    "url": "/writings/why-decentralized-algorithmic-stablecoins-win-the-stablecoin-wars-ust-bean/",
+    "date": "2021-12-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","stablecoin","ust","beanstalk"],
+    "readingTime": "17 min read"
+  },
+
+  {
+    "title": "Applications of Graph Theory on the Structure of a DAO",
+    "description": "Graph theory applied to DAO organizational structure, using complete graphs to quantify decentralization and map department responsibilities and interdependencies.",
+    "url": "/writings/applications-of-graph-theory-on-the-structure-of-a-dao/",
+    "date": "2021-11-01",
+    "collection": "defi",
+    "tags": ["writing","defi","mirror","dao","graph-theory","subgraph"],
+    "readingTime": "3 min read"
+  },
+
+  {
+    "title": "Groebner Basis and Automated Geometric Theorem Solver (Mathematica)",
+    "description": "Groebner basis computations in Mathematica power an automated geometric theorem solver, translating geometric statements into polynomial ideals for mechanical proof verification.",
+    "url": "/writings/groebner-basis-and-automated-geometric-theorem-solver-mathematica/",
+    "date": "2021-04-01",
+    "collection": "math",
+    "tags": ["writing","math","github","groebner-basis"],
+    "readingTime": "1 min read"
+  },
+
+  {
+    "title": "Abstract Algebra - Groups, Kernels, Normal Subgroups",
+    "description": "Abstract algebra independent study notes covering groups, homomorphisms, kernels, normal subgroups, and quotient structures with worked proofs.",
+    "url": "/writings/abstract-algebra-groups-kernels-normal-subgroups/",
+    "date": "2020-11-01",
+    "collection": "math",
+    "tags": ["writing","math","github","abstract-algebra"],
+    "readingTime": "1 min read"
+  },
+
+  {
+    "title": "Measure Theory - Lebesgue Integration",
+    "description": "Lebesgue integration study notes covering measure theory fundamentals including sigma-algebras, measurable functions, and construction of the Lebesgue integral.",
+    "url": "/writings/measure-theory-lebesgue-integration/",
+    "date": "2020-05-01",
+    "collection": "math",
+    "tags": ["writing","math","github","measure-theory"],
+    "readingTime": "1 min read"
+  },
+
+  {
+    "title": "Perceptron Neural Networks",
+    "description": "Perceptron neural network study notes covering the single-layer perceptron model, activation functions, learning rules, and the foundations of binary classification.",
+    "url": "/writings/perceptron-neural-networks/",
+    "date": "2020-05-01",
+    "collection": "math",
+    "tags": ["writing","math","github","neural-networks"],
+    "readingTime": "1 min read"
+  }
+
+]

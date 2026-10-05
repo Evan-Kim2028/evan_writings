@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal-Bench Task: Lakehouse Schema Contract Drift | Evan's Writings</title>
+  <meta name="description" content="A Terminal-Bench task where the schema contract drifts between epochs, built as a counterexample for coding agents.">
+  <meta name="author" content="Evan Kim">
+  <meta name="theme-color" content="#fbfbf9">
+  <script>(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/evan_writings/vendor/katex.min.css"><link rel="canonical" href="https://Evan-Kim2028.github.io/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/">
+  <link rel="icon" href="/evan_writings/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/evan_writings/styles.css?v=30">
+  <link rel="stylesheet" href="/evan_writings/extras.css?v=1">
+  <link rel="alternate" type="application/rss+xml" title="Evan's Writings" href="https://Evan-Kim2028.github.io/evan_writings/feed.xml">
+
+  
+  <meta property="og:site_name" content="Evan's Writings">
+  <meta property="og:title" content="Terminal-Bench Task: Lakehouse Schema Contract Drift">
+  <meta property="og:description" content="A Terminal-Bench task where the schema contract drifts between epochs, built as a counterexample for coding agents.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://Evan-Kim2028.github.io/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/">
+  <meta property="og:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/images/lakehouse-priors-hero.png"><meta property="article:published_time" content="2026-09-10"><meta property="article:author" content="Evan Kim"><meta property="article:section" content="latest"><meta property="article:tag" content="evals"><meta property="article:tag" content="coding-agents"><meta property="article:tag" content="terminal-bench"><meta property="article:tag" content="data-warehouse">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terminal-Bench Task: Lakehouse Schema Contract Drift">
+  <meta name="twitter:description" content="A Terminal-Bench task where the schema contract drifts between epochs, built as a counterexample for coding agents.">
+  <meta name="twitter:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/images/lakehouse-priors-hero.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#website",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "name": "Evan's Writings",
+        "description": "Agents, evals, data. Writing by Evan Kim.",
+        "publisher": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://Evan-Kim2028.github.io/evan_writings/writings/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#person",
+        "name": "Evan Kim",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "sameAs": [
+          "https://github.com/Evan-Kim2028",
+          "https://x.com/evandekim",
+          "https://www.linkedin.com/in/evan-kim-30943591"
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/#article",
+        "headline": "Terminal-Bench Task: Lakehouse Schema Contract Drift",
+        "description": "A Terminal-Bench task where the schema contract drifts between epochs, built as a counterexample for coding agents.",
+        "datePublished": "2026-09-10",
+        "dateModified": "2026-09-10",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/",
+        "image": "https://Evan-Kim2028.github.io/evan_writings/assets/images/lakehouse-priors-hero.png",
+        "author": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "publisher": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://Evan-Kim2028.github.io/evan_writings/writings/terminal-bench-task-lakehouse-schema-contract-drift/"
+        },
+        "isPartOf": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#website" },
+        "keywords": "evals, coding-agents, terminal-bench, data-warehouse"}]
+  }
+  </script>
+</head>
+<body data-base="/evan_writings/">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="progress" aria-hidden="true"></div>
+  <header class="site">
+    <nav aria-label="Main">
+      <a href="/evan_writings/" class="brand" aria-label="Evan Kim home">Evan Kim</a>
+      <div class="nav-links">
+        <a href="/evan_writings/writings/">Writing</a>
+        <a href="/evan_writings/collections/">Collections</a>
+        <a href="/evan_writings/tags/">Tags</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
+          <svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    
+
+<div class="article-layout">
+  <aside class="rail">
+    
+    <nav class="toc" aria-label="Table of contents"><p class="toc-title">On this page</p><a href="#research-question-learned-conventions-as-behavioral-priors" class="toc-link toc-link-h2"><span class="toc-num">1</span>Research Question - Learned Conventions as behavioral priors</a>
+<a href="#terminal-bench-counterexample-lakehouse-schema-contract-drift" class="toc-link toc-link-h2"><span class="toc-num">2</span>Terminal-Bench Counterexample: Lakehouse Schema Contract Drift</a>
+<a href="#evaluation-verification-design" class="toc-link toc-link-h3"><span class="toc-num">2.1</span>Evaluation Verification Design</a>
+<a href="#results" class="toc-link toc-link-h2"><span class="toc-num">3</span>Results</a>
+<a href="#agent-reasoning-traces" class="toc-link toc-link-h3"><span class="toc-num">3.1</span>Agent Reasoning Traces</a>
+<a href="#opus-5-verifying-the-familiar-convention" class="toc-link toc-link-h3"><span class="toc-num">3.2</span>Opus 5: Verifying the Familiar Convention</a>
+<a href="#grok-46-reverting-a-verified-correct-fix" class="toc-link toc-link-h3"><span class="toc-num">3.3</span>Grok 4.6: Reverting a Verified Correct Fix</a>
+<a href="#conclusion" class="toc-link toc-link-h2"><span class="toc-num">4</span>Conclusion</a></nav>
+    
+    <a href="/evan_writings/writings/" class="rail-back">← All writing</a>
+  </aside>
+
+  <article class="article"><figure class="hero-standalone" style="--hero-light:url('/evan_writings/assets/images/lakehouse-priors-hero.png?v=11');--hero-dark:url('/evan_writings/assets/images/lakehouse-priors-hero.dark.png?v=11')" aria-hidden="true"></figure>
+    <header class="article-head">
+      <div class="kicker">
+        September 2026
+      </div>
+      <p class="series-line">Evals · Part 1</p>
+      <h1 class="title">Terminal-Bench Task: Lakehouse Schema Contract Drift</h1>
+      
+      
+      <p class="dek">A Terminal-Bench task where the schema contract drifts between epochs, built as a counterexample for coding agents.</p>
+      
+    </header>
+
+    <div class="meta meta-below">
+      <span>Evan Kim</span>
+      
+        
+          
+        
+          
+        
+          
+        
+          
+          <a href="/evan_writings/tags/evals/" class="tag tag-link">evals</a>
+          
+        
+          
+          <a href="/evan_writings/tags/coding-agents/" class="tag tag-link">coding-agents</a>
+          
+        
+          
+          <a href="/evan_writings/tags/terminal-bench/" class="tag tag-link">terminal-bench</a>
+          
+        
+          
+          <a href="/evan_writings/tags/data-warehouse/" class="tag tag-link">data-warehouse</a>
+          
+        
+      
+    </div>
+
+    <div class="writing-body">
+      <h2 id="research-question-learned-conventions-as-behavioral-priors"><a class="h-link" href="#research-question-learned-conventions-as-behavioral-priors">Research Question - Learned Conventions as behavioral priors</a></h2>
+<p><strong>When a local specification conflicts with a strongly learned convention, which signal controls a coding agent's behavior?</strong></p>
+<p class="long">Coding agents develop strong expectations about how familiar software systems behave. Training data contains repeated implementations, documentation, examples, and conventions that allow models to recognize common structures and apply familiar solutions quickly. These learned conventions function as behavioral priors. When an agent encounters a recognizable system, the prior can provide a useful starting point for reasoning about the task.</p>
+<p>The same mechanism can create failure modes when the local specification changes a rule that the familiar convention normally determines. A useful evaluation should therefore create exactly this conflict and measure whether the agent follows the local contract.</p>
+<h2 id="terminal-bench-counterexample-lakehouse-schema-contract-drift"><a class="h-link" href="#terminal-bench-counterexample-lakehouse-schema-contract-drift">Terminal-Bench Counterexample: Lakehouse Schema Contract Drift</a></h2>
+<p>The lakehouse task, <a href="https://github.com/Evan-Kim2028/eval_tasks">published here</a>, introduces a deliberate <strong>schema contract drift</strong>. The surrounding system follows familiar lakehouse patterns. However the schema semantics diverge from relevant Iceberg convention, using numeric field IDs but assign a fresh, disjoint ID set to every schema epoch.</p>
+<p>Each schema epoch receives a fresh set of numeric field IDs. The ID sets for different epochs must remain disjoint. A schema attached to a commit represents the schema for that particular epoch rather than a globally stable column identity.</p>
+<p>The environment therefore presents a recognizable lakehouse problem while changing one of the assumptions that an agent may carry into that environment.</p>
+<figure class="wide"><img class="img-light" src="/evan_writings/assets/images/lakehouse-priors-fig1-schema-drift.png" alt="Schema contract drift: Iceberg convention vs task contract"><img class="img-dark" src="/evan_writings/assets/images/lakehouse-priors-fig1-schema-drift.dark.png" alt="Schema contract drift: Iceberg convention vs task contract"></figure><p>The task documentation states the fresh-ID requirement explicitly. The hidden verifier checks whether the implementation preserves that requirement across schema readers, peer publishing, and composed recovery.</p>
+<p>This creates a narrow semantic difference inside an otherwise recognizable system. The experiment can therefore isolate three layers of the phenomenon:</p>
+<ol>
+<li><strong>Research phenomenon:</strong> learned priors influencing behavior under conflicting specifications.</li>
+<li><strong>Experimental mechanism:</strong> schema contract drift.</li>
+<li><strong>Specific counterexample:</strong> fresh, disjoint field IDs across schema epochs instead of stable field IDs across schema evolution.</li>
+</ol>
+<p>The expected failure mode is straightforward: the agent recognizes a familiar lakehouse pattern, applies the associated schema convention, and fails to account for the local rule governing schema epochs.</p>
+<h3 id="evaluation-verification-design"><a class="h-link" href="#evaluation-verification-design">Evaluation Verification Design</a></h3>
+<p>This design gave the verifier a simple invariant to check while allowing the task itself to remain complex. The primary checks test whether different schema epochs receive disjoint field-ID sets. Additional tests propagate those identities through peer reconstruction and composed recovery, where the final catalog must match the serial reference state.</p>
+<p>A correct implementation must follow the local schema contract. An implementation that imports the stable-ID convention will produce overlapping identities and eventually diverge from the reference recovery state.</p>
+<p>The oracle score was 1.0, confirming that the task has a valid solution. The adversarial and cheat trials also received 0, providing additional evidence that the observed failure came from the agent's implementation behavior rather than a missing solution path.</p>
+<h2 id="results"><a class="h-link" href="#results">Results</a></h2>
+<p>Six honest trials were run across Claude Opus 5 Max and Grok 4.6 xhigh. Every trial received a reward of 0.</p>
+<p>All six trials failed the same four tests:</p>
+<p><code>test_schema_epoch_fresh_ids_and_readers</code><br>
+<code>test_peer_email_rebuilds_schema_epoch</code><br>
+<code>test_composed_recovery_matches_serial</code><br>
+<code>test_seeded_random_variant</code></p>
+<p>The agents consistently produced behavior compatible with stable field identities while the task required fresh identities for each epoch. <strong>Both frontier models encountered evidence supporting the local contract but ultimately converged on the familiar convention.</strong></p>
+<h3 id="agent-reasoning-traces"><a class="h-link" href="#agent-reasoning-traces">Agent Reasoning Traces</a></h3>
+<p>The reasoning traces show a consistent pattern across both frontier agents. The agents encountered the schema-ID collision during execution, recognized the surrounding lakehouse conventions, and repeatedly evaluated the local requirement through the familiar stable-ID behavior.</p>
+<p>The critical evidence appeared directly in their execution traces. The agents printed epoch-1 and epoch-2 field IDs, inspected the resulting schemas, and constructed tests around those observations. The traces therefore show that the agents had access to the information required to identify the contract violation.</p>
+<p>The failure persisted during interpretation and verification. Rather than testing the complete epoch-level disjointness requirement, the agents constructed narrower invariants that preserved the familiar stable-ID convention. These checks allowed the agents to validate an implementation against their interpretation of schema evolution while leaving the local contract untested.</p>
+<p>The two models expressed this pattern differently. Opus repeatedly encoded the stable-ID interpretation into its verification logic. Grok produced a stronger trajectory in which <strong>the agent temporarily implemented and verified the contract-conformant behavior before reverting it.</strong></p>
+<figure class="wide"><img class="img-light" src="/evan_writings/assets/images/lakehouse-priors-fig3-trace-flow.png" alt="Flow of the six traces from observation to shipped artifact"><img class="img-dark" src="/evan_writings/assets/images/lakehouse-priors-fig3-trace-flow.dark.png" alt="Flow of the six traces from observation to shipped artifact"></figure><h3 id="opus-5-verifying-the-familiar-convention"><a class="h-link" href="#opus-5-verifying-the-familiar-convention">Opus 5: Verifying the Familiar Convention</a></h3>
+<p>Across all four Opus reconstruction runs, the agents printed the colliding field IDs during their investigation. The traces showed epoch 2 reusing IDs from epoch 1, including sequences such as <code>[1, 2, 3, 4]</code> and <code>[1, 2, 3, 4, 5]</code>.</p>
+<p>The agents then constructed narrow verification logic around the stable-ID interpretation. One run created <code>/tmp/invariants.py</code> with a check that treated changing a field's ID across epochs as evidence of an error. That invariant would reject the contract-conformant behavior because the task requires fresh IDs in each epoch.</p>
+<p>One agent verified that the new <code>email</code> field received a fresh ID without checking whether the complete epoch-2 ID set remained disjoint from epoch 1. Another property group used the label <code>&quot;epoch 2 allocation is fresh relative to epoch 1&quot;</code> but filtered the comparison to newly added field names.</p>
+<p>All Opus runs left <code>schema.py</code> byte-identical to the starter. The agent repeatedly observed the collision, constructed checks around the stable-ID interpretation, and retained the implementation that produced the collision.</p>
+<h3 id="grok-46-reverting-a-verified-correct-fix"><a class="h-link" href="#grok-46-reverting-a-verified-correct-fix">Grok 4.6: Reverting a Verified Correct Fix</a></h3>
+<p>The Grok traces provide a more explicit example of the same conflict. <strong>The agent reached the contract-conformant implementation, constructed the correct invariant, observed the invariant pass, and then rejected the implementation in favor of the familiar convention.</strong></p>
+<p>In one run, the agent implemented the correct fresh-ID behavior and wrote the corresponding disjointness assertion:</p>
+<p><code>ids1.isdisjoint(ids2)</code></p>
+<p>The assertion passed with epoch-1 IDs <code>{1,2,3,4}</code> and epoch-2 IDs <code>{5,6,7,8,9}</code>.</p>
+<p>The agent then reverted the implementation and restored the stable-ID behavior. After the reversal, the test count changed from <code>128/5</code> to <code>127/6</code>. The run concluded that the implementation was working and attributed the remaining failures to the tests.</p>
+<figure class="wide"><img class="img-light" src="/evan_writings/assets/images/lakehouse-priors-fig4-grok-revert.png" alt="Grok 4.6 trial 1 timeline: fix, verify, revert, ship"><img class="img-dark" src="/evan_writings/assets/images/lakehouse-priors-fig4-grok-revert.dark.png" alt="Grok 4.6 trial 1 timeline: fix, verify, revert, ship"></figure><p class="long">Other Grok traces show the same tension. One run stated, <code>&quot;I don't want to risk breaking the verifier,&quot;</code> before later producing the correct diagnosis of the schema-ID requirement. Another argued that the requirement described additive schema evolution rather than a complete reset of field identities. A separate hardening run correctly described epoch 2 as using IDs <code>5-9</code> and called the result <code>&quot;Fresh. Good.&quot;</code></p>
+<p>The Grok traces therefore show the same underlying conflict as the Opus traces, with a more explicit implementation-level reversal: the local contract produced a verified solution, while the familiar convention ultimately controlled the final implementation.</p>
+<h2 id="conclusion"><a class="h-link" href="#conclusion">Conclusion</a></h2>
+<p>This counterexample shows how a familiar software convention can compete with an explicit local specification in frontier coding agents. The reasoning traces provide even stronger evidence.</p>
+<p>Local contract shifts provide a simple way to expose this behavior and verify the output. Preserve a familiar environment, change one semantic rule, and test whether the agent conditions its implementation on the local specification.</p>
+<p>Coding-agent evaluations should test more than unfamiliarity and implementation complexity. They should also test whether agents can override strong learned conventions when the task explicitly requires them to do so.</p>
+
+    </div><nav class="series-nav" aria-label="Series navigation">
+  <div class="series-nav-head">Evals series · Part 1</div>
+  <div class="series-nav-links">
+    <span class="series-empty">This is the first part.</span>
+    <a class="series-next" href="/evan_writings/writings/four-verifiable-properties-of-a-useful-agent-task/"><span class="k">Next · Part 2 →</span><span class="t">Four Verifiable Properties of a Useful Agent Task</span></a>
+  </div>
+</nav><footer class="article-end">
+      
+      
+      <p class="archive-note"><a href="https://github.com/Evan-Kim2028/eval_tasks" target="_blank" rel="noopener">View the task and implementation on GitHub ↗</a></p>
+      
+      
+      
+      
+    </footer>
+  </article>
+</div>
+
+  </main>
+  <footer class="site">
+    <div class="inner">
+      <span>Evan Kim · <a href="https://github.com/Evan-Kim2028/evan_writings">Source</a> · <a href="/evan_writings/llms-full.txt">llms-full.txt</a></span>
+      <span class="links">
+        <a href="https://x.com/evandekim">X</a>
+        <a href="https://github.com/Evan-Kim2028">GitHub</a>
+        <a href="https://www.linkedin.com/in/evan-kim-30943591">LinkedIn</a>
+        <a href="/evan_writings/feed.xml">RSS</a>
+      </span>
+    </div>
+  </footer>
+  <script src="/evan_writings/site.js?v=5" defer></script>
+  <script src="/evan_writings/extras.js?v=1" defer></script>
+</body>
+</html>
