@@ -5,11 +5,17 @@
   <link href="https://Evan-Kim2028.github.io/evan_writings/" rel="alternate" type="text/html"/>
   <link href="https://Evan-Kim2028.github.io/evan_writings/feed.xml" rel="self" type="application/atom+xml"/>
   <id>https://Evan-Kim2028.github.io/evan_writings/</id>
-  <updated>2026-10-03</updated>
+  <updated>2026-10-11</updated>
   <author>
     <name>Evan Kim</name>
     <uri>https://Evan-Kim2028.github.io/evan_writings/</uri>
   </author><entry>
+    <title>Breaking CI with 6k Subagents and 50B Tokens in a Night</title>
+    <link href="https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/" rel="alternate" type="text/html"/>
+    <id>https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/</id>
+    <published>2026-10-11</published>
+    <updated>2026-10-11</updated>
+    <summary>6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.</summary><category term="data"/></entry><entry>
     <title>Knowledge vs Execution in a Qwen3.5-2B Data Agent</title>
     <link href="https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/" rel="alternate" type="text/html"/>
     <id>https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/</id>
@@ -123,10 +129,4 @@
     <id>https://Evan-Kim2028.github.io/evan_writings/writings/streaming-embedded-olap-data-pipeline-with-lancedb-duckdb-in-python/</id>
     <published>2024-05-01</published>
     <updated>2024-05-01</updated>
-    <summary>Embedded OLAP streaming data pipeline using LanceDB, DuckDB, and Hypersync to query and analyze blockchain data with mutable columnar storage in Python.</summary><category term="data"/></entry><entry>
-    <title>Analyzing Blob Inclusion Rates and Market Strategies</title>
-    <link href="https://Evan-Kim2028.github.io/evan_writings/writings/analyzing-blob-inclusion-rates-and-market-strategies/" rel="alternate" type="text/html"/>
-    <id>https://Evan-Kim2028.github.io/evan_writings/writings/analyzing-blob-inclusion-rates-and-market-strategies/</id>
-    <published>2024-04-01</published>
-    <updated>2024-04-01</updated>
-    <summary>EIP-4844 blob market analysis measuring slot inclusion rates, Optimism and Base blob posting strategies, and priority fee correlation with inclusion speed.</summary><category term="highlights"/></entry></feed>
+    <summary>Embedded OLAP streaming data pipeline using LanceDB, DuckDB, and Hypersync to query and analyze blockchain data with mutable columnar storage in Python.</summary><category term="data"/></entry></feed>

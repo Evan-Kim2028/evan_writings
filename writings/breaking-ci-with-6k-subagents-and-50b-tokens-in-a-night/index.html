@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breaking CI with 6k Subagents and 50B Tokens in a Night | Evan's Writings</title>
+  <meta name="description" content="6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.">
+  <meta name="author" content="Evan Kim">
+  <meta name="theme-color" content="#fbfbf9">
+  <script>(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/evan_writings/vendor/katex.min.css"><link rel="canonical" href="https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/">
+  <link rel="icon" href="/evan_writings/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/evan_writings/styles.css?v=30">
+  <link rel="stylesheet" href="/evan_writings/extras.css?v=1">
+  <link rel="alternate" type="application/rss+xml" title="Evan's Writings" href="https://Evan-Kim2028.github.io/evan_writings/feed.xml">
+
+  
+  <meta property="og:site_name" content="Evan's Writings">
+  <meta property="og:title" content="Breaking CI with 6k Subagents and 50B Tokens in a Night">
+  <meta property="og:description" content="6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/">
+  <meta property="og:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/images/agent-fleet-ci-hero.dark.png"><meta property="article:published_time" content="2026-10-11"><meta property="article:author" content="Evan Kim"><meta property="article:section" content="data"><meta property="article:tag" content="agents"><meta property="article:tag" content="ci"><meta property="article:tag" content="devops"><meta property="article:tag" content="merge-trains"><meta property="article:tag" content="muse"><meta property="article:tag" content="space-bunny"><meta property="article:tag" content="deepseek">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Breaking CI with 6k Subagents and 50B Tokens in a Night">
+  <meta name="twitter:description" content="6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.">
+  <meta name="twitter:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/images/agent-fleet-ci-hero.dark.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#website",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "name": "Evan's Writings",
+        "description": "Agents, evals, data. Writing by Evan Kim.",
+        "publisher": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://Evan-Kim2028.github.io/evan_writings/writings/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/#person",
+        "name": "Evan Kim",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/",
+        "sameAs": [
+          "https://github.com/Evan-Kim2028",
+          "https://x.com/evandekim",
+          "https://www.linkedin.com/in/evan-kim-30943591"
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/#article",
+        "headline": "Breaking CI with 6k Subagents and 50B Tokens in a Night",
+        "description": "6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.",
+        "datePublished": "2026-10-11",
+        "dateModified": "2026-10-11",
+        "url": "https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/",
+        "image": "https://Evan-Kim2028.github.io/evan_writings/assets/images/agent-fleet-ci-hero.dark.png",
+        "author": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "publisher": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#person" },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/"
+        },
+        "isPartOf": { "@id": "https://Evan-Kim2028.github.io/evan_writings/#website" },
+        "keywords": "agents, ci, devops, merge-trains, muse, space-bunny, deepseek"}]
+  }
+  </script>
+</head>
+<body data-base="/evan_writings/">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="progress" aria-hidden="true"></div>
+  <header class="site">
+    <nav aria-label="Main">
+      <a href="/evan_writings/" class="brand" aria-label="Evan Kim home">Evan Kim</a>
+      <div class="nav-links">
+        <a href="/evan_writings/writings/">Writing</a>
+        <a href="/evan_writings/collections/">Collections</a>
+        <a href="/evan_writings/tags/">Tags</a>
+        <button id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
+          <svg class="moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    
+
+<div class="article-layout">
+  <aside class="rail">
+    
+    <nav class="toc" aria-label="Table of contents"><p class="toc-title">On this page</p><a href="#intro" class="toc-link toc-link-h2"><span class="toc-num">1</span>Intro</a>
+<a href="#fixing-the-ci" class="toc-link toc-link-h2"><span class="toc-num">2</span>Fixing the CI</a>
+<a href="#local-test-gates-and-merge-trains" class="toc-link toc-link-h2"><span class="toc-num">3</span>Local test gates and merge trains</a></nav>
+    
+    <a href="/evan_writings/writings/" class="rail-back">← All writing</a>
+  </aside>
+
+  <article class="article"><figure class="hero-standalone" style="--hero-light:url('/evan_writings/assets/images/agent-fleet-ci-hero.png?v=11');--hero-dark:url('/evan_writings/assets/images/agent-fleet-ci-hero.dark.png?v=11')" aria-hidden="true"></figure>
+    <header class="article-head">
+      <div class="kicker">
+        <a href="/evan_writings/collections/data/">data</a>&nbsp;·&nbsp; October 2026
+      </div>
+      
+      <h1 class="title">Breaking CI with 6k Subagents and 50B Tokens in a Night</h1>
+      
+      
+      <p class="dek">6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.</p>
+      
+    </header>
+
+    <div class="meta meta-below">
+      <span>Evan Kim</span>
+      
+        
+          
+        
+          
+        
+          
+          <a href="/evan_writings/tags/agents/" class="tag tag-link">agents</a>
+          
+        
+          
+          <a href="/evan_writings/tags/ci/" class="tag tag-link">ci</a>
+          
+        
+          
+          <a href="/evan_writings/tags/devops/" class="tag tag-link">devops</a>
+          
+        
+          
+          <a href="/evan_writings/tags/merge-trains/" class="tag tag-link">merge-trains</a>
+          
+        
+          
+          <a href="/evan_writings/tags/muse/" class="tag tag-link">muse</a>
+          
+        
+          
+          <a href="/evan_writings/tags/space-bunny/" class="tag tag-link">space-bunny</a>
+          
+        
+          
+          <a href="/evan_writings/tags/deepseek/" class="tag tag-link">deepseek</a>
+          
+        
+      
+    </div>
+
+    <div class="writing-body">
+      <!-- vale House.FirstPerson = NO -->
+<!-- vale Google.Headings = NO -->
+<!-- vale Google.Slang = NO -->
+<!-- cspell:ignore bursty deepseek -->
+<h2 id="intro"><a class="h-link" href="#intro">Intro</a></h2>
+<p>A couple weeks ago, I took advantage of the free unnamed model space bunny. I quickly discovered
+that there were truly &quot;no limits&quot; by spinning up about
+<a href="https://x.com/EvanDeKim/status/2103867433060569143">100 subagents at once (over 4,000 output tokens/second combined at peak)</a>
+in an attempt to work through my GitHub issue backlog.</p>
+<p>I had one open question: &quot;If I burn tens of billions of tokens, what does the output look like?&quot;</p>
+<p class="long">Excited, I started a workflow and went to sleep. The next day, almost 50 billion tokens later, I
+woke up eager to see what progress had been made. To my chagrin, a massive traffic jam had occurred
+somewhere. There were about 150 open PRs across both repos, all half finished, and the agent swarm
+had stopped working sometime during the night.</p>
+<p class="long">An initial diagnosis revealed that the bottleneck was CI. It couldn't support the sustained burst of
+work from hundreds of agents. By design, there was no hosted CI in the loop, to avoid spending money
+on hosted runners. Each agent would run tests on its own branch locally and merge on green. This was
+fine at sub-hundred-agent scale, but not at a scale of thousands of agents. Nearly 6,000 agents had
+launched, but only 156 of them got as far as opening a PR and only 3 of those PRs merged.</p>
+<p>Digging further, the problems became apparent:</p>
+<ol>
+<li><strong>The test selector picked far too much. A 100-line change often ran the full suite, so even
+simple PRs jammed up the CI.</strong></li>
+<li><strong>Every PR was also being tested about twice, both times on the runners:</strong> once when the branch
+was pushed, and again on main after it merged, plus re-runs of failed or superseded jobs.</li>
+</ol>
+<p>I diverted the fleet to cut down every inefficiency I saw. The goal was simple. If I change a few
+files, the PR should merge with green CI within a minute or two.</p>
+<p>Fixing both of these issues cut test time per PR about five-fold. The average PR wait went from
+~60 minutes to under 5, which let me triple output from ~60 to ~180 PRs a day while spending fewer
+resources on CI.</p>
+<h2 id="fixing-the-ci"><a class="h-link" href="#fixing-the-ci">Fixing the CI</a></h2>
+<p>On Oct 2, the full suite was thinned out and stopped from running on every PR, but it made no real
+difference. The real impact came on Oct 5, when CI runs per PR were cut from 2 to 1.</p>
+<p>There was a brief spike on Oct 9, when a massive database migration workflow, roughly +50k/-50k
+LOC, introduced a bug in the CI. The fix landed that night and minutes per PR dropped back down.</p>
+<figure class="fig-inline">
+<svg viewBox="0 0 720 392" role="img" aria-label="Bar chart of Python test minutes per merged PR, Oct 1 to Oct 10. Dotted rules mark Oct 2 full suite thinned, Oct 5 CI runs cut 2 to 1, and Oct 10 bug fixed.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Python test minutes per PR</text>
+<text x="360.0" y="44.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Runner minutes plus laptop test time, scaled to runner speed, per merged PR.</text>
+<line x1="70.0" y1="344.0" x2="650.0" y2="344.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="349.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="70.0" y1="292.0" x2="650.0" y2="292.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="297.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">10</text>
+<line x1="70.0" y1="240.0" x2="650.0" y2="240.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="245.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">20</text>
+<line x1="70.0" y1="188.0" x2="650.0" y2="188.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="193.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">30</text>
+<line x1="70.0" y1="136.0" x2="650.0" y2="136.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="141.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">40</text>
+<line x1="70.0" y1="84.0" x2="650.0" y2="84.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="89.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">50</text>
+<line x1="70.0" y1="84.0" x2="70.0" y2="344.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="70.0" y1="344.0" x2="650.0" y2="344.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="14.0" y="214.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 14.0 214.0)">Minutes per PR</text>
+<rect x="81.0" y="173.4" width="36.0" height="170.6" rx="3.0" fill="#2f7bd6"><title>Oct 1: 32.8 min per PR</title></rect>
+<text x="99.0" y="167.4" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">32.8</text>
+<text x="99.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 1</text>
+<rect x="139.0" y="201.5" width="36.0" height="142.5" rx="3.0" fill="#2f7bd6"><title>Oct 2: 27.4 min per PR</title></rect>
+<text x="157.0" y="195.5" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">27.4</text>
+<text x="157.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 2</text>
+<rect x="197.0" y="152.6" width="36.0" height="191.4" rx="3.0" fill="#2f7bd6"><title>Oct 3: 36.8 min per PR</title></rect>
+<text x="215.0" y="146.6" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">36.8</text>
+<text x="215.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 3</text>
+<rect x="255.0" y="85.6" width="36.0" height="258.4" rx="3.0" fill="#2f7bd6"><title>Oct 4: 49.7 min per PR</title></rect>
+<text x="273.0" y="79.6" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">49.7</text>
+<text x="273.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 4</text>
+<rect x="313.0" y="321.1" width="36.0" height="22.9" rx="3.0" fill="#2f7bd6"><title>Oct 5: 4.4 min per PR</title></rect>
+<text x="331.0" y="315.1" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">4.4</text>
+<text x="331.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 5</text>
+<rect x="371.0" y="324.8" width="36.0" height="19.2" rx="3.0" fill="#2f7bd6"><title>Oct 6: 3.7 min per PR</title></rect>
+<text x="389.0" y="318.8" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">3.7</text>
+<text x="389.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 6</text>
+<rect x="429.0" y="302.4" width="36.0" height="41.6" rx="3.0" fill="#2f7bd6"><title>Oct 7: 8.0 min per PR</title></rect>
+<text x="447.0" y="296.4" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">8.0</text>
+<text x="447.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 7</text>
+<rect x="487.0" y="314.4" width="36.0" height="29.6" rx="3.0" fill="#2f7bd6"><title>Oct 8: 5.7 min per PR</title></rect>
+<text x="505.0" y="308.4" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">5.7</text>
+<text x="505.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 8</text>
+<rect x="545.0" y="202.0" width="36.0" height="142.0" rx="3.0" fill="#2f7bd6"><title>Oct 9: 27.3 min per PR</title></rect>
+<text x="563.0" y="196.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">27.3</text>
+<text x="563.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 9</text>
+<rect x="603.0" y="311.8" width="36.0" height="32.2" rx="3.0" fill="#2f7bd6"><title>Oct 10: 6.2 min per PR</title></rect>
+<text x="621.0" y="305.8" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">6.2</text>
+<text x="621.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 10</text>
+<line x1="128.0" y1="72.0" x2="128.0" y2="344.0" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="134.0" y="66.0" text-anchor="start" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">Full suite thinned</text>
+<line x1="302.0" y1="72.0" x2="302.0" y2="344.0" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="308.0" y="66.0" text-anchor="start" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">CI runs cut 2 to 1</text>
+<line x1="592.0" y1="72.0" x2="592.0" y2="344.0" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="598.0" y="66.0" text-anchor="start" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">Bug fixed</text>
+</svg>
+<figcaption><strong>Figure 1:</strong> Python test minutes per merged PR on lake-of-rage. Runner
+minutes from the CI provider's API plus laptop test time from agent logs, scaled to runner
+speed.</figcaption>
+</figure>
+<p>Today the CI is holding up great. Over the last ~10 days and 30 billion tokens, there have been no more
+traffic jams, and Oct 10 was the first time breaking over the 200 PR count.</p>
+<figure class="fig-inline">
+<svg viewBox="0 0 720 464" role="img" aria-label="Stacked bars of input tokens per day by model, Sep 20 to Oct 10, with PRs merged per day as a black line on the right axis. Bars above 9 billion are cut and labelled with their total.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Input tokens per day, by model</text>
+<text x="360.0" y="44.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Bars above 9B are cut and labelled.</text>
+<line x1="70.0" y1="344.0" x2="650.0" y2="344.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="349.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="70.0" y1="257.3" x2="650.0" y2="257.3" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="262.3" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">3</text>
+<line x1="70.0" y1="170.7" x2="650.0" y2="170.7" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="175.7" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">6</text>
+<line x1="70.0" y1="84.0" x2="650.0" y2="84.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="89.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">9</text>
+<line x1="70.0" y1="84.0" x2="70.0" y2="344.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="70.0" y1="344.0" x2="650.0" y2="344.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="14.0" y="214.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 14.0 214.0)">Input tokens (billions)</text>
+<text x="660.0" y="349.0" text-anchor="start" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<text x="660.0" y="297.0" text-anchor="start" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">50</text>
+<text x="660.0" y="245.0" text-anchor="start" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">100</text>
+<text x="660.0" y="193.0" text-anchor="start" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">150</text>
+<text x="660.0" y="141.0" text-anchor="start" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">200</text>
+<text x="660.0" y="89.0" text-anchor="start" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">250</text>
+<text x="706.0" y="214.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(90 706.0 214.0)">PRs merged per day</text>
+<rect x="74.8" y="320.3" width="18.0" height="23.7" rx="3.0" fill="#6f5bd1"><title>Sep 20, Opus 5.5: 0.82B</title></rect>
+<rect x="74.8" y="320.0" width="18.0" height="0.3" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Sep 20, Fable 5.1: 0.01B</title></rect>
+<rect x="74.8" y="277.8" width="18.0" height="42.2" rx="3.0" fill="#d6588f"><title>Sep 20, SWE-2: 1.46B</title></rect>
+<rect x="74.8" y="213.7" width="18.0" height="64.1" rx="3.0" fill="#2aa8a8"><title>Sep 20, DeepSeek v4.1 Flash: 2.22B</title></rect>
+<rect x="74.8" y="208.5" width="18.0" height="5.2" rx="3.0" fill="#9a9a9a"><title>Sep 20, Other: 0.18B</title></rect>
+<text x="83.8" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Sep 20</text>
+<rect x="102.4" y="316.0" width="18.0" height="28.0" rx="3.0" fill="#6f5bd1"><title>Sep 21, Opus 5.5: 0.97B</title></rect>
+<rect x="102.4" y="295.8" width="18.0" height="20.2" rx="3.0" fill="#d6588f"><title>Sep 21, SWE-2: 0.70B</title></rect>
+<rect x="102.4" y="205.3" width="18.0" height="90.4" rx="3.0" fill="#2aa8a8"><title>Sep 21, DeepSeek v4.1 Flash: 3.13B</title></rect>
+<rect x="102.4" y="193.2" width="18.0" height="12.1" rx="3.0" fill="#9a9a9a"><title>Sep 21, Other: 0.42B</title></rect>
+<rect x="130.0" y="322.9" width="18.0" height="21.1" rx="3.0" fill="#6f5bd1"><title>Sep 22, Opus 5.5: 0.73B</title></rect>
+<rect x="130.0" y="303.0" width="18.0" height="19.9" rx="3.0" fill="#2aa8a8"><title>Sep 22, DeepSeek v4.1 Flash: 0.69B</title></rect>
+<rect x="130.0" y="281.0" width="18.0" height="22.0" rx="3.0" fill="#9a9a9a"><title>Sep 22, Other: 0.76B</title></rect>
+<text x="139.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Sep 22</text>
+<rect x="157.7" y="337.1" width="18.0" height="6.9" rx="3.0" fill="#ee6b3d"><title>Sep 23, Space bunny: 0.24B</title></rect>
+<rect x="157.7" y="305.6" width="18.0" height="31.5" rx="3.0" fill="#6f5bd1"><title>Sep 23, Opus 5.5: 1.09B</title></rect>
+<rect x="185.3" y="84.0" width="18.0" height="260.0" rx="3.0" fill="#ee6b3d"><title>Sep 24, Space bunny: 16.16B</title></rect>
+<line x1="182.3" y1="92.0" x2="206.3" y2="85.0" stroke="var(--bg)" stroke-width="2.5"/>
+<text x="194.3" y="78.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">19B</text>
+<text x="194.3" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Sep 24</text>
+<rect x="212.9" y="84.0" width="18.0" height="260.0" rx="3.0" fill="#ee6b3d"><title>Sep 25, Space bunny: 31.72B</title></rect>
+<line x1="209.9" y1="92.0" x2="233.9" y2="85.0" stroke="var(--bg)" stroke-width="2.5"/>
+<text x="221.9" y="78.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">34B</text>
+<rect x="240.5" y="84.0" width="18.0" height="260.0" rx="3.0" fill="#ee6b3d"><title>Sep 26, Space bunny: 20.76B</title></rect>
+<line x1="237.5" y1="92.0" x2="261.5" y2="85.0" stroke="var(--bg)" stroke-width="2.5"/>
+<text x="249.5" y="78.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">22B</text>
+<text x="249.5" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Sep 26</text>
+<rect x="268.1" y="124.2" width="18.0" height="219.8" rx="3.0" fill="#ee6b3d"><title>Sep 27, Space bunny: 7.61B</title></rect>
+<rect x="268.1" y="118.4" width="18.0" height="5.8" rx="3.0" fill="#6f5bd1"><title>Sep 27, Opus 5.5: 0.20B</title></rect>
+<rect x="268.1" y="103.1" width="18.0" height="15.3" rx="3.0" fill="#9a9a9a"><title>Sep 27, Other: 0.53B</title></rect>
+<rect x="295.8" y="273.2" width="18.0" height="70.8" rx="3.0" fill="#ee6b3d"><title>Sep 28, Space bunny: 2.45B</title></rect>
+<rect x="295.8" y="271.2" width="18.0" height="2.0" rx="3.0" fill="#d6588f"><title>Sep 28, SWE-2: 0.07B</title></rect>
+<rect x="295.8" y="241.2" width="18.0" height="30.0" rx="3.0" fill="#9a9a9a"><title>Sep 28, Other: 1.04B</title></rect>
+<text x="304.8" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Sep 28</text>
+<rect x="323.4" y="270.9" width="18.0" height="73.1" rx="3.0" fill="#ee6b3d"><title>Sep 29, Space bunny: 2.53B</title></rect>
+<rect x="323.4" y="268.3" width="18.0" height="2.6" rx="3.0" fill="#d6588f"><title>Sep 29, SWE-2: 0.09B</title></rect>
+<rect x="323.4" y="261.7" width="18.0" height="6.6" rx="3.0" fill="#9a9a9a"><title>Sep 29, Other: 0.23B</title></rect>
+<rect x="351.0" y="295.5" width="18.0" height="48.5" rx="3.0" fill="#ee6b3d"><title>Sep 30, Space bunny: 1.68B</title></rect>
+<rect x="351.0" y="269.2" width="18.0" height="26.3" rx="3.0" fill="#6f5bd1"><title>Sep 30, Opus 5.5: 0.91B</title></rect>
+<rect x="351.0" y="266.3" width="18.0" height="2.9" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Sep 30, Fable 5.1: 0.10B</title></rect>
+<rect x="351.0" y="266.0" width="18.0" height="0.3" rx="3.0" fill="#9a9a9a"><title>Sep 30, Other: 0.01B</title></rect>
+<text x="360.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Sep 30</text>
+<rect x="378.6" y="306.7" width="18.0" height="37.3" rx="3.0" fill="#ee6b3d"><title>Oct 1, Space bunny: 1.29B</title></rect>
+<rect x="378.6" y="298.1" width="18.0" height="8.7" rx="3.0" fill="#6f5bd1"><title>Oct 1, Opus 5.5: 0.30B</title></rect>
+<rect x="378.6" y="279.0" width="18.0" height="19.1" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 1, Fable 5.1: 0.66B</title></rect>
+<rect x="378.6" y="278.7" width="18.0" height="0.3" rx="3.0" fill="#2ab37f" opacity="0.4"><title>Oct 1, GLM 5.3 Flash: 0.01B</title></rect>
+<rect x="378.6" y="277.8" width="18.0" height="0.9" rx="3.0" fill="#9a9a9a"><title>Oct 1, Other: 0.03B</title></rect>
+<rect x="406.2" y="334.5" width="18.0" height="9.5" rx="3.0" fill="#ee6b3d"><title>Oct 2, Space bunny: 0.33B</title></rect>
+<rect x="406.2" y="324.6" width="18.0" height="9.8" rx="3.0" fill="#6f5bd1"><title>Oct 2, Opus 5.5: 0.34B</title></rect>
+<rect x="406.2" y="303.3" width="18.0" height="21.4" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 2, Fable 5.1: 0.74B</title></rect>
+<rect x="406.2" y="250.1" width="18.0" height="53.2" rx="3.0" fill="#9a9a9a"><title>Oct 2, Other: 1.84B</title></rect>
+<text x="415.2" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 2</text>
+<rect x="433.9" y="335.0" width="18.0" height="9.0" rx="3.0" fill="#6f5bd1"><title>Oct 3, Opus 5.5: 0.31B</title></rect>
+<rect x="433.9" y="330.4" width="18.0" height="4.6" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 3, Fable 5.1: 0.16B</title></rect>
+<rect x="433.9" y="269.2" width="18.0" height="61.2" rx="3.0" fill="#9a9a9a"><title>Oct 3, Other: 2.12B</title></rect>
+<rect x="461.5" y="326.4" width="18.0" height="17.6" rx="3.0" fill="#ee6b3d"><title>Oct 4, Space bunny: 0.61B</title></rect>
+<rect x="461.5" y="317.7" width="18.0" height="8.7" rx="3.0" fill="#6f5bd1"><title>Oct 4, Opus 5.5: 0.30B</title></rect>
+<rect x="461.5" y="312.8" width="18.0" height="4.9" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 4, Fable 5.1: 0.17B</title></rect>
+<rect x="461.5" y="289.7" width="18.0" height="23.1" rx="3.0" fill="#2f7bd6"><title>Oct 4, Muse Spark 1.3 Contributor: 0.80B</title></rect>
+<rect x="461.5" y="281.9" width="18.0" height="7.8" rx="3.0" fill="#d6588f"><title>Oct 4, SWE-2: 0.27B</title></rect>
+<rect x="461.5" y="273.5" width="18.0" height="8.4" rx="3.0" fill="#9a9a9a"><title>Oct 4, Other: 0.29B</title></rect>
+<text x="470.5" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 4</text>
+<rect x="489.1" y="301.0" width="18.0" height="43.0" rx="3.0" fill="#2f7bd6"><title>Oct 5, Muse Spark 1.3 Contributor: 1.49B</title></rect>
+<rect x="489.1" y="299.2" width="18.0" height="1.7" rx="3.0" fill="#9a9a9a"><title>Oct 5, Other: 0.06B</title></rect>
+<rect x="516.7" y="338.2" width="18.0" height="5.8" rx="3.0" fill="#6f5bd1"><title>Oct 6, Opus 5.5: 0.20B</title></rect>
+<rect x="516.7" y="337.4" width="18.0" height="0.9" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 6, Fable 5.1: 0.03B</title></rect>
+<rect x="516.7" y="278.4" width="18.0" height="58.9" rx="3.0" fill="#2f7bd6"><title>Oct 6, Muse Spark 1.3 Contributor: 2.04B</title></rect>
+<rect x="516.7" y="277.6" width="18.0" height="0.9" rx="3.0" fill="#2aa8a8"><title>Oct 6, DeepSeek v4.1 Flash: 0.03B</title></rect>
+<text x="525.7" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 6</text>
+<rect x="544.3" y="316.0" width="18.0" height="28.0" rx="3.0" fill="#6f5bd1"><title>Oct 7, Opus 5.5: 0.97B</title></rect>
+<rect x="544.3" y="311.1" width="18.0" height="4.9" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 7, Fable 5.1: 0.17B</title></rect>
+<rect x="544.3" y="222.7" width="18.0" height="88.4" rx="3.0" fill="#2f7bd6"><title>Oct 7, Muse Spark 1.3 Contributor: 3.06B</title></rect>
+<rect x="572.0" y="302.4" width="18.0" height="41.6" rx="3.0" fill="#6f5bd1"><title>Oct 8, Opus 5.5: 1.44B</title></rect>
+<rect x="572.0" y="290.8" width="18.0" height="11.6" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 8, Fable 5.1: 0.40B</title></rect>
+<rect x="572.0" y="263.1" width="18.0" height="27.7" rx="3.0" fill="#2f7bd6"><title>Oct 8, Muse Spark 1.3 Contributor: 0.96B</title></rect>
+<rect x="572.0" y="256.5" width="18.0" height="6.6" rx="3.0" fill="#6f5bd1" opacity="0.18"><title>Oct 8, Haiku 5.5: 0.23B</title></rect>
+<rect x="572.0" y="253.9" width="18.0" height="2.6" rx="3.0" fill="#9a9a9a"><title>Oct 8, Other: 0.09B</title></rect>
+<text x="581.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 8</text>
+<rect x="599.6" y="327.2" width="18.0" height="16.8" rx="3.0" fill="#6f5bd1"><title>Oct 9, Opus 5.5: 0.58B</title></rect>
+<rect x="599.6" y="312.2" width="18.0" height="15.0" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 9, Fable 5.1: 0.52B</title></rect>
+<rect x="599.6" y="219.2" width="18.0" height="93.0" rx="3.0" fill="#2f7bd6"><title>Oct 9, Muse Spark 1.3 Contributor: 3.22B</title></rect>
+<rect x="599.6" y="189.7" width="18.0" height="29.5" rx="3.0" fill="#6f5bd1" opacity="0.18"><title>Oct 9, Haiku 5.5: 1.02B</title></rect>
+<rect x="599.6" y="188.0" width="18.0" height="1.7" rx="3.0" fill="#9a9a9a"><title>Oct 9, Other: 0.06B</title></rect>
+<rect x="627.2" y="307.0" width="18.0" height="37.0" rx="3.0" fill="#6f5bd1"><title>Oct 10, Opus 5.5: 1.28B</title></rect>
+<rect x="627.2" y="290.0" width="18.0" height="17.0" rx="3.0" fill="#6f5bd1" opacity="0.62"><title>Oct 10, Fable 5.1: 0.59B</title></rect>
+<rect x="627.2" y="181.1" width="18.0" height="108.9" rx="3.0" fill="#2f7bd6"><title>Oct 10, Muse Spark 1.3 Contributor: 3.77B</title></rect>
+<rect x="627.2" y="145.8" width="18.0" height="35.2" rx="3.0" fill="#6f5bd1" opacity="0.18"><title>Oct 10, Haiku 5.5: 1.22B</title></rect>
+<rect x="627.2" y="138.0" width="18.0" height="7.8" rx="3.0" fill="#2ab37f" opacity="0.4"><title>Oct 10, GLM 5.3 Flash: 0.27B</title></rect>
+<rect x="627.2" y="135.7" width="18.0" height="2.3" rx="3.0" fill="#9a9a9a"><title>Oct 10, Other: 0.08B</title></rect>
+<text x="636.2" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 10</text>
+<polyline points="83.8,326.3 111.4,310.7 139.0,306.6 166.7,203.6 194.3,219.2 221.9,277.4 249.5,253.5 277.1,294.1 304.8,324.2 332.4,324.2 360.0,170.3 387.6,265.0 415.2,262.9 442.9,287.8 470.5,288.9 498.1,281.6 525.7,249.4 553.3,258.7 581.0,259.8 608.6,262.9 636.2,122.5" fill="none" stroke="var(--text)" stroke-width="2" stroke-linejoin="round"></polyline>
+<circle cx="83.8" cy="326.3" r="3.0" fill="var(--text)"><title>Sep 20: 17 PRs merged</title></circle>
+<circle cx="111.4" cy="310.7" r="3.0" fill="var(--text)"><title>Sep 21: 32 PRs merged</title></circle>
+<circle cx="139.0" cy="306.6" r="3.0" fill="var(--text)"><title>Sep 22: 36 PRs merged</title></circle>
+<circle cx="166.7" cy="203.6" r="3.0" fill="var(--text)"><title>Sep 23: 135 PRs merged</title></circle>
+<circle cx="194.3" cy="219.2" r="3.0" fill="var(--text)"><title>Sep 24: 120 PRs merged</title></circle>
+<circle cx="221.9" cy="277.4" r="3.0" fill="var(--text)"><title>Sep 25: 64 PRs merged</title></circle>
+<circle cx="249.5" cy="253.5" r="3.0" fill="var(--text)"><title>Sep 26: 87 PRs merged</title></circle>
+<circle cx="277.1" cy="294.1" r="3.0" fill="var(--text)"><title>Sep 27: 48 PRs merged</title></circle>
+<circle cx="304.8" cy="324.2" r="3.0" fill="var(--text)"><title>Sep 28: 19 PRs merged</title></circle>
+<circle cx="332.4" cy="324.2" r="3.0" fill="var(--text)"><title>Sep 29: 19 PRs merged</title></circle>
+<circle cx="360.0" cy="170.3" r="3.0" fill="var(--text)"><title>Sep 30: 167 PRs merged</title></circle>
+<circle cx="387.6" cy="265.0" r="3.0" fill="var(--text)"><title>Oct 1: 76 PRs merged</title></circle>
+<circle cx="415.2" cy="262.9" r="3.0" fill="var(--text)"><title>Oct 2: 78 PRs merged</title></circle>
+<circle cx="442.9" cy="287.8" r="3.0" fill="var(--text)"><title>Oct 3: 54 PRs merged</title></circle>
+<circle cx="470.5" cy="288.9" r="3.0" fill="var(--text)"><title>Oct 4: 53 PRs merged</title></circle>
+<circle cx="498.1" cy="281.6" r="3.0" fill="var(--text)"><title>Oct 5: 60 PRs merged</title></circle>
+<circle cx="525.7" cy="249.4" r="3.0" fill="var(--text)"><title>Oct 6: 91 PRs merged</title></circle>
+<circle cx="553.3" cy="258.7" r="3.0" fill="var(--text)"><title>Oct 7: 82 PRs merged</title></circle>
+<circle cx="581.0" cy="259.8" r="3.0" fill="var(--text)"><title>Oct 8: 81 PRs merged</title></circle>
+<circle cx="608.6" cy="262.9" r="3.0" fill="var(--text)"><title>Oct 9: 78 PRs merged</title></circle>
+<circle cx="636.2" cy="122.5" r="3.0" fill="var(--text)"><title>Oct 10: 213 PRs merged</title></circle>
+<rect x="70.0" y="392.0" width="14.0" height="14.0" rx="3.0" fill="#ee6b3d"></rect>
+<text x="90.0" y="404.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Space bunny</text>
+<rect x="201.6" y="392.0" width="14.0" height="14.0" rx="3.0" fill="#6f5bd1"></rect>
+<text x="221.6" y="404.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Opus 5.5</text>
+<rect x="310.4" y="392.0" width="14.0" height="14.0" rx="3.0" fill="#6f5bd1" opacity="0.62"></rect>
+<text x="330.4" y="404.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Fable 5.1</text>
+<rect x="426.8" y="392.0" width="14.0" height="14.0" rx="3.0" fill="#2f7bd6"></rect>
+<text x="446.8" y="404.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Muse Spark 1.3 Contributor</text>
+<rect x="70.0" y="414.0" width="14.0" height="14.0" rx="3.0" fill="#6f5bd1" opacity="0.18"></rect>
+<text x="90.0" y="426.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Haiku 5.5</text>
+<rect x="186.4" y="414.0" width="14.0" height="14.0" rx="3.0" fill="#2ab37f" opacity="0.4"></rect>
+<text x="206.4" y="426.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">GLM 5.3 Flash</text>
+<rect x="333.2" y="414.0" width="14.0" height="14.0" rx="3.0" fill="#d6588f"></rect>
+<text x="353.2" y="426.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">SWE-2</text>
+<rect x="419.2" y="414.0" width="14.0" height="14.0" rx="3.0" fill="#2aa8a8"></rect>
+<text x="439.2" y="426.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">DeepSeek v4.1 Flash</text>
+<rect x="70.0" y="436.0" width="14.0" height="14.0" rx="3.0" fill="#9a9a9a"></rect>
+<text x="90.0" y="448.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Other</text>
+<line x1="156.0" y1="443.0" x2="170.0" y2="443.0" stroke="var(--text)" stroke-width="2"/>
+<circle cx="163.0" cy="443.0" r="3.0" fill="var(--text)"></circle>
+<text x="176.0" y="448.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">PRs merged per day</text>
+</svg>
+<figcaption><strong>Figure 2:</strong> Input tokens per day by model, from each agent CLI's local
+session logs on the laptop and the lake-of-rage VPS, Sep 20 to Oct 10. The line is PRs merged per
+day across both repos.</figcaption>
+</figure>
+<h2 id="local-test-gates-and-merge-trains"><a class="h-link" href="#local-test-gates-and-merge-trains">Local test gates and merge trains</a></h2>
+<p class="long">Now that CI was under control, the next step was future-proofing the codebase. If the number of
+PRs doubles, how does the time to ship a PR stay the same, or better yet drop? Only a quarter of
+runner test time went to the run that let a PR merge. The rest was failure re-runs, runs cancelled
+by a newer push, and the re-test on main after every merge.</p>
+<p>Two key observations.</p>
+<ol>
+<li>Agent fleet work is bursty. Over 24 hours there is plenty of compute available on the VPS and
+laptops, but most of the work comes while the human is managing the fleet during daylight hours
+across multiple terminals.</li>
+<li>It was clear that the amount of re-computations from re-runs and run cancellations needed to be
+crushed.</li>
+</ol>
+<figure class="fig-inline">
+<svg viewBox="0 0 720 392" role="img" aria-label="Grouped bars of test files selected per branch merged, lake-of-rage Oct 6 to 10: single-branch PRs and branches merged inside a train, two bars per day.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Test files selected per branch merged</text>
+<text x="360.0" y="44.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">lake-of-rage, Oct 6 to 10</text>
+<text x="70.0" y="72.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Merged as</text>
+<rect x="154.4" y="60.0" width="14.0" height="14.0" rx="3.0" fill="#2f7bd6"></rect>
+<text x="174.4" y="72.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Single-branch PR</text>
+<rect x="324.0" y="60.0" width="14.0" height="14.0" rx="3.0" fill="#ee6b3d"></rect>
+<text x="344.0" y="72.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Branch inside a train</text>
+<line x1="70.0" y1="360.0" x2="650.0" y2="360.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="365.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="70.0" y1="322.9" x2="650.0" y2="322.9" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="327.9" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">100</text>
+<line x1="70.0" y1="285.7" x2="650.0" y2="285.7" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="290.7" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">200</text>
+<line x1="70.0" y1="248.6" x2="650.0" y2="248.6" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="253.6" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">300</text>
+<line x1="70.0" y1="211.4" x2="650.0" y2="211.4" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="216.4" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">400</text>
+<line x1="70.0" y1="174.3" x2="650.0" y2="174.3" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="179.3" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">500</text>
+<line x1="70.0" y1="137.1" x2="650.0" y2="137.1" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="142.1" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">600</text>
+<line x1="70.0" y1="100.0" x2="650.0" y2="100.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="105.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">700</text>
+<line x1="70.0" y1="100.0" x2="70.0" y2="360.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="70.0" y1="360.0" x2="650.0" y2="360.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="14.0" y="230.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 14.0 230.0)">Test files selected</text>
+<rect x="86.0" y="286.1" width="40.0" height="73.9" rx="3.0" fill="#2f7bd6"><title>Oct 6, Single-branch PR: 199 test files</title></rect>
+<text x="106.0" y="280.1" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">199</text>
+<rect x="130.0" y="319.1" width="40.0" height="40.9" rx="3.0" fill="#ee6b3d"><title>Oct 6, Branch inside a train: 110 test files</title></rect>
+<text x="150.0" y="313.1" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">110</text>
+<text x="128.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 6</text>
+<rect x="202.0" y="298.0" width="40.0" height="62.0" rx="3.0" fill="#2f7bd6"><title>Oct 7, Single-branch PR: 167 test files</title></rect>
+<text x="222.0" y="292.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">167</text>
+<rect x="246.0" y="311.3" width="40.0" height="48.7" rx="3.0" fill="#ee6b3d"><title>Oct 7, Branch inside a train: 131 test files</title></rect>
+<text x="266.0" y="305.3" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">131</text>
+<text x="244.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 7</text>
+<rect x="318.0" y="224.1" width="40.0" height="135.9" rx="3.0" fill="#2f7bd6"><title>Oct 8, Single-branch PR: 366 test files</title></rect>
+<text x="338.0" y="218.1" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">366</text>
+<rect x="362.0" y="285.0" width="40.0" height="75.0" rx="3.0" fill="#ee6b3d"><title>Oct 8, Branch inside a train: 202 test files</title></rect>
+<text x="382.0" y="279.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">202</text>
+<text x="360.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 8</text>
+<rect x="434.0" y="114.5" width="40.0" height="245.5" rx="3.0" fill="#2f7bd6"><title>Oct 9, Single-branch PR: 661 test files</title></rect>
+<text x="454.0" y="108.5" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">661</text>
+<rect x="478.0" y="269.4" width="40.0" height="90.6" rx="3.0" fill="#ee6b3d"><title>Oct 9, Branch inside a train: 244 test files</title></rect>
+<text x="498.0" y="263.4" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">244</text>
+<text x="476.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 9</text>
+<rect x="550.0" y="280.9" width="40.0" height="79.1" rx="3.0" fill="#2f7bd6"><title>Oct 10, Single-branch PR: 213 test files</title></rect>
+<text x="570.0" y="274.9" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">213</text>
+<rect x="594.0" y="334.0" width="40.0" height="26.0" rx="3.0" fill="#ee6b3d"><title>Oct 10, Branch inside a train: 70 test files</title></rect>
+<text x="614.0" y="328.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">70</text>
+<text x="592.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 10</text>
+</svg>
+<figcaption><strong>Figure 3:</strong> Test files selected per branch merged, single-branch PRs
+beside branches that rode a merge train. Selector replay of every lake-of-rage PR merged Oct 6 to
+10; train member counts from PR bodies and merge commits.</figcaption>
+</figure>
+<p class="long">To handle the bursts, the bulk of the CI and running tests was moved locally to the laptops.
+Initially self-hosted runners were run on a VPS server to get away from cloud hosted solutions.
+However that became clogged within the day due to the agent PR bursts. Since the laptop generally
+had spare capacity and more compute available, the bursts could be more easily absorbed and managed.</p>
+<p class="long">To reduce the amount of computational redundancy, PR trains were adopted. The main orchestrator
+agent batches related branches into merge trains where a single monolithic PR can carry anywhere
+from 3 to over 20 branches of work. The end result was that merging would not trigger a merging
+storm, and since all of the CI was run locally on every branch, there was no need to re-run most of
+the CI again after merge. Trains have been very productive so far. Over the last six days, 109
+trains merged next to about 390 single-branch PRs.</p>
+
+    </div><footer class="article-end">
+      
+      
+      <p class="archive-note">Originally published on github, October 2026. <a href="https://github.com/Evan-Kim2028/lake-of-rage" target="_blank" rel="noopener">View original ↗</a></p>
+      
+      
+      
+      
+      <div class="related">
+        
+        <a href="/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/">
+          <div class="k">More in data · October 2026</div>
+          <div class="t">Knowledge vs Execution in a Qwen3.5-2B Data Agent</div>
+        </a>
+        
+        <a href="/evan_writings/writings/difficulty-is-an-information-gap/">
+          <div class="k">More in data · September 2026</div>
+          <div class="t">The Information Ladder: Measuring Model Capabilities</div>
+        </a>
+        
+      </div>
+      
+    </footer>
+  </article>
+</div>
+
+  </main>
+  <footer class="site">
+    <div class="inner">
+      <span>Evan Kim · <a href="https://github.com/Evan-Kim2028/evan_writings">Source</a> · <a href="/evan_writings/llms-full.txt">llms-full.txt</a></span>
+      <span class="links">
+        <a href="https://x.com/evandekim">X</a>
+        <a href="https://github.com/Evan-Kim2028">GitHub</a>
+        <a href="https://www.linkedin.com/in/evan-kim-30943591">LinkedIn</a>
+        <a href="/evan_writings/feed.xml">RSS</a>
+      </span>
+    </div>
+  </footer>
+  <script src="/evan_writings/site.js?v=5" defer></script>
+  <script src="/evan_writings/extras.js?v=1" defer></script>
+</body>
+</html>

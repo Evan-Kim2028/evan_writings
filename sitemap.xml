@@ -81,6 +81,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/agents/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/evals/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -102,10 +106,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/sui/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/agents/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -173,6 +173,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/ci/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/clustering/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -198,6 +202,14 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/data-warehouse/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/deepseek/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/devops/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -257,6 +269,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/merge-trains/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/muse/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/neural-networks/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -293,6 +313,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/space-bunny/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/sudo/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -309,10 +333,15 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/writings/difficulty-is-an-information-gap/</loc>
     <lastmod>2026-09-23</lastmod>
@@ -332,7 +361,7 @@
     <loc>https://Evan-Kim2028.github.io/evan_writings/writings/glm-53-flash-provider-cache-hit-variance/</loc>
     <lastmod>2026-08-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/writings/iceberg-lakehouse-8gb-ram/</loc>
     <lastmod>2026-06-07</lastmod>

@@ -3,6 +3,8 @@
 Collected writings on DeFi, data, MEV, and math.
 
 
+- Breaking CI with 6k Subagents and 50B Tokens in a Night (October 2026): https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/
+
 - Knowledge vs Execution in a Qwen3.5-2B Data Agent (October 2026): https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/
 
 - The Information Ladder: Measuring Model Capabilities (September 2026): https://Evan-Kim2028.github.io/evan_writings/writings/difficulty-is-an-information-gap/

@@ -1,6 +1,16 @@
 [
 
   {
+    "title": "Breaking CI with 6k Subagents and 50B Tokens in a Night",
+    "description": "6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.",
+    "url": "/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/",
+    "date": "2026-10-11",
+    "collection": "data",
+    "tags": ["writing","data","agents","ci","devops","merge-trains","muse","space-bunny","deepseek"],
+    "readingTime": "8 min read"
+  },
+
+  {
     "title": "Knowledge vs Execution in a Qwen3.5-2B Data Agent",
     "description": "One SFT pass with LoRA on verified SmolDataEnvs trajectories doesn't move Qwen accuracy. The information ladder shows why.",
     "url": "/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/",
