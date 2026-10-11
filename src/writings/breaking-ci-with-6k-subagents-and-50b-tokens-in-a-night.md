@@ -13,8 +13,10 @@ tags:
   - muse
   - space-bunny
   - deepseek
-source_url: https://github.com/Evan-Kim2028/lake-of-rage
+source_url: https://x.com/EvanDeKim/status/2103867433060569143
 source_platform: github
+source_note: ""
+source_link_text: "Original thread on X ↗"
 slug: breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night
 hero: /assets/images/agent-fleet-ci-hero.png
 hero_dark: /assets/images/agent-fleet-ci-hero.dark.png
