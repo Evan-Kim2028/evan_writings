@@ -9,18 +9,23 @@ tags:
   - agents
   - ci
   - devops
-  - claude-code
   - merge-trains
+  - muse
+  - space-bunny
+  - deepseek
 source_url: https://github.com/Evan-Kim2028/lake-of-rage
 source_platform: github
 slug: breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night
+hero: /assets/images/agent-fleet-ci-hero.png
+hero_dark: /assets/images/agent-fleet-ci-hero.dark.png
+og_image: /assets/images/agent-fleet-ci-hero.dark.png
 description: "6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold."
 ---
 
 <!-- vale House.FirstPerson = NO -->
 <!-- vale Google.Headings = NO -->
 <!-- vale Google.Slang = NO -->
-<!-- cspell:ignore bursty -->
+<!-- cspell:ignore bursty deepseek -->
 
 ## Intro
 
