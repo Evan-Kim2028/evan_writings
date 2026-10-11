@@ -1,0 +1,53 @@
+<svg viewBox="0 0 720 392" role="img" aria-label="Grouped bars of test files selected per branch merged, lake-of-rage Oct 6 to 10: single-branch PRs and branches merged inside a train, two bars per day.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Test files selected per branch merged</text>
+<text x="360.0" y="44.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">lake-of-rage, Oct 6 to 10</text>
+<text x="70.0" y="72.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Merged as</text>
+<rect x="154.4" y="60.0" width="14.0" height="14.0" rx="3.0" fill="#2f7bd6"></rect>
+<text x="174.4" y="72.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Single-branch PR</text>
+<rect x="324.0" y="60.0" width="14.0" height="14.0" rx="3.0" fill="#ee6b3d"></rect>
+<text x="344.0" y="72.0" text-anchor="start" fill="var(--text-2)" font-size="14" font-family="var(--font-sans)">Branch inside a train</text>
+<line x1="70.0" y1="360.0" x2="650.0" y2="360.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="365.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="70.0" y1="322.9" x2="650.0" y2="322.9" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="327.9" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">100</text>
+<line x1="70.0" y1="285.7" x2="650.0" y2="285.7" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="290.7" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">200</text>
+<line x1="70.0" y1="248.6" x2="650.0" y2="248.6" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="253.6" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">300</text>
+<line x1="70.0" y1="211.4" x2="650.0" y2="211.4" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="216.4" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">400</text>
+<line x1="70.0" y1="174.3" x2="650.0" y2="174.3" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="179.3" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">500</text>
+<line x1="70.0" y1="137.1" x2="650.0" y2="137.1" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="142.1" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">600</text>
+<line x1="70.0" y1="100.0" x2="650.0" y2="100.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="105.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">700</text>
+<line x1="70.0" y1="100.0" x2="70.0" y2="360.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="70.0" y1="360.0" x2="650.0" y2="360.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="14.0" y="230.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 14.0 230.0)">Test files selected</text>
+<rect x="86.0" y="286.1" width="40.0" height="73.9" rx="3.0" fill="#2f7bd6"><title>Oct 6, Single-branch PR: 199 test files</title></rect>
+<text x="106.0" y="280.1" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">199</text>
+<rect x="130.0" y="319.1" width="40.0" height="40.9" rx="3.0" fill="#ee6b3d"><title>Oct 6, Branch inside a train: 110 test files</title></rect>
+<text x="150.0" y="313.1" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">110</text>
+<text x="128.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 6</text>
+<rect x="202.0" y="298.0" width="40.0" height="62.0" rx="3.0" fill="#2f7bd6"><title>Oct 7, Single-branch PR: 167 test files</title></rect>
+<text x="222.0" y="292.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">167</text>
+<rect x="246.0" y="311.3" width="40.0" height="48.7" rx="3.0" fill="#ee6b3d"><title>Oct 7, Branch inside a train: 131 test files</title></rect>
+<text x="266.0" y="305.3" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">131</text>
+<text x="244.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 7</text>
+<rect x="318.0" y="224.1" width="40.0" height="135.9" rx="3.0" fill="#2f7bd6"><title>Oct 8, Single-branch PR: 366 test files</title></rect>
+<text x="338.0" y="218.1" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">366</text>
+<rect x="362.0" y="285.0" width="40.0" height="75.0" rx="3.0" fill="#ee6b3d"><title>Oct 8, Branch inside a train: 202 test files</title></rect>
+<text x="382.0" y="279.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">202</text>
+<text x="360.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 8</text>
+<rect x="434.0" y="114.5" width="40.0" height="245.5" rx="3.0" fill="#2f7bd6"><title>Oct 9, Single-branch PR: 661 test files</title></rect>
+<text x="454.0" y="108.5" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">661</text>
+<rect x="478.0" y="269.4" width="40.0" height="90.6" rx="3.0" fill="#ee6b3d"><title>Oct 9, Branch inside a train: 244 test files</title></rect>
+<text x="498.0" y="263.4" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">244</text>
+<text x="476.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 9</text>
+<rect x="550.0" y="280.9" width="40.0" height="79.1" rx="3.0" fill="#2f7bd6"><title>Oct 10, Single-branch PR: 213 test files</title></rect>
+<text x="570.0" y="274.9" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">213</text>
+<rect x="594.0" y="334.0" width="40.0" height="26.0" rx="3.0" fill="#ee6b3d"><title>Oct 10, Branch inside a train: 70 test files</title></rect>
+<text x="614.0" y="328.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">70</text>
+<text x="592.0" y="380.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 10</text>
+</svg>
