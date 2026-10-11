@@ -1,0 +1,55 @@
+<svg viewBox="0 0 720 392" role="img" aria-label="Bar chart of Python test minutes per merged PR, Oct 1 to Oct 10. Dotted rules mark Oct 2 full suite thinned, Oct 5 CI runs cut 2 to 1, and Oct 10 bug fixed.">
+<text x="360.0" y="24.0" text-anchor="middle" fill="var(--text)" font-size="19" font-weight="700" font-family="var(--font-sans)">Python test minutes per PR</text>
+<text x="360.0" y="44.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)">Runner minutes plus laptop test time, scaled to runner speed, per merged PR.</text>
+<line x1="70.0" y1="344.0" x2="650.0" y2="344.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="349.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">0</text>
+<line x1="70.0" y1="292.0" x2="650.0" y2="292.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="297.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">10</text>
+<line x1="70.0" y1="240.0" x2="650.0" y2="240.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="245.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">20</text>
+<line x1="70.0" y1="188.0" x2="650.0" y2="188.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="193.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">30</text>
+<line x1="70.0" y1="136.0" x2="650.0" y2="136.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="141.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">40</text>
+<line x1="70.0" y1="84.0" x2="650.0" y2="84.0" stroke="var(--line)" stroke-width="1"/>
+<text x="60.0" y="89.0" text-anchor="end" fill="var(--text-3)" font-size="14" font-family="var(--font-mono)">50</text>
+<line x1="70.0" y1="84.0" x2="70.0" y2="344.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<line x1="70.0" y1="344.0" x2="650.0" y2="344.0" stroke="var(--text-3)" stroke-width="1.5"/>
+<text x="14.0" y="214.0" text-anchor="middle" fill="var(--text-2)" font-size="15" font-family="var(--font-sans)" transform="rotate(-90 14.0 214.0)">Minutes per PR</text>
+<rect x="81.0" y="173.4" width="36.0" height="170.6" rx="3.0" fill="#2f7bd6"><title>Oct 1: 32.8 min per PR</title></rect>
+<text x="99.0" y="167.4" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">32.8</text>
+<text x="99.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 1</text>
+<rect x="139.0" y="201.5" width="36.0" height="142.5" rx="3.0" fill="#2f7bd6"><title>Oct 2: 27.4 min per PR</title></rect>
+<text x="157.0" y="195.5" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">27.4</text>
+<text x="157.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 2</text>
+<rect x="197.0" y="152.6" width="36.0" height="191.4" rx="3.0" fill="#2f7bd6"><title>Oct 3: 36.8 min per PR</title></rect>
+<text x="215.0" y="146.6" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">36.8</text>
+<text x="215.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 3</text>
+<rect x="255.0" y="85.6" width="36.0" height="258.4" rx="3.0" fill="#2f7bd6"><title>Oct 4: 49.7 min per PR</title></rect>
+<text x="273.0" y="79.6" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">49.7</text>
+<text x="273.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 4</text>
+<rect x="313.0" y="321.1" width="36.0" height="22.9" rx="3.0" fill="#2f7bd6"><title>Oct 5: 4.4 min per PR</title></rect>
+<text x="331.0" y="315.1" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">4.4</text>
+<text x="331.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 5</text>
+<rect x="371.0" y="324.8" width="36.0" height="19.2" rx="3.0" fill="#2f7bd6"><title>Oct 6: 3.7 min per PR</title></rect>
+<text x="389.0" y="318.8" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">3.7</text>
+<text x="389.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 6</text>
+<rect x="429.0" y="302.4" width="36.0" height="41.6" rx="3.0" fill="#2f7bd6"><title>Oct 7: 8.0 min per PR</title></rect>
+<text x="447.0" y="296.4" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">8.0</text>
+<text x="447.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 7</text>
+<rect x="487.0" y="314.4" width="36.0" height="29.6" rx="3.0" fill="#2f7bd6"><title>Oct 8: 5.7 min per PR</title></rect>
+<text x="505.0" y="308.4" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">5.7</text>
+<text x="505.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 8</text>
+<rect x="545.0" y="202.0" width="36.0" height="142.0" rx="3.0" fill="#2f7bd6"><title>Oct 9: 27.3 min per PR</title></rect>
+<text x="563.0" y="196.0" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">27.3</text>
+<text x="563.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 9</text>
+<rect x="603.0" y="311.8" width="36.0" height="32.2" rx="3.0" fill="#2f7bd6"><title>Oct 10: 6.2 min per PR</title></rect>
+<text x="621.0" y="305.8" text-anchor="middle" fill="var(--text-2)" font-size="13" font-family="var(--font-mono)">6.2</text>
+<text x="621.0" y="364.0" text-anchor="middle" fill="var(--text-3)" font-size="14" font-family="var(--font-sans)">Oct 10</text>
+<line x1="128.0" y1="72.0" x2="128.0" y2="344.0" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="134.0" y="66.0" text-anchor="start" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">Full suite thinned</text>
+<line x1="302.0" y1="72.0" x2="302.0" y2="344.0" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="308.0" y="66.0" text-anchor="start" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">CI runs cut 2 to 1</text>
+<line x1="592.0" y1="72.0" x2="592.0" y2="344.0" stroke="var(--text-2)" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="598.0" y="66.0" text-anchor="start" fill="var(--text-2)" font-size="13" font-family="var(--font-sans)">Bug fixed</text>
+</svg>
