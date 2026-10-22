@@ -1,13 +1,13 @@
 [
 
   {
-    "title": "Breaking CI with 6k Subagents and 50B Tokens in a Night",
-    "description": "6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.",
-    "url": "/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/",
-    "date": "2026-10-11",
+    "title": "Serving Current State to AI Agents: A Hot + Cold Architecture",
+    "description": "Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.",
+    "url": "/writings/serving-current-state-to-ai-agents/",
+    "date": "2026-10-21",
     "collection": "data",
-    "tags": ["writing","data","agents","ci","devops","merge-trains","muse","space-bunny","deepseek"],
-    "readingTime": "8 min read"
+    "tags": ["writing","data","agents","postgres","iceberg","architecture"],
+    "readingTime": "6 min read"
   },
 
   {

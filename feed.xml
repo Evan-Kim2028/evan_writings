@@ -5,17 +5,17 @@
   <link href="https://Evan-Kim2028.github.io/evan_writings/" rel="alternate" type="text/html"/>
   <link href="https://Evan-Kim2028.github.io/evan_writings/feed.xml" rel="self" type="application/atom+xml"/>
   <id>https://Evan-Kim2028.github.io/evan_writings/</id>
-  <updated>2026-10-11</updated>
+  <updated>2026-10-21</updated>
   <author>
     <name>Evan Kim</name>
     <uri>https://Evan-Kim2028.github.io/evan_writings/</uri>
   </author><entry>
-    <title>Breaking CI with 6k Subagents and 50B Tokens in a Night</title>
-    <link href="https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/" rel="alternate" type="text/html"/>
-    <id>https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/</id>
-    <published>2026-10-11</published>
-    <updated>2026-10-11</updated>
-    <summary>6,000 agent sessions and 50B tokens in one night jammed CI with 150 half-finished PRs. Local test gates and merge trains cut test time per PR five-fold.</summary><category term="data"/></entry><entry>
+    <title>Serving Current State to AI Agents: A Hot + Cold Architecture</title>
+    <link href="https://Evan-Kim2028.github.io/evan_writings/writings/serving-current-state-to-ai-agents/" rel="alternate" type="text/html"/>
+    <id>https://Evan-Kim2028.github.io/evan_writings/writings/serving-current-state-to-ai-agents/</id>
+    <published>2026-10-21</published>
+    <updated>2026-10-21</updated>
+    <summary>Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.</summary><category term="data"/></entry><entry>
     <title>Knowledge vs Execution in a Qwen3.5-2B Data Agent</title>
     <link href="https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/" rel="alternate" type="text/html"/>
     <id>https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/</id>

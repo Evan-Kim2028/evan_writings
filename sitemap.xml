@@ -141,6 +141,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/iceberg/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/nft/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -157,6 +161,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/architecture/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/atomic-execution/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -170,10 +178,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/bonding-curve/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/ci/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -205,14 +209,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/deepseek/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/devops/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/fine-tuning/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -234,10 +230,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/harbor/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/iceberg/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -269,14 +261,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/merge-trains/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/muse/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/neural-networks/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -297,6 +281,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/postgres/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/quadratic-reciprocity/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -310,10 +298,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://Evan-Kim2028.github.io/evan_writings/tags/sft/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/tags/space-bunny/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -333,8 +317,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://Evan-Kim2028.github.io/evan_writings/writings/breaking-ci-with-6k-subagents-and-50b-tokens-in-a-night/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <loc>https://Evan-Kim2028.github.io/evan_writings/writings/serving-current-state-to-ai-agents/</loc>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url><url>
