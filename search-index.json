@@ -2,7 +2,7 @@
 
   {
     "title": "Serving Current State to AI Agents: A Hot + Cold Architecture",
-    "description": "Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.",
+    "description": "How a two-tier Postgres and Iceberg architecture design serves AI agents at scale.",
     "url": "/writings/serving-current-state-to-ai-agents/",
     "date": "2026-10-21",
     "collection": "data",

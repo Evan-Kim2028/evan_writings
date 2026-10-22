@@ -15,7 +15,7 @@
     <id>https://Evan-Kim2028.github.io/evan_writings/writings/serving-current-state-to-ai-agents/</id>
     <published>2026-10-21</published>
     <updated>2026-10-21</updated>
-    <summary>Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.</summary><category term="data"/></entry><entry>
+    <summary>How a two-tier Postgres and Iceberg architecture design serves AI agents at scale.</summary><category term="data"/></entry><entry>
     <title>Knowledge vs Execution in a Qwen3.5-2B Data Agent</title>
     <link href="https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/" rel="alternate" type="text/html"/>
     <id>https://Evan-Kim2028.github.io/evan_writings/writings/knowledge-vs-execution-qwen3-5-2b-data-agent/</id>

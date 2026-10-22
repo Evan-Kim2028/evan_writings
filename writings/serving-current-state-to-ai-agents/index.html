@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Serving Current State to AI Agents: A Hot + Cold Architecture | Evan's Writings</title>
-  <meta name="description" content="Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.">
+  <meta name="description" content="How a two-tier Postgres and Iceberg architecture design serves AI agents at scale.">
   <meta name="author" content="Evan Kim">
   <meta name="theme-color" content="#fbfbf9">
   <script>(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t})();</script>
@@ -20,13 +20,13 @@
   
   <meta property="og:site_name" content="Evan's Writings">
   <meta property="og:title" content="Serving Current State to AI Agents: A Hot + Cold Architecture">
-  <meta property="og:description" content="Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.">
+  <meta property="og:description" content="How a two-tier Postgres and Iceberg architecture design serves AI agents at scale.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://Evan-Kim2028.github.io/evan_writings/writings/serving-current-state-to-ai-agents/">
   <meta property="og:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/images/hot-cold-h1-composite-key.png"><meta property="article:published_time" content="2026-10-21"><meta property="article:author" content="Evan Kim"><meta property="article:section" content="data"><meta property="article:tag" content="agents"><meta property="article:tag" content="postgres"><meta property="article:tag" content="iceberg"><meta property="article:tag" content="architecture">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Serving Current State to AI Agents: A Hot + Cold Architecture">
-  <meta name="twitter:description" content="Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.">
+  <meta name="twitter:description" content="How a two-tier Postgres and Iceberg architecture design serves AI agents at scale.">
   <meta name="twitter:image" content="https://Evan-Kim2028.github.io/evan_writings/assets/images/hot-cold-h1-composite-key.png">
 
   
@@ -62,7 +62,7 @@
         "@type": "Article",
         "@id": "https://Evan-Kim2028.github.io/evan_writings/writings/serving-current-state-to-ai-agents/#article",
         "headline": "Serving Current State to AI Agents: A Hot + Cold Architecture",
-        "description": "Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.",
+        "description": "How a two-tier Postgres and Iceberg architecture design serves AI agents at scale.",
         "datePublished": "2026-10-21",
         "dateModified": "2026-10-21",
         "url": "https://Evan-Kim2028.github.io/evan_writings/writings/serving-current-state-to-ai-agents/",
@@ -118,7 +118,7 @@
       <h1 class="title">Serving Current State to AI Agents: A Hot + Cold Architecture</h1>
       
       
-      <p class="dek">Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times.</p>
+      <p class="dek">How a two-tier Postgres and Iceberg architecture design serves AI agents at scale.</p>
       
     </header>
 
@@ -156,29 +156,34 @@
 <h2 id="the-data"><a class="h-link" href="#the-data">The data</a></h2>
 <p class="long">Many businesses price entities with many variants, and the split matters most when those variants multiply into millions of keys. A retailer prices SKUs by size, color and region. Each combination is a key with its own value, and values change all day. Trading cards show this shape at its extreme, and some back-of-the-napkin math sets the scale. About 50,000 cards, each in about 46 graded and raw conditions, gives over 2 million keys. That count is modest for a database, but large enough that the split between current state and history matters.</p>
 <figure class="fig-inline">
-<img src="/evan_writings/assets/images/hot-cold-h1-composite-key.png" alt="A composite key of card, grader and grade that maps to one current row in Postgres and one append-only sales log in Iceberg" loading="lazy">
+<img class="img-light" src="/evan_writings/assets/images/hot-cold-h1-composite-key.png" alt="A composite key of card, grader and grade that maps to one current row in Postgres and one append-only sales log in Iceberg" loading="lazy">
+<img class="img-dark" src="/evan_writings/assets/images/hot-cold-h1-composite-key.dark.png" alt="A composite key of card, grader and grade that maps to one current row in Postgres and one append-only sales log in Iceberg" loading="lazy">
 <figcaption><strong>Figure 1:</strong> Each card, grader and grade forms its own priced key, shown for Umbreon VMAX in PSA 10.</figcaption>
 </figure>
 <p>Some keys on the same card trade every hour. Others trade once every couple of years, and a few keys log only a handful of sales in more than a year.</p>
 <figure class="fig-inline">
-<img src="/evan_writings/assets/images/hot-cold-h1b-sales-density.png" alt="Sale dates for three keys of the same card, with PSA 10 dense and PSA 5 and CGC 6 sparse" loading="lazy">
+<img class="img-light" src="/evan_writings/assets/images/hot-cold-h1b-sales-density.png" alt="Sale dates for three keys of the same card, with PSA 10 dense and PSA 5 and CGC 6 sparse" loading="lazy">
+<img class="img-dark" src="/evan_writings/assets/images/hot-cold-h1b-sales-density.dark.png" alt="Sale dates for three keys of the same card, with PSA 10 dense and PSA 5 and CGC 6 sparse" loading="lazy">
 <figcaption><strong>Figure 2:</strong> Sale dates for three keys of one card, where the two CGC 6 sales share one day.</figcaption>
 </figure>
 <h2 id="the-architecture"><a class="h-link" href="#the-architecture">The architecture</a></h2>
 <p class="long">The architecture puts current state in a hot Postgres tier and history in a cold Iceberg tier. Each key combines card, grader and grade into one flat composite key. Postgres holds the current value for every key, indexed by card, grader and grade and overwritten in place. Each entity has one serving table, the table that apps and agents read. Iceberg holds the full history and the wide detail that is mostly text. Redpanda, a streaming platform compatible with Kafka, carries incoming data. dbt models define the transforms, and Dagster runs them to feed both tiers. Those runs refresh Postgres on a schedule, and the <code>as_of</code> timestamp on every answer tells an agent exactly how fresh a value is.</p>
 <p class="long">Every key therefore maps to exactly one current row and one sales log. The design pairs a log with a materialized view, which is a table computed from the log and kept up to date. Iceberg holds each key's append-only sales log, and Postgres holds the current value derived from it. Jay Kreps laid out this idea in <a href="https://www.linkedin.com/blog/engineering/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying">The Log</a> (LinkedIn Engineering, December 16, 2013), and Martin Kleppmann extended it in <a href="https://martin.kleppmann.com/2015/03/04/turning-the-database-inside-out.html">Turning the database inside out</a> (March 4, 2015). Machine learning teams have long used the same split, as Uber's <a href="https://www.uber.com/blog/michelangelo-machine-learning-platform/">Michelangelo post</a> (September 5, 2017) and <a href="https://docs.feast.dev/how-to-guides/feast-snowflake-gcp-aws/read-features-from-the-online-store">Feast's docs</a> describe for online and offline feature stores.</p>
 <figure class="fig-inline">
-<img src="/evan_writings/assets/images/hot-cold-a-reference-architecture.png" alt="Reference architecture with Redpanda ingest, dbt and Dagster transforms, Iceberg history, Postgres current state, and tools that only read from both stores" loading="lazy">
+<img class="img-light" src="/evan_writings/assets/images/hot-cold-a-reference-architecture.png" alt="Reference architecture with Redpanda ingest, dbt and Dagster transforms, Iceberg history, Postgres current state, and tools that only read from both stores" loading="lazy">
+<img class="img-dark" src="/evan_writings/assets/images/hot-cold-a-reference-architecture.dark.png" alt="Reference architecture with Redpanda ingest, dbt and Dagster transforms, Iceberg history, Postgres current state, and tools that only read from both stores" loading="lazy">
 <figcaption><strong>Figure 3:</strong> Arrows show the direction data flows, from ingest to the tools that agents call.</figcaption>
 </figure>
 <p class="long">The two tiers stay separate all the way to the agent. The current-price lookup reads one hot Postgres row, and a trend question goes to a separate history lookup that scans Iceberg. Every result carries an <code>as_of</code> timestamp and a <code>source</code> field that reads &quot;current&quot; or &quot;history&quot;, so an agent always knows which kind of answer it holds. Frequent questions about now never wait behind a scan of history.</p>
 <figure class="fig-inline">
-<img src="/evan_writings/assets/images/hot-cold-h2-query-paths.png" alt="Three query paths side by side, with current value from the hot Postgres row, the trend from the Iceberg sales log, and a blocked path that returns a stale sale" loading="lazy">
+<img class="img-light" src="/evan_writings/assets/images/hot-cold-h2-query-paths.png" alt="Three query paths side by side, with current value from the hot Postgres row, the trend from the Iceberg sales log, and a blocked path that returns a stale sale" loading="lazy">
+<img class="img-dark" src="/evan_writings/assets/images/hot-cold-h2-query-paths.dark.png" alt="Three query paths side by side, with current value from the hot Postgres row, the trend from the Iceberg sales log, and a blocked path that returns a stale sale" loading="lazy">
 <figcaption><strong>Figure 4:</strong> Values in the first two paths are real, and the blocked stale path is illustrative.</figcaption>
 </figure>
 <p class="long">The split needs a clear definition of what counts as current. Tiering by age, which keeps the last N days hot, is the usual default and still governs most rows. A rarely traded card breaks it, because its last sales may be years old and still set today's price. The business-rule hot set keeps a row hot when it falls inside the age window or when a live key needs it to compute today's answer, at any age. The long tail of the catalog keeps a current price, so rare items stay quotable and sellable.</p>
 <figure class="fig-inline">
-<img src="/evan_writings/assets/images/hot-cold-b-core-idea-tiering.png" alt="Tiering by age compared with the business-rule hot set for a liquid card and a rare card" loading="lazy">
+<img class="img-light" src="/evan_writings/assets/images/hot-cold-b-core-idea-tiering.png" alt="Tiering by age compared with the business-rule hot set for a liquid card and a rare card" loading="lazy">
+<img class="img-dark" src="/evan_writings/assets/images/hot-cold-b-core-idea-tiering.dark.png" alt="Tiering by age compared with the business-rule hot set for a liquid card and a rare card" loading="lazy">
 <figcaption><strong>Figure 5:</strong> An illustrative case with no real data.</figcaption>
 </figure>
 <h2 id="speed-and-capacity"><a class="h-link" href="#speed-and-capacity">Speed and capacity</a></h2>
@@ -189,7 +194,8 @@
 <li>Listings went from 8.2 s to 1.34 s.</li>
 </ul>
 <figure class="fig-inline">
-<img src="/evan_writings/assets/images/hot-cold-e-p95-dumbbell.png" alt="p95 latency per call, old path vs Postgres, for card detail, chart and listings" loading="lazy">
+<img class="img-light" src="/evan_writings/assets/images/hot-cold-e-p95-dumbbell.png" alt="p95 latency per call, old path vs Postgres, for card detail, chart and listings" loading="lazy">
+<img class="img-dark" src="/evan_writings/assets/images/hot-cold-e-p95-dumbbell.dark.png" alt="p95 latency per call, old path vs Postgres, for card detail, chart and listings" loading="lazy">
 <figcaption><strong>Figure 6:</strong> p95 latency per call on a log scale, from web server request logs on both paths.</figcaption>
 </figure>
 <p class="long">The deals endpoint shows how precomputed state holds up under load. Every 5 minutes, a background job ranks likely deals and stores them in a Postgres table. Each request takes the top rows and checks them again against live listings and live prices before returning them. The stored ranking holds the median response at about 44 ms, with 0 errors across 1,114 requests at up to 20 requests per second. The live check keeps every returned deal current, so a buyer can still act on it.</p>
