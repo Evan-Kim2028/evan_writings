@@ -14,7 +14,6 @@ source_url: https://github.com/Evan-Kim2028/evan_writings
 source_platform: github
 slug: serving-current-state-to-ai-agents
 description: "Agents query current state far more often than people do. A hot Postgres tier for now and a cold Iceberg tier for history cut p95 latency 6 to 33 times."
-og_image: /assets/images/hot-cold-a-reference-architecture.png
 ---
 
 <!-- vale Google.Headings = NO -->
